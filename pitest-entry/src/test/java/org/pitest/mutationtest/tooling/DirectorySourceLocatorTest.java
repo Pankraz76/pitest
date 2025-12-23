@@ -122,7 +122,7 @@ public class DirectorySourceLocatorTest {
 
   @Test
   public void toStringGivesRootsPath() {
-    Path path =  this.root.resolve("some/path");
+    var path =  this.root.resolve("some/path");
     testee = new DirectorySourceLocator(path, StandardCharsets.UTF_8);
     assertThat(testee.toString()).isEqualTo(path.toString());
   }
@@ -153,7 +153,7 @@ public class DirectorySourceLocatorTest {
   }
 
   private String content(Reader reader) throws Exception {
-    String s = "";
+    var s = "";
     int ch;
     while ((ch = reader.read()) != -1) {
       s += (char) ch;

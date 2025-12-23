@@ -91,7 +91,7 @@ public class AdaptedJUnitTestUnitTest {
 
   private Optional<Filter> createFilter(final Class<?> clazz, final String method) {
     final Description d = Description.createTestDescription(clazz, method);
-    final Filter f = new Filter() {
+    final var f = new Filter() {
 
       @Override
       public boolean shouldRun(final Description description) {

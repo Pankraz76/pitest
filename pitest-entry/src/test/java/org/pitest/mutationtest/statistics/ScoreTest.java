@@ -54,27 +54,27 @@ public class ScoreTest {
 
   @Test
   public void shouldPrintMutatorNameOnFirstLine() {
-    final String[] ss = generateReportLines();
+    final var ss = generateReportLines();
     assertEquals("> foo", ss[0]);
   }
 
   @Test
   public void shouldPrintTotalsAndPercentageInSecondLine() {
-    final String[] ss = generateReportLines();
+    final var ss = generateReportLines();
     assertEquals(">> Generated 0 Killed 0 (100%)", ss[1]);
   }
 
   @Test
   public void shouldPrintScoresFourToALine() {
-    final String[] ss = generateReportLines();
+    final var ss = generateReportLines();
     assertEquals("> KILLED 0 SURVIVED 0 TIMED_OUT 0 NON_VIABLE 0 ", ss[2]);
   }
 
   private String[] generateReportLines() {
-    final ByteArrayOutputStream s = new ByteArrayOutputStream();
-    final PrintStream out = new PrintStream(s);
+    final var s = new ByteArrayOutputStream();
+    final var out = new PrintStream(s);
     this.testee.toScore().report(out);
-    final String actual = new String(s.toByteArray());
+    final var actual = new String(s.toByteArray());
     return actual.split(StringUtil.newLine());
   }
 
@@ -129,7 +129,7 @@ public class ScoreTest {
   }
 
   private void registerResults(final DetectionStatus status, final int times) {
-    for (int i = 0; i != times; i++) {
+    for (var i = 0; i != times; i++) {
       this.testee.registerResult(status);
     }
   }

@@ -72,14 +72,14 @@ public final class CodeCoverageStore {
   public static synchronized Collection<Long> getHits() {
     final Collection<Long> blockHits = new ArrayList<>();
     for (final Entry<Integer, boolean[]> each : CLASS_HITS.entrySet()) {
-      final boolean[] bs = each.getValue();
+      final var bs = each.getValue();
       // first entry tracks if class has been visited at all
       if (!bs[CLASS_HIT_INDEX]) {
         continue;
       }
-      final int classId = each.getKey();
+      final var classId = each.getKey();
 
-      for (int probeId = 1; probeId != bs.length; probeId++) {
+      for (var probeId = 1; probeId != bs.length; probeId++) {
         if (bs[probeId]) {
           blockHits.add(encode(classId, probeId));
         }
@@ -89,7 +89,7 @@ public final class CodeCoverageStore {
   }
 
   public static int registerClass(final String className) {
-    final int id = nextId();
+    final var id = nextId();
     invokeQueue.registerClass(id, className);
     return id;
   }

@@ -6,7 +6,7 @@ public class TestThrowsExceptionFromLargeMethodTestee {
 
   @Test
   public void test() {
-    ThrowsExceptionFromLargeMethodTestee testee = new ThrowsExceptionFromLargeMethodTestee();
+    var testee = new ThrowsExceptionFromLargeMethodTestee();
     testee.foo();
   }
 

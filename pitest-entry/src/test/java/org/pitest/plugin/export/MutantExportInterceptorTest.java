@@ -57,8 +57,8 @@ public class MutantExportInterceptorTest {
   public void shouldWriteMutantBytesToDisk() {
     final Collection<MutationDetails> mutations = executeFor(VeryMutable.class);
 
-    final Mutant firstMutant = this.mutator.getMutation(mutations.iterator().next().getId());
-    final Path shouldBeCreated = mutantBasePath(VeryMutable.class,0).resolve(ClassName.fromClass(VeryMutable.class).asJavaName() + ".class");
+    final var firstMutant = this.mutator.getMutation(mutations.iterator().next().getId());
+    final var shouldBeCreated = mutantBasePath(VeryMutable.class,0).resolve(ClassName.fromClass(VeryMutable.class).asJavaName() + ".class");
     assertThat(shouldBeCreated).hasBinaryContent(firstMutant.getBytes());
   }
 
@@ -66,15 +66,15 @@ public class MutantExportInterceptorTest {
   public void shouldWriteMutantDetailsToDisk() {
     final Collection<MutationDetails> mutations = executeFor(VeryMutable.class);
 
-    final MutationDetails firstMutant = mutations.iterator().next();
-    final Path shouldBeCreated = mutantBasePath(VeryMutable.class,0).resolve("details.txt");
+    final var firstMutant = mutations.iterator().next();
+    final var shouldBeCreated = mutantBasePath(VeryMutable.class,0).resolve("details.txt");
     assertThat(shouldBeCreated).hasContent(firstMutant.toString());
   }
 
   @Test
   public void shouldWriteDissasembledMutantBytecodeToDisk() {
     executeFor(VeryMutable.class);
-    final Path shouldBeCreated = mutantBasePath(VeryMutable.class,0).resolve(ClassName.fromClass(VeryMutable.class).asJavaName() + ".txt");
+    final var shouldBeCreated = mutantBasePath(VeryMutable.class,0).resolve(ClassName.fromClass(VeryMutable.class).asJavaName() + ".txt");
     assertThat(shouldBeCreated).exists();
   }
 
@@ -82,7 +82,7 @@ public class MutantExportInterceptorTest {
   @Test
   public void shouldWriteDisassembledOriginalBytecodeToDisk() {
     executeFor(VeryMutable.class);
-    final Path shouldBeCreated = classBasePath(VeryMutable.class).resolve(ClassName.fromClass(VeryMutable.class).asJavaName() + ".txt");
+    final var shouldBeCreated = classBasePath(VeryMutable.class).resolve(ClassName.fromClass(VeryMutable.class).asJavaName() + ".txt");
     assertThat(shouldBeCreated).exists();
   }
 
@@ -119,7 +119,7 @@ class Foo {
 
 class VeryMutable {
   public int foo(int i) {
-    for (int y = 0; y != i; y++) {
+    for (var y = 0; y != i; y++) {
       System.out.println("" + (i * y));
     }
     return i + 2;

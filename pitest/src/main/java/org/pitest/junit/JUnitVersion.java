@@ -8,14 +8,14 @@ public final class JUnitVersion implements Comparable<JUnitVersion> {
     private static final Pattern VERSION_PATTERN = Pattern.compile("(\\d+)\\.(\\d+).*");
 
     public static JUnitVersion parse(final String version) {
-        final Matcher matcher = VERSION_PATTERN.matcher(version);
+        final var matcher = VERSION_PATTERN.matcher(version);
 
         if (!matcher.matches()) {
             throw new IllegalArgumentException("Invalid version string! Could not parse " + version);
         }
 
-        final int major = Integer.parseInt(matcher.group(1));
-        final int minor = Integer.parseInt(matcher.group(2));
+        final var major = Integer.parseInt(matcher.group(1));
+        final var minor = Integer.parseInt(matcher.group(2));
 
         return new JUnitVersion(major, minor);
     }
@@ -69,7 +69,7 @@ public final class JUnitVersion implements Comparable<JUnitVersion> {
 
     @Override
     public int hashCode() {
-        int result = this.major;
+        var result = this.major;
         result = (31 * result) + this.minor;
         return result;
     }
@@ -83,7 +83,7 @@ public final class JUnitVersion implements Comparable<JUnitVersion> {
             return false;
         }
 
-        final JUnitVersion that = (JUnitVersion) o;
+        final var that = (JUnitVersion) o;
 
         return (this.major == that.major) && (this.minor == that.minor);
 

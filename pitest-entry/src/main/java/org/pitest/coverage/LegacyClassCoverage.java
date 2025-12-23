@@ -72,7 +72,7 @@ public class LegacyClassCoverage implements ReportCoverage {
 
     void addTestToClasses(TestInfo ti, Collection<BlockLocation> coverage) {
         for (BlockLocation each : coverage) {
-            ClassName clazz = each.getLocation().getClassName();
+            var clazz = each.getLocation().getClassName();
             Map<ClassLine, Set<TestInfo>> linesToTests = lineCoverage.getOrDefault(clazz, new LinkedHashMap<>(0));
             for (int line : getLinesForBlock(each)) {
                 addTestToClassLine(each.getLocation().getClassName(), linesToTests, ti, line);
@@ -85,7 +85,7 @@ public class LegacyClassCoverage implements ReportCoverage {
                                     Map<ClassLine, Set<TestInfo>> linesToTests,
                                     TestInfo test,
                                     int line) {
-        ClassLine cl = new ClassLine(clazz, line);
+        var cl = new ClassLine(clazz, line);
         Set<TestInfo> tis = linesToTests.getOrDefault(cl, new TreeSet<>(new TestInfoNameComparator()));
         tis.add(test);
         linesToTests.put(cl, tis);

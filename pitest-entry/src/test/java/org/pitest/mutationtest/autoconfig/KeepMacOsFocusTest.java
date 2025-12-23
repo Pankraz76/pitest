@@ -13,7 +13,7 @@ public class KeepMacOsFocusTest {
 
     @Test
     public void addsHeadlessTrueToJvmArgs() {
-        ReportOptions data = new ReportOptions();
+        var data = new ReportOptions();
 
         underTest.updateConfig(null, data);
         assertThat(data.getJvmArgs()).contains("-Djava.awt.headless=true");

@@ -462,7 +462,7 @@ public final class PitMojo extends AbstractMojo {
 
     switchLogging();
     augmentConfig();
-    RunDecision shouldRun = shouldRun();
+    var shouldRun = shouldRun();
 
     if (shouldRun.shouldRun()) {
       this.getLog().info("Root dir is : " + projectBase);
@@ -476,7 +476,7 @@ public final class PitMojo extends AbstractMojo {
               .forEach(p -> this.getLog().info(
                       "Found shared classpath plugin : " + p.description()));
 
-      String operators =  this.plugins.findMutationOperators().stream()
+      var operators =  this.plugins.findMutationOperators().stream()
               .map(m -> m.getName())
               .collect(Collectors.joining(","));
 
@@ -571,7 +571,7 @@ public final class PitMojo extends AbstractMojo {
   }
 
   protected Optional<CombinedStatistics> analyse() throws MojoExecutionException {
-    final ReportOptions data = new MojoToReportOptionsConverter(this,
+    final var data = new MojoToReportOptionsConverter(this,
         new SurefireConfigConverter(this.isParseSurefireArgLine()), this.filter).convert();
 
     // overwrite variable from surefire with any explicitly set
@@ -585,7 +585,7 @@ public final class PitMojo extends AbstractMojo {
   protected File detectBaseDir() {
     // execution project doesn't seem to always be available.
     // possibily a maven 2 vs maven 3 issue?
-    final MavenProject executionProject = this.project.getExecutionProject();
+    final var executionProject = this.project.getExecutionProject();
     if (executionProject == null) {
       return null;
     }
@@ -751,7 +751,7 @@ public final class PitMojo extends AbstractMojo {
   }
 
   protected RunDecision shouldRun() {
-    RunDecision decision = new RunDecision();
+    var decision = new RunDecision();
 
     if (this.skip) {
       decision.addReason("Execution of PIT should be skipped.");

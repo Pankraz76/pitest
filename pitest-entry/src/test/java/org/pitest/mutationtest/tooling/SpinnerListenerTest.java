@@ -11,9 +11,9 @@ public class SpinnerListenerTest {
 
   @Test
   public void shouldPrintSpinnerSequence() {
-    final ByteArrayOutputStream bos = new ByteArrayOutputStream();
-    final PrintStream out = new PrintStream(bos);
-    final SpinnerListener testee = new SpinnerListener(out);
+    final var bos = new ByteArrayOutputStream();
+    final var out = new PrintStream(bos);
+    final var testee = new SpinnerListener(out);
     testee.handleMutationResult(null);
     testee.handleMutationResult(null);
     assertEquals("\u0008/\u0008-", new String(bos.toByteArray()));

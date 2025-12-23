@@ -31,7 +31,7 @@ public class SurefireConfigConverterTest {
   public void shouldCreatePredicateForEachExclude() throws Exception {
     this.surefireConfig = makeConfig("<excludes><exclude>A</exclude><exclude>B</exclude></excludes>");
 
-    ReportOptions actual = this.testee
+    var actual = this.testee
         .update(this.options, this.surefireConfig);
     assertThat(actual.getExcludedTestClasses()).hasSize(2);
   }
@@ -40,7 +40,7 @@ public class SurefireConfigConverterTest {
   public void handlesEmptyExcludeElements() throws Exception {
     this.surefireConfig = makeConfig("<excludes><exclude/></excludes>");
 
-    ReportOptions actual = this.testee
+    var actual = this.testee
             .update(this.options, this.surefireConfig);
     assertThat(actual.getExcludedTestClasses()).isEmpty();
   }
@@ -50,7 +50,7 @@ public class SurefireConfigConverterTest {
       throws Exception {
     this.surefireConfig = makeConfig("<excludes><exclude>**/FailingTest.java</exclude></excludes>");
 
-    ReportOptions actual = this.testee
+    var actual = this.testee
         .update(this.options, this.surefireConfig);
     Predicate<String> predicate = actual.getExcludedTestClasses().iterator().next();
     assertThat(predicate.test("com.example.FailingTest")).isTrue();
@@ -62,7 +62,7 @@ public class SurefireConfigConverterTest {
     this.surefireConfig = makeConfig("<excludes><exclude>A</exclude><exclude>B</exclude></excludes>");
     this.options.setExcludedTestClasses(Collections
         .<Predicate<String>> singletonList(new Glob("Foo")));
-    ReportOptions actual = this.testee
+    var actual = this.testee
         .update(this.options, this.surefireConfig);
 
     assertThat(actual.getExcludedTestClasses()).hasSize(3);
@@ -71,7 +71,7 @@ public class SurefireConfigConverterTest {
   @Test
   public void shouldConvertSingleSurefireGroups() throws Exception {
     this.surefireConfig = makeConfig("<groups>com.example.Unit</groups>");
-    ReportOptions actual = this.testee
+    var actual = this.testee
         .update(this.options, this.surefireConfig);
 
     assertThat(actual.getGroupConfig().getIncludedGroups()).containsOnly(
@@ -81,7 +81,7 @@ public class SurefireConfigConverterTest {
   @Test
   public void shouldConvertMultipleSurefireGroups() throws Exception {
     this.surefireConfig = makeConfig("<groups>com.example.Unit com.example.Fast</groups>");
-    ReportOptions actual = this.testee
+    var actual = this.testee
         .update(this.options, this.surefireConfig);
 
     assertThat(actual.getGroupConfig().getIncludedGroups()).containsOnly(
@@ -91,7 +91,7 @@ public class SurefireConfigConverterTest {
   @Test
   public void shouldConvertMultipleSurefireGroupExcludes() throws Exception {
     this.surefireConfig = makeConfig("<excludedGroups>com.example.Unit com.example.Fast</excludedGroups>");
-    ReportOptions actual = this.testee
+    var actual = this.testee
         .update(this.options, this.surefireConfig);
 
     assertThat(actual.getGroupConfig().getExcludedGroups()).containsOnly(
@@ -101,7 +101,7 @@ public class SurefireConfigConverterTest {
   @Test
   public void shouldConvertMultipleSurefireGroupExcludesCommaSeparated() throws Exception {
     this.surefireConfig = makeConfig("<excludedGroups>integration, regression</excludedGroups>");
-    ReportOptions actual = this.testee
+    var actual = this.testee
             .update(this.options, this.surefireConfig);
 
     assertThat(actual.getGroupConfig().getExcludedGroups()).containsOnly(
@@ -111,11 +111,11 @@ public class SurefireConfigConverterTest {
   @Test
   public void shouldNotUseSurefireGroupsWhenPitestIncludesSpecified()
       throws Exception {
-    TestGroupConfig gc = new TestGroupConfig(Collections.<String> emptyList(),
+    var gc = new TestGroupConfig(Collections.<String> emptyList(),
         Arrays.asList("bar"));
     this.options.setGroupConfig(gc);
     this.surefireConfig = makeConfig("<groups>com.example.Unit com.example.Fast</groups>");
-    ReportOptions actual = this.testee
+    var actual = this.testee
         .update(this.options, this.surefireConfig);
 
     assertThat(actual.getGroupConfig().getIncludedGroups()).containsOnly("bar");
@@ -124,12 +124,12 @@ public class SurefireConfigConverterTest {
   @Test
   public void shouldNotUseSurefireGroupsWhenPitestExcludesSpecified()
       throws Exception {
-    TestGroupConfig gc = new TestGroupConfig(Arrays.asList("bar"),
+    var gc = new TestGroupConfig(Arrays.asList("bar"),
         Collections.<String> emptyList());
     this.options.setGroupConfig(gc);
     this.surefireConfig = makeConfig("<groups>com.example.Unit com.example.Fast</groups>");
 
-    ReportOptions actual = this.testee
+    var actual = this.testee
         .update(this.options, this.surefireConfig);
 
     assertThat(actual.getGroupConfig().getExcludedGroups()).containsOnly("bar");
@@ -139,7 +139,7 @@ public class SurefireConfigConverterTest {
   public void shouldConvertTestFailureIgnoreWhenTrue() throws Exception {
     this.surefireConfig = makeConfig("<testFailureIgnore>true</testFailureIgnore>");
 
-    ReportOptions actual = this.testee
+    var actual = this.testee
         .update(this.options, this.surefireConfig);
 
     assertThat(actual.skipFailingTests()).isTrue();
@@ -149,7 +149,7 @@ public class SurefireConfigConverterTest {
   public void shouldConvertTestFailureIgnoreWhenFalse() throws Exception {
     this.surefireConfig = makeConfig("<testFailureIgnore>false</testFailureIgnore>");
 
-    ReportOptions actual = this.testee
+    var actual = this.testee
         .update(this.options, this.surefireConfig);
 
     assertThat(actual.skipFailingTests()).isFalse();
@@ -159,7 +159,7 @@ public class SurefireConfigConverterTest {
   public void shouldConvertTestFailureIgnoreWhenAbsent() throws Exception {
     this.surefireConfig = makeConfig("<testFailureIgnore></testFailureIgnore>");
 
-    ReportOptions actual = this.testee
+    var actual = this.testee
         .update(this.options, this.surefireConfig);
 
     assertThat(actual.skipFailingTests()).isFalse();
@@ -169,7 +169,7 @@ public class SurefireConfigConverterTest {
   public void convertsArgline() throws Exception {
     this.surefireConfig = makeConfig("<argLine>-Xmx1024m -Dfoo=${BAR} -Dfoo=$@BAR}</argLine>");
 
-    ReportOptions actual = this.testee
+    var actual = this.testee
         .update(this.options, this.surefireConfig);
 
     assertThat(actual.getArgLine()).isEqualTo("-Xmx1024m -Dfoo=${BAR} -Dfoo=$@BAR}");
@@ -180,7 +180,7 @@ public class SurefireConfigConverterTest {
     this.surefireConfig = makeConfig("<argLine>-Xmx1024m -Dfoo=${BAR} -Dfoo=$@BAR}</argLine>");
     this.options.setArgLine("alreadyHere");
 
-    ReportOptions actual = this.testee
+    var actual = this.testee
             .update(this.options, this.surefireConfig);
 
     assertThat(actual.getArgLine()).isEqualTo("alreadyHere -Xmx1024m -Dfoo=${BAR} -Dfoo=$@BAR}");
@@ -193,7 +193,7 @@ public class SurefireConfigConverterTest {
 
     this.options.setArgLine("-foo");
 
-    ReportOptions actual = this.testee
+    var actual = this.testee
             .update(this.options, this.surefireConfig);
 
     assertThat(actual.getArgLine()).isEqualTo("-foo");
@@ -204,7 +204,7 @@ public class SurefireConfigConverterTest {
     this.surefireConfig = makeConfig("<environmentVariables><ONE_OF_MANY>value</ONE_OF_MANY>" +
             "<B>42</B></environmentVariables>");
 
-    ReportOptions actual = this.testee
+    var actual = this.testee
             .update(this.options, this.surefireConfig);
 
     assertThat(actual.getEnvironmentVariables()).containsEntry("ONE_OF_MANY", "value");
@@ -212,8 +212,8 @@ public class SurefireConfigConverterTest {
   }
 
   private Xpp3Dom makeConfig(String s) throws Exception {
-    String xml = "<configuration>" + s + "</configuration>";
-    InputStream stream = new ByteArrayInputStream(xml.getBytes(StandardCharsets.UTF_8));
+    var xml = "<configuration>" + s + "</configuration>";
+    var stream = new ByteArrayInputStream(xml.getBytes(StandardCharsets.UTF_8));
     return Xpp3DomBuilder.build(stream, "UTF-8");
   }
 

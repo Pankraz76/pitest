@@ -16,10 +16,10 @@ public class CompoundMutationResultInterceptorTest {
 
     @Test
     public void chainsChildCallsToModifyByPriority() {
-        MutationResultInterceptor a = appendToDesc("bar", 1);
-        MutationResultInterceptor b = appendToDesc("foo", 0);
+        var a = appendToDesc("bar", 1);
+        var b = appendToDesc("foo", 0);
 
-        CompoundMutationResultInterceptor underTest = new CompoundMutationResultInterceptor(asList(a,b));
+        var underTest = new CompoundMutationResultInterceptor(asList(a,b));
 
         Collection<ClassMutationResults> actual = underTest.modify(someClassResults());
 
@@ -30,10 +30,10 @@ public class CompoundMutationResultInterceptorTest {
 
     @Test
     public void combinesRemainingResults() {
-        MutationResultInterceptor a = hasResult(aMutationTestResult().withMutationDetails(aMutationDetail().withDescription("a")));
-        MutationResultInterceptor b = hasResult(aMutationTestResult().withMutationDetails(aMutationDetail().withDescription("b")));
+        var a = hasResult(aMutationTestResult().withMutationDetails(aMutationDetail().withDescription("a")));
+        var b = hasResult(aMutationTestResult().withMutationDetails(aMutationDetail().withDescription("b")));
 
-        CompoundMutationResultInterceptor underTest = new CompoundMutationResultInterceptor(asList(a,b));
+        var underTest = new CompoundMutationResultInterceptor(asList(a,b));
 
         Collection<ClassMutationResults> actual = underTest.remaining();
 

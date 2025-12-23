@@ -98,7 +98,7 @@ public class ClassPath {
   }
 
   public byte[] getClassData(final String classname) throws IOException {
-    try (InputStream is = this.root.getData(classname)) {
+    try (var is = this.root.getData(classname)) {
       if (is != null) {
         return StreamUtil.streamToByteArray(is);
       } else {
@@ -172,7 +172,7 @@ public class ClassPath {
   /** FIXME move somewhere common */
   private static List<String> getClassPathElementsAsAre() {
     final String classPath = System.getProperty("java.class.path");
-    final String separator = File.pathSeparator;
+    final var separator = File.pathSeparator;
     if (classPath != null) {
       return Arrays.asList(classPath.split(separator));
     } else {

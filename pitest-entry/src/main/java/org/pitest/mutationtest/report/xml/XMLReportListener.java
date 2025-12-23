@@ -86,7 +86,7 @@ public class XMLReportListener implements MutationResultListener {
   }
 
   private String makeMutationNode(final MutationResult mutation) {
-    final MutationDetails details = mutation.getDetails();
+    final var details = mutation.getDetails();
     return makeNode(clean(details.getFilename()), sourceFile)
         + makeNode(clean(details.getClassName().asJavaName()), mutatedClass)
         + makeNode(clean(details.getMethod()), mutatedMethod)
@@ -139,7 +139,7 @@ public class XMLReportListener implements MutationResultListener {
   }
 
   private String makeNodes(Tag topTag, List<Integer> values, final Tag tag) {
-    StringBuilder sb = new StringBuilder();
+    var sb = new StringBuilder();
     sb.append("<" + topTag + ">");
     for (Integer each : values) {
       sb.append(makeNode("" + each, tag));
@@ -158,7 +158,7 @@ public class XMLReportListener implements MutationResultListener {
       return "";
     }
 
-    StringBuilder builder = new StringBuilder();
+    var builder = new StringBuilder();
 
     for (String test : tests) {
       builder.append(test);

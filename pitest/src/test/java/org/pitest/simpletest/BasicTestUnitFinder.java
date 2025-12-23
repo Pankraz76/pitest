@@ -53,12 +53,12 @@ public class BasicTestUnitFinder implements TestUnitFinder {
     try {
 
       final List<TestUnit> units = new ArrayList<>();
-      final InstantiationStrategy instantiationStrategy = findInstantiationStrategy(testClass);
+      final var instantiationStrategy = findInstantiationStrategy(testClass);
       final List<TestStep> instantiations = instantiationStrategy
           .instantiations(testClass);
-      for (int instantiation = 0; instantiation != instantiations.size(); instantiation++) {
+      for (var instantiation = 0; instantiation != instantiations.size(); instantiation++) {
         for (final TestMethod m : findTestMethods(testClass)) {
-          final TestStep step = instantiations.get(instantiation);
+          final var step = instantiations.get(instantiation);
           units
           .add(createTestUnitForInstantiation(step,
               getNamePrefix(instantiations.size(), instantiation),
@@ -90,7 +90,7 @@ public class BasicTestUnitFinder implements TestUnitFinder {
     steps.add(instantiationStep);
     steps.add(new CallStep(testMethod));
 
-    final TestUnit unit = new SteppedTestUnit(new Description(namePrefix
+    final var unit = new SteppedTestUnit(new Description(namePrefix
         + testMethod.getName(), testClass), steps, testMethod.getExpected());
     return unit;
 

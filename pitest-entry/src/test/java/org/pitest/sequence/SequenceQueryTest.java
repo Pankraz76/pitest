@@ -115,7 +115,7 @@ public class SequenceQueryTest {
 
         List<Integer> sequence = asList(1, 2, 2, 4);
 
-        Context context = Context.start()
+        var context = Context.start()
                 .store(slot1.write(), 2);
 
         final SequenceMatcher<Integer> testee = match(eq(1))
@@ -181,7 +181,7 @@ public class SequenceQueryTest {
 
     private Match<Integer> matchesSlot(SlotRead<Integer> read) {
         return (c, i) -> {
-            boolean b = c.retrieve(read).get().equals(i);
+            var b = c.retrieve(read).get().equals(i);
             return result(b,c);
         };
     }

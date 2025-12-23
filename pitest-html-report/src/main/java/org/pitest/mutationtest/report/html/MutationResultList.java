@@ -35,7 +35,7 @@ public class MutationResultList implements Iterable<MutationResult> {
     sortMutationsIntoLineOrder();
     final List<MutationGrouping> groups = new ArrayList<>();
     List<MutationResult> sublist = new ArrayList<>();
-    int lastLineNumber = -1;
+    var lastLineNumber = -1;
     for (final MutationResult each : this.impl) {
       if ((lastLineNumber != each.getDetails().getLineNumber())
           && !sublist.isEmpty()) {

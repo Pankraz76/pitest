@@ -28,14 +28,14 @@ public class KnownStatusMutationTestUnitTest {
 
   @Test
   public void shouldCreateMutationMetaDataForSuppliedResults() throws Exception {
-    final MutationResult mr = new MutationResult(
+    final var mr = new MutationResult(
         MutationTestResultMother.createDetails(), new MutationStatusTestPair(1,
             DetectionStatus.KILLED, "foo"));
     final List<MutationResult> mutations = Arrays.asList(mr);
     this.testee = new KnownStatusMutationTestUnit(mutations);
-    final MutationMetaData actual = this.testee.call();
+    final var actual = this.testee.call();
 
-    final MutationMetaData expected = new MutationMetaData(mutations);
+    final var expected = new MutationMetaData(mutations);
     assertThat(actual).isEqualTo(expected);
   }
 

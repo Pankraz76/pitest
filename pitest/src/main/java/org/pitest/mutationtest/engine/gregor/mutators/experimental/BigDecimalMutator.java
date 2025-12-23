@@ -42,7 +42,7 @@ public enum BigDecimalMutator implements MethodMutatorFactory {
     static {
       Map<String, Replacement> map = new HashMap<>();
 
-      String unary = "(Ljava/math/BigDecimal;)Ljava/math/BigDecimal;";
+      var unary = "(Ljava/math/BigDecimal;)Ljava/math/BigDecimal;";
       put(map, new Replacement("add", "subtract", unary));
       put(map, new Replacement("subtract", "add", unary));
       put(map, new Replacement("multiply", "divide", unary));
@@ -52,7 +52,7 @@ public enum BigDecimalMutator implements MethodMutatorFactory {
       put(map, new Replacement("max", "min", unary));
       put(map, new Replacement("min", "max", unary));
 
-      String noParams = "()Ljava/math/BigDecimal;";
+      var noParams = "()Ljava/math/BigDecimal;";
       put(map, new Replacement("negate", "plus", noParams));
       put(map, new Replacement("plus", "negate", noParams));
       put(map, new Replacement("abs", "negate", noParams));
@@ -84,9 +84,9 @@ public enum BigDecimalMutator implements MethodMutatorFactory {
         return;
       }
 
-      Replacement replacement = REPLACEMENTS.get(name);
+      var replacement = REPLACEMENTS.get(name);
       if (replacement != null && replacement.descriptor.equals(descriptor)) {
-        MutationIdentifier identifier = context.registerMutation(factory, replacement.toString());
+        var identifier = context.registerMutation(factory, replacement.toString());
         if (context.shouldMutate(identifier)) {
           this.mv.visitMethodInsn(
               opcode,
@@ -106,8 +106,8 @@ public enum BigDecimalMutator implements MethodMutatorFactory {
         Object... bootstrapMethodArguments) {
       bootstrapMethodHandle = mutateHandle(bootstrapMethodHandle);
       Object[] methodArgs = new Object[bootstrapMethodArguments.length];
-      for (int i = 0; i < bootstrapMethodArguments.length; i++) {
-        Object bootstrapMethodArgument = bootstrapMethodArguments[i];
+      for (var i = 0; i < bootstrapMethodArguments.length; i++) {
+        var bootstrapMethodArgument = bootstrapMethodArguments[i];
         if (bootstrapMethodArgument instanceof Handle) {
           methodArgs[i] = mutateHandle((Handle) bootstrapMethodArgument);
         } else {
@@ -121,16 +121,16 @@ public enum BigDecimalMutator implements MethodMutatorFactory {
      * Mutates a handle within an invoke virtual.
      */
     private Handle mutateHandle(Handle handle) {
-      int opcode = handle.getTag();
-      String owner = handle.getOwner();
-      String name = handle.getName();
-      String descriptor = handle.getDesc();
+      var opcode = handle.getTag();
+      var owner = handle.getOwner();
+      var name = handle.getName();
+      var descriptor = handle.getDesc();
 
       if (owner.equals(expectedOwner) && opcode == Opcodes.H_INVOKEVIRTUAL) {
         if (REPLACEMENTS.containsKey(name)) {
-          Replacement replacement = REPLACEMENTS.get(name);
+          var replacement = REPLACEMENTS.get(name);
           if (replacement.descriptor.equals(descriptor)) {
-            MutationIdentifier id = context.registerMutation(factory, replacement.toString());
+            var id = context.registerMutation(factory, replacement.toString());
             if (context.shouldMutate(id)) {
               return new Handle(
                   opcode,
@@ -159,7 +159,7 @@ public enum BigDecimalMutator implements MethodMutatorFactory {
 
       @Override
       public String toString() {
-        String template = "Replaced BigDecimal#%s with BigDecimal#%s.";
+        var template = "Replaced BigDecimal#%s with BigDecimal#%s.";
         return String.format(template, sourceName, destinationName);
       }
     }

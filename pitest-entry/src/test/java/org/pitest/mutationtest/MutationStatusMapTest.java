@@ -32,12 +32,12 @@ public class MutationStatusMapTest {
   @Before
   public void setUp() {
     this.testee = new MutationStatusMap();
-    final MutationIdentifierBuilder id = aMutationId().withIndex(1);
+    final var id = aMutationId().withIndex(1);
     this.details = aMutationDetail().withId(id.withIndex(1)).build();
     this.detailsTwo = aMutationDetail().withId(id.withIndex(2)).build();
 
-    TestInfo fooTest = new TestInfo("foo", "foo", 0, Optional.ofNullable(ClassName.fromString("com.foo")), 0);
-    TestInfo barTest = new TestInfo("bar", "bar", 0, Optional.ofNullable(ClassName.fromString("com.foo")), 0);
+    var fooTest = new TestInfo("foo", "foo", 0, Optional.ofNullable(ClassName.fromString("com.foo")), 0);
+    var barTest = new TestInfo("bar", "bar", 0, Optional.ofNullable(ClassName.fromString("com.foo")), 0);
     this.aSurvivedMutationDetails = aMutationDetail().withId(id.withIndex(3)).withTestsInOrder(Lists.asList(fooTest, new TestInfo[]{barTest})).build();
   }
 
@@ -86,15 +86,15 @@ public class MutationStatusMapTest {
 
   @Test
   public void shouldCreateResultsForAllMutations() {
-    final MutationStatusTestPair statusPairOne = new MutationStatusTestPair(42,
+    final var statusPairOne = new MutationStatusTestPair(42,
         DetectionStatus.KILLED, "foo");
-    final MutationResult resultOne = new MutationResult(this.details,
+    final var resultOne = new MutationResult(this.details,
         statusPairOne);
     this.testee.setStatusForMutation(this.details, statusPairOne);
 
-    final MutationStatusTestPair statusPairTwo = new MutationStatusTestPair(42,
+    final var statusPairTwo = new MutationStatusTestPair(42,
         DetectionStatus.RUN_ERROR, "bar");
-    final MutationResult resultTwo = new MutationResult(this.detailsTwo,
+    final var resultTwo = new MutationResult(this.detailsTwo,
         statusPairTwo);
     this.testee.setStatusForMutation(this.detailsTwo, statusPairTwo);
 
@@ -104,7 +104,7 @@ public class MutationStatusMapTest {
 
   @Test
   public void shouldCreateResultsForSurvivedMutations(){
-    final MutationStatusTestPair statusPairOne = new MutationStatusTestPair(42,
+    final var statusPairOne = new MutationStatusTestPair(42,
             DetectionStatus.SURVIVED, Collections.singletonList("foo"),Arrays.asList("foo1","bar"), Arrays.asList("foo","foo1","bar"));
     this.testee.setStatusForMutation(this.aSurvivedMutationDetails, statusPairOne);
 
@@ -123,15 +123,15 @@ public class MutationStatusMapTest {
     this.testee.markUncoveredMutations();
     assertEquals(Collections.emptyList(), this.testee.getUnrunMutations());
 
-    final MutationStatusTestPair statusPairOne = new MutationStatusTestPair(42,
+    final var statusPairOne = new MutationStatusTestPair(42,
         DetectionStatus.NO_COVERAGE, "foo");
-    final MutationResult resultOne = new MutationResult(this.details,
+    final var resultOne = new MutationResult(this.details,
         statusPairOne);
     this.testee.setStatusForMutation(this.details, statusPairOne);
 
-    final MutationStatusTestPair statusPairTwo = new MutationStatusTestPair(42,
+    final var statusPairTwo = new MutationStatusTestPair(42,
         DetectionStatus.NO_COVERAGE, "bar");
-    final MutationResult resultTwo = new MutationResult(this.detailsTwo,
+    final var resultTwo = new MutationResult(this.detailsTwo,
         statusPairTwo);
     this.testee.setStatusForMutation(this.detailsTwo, statusPairTwo);
 

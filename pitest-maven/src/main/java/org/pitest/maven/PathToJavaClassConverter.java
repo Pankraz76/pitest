@@ -25,9 +25,9 @@ class PathToJavaClassConverter implements Function<String, Stream<String>> {
 
   @Override
   public Stream<String> apply(final String a) {
-    final File f = new File(a);
-    final String modifiedFilePath = f.getAbsolutePath();
-    final String fileName = f.getName();
+    final var f = new File(a);
+    final var modifiedFilePath = f.getAbsolutePath();
+    final var fileName = f.getName();
 
     if (modifiedFilePath.startsWith(this.sourceRoot)
         && (fileName.indexOf('.') != -1)) {
@@ -39,7 +39,7 @@ class PathToJavaClassConverter implements Function<String, Stream<String>> {
 
   private Stream<String> createClassGlobFromFilePath(final String sourceRoot,
       final String modifiedFilePath) {
-    final String rootedPath = modifiedFilePath.substring(sourceRoot.length() + 1);
+    final var rootedPath = modifiedFilePath.substring(sourceRoot.length() + 1);
     // some scms report paths in portable format, some in os specific format (i
     // think)
     // replace both possibilities regardless of host os

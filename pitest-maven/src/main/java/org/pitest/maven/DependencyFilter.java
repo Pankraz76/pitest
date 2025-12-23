@@ -49,9 +49,9 @@ public class DependencyFilter implements Predicate<Artifact> {
 
       @Override
       public GroupIdPair apply(final ClientClasspathPlugin a) {
-        final Package p = a.getClass().getPackage();
+        final var p = a.getClass().getPackage();
 
-        final GroupIdPair g = new GroupIdPair(p.getImplementationVendor(),
+        final var g = new GroupIdPair(p.getImplementationVendor(),
             p.getImplementationTitle());
 
         if (g.id == null) {
@@ -85,24 +85,24 @@ public class DependencyFilter implements Predicate<Artifact> {
    * and project.organization.name is assigned to Implementation-Vendor on the META-INF/MANIFEST.MF file.
    */
   private void findVendorIdForGroups() {
-    ClassLoader loader = Thread.currentThread().getContextClassLoader();
+    var loader = Thread.currentThread().getContextClassLoader();
     try {
       //Checks every META-INF/MANIFEST.MF file found in the classpath
       Enumeration<URL> urls = loader.getResources("META-INF/MANIFEST.MF");
       while (urls.hasMoreElements()) {
-        URL url = urls.nextElement();
+        var url = urls.nextElement();
 
-        Manifest manifest = new Manifest(url.openStream());
-        Attributes attributes = manifest.getMainAttributes();
-        String vendor = attributes.getValue("Implementation-Vendor");
-        String vendorId = attributes.getValue("Implementation-Vendor-Id");
-        String id = attributes.getValue("Implementation-Title");
+        var manifest = new Manifest(url.openStream());
+        var attributes = manifest.getMainAttributes();
+        var vendor = attributes.getValue("Implementation-Vendor");
+        var vendorId = attributes.getValue("Implementation-Vendor-Id");
+        var id = attributes.getValue("Implementation-Title");
 
         if (StringUtil.isNullOrEmpty(vendor) || StringUtil.isNullOrEmpty(vendorId) || StringUtil.isNullOrEmpty(id)) {
           continue;
         }
 
-        GroupIdPair query = new GroupIdPair(vendor, id);
+        var query = new GroupIdPair(vendor, id);
         if (groups.contains(query)) {
           groups.remove(query);
           groups.add(new GroupIdPair(vendorId, id));
@@ -115,7 +115,7 @@ public class DependencyFilter implements Predicate<Artifact> {
 
   @Override
   public boolean test(final Artifact a) {
-    final GroupIdPair p = new GroupIdPair(a.getGroupId(), a.getArtifactId());
+    final var p = new GroupIdPair(a.getGroupId(), a.getArtifactId());
     return this.groups.contains(p);
   }
 
@@ -141,7 +141,7 @@ public class DependencyFilter implements Predicate<Artifact> {
       if (obj == null || getClass() != obj.getClass()) {
         return false;
       }
-      final GroupIdPair other = (GroupIdPair) obj;
+      final var other = (GroupIdPair) obj;
       return Objects.equals(group, other.group)
               && Objects.equals(id, other.id);
     }

@@ -35,7 +35,7 @@ public class MutantVerifier<A, B> extends MutatorVerifier {
     }
 
     public void firstMutantShouldReturn(Supplier<A> as, B expected) {
-        A input = as.get();
+        var input = as.get();
         if (checkUnmutated()) {
             assertThat(runWithoutMutation(input))
                     .describedAs("Expected unmutated code to return different value to mutated code")
@@ -43,7 +43,7 @@ public class MutantVerifier<A, B> extends MutatorVerifier {
         }
 
         List<MutationDetails> mutations = findMutations();
-        Mutant mutant = getFirstMutant(mutations);
+        var mutant = getFirstMutant(mutations);
         assertThat(mutateAndCall(input, mutant))
                 .as(() -> "Unexpected return value from mutant\n " + printMutant(mutant))
                 .isEqualTo(expected);
@@ -51,9 +51,9 @@ public class MutantVerifier<A, B> extends MutatorVerifier {
     }
 
     public void firstMutantShouldReturn(Supplier<A> as, Predicate<B> match) {
-        A input = as.get();
+        var input = as.get();
         List<MutationDetails> mutations = findMutations();
-        Mutant mutant = getFirstMutant(mutations);
+        var mutant = getFirstMutant(mutations);
         assertThat(mutateAndCall(input, mutant))
                 .as(() -> "Unexpected return value from mutant\n " + printMutant(mutant))
                 .matches(match);
@@ -64,7 +64,7 @@ public class MutantVerifier<A, B> extends MutatorVerifier {
     }
 
     private B mutateAndCall(A input, Mutant mutant) {
-        ClassLoader loader = this.createClassLoader(mutant);
+        var loader = this.createClassLoader(mutant);
         return this.runInClassLoader(loader, input);
     }
 
@@ -72,7 +72,7 @@ public class MutantVerifier<A, B> extends MutatorVerifier {
         try {
             Class<?> forLoader = loader.loadClass(target.getName());
 
-            Constructor c = forLoader.getDeclaredConstructor();
+            var c = forLoader.getDeclaredConstructor();
             c.setAccessible(true);
             Function<A, B> instance = (Function<A, B>) c.newInstance();
             return instance.apply(input);

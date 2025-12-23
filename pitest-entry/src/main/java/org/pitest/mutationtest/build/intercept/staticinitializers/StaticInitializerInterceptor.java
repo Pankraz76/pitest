@@ -88,7 +88,7 @@ class StaticInitializerInterceptor implements MutationInterceptor {
 
   private static Match<AbstractInsnNode> isADelayedExecutionField(SlotRead<Set<String>> delayedFields) {
     return (c,n) -> {
-      FieldInsnNode fieldNode = ((FieldInsnNode) n);
+      var fieldNode = ((FieldInsnNode) n);
       return result( c.retrieve(delayedFields).get().contains(fieldNode.name), c);
     };
   }
@@ -200,7 +200,7 @@ class StaticInitializerInterceptor implements MutationInterceptor {
   }
 
   private List<Location> delayedExecutionCall(MethodTree method, Set<String> delayedExecutionFields) {
-    Context context = Context.start().store(DELAYED_EXECUTION_FIELDS.write(), delayedExecutionFields);
+    var context = Context.start().store(DELAYED_EXECUTION_FIELDS.write(), delayedExecutionFields);
     return delayedExecution.contextMatches(method.instructions(), context).stream()
             .map(c -> c.retrieve(START.read()).get())
             .flatMap(this::nodeToLocation)
@@ -324,7 +324,7 @@ class Call {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Call call = (Call) o;
+    var call = (Call) o;
     return Objects.equals(from, call.from) && Objects.equals(to, call.to);
   }
 

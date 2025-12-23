@@ -53,8 +53,8 @@ public class HTMLReportGeneratorTest {
 
   @Test
   public void testCopySuccess() throws Exception {
-    File sourceFolder = this.tempFolder.newFolder("reportsFolder");
-    File destFolder = this.tempFolder.newFolder("siteFolder");
+    var sourceFolder = this.tempFolder.newFolder("reportsFolder");
+    var destFolder = this.tempFolder.newFolder("siteFolder");
 
     new File(sourceFolder, "file0.txt").createNewFile();
     new File(sourceFolder, "file1.txt").createNewFile();
@@ -69,8 +69,8 @@ public class HTMLReportGeneratorTest {
 
   @Test
   public void testCopySkipsTimestampedReportsSubDirectories() throws Exception {
-    File sourceFolder = this.tempFolder.newFolder("reportsFolder");
-    File destFolder = this.tempFolder.newFolder("siteFolder");
+    var sourceFolder = this.tempFolder.newFolder("reportsFolder");
+    var destFolder = this.tempFolder.newFolder("siteFolder");
     String[] destinationFiles;
 
     new File(sourceFolder, "file0.txt").createNewFile();

@@ -56,7 +56,7 @@ public class DefaultCodeSource implements CodeSource {
     }
 
     public Optional<ClassName> findTestee(final String className) {
-        final TestToClassMapper mapper = new TestToClassMapper(this.classRepository);
+        final var mapper = new TestToClassMapper(this.classRepository);
         return mapper.findTestee(className);
     }
 

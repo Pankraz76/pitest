@@ -85,7 +85,7 @@ public final class TestInfo implements Serializable {
     if (obj == null || getClass() != obj.getClass()) {
       return false;
     }
-    final TestInfo other = (TestInfo) obj;
+    final var other = (TestInfo) obj;
     return Objects.equals(name, other.name)
             && Objects.equals(definingClass, other.definingClass);
   }

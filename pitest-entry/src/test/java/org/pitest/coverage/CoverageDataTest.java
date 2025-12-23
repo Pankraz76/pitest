@@ -88,12 +88,12 @@ public class CoverageDataTest {
   @Test
   public void shouldReportNumberOfCoveredLinesWhenSomeCovered() {
 
-    final BlockLocationBuilder block = aBlockLocation().withLocation(
+    final var block = aBlockLocation().withLocation(
         aLocation().withClass(this.foo));
     when(this.lm.mapLines(any(ClassName.class))).thenReturn(
         makeCoverageMapForBlock(block, 101, 300));
 
-    final CoverageResultBuilder cr = aCoverageResult().withVisitedBlocks(
+    final var cr = aCoverageResult().withVisitedBlocks(
         block.build(1));
 
     this.testee.calculateClassCoverage(cr.build());
@@ -153,7 +153,7 @@ public class CoverageDataTest {
     when(this.code.fetchClassHashes(any(Collection.class))).thenReturn(
         Collections.singletonList(ci));
 
-    final BlockLocationBuilder block = aBlockLocation().withLocation(
+    final var block = aBlockLocation().withLocation(
         aLocation().withClass(foo));
     final HashMap<BlockLocation, Set<Integer>> map = makeCoverageMapForBlock(block,
         42);
@@ -174,16 +174,16 @@ public class CoverageDataTest {
   @Test
   public void shouldProvideCoverageListWhenCoverageRecorded() {
 
-    final BlockLocationBuilder block = aBlockLocation().withLocation(
+    final var block = aBlockLocation().withLocation(
         aLocation().withClass(this.foo));
-    final CoverageResultBuilder cr = aCoverageResult().withVisitedBlocks(
+    final var cr = aCoverageResult().withVisitedBlocks(
         block.build(1));
 
     this.testee.calculateClassCoverage(cr.build());
 
     this.testee.calculateClassCoverage(makeCoverageResult("foo", "fooTest", 0,
         1));
-    final BlockCoverage actual = this.testee.createCoverage().get(0);
+    final var actual = this.testee.createCoverage().get(0);
     assertEquals(block.build(), actual.getBlock());
     assertThat(actual.getTests()).contains("FooTest.fooTest");
   }
@@ -191,8 +191,8 @@ public class CoverageDataTest {
   @Test
   public void shouldProvideListOfClassesForSourceFile() {
 
-    ClassTree fooClass = treeFor(com.example.a.b.c.Foo.class);
-    ClassTree barClass = treeFor(com.example.a.b.c.Bar.class);
+    var fooClass = treeFor(com.example.a.b.c.Foo.class);
+    var barClass = treeFor(com.example.a.b.c.Bar.class);
     when(this.code.codeTrees()).thenReturn(Stream.of(fooClass, barClass));
 
     this.testee = new CoverageData(this.code, this.lm, 0);
@@ -203,8 +203,8 @@ public class CoverageDataTest {
 
   @Test
   public void shouldMatchPackageWhenFindingSources() {
-    final ClassTree foo1Class = treeFor(com.example.a.b.c.Foo.class);
-    final ClassTree foo2Class = treeFor(com.example.d.e.f.Foo.class);
+    final var foo1Class = treeFor(com.example.a.b.c.Foo.class);
+    final var foo2Class = treeFor(com.example.d.e.f.Foo.class);
     final Collection<ClassTree> classes = Arrays.asList(foo1Class, foo2Class);
 
     when(this.code.codeTrees()).thenReturn(classes.stream());
@@ -236,7 +236,7 @@ public class CoverageDataTest {
 
   private Collection<BlockLocation> makeCoverage(final String clazz,
       final int block) {
-    final BlockLocation cs = new BlockLocation(Location.location(
+    final var cs = new BlockLocation(Location.location(
         ClassName.fromString(clazz), "foo", "V"), block);
 
     return Collections.singleton(cs);

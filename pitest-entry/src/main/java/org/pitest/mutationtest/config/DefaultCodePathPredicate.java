@@ -28,7 +28,7 @@ public class DefaultCodePathPredicate implements Predicate<ClassPathRoot> {
   }
 
   private boolean isADependencyPath(final String path) {
-    final String lowerCasePath = path.toLowerCase();
+    final var lowerCasePath = path.toLowerCase();
     return lowerCasePath.endsWith(".jar") || lowerCasePath.endsWith(".zip");
   }
 

@@ -54,7 +54,7 @@ abstract class DataLoader<T> {
   Set<T> loadData(final InputStream inputStream, final File dataLocation) throws ReportAggregationException {
     try {
       XMLInputFactory xif = XMLInputFactory.newInstance();
-      XMLStreamReader xr = xif.createXMLStreamReader(inputStream);
+      var xr = xif.createXMLStreamReader(inputStream);
       return mapToData(xr);
     } catch (final XMLStreamException e) {
       throw new ReportAggregationException("Could not parse file: " + dataLocation.getAbsolutePath(), e);

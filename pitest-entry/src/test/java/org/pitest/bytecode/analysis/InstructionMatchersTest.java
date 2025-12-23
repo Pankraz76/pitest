@@ -38,20 +38,20 @@ public class InstructionMatchersTest {
 
   @Test
   public void anyInstructionShouldMatchAnything() {
-    final AbstractInsnNode node = new InsnNode(-1);
+    final var node = new InsnNode(-1);
     assertTrue(anyInstruction().test(this.context, node).result());
   }
 
   @Test
   public void opCodeShouldMatchOnOpcode() {
-    final AbstractInsnNode node = new InsnNode(-1);
+    final var node = new InsnNode(-1);
     assertTrue(opCode(-1).test(this.context, node).result());
     assertFalse(opCode(0).test(this.context, node).result());
   }
 
   @Test
   public void isAShouldMatchOnType() {
-    final AbstractInsnNode node = new InsnNode(-1);
+    final var node = new InsnNode(-1);
     assertTrue(isA(InsnNode.class).test(this.context, node).result());
     assertFalse(isA(LabelNode.class).test(this.context, node).result());
   }
@@ -60,7 +60,7 @@ public class InstructionMatchersTest {
   public void shouldMatchIncrementsToStoredLocalVariable() {
     final Slot<Integer> slot = Slot.create(Integer.class);
     context = context.store(slot.write(), 42);
-    final IincInsnNode node = new IincInsnNode(42, 1);
+    final var node = new IincInsnNode(42, 1);
     assertTrue(incrementsVariable(slot.read()).test(context,node).result());
   }
 
@@ -68,15 +68,15 @@ public class InstructionMatchersTest {
   public void shouldNotMatchIncrementsToDifferentLocalVariable() {
     final Slot<Integer> slot = Slot.create(Integer.class);
     this.context.store(slot.write(), 42);
-    final IincInsnNode node = new IincInsnNode(42 + 1, 1);
+    final var node = new IincInsnNode(42 + 1, 1);
     assertFalse(incrementsVariable(slot.read()).test(this.context,node).result());
   }
 
   @Test
   public void shouldCaptureIStoreVariable() {
     final Slot<Integer> slot = Slot.create(Integer.class);
-    final VarInsnNode node = new VarInsnNode(Opcodes.ISTORE, 3);
-    Result result = anIStore(slot.write()).test(this.context,node);
+    final var node = new VarInsnNode(Opcodes.ISTORE, 3);
+    var result = anIStore(slot.write()).test(this.context,node);
     assertTrue(result.result());
     assertThat(result.context().retrieve(slot.read())).isEqualTo(Optional.ofNullable(3));
   }
@@ -85,10 +85,10 @@ public class InstructionMatchersTest {
   public void shouldMatchAgainstCapturedIStoreVariable() {
     final Slot<Integer> slot = Slot.create(Integer.class);
     context = context.store(slot.write(), 3);
-    final VarInsnNode matchingNode = new VarInsnNode(Opcodes.ISTORE, 3);
+    final var matchingNode = new VarInsnNode(Opcodes.ISTORE, 3);
     assertTrue(anIStoreTo(slot.read()).test(context,matchingNode).result());
 
-    final VarInsnNode nonMatchingNode = new VarInsnNode(Opcodes.ISTORE, 4);
+    final var nonMatchingNode = new VarInsnNode(Opcodes.ISTORE, 4);
     assertFalse(anIStoreTo(slot.read()).test(context,nonMatchingNode).result());
   }
 
@@ -96,10 +96,10 @@ public class InstructionMatchersTest {
   public void shouldMatchAgainstCapturedILoadVariable() {
     final Slot<Integer> slot = Slot.create(Integer.class);
     this.context = this.context.store(slot.write(), 3);
-    final VarInsnNode matchingNode = new VarInsnNode(Opcodes.ILOAD, 3);
+    final var matchingNode = new VarInsnNode(Opcodes.ILOAD, 3);
     assertTrue(anILoadOf(slot.read()).test(this.context,matchingNode).result());
 
-    final VarInsnNode nonMatchingNode = new VarInsnNode(Opcodes.ILOAD, 4);
+    final var nonMatchingNode = new VarInsnNode(Opcodes.ILOAD, 4);
     assertFalse(anILoadOf(slot.read()).test(this.context,nonMatchingNode).result());
   }
 
@@ -118,10 +118,10 @@ public class InstructionMatchersTest {
   @Test
   public void shouldCaptureLabels() {
     final Slot<LabelNode> slot = Slot.create(LabelNode.class);
-    final LabelNode label = new LabelNode();
+    final var label = new LabelNode();
     assertFalse(aLabelNode(slot.write()).test(this.context,new InsnNode(Opcodes.NULL)).result());
 
-    Result result = aLabelNode(slot.write()).test(this.context,label);
+    var result = aLabelNode(slot.write()).test(this.context,label);
     assertTrue(result.result());
     assertThat(result.context().retrieve(slot.read())).isEqualTo(Optional.ofNullable(label));
   }

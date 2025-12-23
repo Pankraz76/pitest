@@ -86,7 +86,7 @@ abstract class AbstractPitAggregationReportMojo extends PitReportMojo {
         addProjectFiles(reportAggregationBuilder, proj);
       }
 
-      final ReportAggregator reportAggregator = reportAggregationBuilder
+      final var reportAggregator = reportAggregationBuilder
               .inputCharSet(Charset.forName(this.getInputEncoding()))
               .outputCharset(Charset.forName(this.getOutputEncoding()))
           .resultOutputStrategy(new DirectoryResultOutputStrategy(
@@ -94,7 +94,7 @@ abstract class AbstractPitAggregationReportMojo extends PitReportMojo {
               new UndatedReportDirCreationStrategy()))
           .build();
 
-      AggregationResult result = reportAggregator.aggregateReport();
+      var result = reportAggregator.aggregateReport();
 
       throwErrorIfTestStrengthBelowThreshold(result.getTestStrength());
       throwErrorIfScoreBelowThreshold(result.getMutationCoverage());
@@ -108,7 +108,7 @@ abstract class AbstractPitAggregationReportMojo extends PitReportMojo {
   private void addProjectFiles(
       final ReportAggregator.Builder reportAggregationBuilder,
       final MavenProject proj) throws Exception {
-    final File projectBaseDir = proj.getBasedir();
+    final var projectBaseDir = proj.getBasedir();
     for (final File file : getProjectFilesByFilter(projectBaseDir,
             MUTATION_RESULT_FILTER)) {
       reportAggregationBuilder.addMutationResultsFile(file);
@@ -149,12 +149,12 @@ abstract class AbstractPitAggregationReportMojo extends PitReportMojo {
   private List<File> getProjectFilesByFilter(final File projectBaseDir,
                                              final String filter) throws IOException {
 
-    File reportsDir = projectBaseDir.toPath().resolve(REPORT_DIR_RELATIVE_TO_PROJECT).toFile();
+    var reportsDir = projectBaseDir.toPath().resolve(REPORT_DIR_RELATIVE_TO_PROJECT).toFile();
     if (!reportsDir.exists()) {
       return new ArrayList<>();
     }
 
-    File latestReportDir = reportSourceLocator.locate(reportsDir, getLog());
+    var latestReportDir = reportSourceLocator.locate(reportsDir, getLog());
 
     final List<File> files = FileUtils.getFiles(latestReportDir, filter, "");
     return files == null ? new ArrayList<>() : files;
@@ -167,7 +167,7 @@ abstract class AbstractPitAggregationReportMojo extends PitReportMojo {
         .filter(project.getPluginArtifactMap().values(), new DependencyFilter(
             PluginServices.makeForLoader(this.getClass().getClassLoader())))) {
 
-      final Artifact artifact = (Artifact) artifactObj;
+      final var artifact = (Artifact) artifactObj;
       sourceRoots.add(artifact.getFile().getAbsolutePath());
     }
     return convertToRootDirs(project.getTestCompileSourceRoots(),

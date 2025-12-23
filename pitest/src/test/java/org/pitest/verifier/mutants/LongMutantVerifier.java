@@ -34,7 +34,7 @@ public class LongMutantVerifier<B> extends MutatorVerifier {
 
     public void firstMutantShouldReturn(LongSupplier ls, B expected) {
 
-        long input = ls.getAsLong();
+        var input = ls.getAsLong();
 
         if (checkUnmutated()) {
             assertThat(runWithoutMutation(input))
@@ -52,7 +52,7 @@ public class LongMutantVerifier<B> extends MutatorVerifier {
     }
 
     private B mutateAndCall(long input, Mutant mutant) {
-        ClassLoader loader = this.createClassLoader(mutant);
+        var loader = this.createClassLoader(mutant);
         return this.runInClassLoader(loader, input);
     }
 
@@ -60,7 +60,7 @@ public class LongMutantVerifier<B> extends MutatorVerifier {
         try {
             Class<?> forLoader = loader.loadClass(target.getName());
 
-            Constructor c = forLoader.getDeclaredConstructor();
+            var c = forLoader.getDeclaredConstructor();
             c.setAccessible(true);
             LongFunction<B> instance = (LongFunction<B>) c.newInstance();
             return instance.apply(input);

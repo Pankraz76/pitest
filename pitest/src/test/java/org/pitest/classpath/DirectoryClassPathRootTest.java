@@ -19,7 +19,7 @@ public class DirectoryClassPathRootTest {
 
   @Test
   public void shouldReturnClassNames() {
-    final File root = new File("target/test-classes/"); // this is going to be
+    final var root = new File("target/test-classes/"); // this is going to be
     // flakey as hell
     this.testee = new DirectoryClassPathRoot(root);
     assertTrue(this.testee.classNames().contains(

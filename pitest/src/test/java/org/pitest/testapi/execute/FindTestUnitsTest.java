@@ -18,7 +18,7 @@ public class FindTestUnitsTest {
 
     @Test
     public void doesNotDuplicateTestsWhenClassesReintroducedViaSuite() {
-        Configuration config = new Configuration() {
+        var config = new Configuration() {
             @Override
             public TestUnitFinder testUnitFinder() {
                 return (c,n) -> {
@@ -39,7 +39,7 @@ public class FindTestUnitsTest {
                 return Optional.empty();
             }
         };
-        FindTestUnits underTest = new FindTestUnits(config);
+        var underTest = new FindTestUnits(config);
 
         List<TestUnit> actual = underTest.findTestUnitsForAllSuppliedClasses(List.of(ATest2.class, ATest.class));
         assertThat(actual).hasSize(2);

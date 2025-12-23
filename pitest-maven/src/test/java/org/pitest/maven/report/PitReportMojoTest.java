@@ -106,7 +106,7 @@ public class PitReportMojoTest {
   }
 
   private void reflectionSetSiteReportDir(String value) throws Exception {
-    Field f = this.fixture.getClass().getDeclaredField("siteReportDirectory");
+    var f = this.fixture.getClass().getDeclaredField("siteReportDirectory");
     f.setAccessible(true);
     f.set(this.fixture, value);
   }

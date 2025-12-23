@@ -60,7 +60,7 @@ public abstract class InfiniteLoopFilter implements MutationInterceptor {
     if (maybeMethod.isEmpty()) {
       return Collections.emptyList();
     }
-    MethodTree method = maybeMethod.get();
+    var method = maybeMethod.get();
     if (method.instructions().isEmpty()) {
       // occurs for mutations to annotations on interfaces
       return Collections.emptyList();

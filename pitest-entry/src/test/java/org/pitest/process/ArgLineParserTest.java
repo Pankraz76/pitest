@@ -125,7 +125,7 @@ public class ArgLineParserTest {
 
     @Test
     public void handlesRealExampleArgLine() {
-        String argLine = "-Dfile.encoding=UTF-8\n" +
+        var argLine = "-Dfile.encoding=UTF-8\n" +
                 "      -Dnet.bytebuddy.experimental=true\n" +
                 "      --add-opens=java.base/java.lang=ALL-UNNAMED\n" +
                 "      --add-opens=java.base/java.math=ALL-UNNAMED\n";

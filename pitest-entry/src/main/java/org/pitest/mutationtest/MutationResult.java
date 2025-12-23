@@ -89,7 +89,7 @@ public final class MutationResult {
     if (obj == null || getClass() != obj.getClass()) {
       return false;
     }
-    final MutationResult other = (MutationResult) obj;
+    final var other = (MutationResult) obj;
     return Objects.equals(details, other.details)
             && Objects.equals(status, other.status);
   }

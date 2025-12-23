@@ -7,7 +7,7 @@ ReportDirCreationStrategy {
 
   @Override
   public File createReportDir(final String base) {
-    final File reportDir = new File(base);
+    final var reportDir = new File(base);
     reportDir.mkdirs();
     return reportDir;
   }

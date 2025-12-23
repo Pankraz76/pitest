@@ -11,10 +11,10 @@ public class HasSwitchOnStringTesteeTest {
   @Test
   public void stringSwitchShouldReturnA() throws Exception {
     // given
-    final String input = "a";
+    final var input = "a";
 
     // when
-    final String result = testee.switchString(input);
+    final var result = testee.switchString(input);
 
     // then
     assertThat(result).isEqualTo("A");
@@ -23,10 +23,10 @@ public class HasSwitchOnStringTesteeTest {
   @Test
   public void stringSwitchShouldReturnB() throws Exception {
     // given
-    final String input = "b";
+    final var input = "b";
 
     // when
-    final String result = testee.switchString(input);
+    final var result = testee.switchString(input);
 
     // then
     assertThat(result).isEqualTo("B");
@@ -35,10 +35,10 @@ public class HasSwitchOnStringTesteeTest {
   @Test
   public void stringSwitchShouldReturnC() throws Exception {
     // given
-    final String input = "c";
+    final var input = "c";
 
     // when
-    final String result = testee.switchString(input);
+    final var result = testee.switchString(input);
 
     // then
     assertThat(result).isEqualTo("C");
@@ -48,7 +48,7 @@ public class HasSwitchOnStringTesteeTest {
   public void stringSwitchShouldThrowIllegalArgumentException()
       throws Exception {
     // given
-    final String input = "x";
+    final var input = "x";
 
     // when
     testee.switchString(input);
@@ -61,10 +61,10 @@ public class HasSwitchOnStringTesteeTest {
   public void switchIntegerAndThenSwitchStringShouldReturnA1()
       throws Exception {
     // given
-    final int input = 1;
+    final var input = 1;
 
     // when
-    final String result = testee.switchIntegerAndThenSwitchString(input);
+    final var result = testee.switchIntegerAndThenSwitchString(input);
 
     // then
     assertThat(result).isEqualTo("A1");
@@ -74,10 +74,10 @@ public class HasSwitchOnStringTesteeTest {
   public void switchIntegerAndThenSwitchStringShouldReturnB1()
       throws Exception {
     // given
-    final int input = 2;
+    final var input = 2;
 
     // when
-    final String result = testee.switchIntegerAndThenSwitchString(input);
+    final var result = testee.switchIntegerAndThenSwitchString(input);
 
     // then
     assertThat(result).isEqualTo("B1");
@@ -87,10 +87,10 @@ public class HasSwitchOnStringTesteeTest {
   public void switchIntegerAndThenSwitchStringShouldReturnC1()
       throws Exception {
     // given
-    final int input = 3;
+    final var input = 3;
 
     // when
-    final String result = testee.switchIntegerAndThenSwitchString(input);
+    final var result = testee.switchIntegerAndThenSwitchString(input);
 
     // then
     assertThat(result).isEqualTo("C1");
@@ -100,7 +100,7 @@ public class HasSwitchOnStringTesteeTest {
   public void switchIntegerAndThenSwitchStringShouldThrowIllegalArgumentException()
       throws Exception {
     // given
-    final int input = 4;
+    final var input = 4;
 
     // when
     testee.switchIntegerAndThenSwitchString(input);

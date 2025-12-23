@@ -71,7 +71,7 @@ public class RunnerSuiteFinderTest {
   public static class JUnit3Suite extends TestCase {
     public static junit.framework.Test suite() {
 
-      final TestSuite suite = new TestSuite();
+      final var suite = new TestSuite();
       suite.addTestSuite(One.class);
       suite.addTestSuite(Two.class);
 
@@ -93,12 +93,12 @@ public class RunnerSuiteFinderTest {
     }
 
     public static junit.framework.Test suite() {
-      final TestSuite suite = new TestSuite();
-      One one = new One();
+      final var suite = new TestSuite();
+      var one = new One();
       one.setName("testSomething");
       suite.addTest(one);
 
-      Two two = new Two();
+      var two = new Two();
       two.setName("testSomething");
 
       suite.addTest(two);

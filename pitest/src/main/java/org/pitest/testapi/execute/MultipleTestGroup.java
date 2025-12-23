@@ -56,7 +56,7 @@ public final class MultipleTestGroup extends AbstractTestUnit {
     if (obj == null || getClass() != obj.getClass()) {
       return false;
     }
-    final MultipleTestGroup other = (MultipleTestGroup) obj;
+    final var other = (MultipleTestGroup) obj;
     return Objects.equals(children, other.children);
   }
 

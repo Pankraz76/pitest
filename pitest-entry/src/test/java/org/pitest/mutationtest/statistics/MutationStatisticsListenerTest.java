@@ -38,7 +38,7 @@ public class MutationStatisticsListenerTest {
 
   @Test
   public void shouldGatherStatistics() {
-    final MutationResult mr = makeResult();
+    final var mr = makeResult();
     this.testee.handleMutationResult(createMetaData(mr));
     assertTrue(hasResultFor(mr.getDetails().getId().getMutator()));
   }

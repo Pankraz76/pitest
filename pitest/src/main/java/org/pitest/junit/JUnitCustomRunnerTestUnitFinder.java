@@ -102,8 +102,8 @@ public class JUnitCustomRunnerTestUnitFinder implements TestUnitFinder {
   }
 
   private void showJUnitErrors(Class<?> clazz, Runner runner) {
-    RunNotifier notifier = new RunNotifier();
-    DebugListener debugListener = new DebugListener();
+    var notifier = new RunNotifier();
+    var debugListener = new DebugListener();
     notifier.addListener(debugListener);
     runner.run(notifier);
     debugListener.problems()
@@ -144,7 +144,7 @@ public class JUnitCustomRunnerTestUnitFinder implements TestUnitFinder {
   }
 
   private List<String> getCategories(final Class<?> a) {
-    final Category c = a.getAnnotation(Category.class);
+    final var c = a.getAnnotation(Category.class);
     return Stream.of(c)
             .flatMap(toCategoryNames())
             .collect(Collectors.toList());
@@ -204,7 +204,7 @@ public class JUnitCustomRunnerTestUnitFinder implements TestUnitFinder {
   }
 
   private boolean runnerCannotBeSplit(final Runner runner) {
-    final String runnerName = runner.getClass().getName();
+    final var runnerName = runner.getClass().getName();
     return runnerName.equals("junitparams.JUnitParamsRunner")
         || runnerName.startsWith("org.spockframework.runtime.Sputnik")
         || runnerName.startsWith("com.insightfullogic.lambdabehave")

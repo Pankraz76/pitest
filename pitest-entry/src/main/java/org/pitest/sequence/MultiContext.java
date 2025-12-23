@@ -44,7 +44,7 @@ final class MultiContext implements Context {
         if (!(o instanceof MultiContext)) {
             return false;
         }
-        MultiContext context = (MultiContext) o;
+        var context = (MultiContext) o;
         return slots.equals(context.slots);
     }
 

@@ -6,7 +6,7 @@ public class NullWriterFactoryTest {
 
   @Test
   public void shouldCreateAUsableWriter() {
-    final NullWriterFactory testee = new NullWriterFactory();
+    final var testee = new NullWriterFactory();
     testee.create().println("foo");
     // pass
   }

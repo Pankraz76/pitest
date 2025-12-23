@@ -52,20 +52,20 @@ public class CodeCoverageStoreTest {
 
   @Test
   public void shouldRegisterNewClassesWithReceiver() {
-    final int id = CodeCoverageStore.registerClass("Foo");
+    final var id = CodeCoverageStore.registerClass("Foo");
     verify(this.receiver).registerClass(id, "Foo");
   }
 
   @Test
   public void shouldGenerateNewClassIdForEachClass() {
-    final int id = CodeCoverageStore.registerClass("Foo");
-    final int id2 = CodeCoverageStore.registerClass("Bar");
+    final var id = CodeCoverageStore.registerClass("Foo");
+    final var id2 = CodeCoverageStore.registerClass("Bar");
     assertFalse(id == id2);
   }
 
   @Test
   public void shouldCodeAndEncodeWhenClassIdAndLineNumberAreAtMaximum() {
-    final long value = CodeCoverageStore.encode(Integer.MAX_VALUE,
+    final var value = CodeCoverageStore.encode(Integer.MAX_VALUE,
         Integer.MAX_VALUE);
     assertEquals(Integer.MAX_VALUE, CodeCoverageStore.decodeClassId(value));
     assertEquals(Integer.MAX_VALUE, CodeCoverageStore.decodeLineId(value));
@@ -73,28 +73,28 @@ public class CodeCoverageStoreTest {
 
   @Test
   public void shouldCodeAndEncodeWhenClassIdAndLineNumberAreAtMinimum() {
-    final long value = CodeCoverageStore.encode(Integer.MIN_VALUE, 0);
+    final var value = CodeCoverageStore.encode(Integer.MIN_VALUE, 0);
     assertEquals(Integer.MIN_VALUE, CodeCoverageStore.decodeClassId(value));
     assertEquals(0, CodeCoverageStore.decodeLineId(value));
   }
 
   @Test
   public void shouldCodeAndEncodeWhenClassIdAndLineNumberAreZero() {
-    final long value = CodeCoverageStore.encode(0, 0);
+    final var value = CodeCoverageStore.encode(0, 0);
     assertEquals(0, CodeCoverageStore.decodeClassId(value));
     assertEquals(0, CodeCoverageStore.decodeLineId(value));
   }
 
   @Test
   public void shouldCodeAndEncodeClassIdAndLineNumber() {
-    final long value = CodeCoverageStore.encode(42, 123);
+    final var value = CodeCoverageStore.encode(42, 123);
     assertEquals(42, CodeCoverageStore.decodeClassId(value));
     assertEquals(123, CodeCoverageStore.decodeLineId(value));
   }
 
   @Test
   public void shouldClearHitCountersWhenReset() {
-    final int classId = CodeCoverageStore.registerClass("foo");
+    final var classId = CodeCoverageStore.registerClass("foo");
 
     boolean[] ar = CodeCoverageStore.getOrRegisterClassProbes(classId, 2);
     ar[0] = true;
@@ -109,7 +109,7 @@ public class CodeCoverageStoreTest {
   public void shouldBeSafeToAccessAcrossMultipleThreads()
       throws InterruptedException, ExecutionException {
 
-    int classId = CodeCoverageStore.registerClass("foo");
+    var classId = CodeCoverageStore.registerClass("foo");
     boolean[] ar = CodeCoverageStore.getOrRegisterClassProbes(classId, 2);
     ar[0] = true;
     ar[1] = true;
@@ -117,7 +117,7 @@ public class CodeCoverageStoreTest {
     final Callable<ConcurrentModificationException> read = makeReader();
 
     final ExecutorService pool = Executors.newFixedThreadPool(13);
-    for (int i = 1; i != 13; i++) {
+    for (var i = 1; i != 13; i++) {
       pool.submit(makeWriter(i, ar));
     }
     final Future<ConcurrentModificationException> future = pool.submit(read);
@@ -143,7 +143,7 @@ public class CodeCoverageStoreTest {
       }
 
       private long pointlesslyIterateCollection() {
-        long total = 0;
+        var total = 0L;
         for (final Long i : CodeCoverageStore.getHits()) {
           total += i;
           try {
@@ -159,8 +159,8 @@ public class CodeCoverageStoreTest {
   }
 
   private static Runnable makeWriter(final int sleepPeriod, final boolean[] ar) {
-    final Runnable write = () -> {
-      for (int i = 0; i != 1000; i++) {
+    final var write = () -> {
+      for (var i = 0; i != 1000; i++) {
         try {
           Thread.sleep(sleepPeriod);
         } catch (final InterruptedException e) {

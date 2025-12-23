@@ -34,7 +34,7 @@ class MissingTestNGPluginVerifier implements BuildVerifier {
     public List<BuildMessage> verifyBuild() {
         if (!testNGPluginIsPresent() && testNGisPresent()) {
             // log as well as return in case the run is aborted before messages are displayed at the end
-            String msg = "TestNG is on the classpath but the pitest TestNG plugin is not installed.";
+            var msg = "TestNG is on the classpath but the pitest TestNG plugin is not installed.";
             Log.getLogger().warning(msg);
             return asList(new BuildMessage(msg, "https://github.com/pitest/pitest-testng-plugin", 5));
         }

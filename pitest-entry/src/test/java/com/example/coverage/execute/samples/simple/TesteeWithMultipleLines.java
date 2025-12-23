@@ -11,7 +11,7 @@ public class TesteeWithMultipleLines {
   }
 
   public int foo(final int i) {
-    int j = 0;
+    var j = 0;
     try {
       j = j + 1;
       j = Math.max(i, j);

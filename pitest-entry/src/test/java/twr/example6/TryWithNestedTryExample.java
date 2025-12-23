@@ -11,8 +11,8 @@ import java.io.IOException;
 public class TryWithNestedTryExample {
 
     public static void main(String[] args) throws IOException {
-        try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
-            try (BufferedOutputStream bos = new BufferedOutputStream(baos)) {
+        try (var baos = new ByteArrayOutputStream()) {
+            try (var bos = new BufferedOutputStream(baos)) {
                 bos.flush();
             }
         }

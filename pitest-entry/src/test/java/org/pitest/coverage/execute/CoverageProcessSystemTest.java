@@ -223,12 +223,12 @@ public class CoverageProcessSystemTest {
 
   public static class ReliesOnNewLine {
     public static String parseNewLines() throws IOException {
-      final StringWriter sw = new StringWriter();
-      final PrintWriter pw = new PrintWriter(sw);
+      final var sw = new StringWriter();
+      final var pw = new PrintWriter(sw);
       pw.println("foo");
       pw.println("bar");
 
-      final BufferedReader in = new BufferedReader(new StringReader(sw
+      final var in = new BufferedReader(new StringReader(sw
           .getBuffer().toString()));
       return in.readLine();
     }
@@ -279,19 +279,19 @@ public class CoverageProcessSystemTest {
       InterruptedException {
     final Consumer<CoverageResult> handler = a -> coveredClasses.add(a);
 
-    final CoverageOptions sa = new CoverageOptions(coverOnlyTestees(), excludeTests(), TestPluginArguments.defaults(), VERBOSE);
+    final var sa = new CoverageOptions(coverOnlyTestees(), excludeTests(), TestPluginArguments.defaults(), VERBOSE);
 
-    final JarCreatingJarFinder agent = new JarCreatingJarFinder();
+    final var agent = new JarCreatingJarFinder();
     try {
-      final LaunchOptions lo = new LaunchOptions(agent);
-      final SocketFinder sf = new SocketFinder();
-      final CoverageProcess process = new CoverageProcess(ProcessArgs
+      final var lo = new LaunchOptions(agent);
+      final var sf = new SocketFinder();
+      final var process = new CoverageProcess(ProcessArgs
           .withClassPath(new ClassPath()).andLaunchOptions(lo), sa,
           sf.getNextAvailableServerSocket(), Arrays.asList(test.getName()),
           handler);
       process.start();
 
-      final ExitCode exitCode = process.waitToDie();
+      final var exitCode = process.waitToDie();
       assertEquals(ExitCode.OK, exitCode);
     } finally {
       agent.close();

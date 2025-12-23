@@ -62,16 +62,16 @@ public class ComputeClassWriter extends ClassWriter {
 
   @Override
   protected String getCommonSuperClass(final String type1, final String type2) {
-    final String key = type1 + "!_!" + type2;
-    final String previous = this.cache.get(key);
+    final var key = type1 + "!_!" + type2;
+    final var previous = this.cache.get(key);
     if (previous != null) {
       return previous;
     }
 
-    final ClassReader info1 = typeInfo(type1);
-    final ClassReader info2 = typeInfo(type2);
+    final var info1 = typeInfo(type1);
+    final var info2 = typeInfo(type2);
 
-    final String result = getCommonSuperClass(type1, info1, type2, info2);
+    final var result = getCommonSuperClass(type1, info1, type2, info2);
     this.cache.put(key, result);
     return result;
 
@@ -93,18 +93,18 @@ public class ComputeClassWriter extends ClassWriter {
       }
     }
 
-    final StringBuilder b1 = typeAncestors(type1, info1);
-    final StringBuilder b2 = typeAncestors(type2, info2);
-    String result = "java/lang/Object";
-    int end1 = b1.length();
-    int end2 = b2.length();
+    final var b1 = typeAncestors(type1, info1);
+    final var b2 = typeAncestors(type2, info2);
+    var result = "java/lang/Object";
+    var end1 = b1.length();
+    var end2 = b2.length();
     while (true) {
-      final int start1 = b1.lastIndexOf(";", end1 - 1);
-      final int start2 = b2.lastIndexOf(";", end2 - 1);
+      final var start1 = b1.lastIndexOf(";", end1 - 1);
+      final var start2 = b2.lastIndexOf(";", end2 - 1);
       if ((start1 != -1) && (start2 != -1)
           && ((end1 - start1) == (end2 - start2))) {
-        final String p1 = b1.substring(start1 + 1, end1);
-        final String p2 = b2.substring(start2 + 1, end2);
+        final var p1 = b1.substring(start1 + 1, end1);
+        final var p2 = b2.substring(start2 + 1, end2);
         if (p1.equals(p2)) {
           result = p1;
           end1 = start1;
@@ -137,7 +137,7 @@ public class ComputeClassWriter extends ClassWriter {
    *         is empty.
    */
   private StringBuilder typeAncestors(String type, ClassReader info) {
-    final StringBuilder b = new StringBuilder();
+    final var b = new StringBuilder();
     while (!"java/lang/Object".equals(type)) {
       b.append(';').append(type);
       type = info.getSuperName();
@@ -158,9 +158,9 @@ public class ComputeClassWriter extends ClassWriter {
    * @return true if 'type' implements directly or indirectly 'itf'
    */
   private boolean typeImplements(String type, ClassReader info, final String itf) {
-    final String cleanItf = itf.replace(".", "/");
+    final var cleanItf = itf.replace(".", "/");
     while (!"java/lang/Object".equals(type)) {
-      final String[] itfs = info.getInterfaces();
+      final var itfs = info.getInterfaces();
       for (final String itf2 : itfs) {
         if (itf2.equals(cleanItf)) {
           return true;

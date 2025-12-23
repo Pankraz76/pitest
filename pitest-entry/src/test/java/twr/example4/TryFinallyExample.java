@@ -10,7 +10,7 @@ import java.io.IOException;
 public class TryFinallyExample {
 
     public static void main(String[] args) throws IOException {
-        try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
+        try (var baos = new ByteArrayOutputStream()) {
             baos.flush();
         } finally {
             System.out.println("Finally!");

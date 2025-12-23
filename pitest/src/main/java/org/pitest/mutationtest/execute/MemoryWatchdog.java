@@ -30,7 +30,7 @@ public class MemoryWatchdog {
   public static void addWatchDogToAllPools(final long threshold,
       final NotificationListener listener) {
     final MemoryMXBean memBean = ManagementFactory.getMemoryMXBean();
-    final NotificationEmitter ne = (NotificationEmitter) memBean;
+    final var ne = (NotificationEmitter) memBean;
 
     ne.addNotificationListener(listener, null, null);
 
@@ -38,9 +38,9 @@ public class MemoryWatchdog {
         .getMemoryPoolMXBeans();
     for (final MemoryPoolMXBean mp : memPools) {
       if (mp.isUsageThresholdSupported()) {
-        final MemoryUsage mu = mp.getUsage();
-        final long max = mu.getMax();
-        final long alert = (max * threshold) / 100;
+        final var mu = mp.getUsage();
+        final var max = mu.getMax();
+        final var alert = (max * threshold) / 100;
         // LOG.info("Setting a threshold shutdown on pool: " + mp.getName()
         // + " for: " + alert);
         mp.setUsageThreshold(alert);

@@ -49,7 +49,7 @@ public class CoverageTestExecutionListener implements TestUnitExecutionListener 
             LOG.log(Level.SEVERE, description.toString(), maybeError);
         }
 
-        Long t0 = startTimes.remove(description);
+        var t0 = startTimes.remove(description);
         int executionTime;
         if (t0 == null) {
             LOG.warning("Recorded no start time. Test life cycle not as expected.");
@@ -66,7 +66,7 @@ public class CoverageTestExecutionListener implements TestUnitExecutionListener 
             }
         }
 
-        final int threadsAfterTest = threads.getThreadCount();
+        final var threadsAfterTest = threads.getThreadCount();
         if (threadsAfterTest > threadsBeforeTest.getOrDefault(description, 0)) {
             LOG.warning("More threads at end of test (" + threadsAfterTest + ") "
                     + description + " than start. ("

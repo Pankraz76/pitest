@@ -31,7 +31,7 @@ class CodeHistory {
   }
 
   public boolean hasClassChanged(final ClassName className) {
-    final ClassHistory historic = this.previousClassPath.get(className);
+    final var historic = this.previousClassPath.get(className);
     if (historic == null) {
       return true;
     }

@@ -45,7 +45,7 @@ public class MutationTestUnit implements MutationAnalysisUnit {
 
   @Override
   public MutationMetaData call() throws Exception {
-    final MutationStatusMap mutations = new MutationStatusMap();
+    final var mutations = new MutationStatusMap();
 
     mutations.setStatusForMutations(this.availableMutations,
         DetectionStatus.NOT_STARTED);
@@ -80,7 +80,7 @@ public class MutationTestUnit implements MutationAnalysisUnit {
 
     final Collection<MutationDetails> remainingMutations = mutations
         .getUnrunMutations();
-    final MutationTestProcess worker = this.workerFactory.createWorker(
+    final var worker = this.workerFactory.createWorker(
         remainingMutations, testClassesFor(remainingMutations));
     worker.start();
 
@@ -100,7 +100,7 @@ public class MutationTestUnit implements MutationAnalysisUnit {
   }
 
   private static ExitCode waitForMinionToDie(final MutationTestProcess worker) {
-    final ExitCode exitCode = worker.waitToDie();
+    final var exitCode = worker.waitToDie();
     LOG.fine("Exit code was - " + exitCode);
     if (exitCode == ExitCode.MINION_DIED) {
       LOG.severe("Minion did not start or died during analysis. This may indicate an issue in your environment such as insufficient memory.");

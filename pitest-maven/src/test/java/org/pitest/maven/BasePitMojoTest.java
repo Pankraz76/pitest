@@ -76,7 +76,7 @@ public abstract class BasePitMojoTest extends AbstractMojoTestCase {
     when(this.project.getTestClasspathElements()).thenReturn(this.classPath);
     when(this.project.getPackaging()).thenReturn("jar");
 
-    final Build build = new Build();
+    final var build = new Build();
     build.setOutputDirectory("");
 
     when(this.project.getBuild()).thenReturn(build);
@@ -88,7 +88,7 @@ public abstract class BasePitMojoTest extends AbstractMojoTestCase {
   }
 
   protected String createPomWithConfiguration(final String config) {
-    final String pom = "<project>\n" + //
+    final var pom = "<project>\n" + //
         "  <build>\n" + //
         "    <plugins>\n" + //
         "      <plugin>\n" + //
@@ -104,7 +104,7 @@ public abstract class BasePitMojoTest extends AbstractMojoTestCase {
   }
 
   protected PitMojo createPITMojo(final String config) throws Exception {
-    final PitMojo pitMojo = new PitMojo(this.executionStrategy, this.filter,
+    final var pitMojo = new PitMojo(this.executionStrategy, this.filter,
         this.plugins, p -> true, null);
     configurePitMojo(pitMojo, config);
     return pitMojo;
@@ -113,7 +113,7 @@ public abstract class BasePitMojoTest extends AbstractMojoTestCase {
   protected void configurePitMojo(final PitMojo pitMojo, final String config)
       throws Exception {
     final Xpp3Dom xpp3dom = Xpp3DomBuilder.build(new StringReader(config));
-    final PlexusConfiguration pluginConfiguration = extractPluginConfiguration(
+    final var pluginConfiguration = extractPluginConfiguration(
         "pitest-maven", xpp3dom);
 
     // default the report dir to something

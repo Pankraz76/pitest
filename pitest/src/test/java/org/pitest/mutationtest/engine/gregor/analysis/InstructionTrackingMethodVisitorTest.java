@@ -25,7 +25,7 @@ public class InstructionTrackingMethodVisitorTest {
   @Test
   public void shouldGiveIndexConsistentWithTreeApiForStringEquals() {
     analyse(String.class, "equals");
-    final MethodNode tree = makeTree(String.class, "equals");
+    final var tree = makeTree(String.class, "equals");
     assertEquals(tree.instructions.size(),
         this.counter.currentInstructionCount());
   }
@@ -46,7 +46,7 @@ public class InstructionTrackingMethodVisitorTest {
   @Test
   public void shouldGiveIndexConsistentWithTreeApiWhenMethodCallsPresent() {
     analyse(HasMethodCallsAndBranches.class, "foo");
-    final MethodNode tree = makeTree(HasMethodCallsAndBranches.class, "foo");
+    final var tree = makeTree(HasMethodCallsAndBranches.class, "foo");
     assertEquals(tree.instructions.size(),
         this.counter.currentInstructionCount());
   }
@@ -75,27 +75,27 @@ public class InstructionTrackingMethodVisitorTest {
   @Test
   public void shouldGiveIndexConsistentWithTreeApiWhenSwitchStatementsPresent() {
     analyse(HasSwitchStatements.class, "foo");
-    final MethodNode tree = makeTree(HasSwitchStatements.class, "foo");
+    final var tree = makeTree(HasSwitchStatements.class, "foo");
     assertEquals(tree.instructions.size(),
         this.counter.currentInstructionCount());
   }
 
   private InstructionTrackingMethodVisitor analyse(final Class<?> clazz,
       final String targetMethod) {
-    final ClassReader reader = new ClassReader(this.byteSource.getBytes(
+    final var reader = new ClassReader(this.byteSource.getBytes(
         clazz.getName()).get());
-    final Analyser cv = new Analyser(targetMethod);
+    final var cv = new Analyser(targetMethod);
     reader.accept(cv, 0);
     return cv.testee;
   }
 
   private MethodNode makeTree(final Class<?> clazz, final String name) {
-    final ClassReader reader = new ClassReader(this.byteSource.getBytes(
+    final var reader = new ClassReader(this.byteSource.getBytes(
         ClassName.fromClass(clazz).asJavaName()).get());
-    final ClassNode tree = new ClassNode();
+    final var tree = new ClassNode();
     reader.accept(tree, 0);
     for (final Object m : tree.methods) {
-      final MethodNode mn = (MethodNode) m;
+      final var mn = (MethodNode) m;
       if (mn.name.equals(name)) {
         return mn;
       }

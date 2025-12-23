@@ -63,8 +63,8 @@ public class MutationTestWorkerTest {
 
   @Test
   public void shouldDescribeEachExaminedMutation() throws IOException {
-    final MutationDetails mutantOne = makeMutant("foo", 1);
-    final MutationDetails mutantTwo = makeMutant("foo", 2);
+    final var mutantOne = makeMutant("foo", 1);
+    final var mutantTwo = makeMutant("foo", 2);
     final Collection<MutationDetails> range = Arrays.asList(mutantOne,
         mutantTwo);
     this.testee.run(range, this.reporter, this.testSource);
@@ -76,7 +76,7 @@ public class MutationTestWorkerTest {
   @Ignore("disabled while checking coverage issue")
   public void shouldReportNoCoverageForMutationWithNoTestCoverage()
       throws IOException {
-    final MutationDetails mutantOne = makeMutant("foo", 1);
+    final var mutantOne = makeMutant("foo", 1);
     final Collection<MutationDetails> range = Arrays.asList(mutantOne);
     this.testee.run(range, this.reporter, this.testSource);
     verify(this.reporter).report(mutantOne.getId(),
@@ -85,9 +85,9 @@ public class MutationTestWorkerTest {
 
   @Test
   public void shouldReportWhenMutationNotDetected() throws IOException {
-    final MutationDetails mutantOne = makeMutant("foo", 1);
+    final var mutantOne = makeMutant("foo", 1);
     final Collection<MutationDetails> range = Arrays.asList(mutantOne);
-    final TestUnit tu = makePassingTest();
+    final var tu = makePassingTest();
     when(this.testSource.translateTests(any(List.class))).thenReturn(
         Collections.singletonList(tu));
     when(
@@ -99,9 +99,9 @@ public class MutationTestWorkerTest {
 
   @Test
   public void shouldReportWhenMutationNotViable() throws IOException {
-    final MutationDetails mutantOne = makeMutant("foo", 1);
+    final var mutantOne = makeMutant("foo", 1);
     final Collection<MutationDetails> range = Arrays.asList(mutantOne);
-    final TestUnit tu = makePassingTest();
+    final var tu = makePassingTest();
     when(this.testSource.translateTests(any(List.class))).thenReturn(
         Collections.singletonList(tu));
     when(
@@ -115,9 +115,9 @@ public class MutationTestWorkerTest {
 
   @Test
   public void shouldReportWhenMutationKilledByTest() throws IOException {
-    final MutationDetails mutantOne = makeMutant("foo", 1);
+    final var mutantOne = makeMutant("foo", 1);
     final Collection<MutationDetails> range = Arrays.asList(mutantOne);
-    final TestUnit tu = makeFailingTest();
+    final var tu = makeFailingTest();
     when(this.testSource.translateTests(any(List.class))).thenReturn(
         Collections.singletonList(tu));
     when(
@@ -165,10 +165,10 @@ public class MutationTestWorkerTest {
   }
 
   public MutationDetails makeMutant(final String clazz, final int index) {
-    final MutationIdentifier id = aMutationId()
+    final var id = aMutationId()
         .withLocation(aLocation().withClass(ClassName.fromString(clazz)))
         .withIndex(index).withMutator("mutator").build();
-    final MutationDetails md = new MutationDetails(id, "sourceFile", "desc",
+    final var md = new MutationDetails(id, "sourceFile", "desc",
         42, 0);
 
     when(this.mutater.getMutation(md.getId())).thenReturn(

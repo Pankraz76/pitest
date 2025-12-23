@@ -63,7 +63,7 @@ public final class ClassInfo implements ClassHash {
   }
 
   public BigInteger getDeepHash() {
-    BigInteger hash = getHash();
+    var hash = getHash();
     final Optional<ClassInfo> parent = getParent();
     if (parent.isPresent()) {
       hash = hash.add(parent.get().getHash());

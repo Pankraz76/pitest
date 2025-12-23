@@ -65,7 +65,7 @@ public class MutationAnalysisExecutor {
   private void processResult(List<Future<MutationMetaData>> results)
           throws InterruptedException, ExecutionException {
     for (Future<MutationMetaData> f : results) {
-      MutationMetaData metaData = f.get();
+      var metaData = f.get();
       for (ClassMutationResults cr : resultInterceptor.modify(metaData.toClassResults())) {
         for (MutationResultListener listener : this.listeners) {
           listener.handleMutationResult(cr);

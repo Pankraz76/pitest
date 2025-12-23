@@ -56,10 +56,10 @@ class IncrementalAnalyser implements MutationAnalyser {
   }
 
   private void logTotals() {
-    int numberOfReducedMutations = 0;
+    var numberOfReducedMutations = 0;
     for (final Entry<DetectionStatus, Long> each : this.preAnalysed.entrySet()) {
-      final Long numberOfMutationsInStatus = each.getValue();
-      final DetectionStatus mutationStatus = each.getKey();
+      final var numberOfMutationsInStatus = each.getValue();
+      final var mutationStatus = each.getKey();
       LOG.fine("Incremental analysis set " + numberOfMutationsInStatus
           + " mutations to a status of " + mutationStatus);
       if (mutationStatus != DetectionStatus.NOT_STARTED) {
@@ -72,7 +72,7 @@ class IncrementalAnalyser implements MutationAnalyser {
 
   private MutationResult analyseFromHistory(MutationDetails each, MutationStatusTestPair mutationStatusTestPair) {
 
-    final ClassName clazz = each.getClassName();
+    final var clazz = each.getClassName();
 
     if (this.history.hasClassChanged(clazz)) {
       if (mutationStatusTestPair.getKillingTest().isPresent()) {

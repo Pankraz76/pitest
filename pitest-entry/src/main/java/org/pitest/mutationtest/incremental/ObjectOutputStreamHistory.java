@@ -61,7 +61,7 @@ public class ObjectOutputStreamHistory implements History {
 
   @Override
   public void recordResult(final MutationResult result) {
-    final PrintWriter output = this.outputFactory.create();
+    final var output = this.outputFactory.create();
     output.println(serialize(new ObjectOutputStreamHistory.IdResult(
         result.getDetails().getId(), result.getStatusTestPair())));
     output.flush();
@@ -69,7 +69,7 @@ public class ObjectOutputStreamHistory implements History {
 
   @Override
   public List<MutationResult> analyse(List<MutationDetails> mutationsForClasses) {
-     final MutationAnalyser analyser =  new IncrementalAnalyser(new CodeHistory(code, this.previousResults, this.previousClassPath),
+     final var analyser =  new IncrementalAnalyser(new CodeHistory(code, this.previousResults, this.previousClassPath),
             this.coverageData);
     return analyser.analyse(mutationsForClasses);
   }
@@ -107,10 +107,10 @@ public class ObjectOutputStreamHistory implements History {
             .sorted(Comparator.comparing(HierarchicalClassId::getName))
             .collect(Collectors.toList());
 
-    final PrintWriter output = this.outputFactory.create();
+    final var output = this.outputFactory.create();
     output.println(ids.size());
     for (final HierarchicalClassId each : ids) {
-      final ClassHistory coverage = new ClassHistory(each,
+      final var coverage = new ClassHistory(each,
               coverageData.getCoverageIdForClass(each.getName()).toString(16));
       output.println(serialize(coverage));
     }
@@ -123,7 +123,7 @@ public class ObjectOutputStreamHistory implements History {
     try {
       line = this.input.readLine();
       while (line != null) {
-        final IdResult result = deserialize(line, IdResult.class);
+        final var result = deserialize(line, IdResult.class);
         this.previousResults.put(result.id, result.status);
         line = this.input.readLine();
       }
@@ -134,9 +134,9 @@ public class ObjectOutputStreamHistory implements History {
 
   private void restoreClassPath() {
     try {
-      final long classPathSize = Long.parseLong(this.input.readLine());
-      for (int i = 0; i != classPathSize; i++) {
-        final ClassHistory coverage = deserialize(this.input.readLine(),
+      final var classPathSize = Long.parseLong(this.input.readLine());
+      for (var i = 0; i != classPathSize; i++) {
+        final var coverage = deserialize(this.input.readLine(),
             ClassHistory.class);
         this.previousClassPath.put(coverage.getName(), coverage);
       }
@@ -147,9 +147,9 @@ public class ObjectOutputStreamHistory implements History {
 
   private <T> T deserialize(String string, Class<T> clazz) throws IOException {
     try {
-      final ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(
+      final var byteArrayInputStream = new ByteArrayInputStream(
           Base64.getDecoder().decode(string));
-      final ObjectInputStream objectInputStream = new ObjectInputStream(
+      final var objectInputStream = new ObjectInputStream(
           byteArrayInputStream);
       return clazz.cast(objectInputStream.readObject());
     } catch (final ClassNotFoundException e) {
@@ -159,8 +159,8 @@ public class ObjectOutputStreamHistory implements History {
 
   private <T> String serialize(T t) {
     try {
-      final ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-      final ObjectOutputStream objectOutputStream = new ObjectOutputStream(
+      final var byteArrayOutputStream = new ByteArrayOutputStream();
+      final var objectOutputStream = new ObjectOutputStream(
           byteArrayOutputStream);
       objectOutputStream.writeObject(t);
       return Base64.getEncoder().encodeToString(byteArrayOutputStream.toByteArray());

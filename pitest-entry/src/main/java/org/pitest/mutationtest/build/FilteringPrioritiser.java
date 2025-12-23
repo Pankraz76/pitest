@@ -18,7 +18,7 @@ public class FilteringPrioritiser implements TestPrioritiserFactory {
 
     @Override
     public TestPrioritiser makeTestPrioritiser(Properties props, CodeSource code, CoverageDatabase coverage) {
-        TestPrioritiser p = delegate.makeTestPrioritiser(props, code, coverage);
+        var p = delegate.makeTestPrioritiser(props, code, coverage);
 
         return mutation -> p.assignTests(mutation).stream()
                 .filter(test -> filter.include(test, mutation))

@@ -22,8 +22,8 @@ import org.pitest.coverage.codeassist.ClassUtils;
 public class ClassInfoVisitorTest {
   @Test
   public void shouldRecordSuperClass() throws ClassNotFoundException {
-    final String sampleName = String.class.getName();
-    final ClassInfoBuilder actual = getClassInfo(sampleName,
+    final var sampleName = String.class.getName();
+    final var actual = getClassInfo(sampleName,
         ClassUtils.classAsBytes(sampleName));
 
     assertThat(actual.superClass).isEqualTo("java/lang/Object");

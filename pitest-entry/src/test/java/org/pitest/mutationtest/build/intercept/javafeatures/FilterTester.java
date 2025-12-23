@@ -61,7 +61,7 @@ public class FilterTester {
 
 
   public void assertFiltersMutationAtNLocations(int n, Class<?> clazz) {
-    final Sample s = makeSampleForCurrentCompiler(clazz);
+    final var s = makeSampleForCurrentCompiler(clazz);
     assertFiltersMutationAtNLocations(n, s, mutateFromClassLoader());
   }
 
@@ -83,8 +83,8 @@ public class FilterTester {
 
   private Function<MutationDetails, Loc> toLocation(final ClassTree tree) {
     return a -> {
-      final MethodTree method = tree.method(a.getId().getLocation()).get();
-      final Loc l = new Loc();
+      final var method = tree.method(a.getId().getLocation()).get();
+      final var l = new Loc();
       l.index = a.getInstructionIndex();
       l.node = method.instruction(a.getInstructionIndex());
       return l;
@@ -92,8 +92,8 @@ public class FilterTester {
   }
 
   public void assertCombinedMutantExists(Predicate<MutationDetails> match, Class<?> clazz) {
-    Sample s = makeSampleForCurrentCompiler(clazz);
-    GregorMutater mutator = mutateFromClassLoader();
+    var s = makeSampleForCurrentCompiler(clazz);
+    var mutator = mutateFromClassLoader();
     List<MutationDetails> mutations = mutator.findMutations(s.className);
     Collection<MutationDetails> actual = filter(s.clazz, mutations, mutator);
 
@@ -101,8 +101,8 @@ public class FilterTester {
   }
 
   public void assertLeavesNMutants(int n, Class<?> clazz) {
-    final Sample s = makeSampleForCurrentCompiler(clazz);
-    GregorMutater mutator = mutateFromClassLoader();
+    final var s = makeSampleForCurrentCompiler(clazz);
+    var mutator = mutateFromClassLoader();
     final List<MutationDetails> mutations = mutator.findMutations(s.className);
     final Collection<MutationDetails> actual = filter(s.clazz, mutations, mutator);
 
@@ -112,10 +112,10 @@ public class FilterTester {
   }
 
   public void assertLeavesNMutants(int n, String sample) {
-    final GregorMutater mutator = mutateFromResourceDir();
+    final var mutator = mutateFromResourceDir();
     atLeastOneSampleExists(sample);
 
-    final SoftAssertions softly = new SoftAssertions();
+    final var softly = new SoftAssertions();
 
     for (final Sample s : samples(sample)) {
       final List<MutationDetails> mutations = mutator.findMutations(s.className);
@@ -131,10 +131,10 @@ public class FilterTester {
   }
 
   public void assertFiltersNMutationFromSample(int n, String sample) {
-    final GregorMutater mutator = mutateFromResourceDir();
+    final var mutator = mutateFromResourceDir();
     atLeastOneSampleExists(sample);
 
-    final SoftAssertions softly = new SoftAssertions();
+    final var softly = new SoftAssertions();
 
     for (final Sample s : samples(sample)) {
       assertFiltersNMutants(n, mutator, s, softly);
@@ -144,9 +144,9 @@ public class FilterTester {
   }
 
   public void assertFiltersNMutationFromClass(int n, Class<?> clazz) {
-    final Sample s = makeSampleForCurrentCompiler(clazz);
+    final var s = makeSampleForCurrentCompiler(clazz);
 
-    final SoftAssertions softly = new SoftAssertions();
+    final var softly = new SoftAssertions();
 
     assertFiltersNMutants(n, mutateFromClassLoader(), s, softly);
 
@@ -155,10 +155,10 @@ public class FilterTester {
 
 
   public void assertFiltersNoMutationsMatching(Predicate<MutationDetails> match, Class<?> clazz) {
-    final Sample s = makeSampleForCurrentCompiler(clazz);
+    final var s = makeSampleForCurrentCompiler(clazz);
 
-    final SoftAssertions softly = new SoftAssertions();
-    GregorMutater mutator = mutateFromClassLoader();
+    final var softly = new SoftAssertions();
+    var mutator = mutateFromClassLoader();
 
     assertFiltersNoMatchingMutants(match, mutator, s, softly);
 
@@ -166,8 +166,8 @@ public class FilterTester {
   }
 
   public void assertFiltersNoMutationsMatching(Predicate<MutationDetails> match, String sample) {
-    final GregorMutater mutator = mutateFromResourceDir();
-    final SoftAssertions softly = new SoftAssertions();
+    final var mutator = mutateFromResourceDir();
+    final var softly = new SoftAssertions();
 
     for (final Sample s : samples(sample)) {
       assertFiltersNoMatchingMutants(match, mutator, s, softly);
@@ -177,10 +177,10 @@ public class FilterTester {
   }
 
   public void assertFiltersMutationsMatching(Predicate<MutationDetails> match, Class<?> clazz) {
-    final Sample s = makeSampleForCurrentCompiler(clazz);
+    final var s = makeSampleForCurrentCompiler(clazz);
 
-    final SoftAssertions softly = new SoftAssertions();
-    GregorMutater mutator = mutateFromClassLoader();
+    final var softly = new SoftAssertions();
+    var mutator = mutateFromClassLoader();
 
     assertFiltersMatchingMutants(match, mutator, s, softly);
 
@@ -188,10 +188,10 @@ public class FilterTester {
   }
 
   public void assertFiltersMutationsMatching(Predicate<MutationDetails> match, String sample) {
-    final GregorMutater mutator = mutateFromResourceDir();
+    final var mutator = mutateFromResourceDir();
     atLeastOneSampleExists(sample);
 
-    final SoftAssertions softly = new SoftAssertions();
+    final var softly = new SoftAssertions();
 
     for (final Sample s : samples(sample)) {
       assertFiltersMatchingMutants(match, mutator, s, softly);
@@ -224,7 +224,7 @@ public class FilterTester {
 
   private Sample makeSampleForCurrentCompiler(Class<?> clazz) {
     final ClassloaderByteArraySource source = ClassloaderByteArraySource.fromContext();
-    final Sample s = new Sample();
+    final var s = new Sample();
     s.className = ClassName.fromClass(clazz);
     s.clazz = ClassTree.fromBytes(source.getBytes(clazz.getName()).get());
     s.compiler = "current";
@@ -232,12 +232,12 @@ public class FilterTester {
   }
 
   public void assertFiltersMutationsFromMutator(String id, Class<?> clazz) {
-    final Sample s = sampleForClass(clazz);
-    final GregorMutater mutator = mutateFromClassLoader();
+    final var s = sampleForClass(clazz);
+    final var mutator = mutateFromClassLoader();
     final List<MutationDetails> mutations = mutator.findMutations(s.className);
     final Collection<MutationDetails> actual = filter(s.clazz, mutations, mutator);
 
-    final SoftAssertions softly = new SoftAssertions();
+    final var softly = new SoftAssertions();
     checkHasNMutants(1, s, softly, mutations);
 
     final List<MutationDetails> filteredOut = FCollection.filter(mutations, notIn(actual));
@@ -317,10 +317,10 @@ public class FilterTester {
 
   private List<Sample> samples(final String sample) {
     final Function<String, Stream<Sample>> toPair = compiler -> {
-      final String clazz = makeClassName(sample, compiler);
+      final var clazz = makeClassName(sample, compiler);
       final Optional<byte[]> bs = FilterTester.this.source.getBytes(clazz);
       if (bs.isPresent()) {
-        final Sample p = new Sample();
+        final var p = new Sample();
         p.className = ClassName.fromString(clazz);
         p.clazz = ClassTree.fromBytes(bs.get());
         p.compiler = compiler;
@@ -334,7 +334,7 @@ public class FilterTester {
 
   private boolean atLeastOneSampleExists(String sample) {
     for (final String compiler : compilers) {
-      final String clazz = makeClassName(sample, compiler);
+      final var clazz = makeClassName(sample, compiler);
       if (this.source.getBytes(clazz).isPresent()) {
         return true;
       }
@@ -353,7 +353,7 @@ public class FilterTester {
 
   private Sample sampleForClass(Class<?> clazz) {
     final ClassloaderByteArraySource source = ClassloaderByteArraySource.fromContext();
-    final Sample s = new Sample();
+    final var s = new Sample();
     s.className = ClassName.fromClass(clazz);
     s.clazz = ClassTree.fromBytes(source.getBytes(clazz.getName()).get());
     s.compiler = "current";

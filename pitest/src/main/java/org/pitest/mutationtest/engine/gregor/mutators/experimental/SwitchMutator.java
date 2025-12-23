@@ -45,9 +45,9 @@ public class SwitchMutator implements MethodMutatorFactory {
     @Override
     public void visitTableSwitchInsn(final int i, final int i1,
         final Label defaultLabel, final Label... labels) {
-      final Label newDefault = firstDifferentLabel(labels, defaultLabel);
+      final var newDefault = firstDifferentLabel(labels, defaultLabel);
       if ((newDefault != null) && shouldMutate()) {
-        final Label[] newLabels = swapLabels(labels, defaultLabel, newDefault);
+        final var newLabels = swapLabels(labels, defaultLabel, newDefault);
         super.visitTableSwitchInsn(i, i1, newDefault, newLabels);
       } else {
         super.visitTableSwitchInsn(i, i1, defaultLabel, labels);
@@ -57,9 +57,9 @@ public class SwitchMutator implements MethodMutatorFactory {
     @Override
     public void visitLookupSwitchInsn(final Label defaultLabel,
         final int[] ints, final Label[] labels) {
-      final Label newDefault = firstDifferentLabel(labels, defaultLabel);
+      final var newDefault = firstDifferentLabel(labels, defaultLabel);
       if ((newDefault != null) && shouldMutate()) {
-        final Label[] newLabels = swapLabels(labels, defaultLabel, newDefault);
+        final var newLabels = swapLabels(labels, defaultLabel, newDefault);
         super.visitLookupSwitchInsn(newDefault, ints, newLabels);
       } else {
         super.visitLookupSwitchInsn(defaultLabel, ints, labels);
@@ -69,8 +69,8 @@ public class SwitchMutator implements MethodMutatorFactory {
     private Label[] swapLabels(final Label[] labels, final Label defaultLabel,
         final Label newDefault) {
       final Label[] swapped = new Label[labels.length];
-      for (int i = 0; i < labels.length; i++) {
-        final Label candidate = labels[i];
+      for (var i = 0; i < labels.length; i++) {
+        final var candidate = labels[i];
         if (candidate == defaultLabel) {
           swapped[i] = newDefault;
         } else {
@@ -90,7 +90,7 @@ public class SwitchMutator implements MethodMutatorFactory {
     }
 
     private boolean shouldMutate() {
-      final MutationIdentifier mutationId = this.context.registerMutation(
+      final var mutationId = this.context.registerMutation(
               SwitchMutator.this, "Changed switch default to be first case");
       return this.context.shouldMutate(mutationId);
     }

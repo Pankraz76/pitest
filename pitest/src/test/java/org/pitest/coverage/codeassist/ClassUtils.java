@@ -20,15 +20,15 @@ public class ClassUtils {
   public static byte[] classAsBytes(final String className)
       throws ClassNotFoundException {
 
-    final URL resource = ClassUtils.class.getClassLoader().getResource(
+    final var resource = ClassUtils.class.getClassLoader().getResource(
         convertClassNameToFileName(className));
-    try (BufferedInputStream stream = new BufferedInputStream(
+    try (var stream = new BufferedInputStream(
         resource.openStream())) {
       final byte[] result = new byte[resource.openConnection()
                                      .getContentLength()];
 
       int i;
-      int counter = 0;
+      var counter = 0;
       while ((i = stream.read()) != -1) {
         result[counter] = (byte) i;
         counter++;

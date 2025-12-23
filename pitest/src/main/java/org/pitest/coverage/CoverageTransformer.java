@@ -26,7 +26,7 @@ public class CoverageTransformer implements ClassFileTransformer {
   public byte[] transform(final ClassLoader loader, final String className,
       final Class<?> classBeingRedefined,
       final ProtectionDomain protectionDomain, final byte[] classfileBuffer) {
-    final boolean include = shouldInclude(className);
+    final var include = shouldInclude(className);
     if (include) {
       try {
         return transformBytes(pickLoader(loader), className, classfileBuffer);
@@ -42,7 +42,7 @@ public class CoverageTransformer implements ClassFileTransformer {
 
   private byte[] transformBytes(final ClassLoader loader,
       final String className, final byte[] classfileBuffer) {
-    final ClassReader reader = new ClassReader(classfileBuffer);
+    final var reader = new ClassReader(classfileBuffer);
 
     /*
     Make sure that this class has not already been instrumented for coverage
@@ -50,11 +50,11 @@ public class CoverageTransformer implements ClassFileTransformer {
     would try to redefine a class (that we already added coverage tracking to),
     in which case we will just allow that previous coverage tracking to stand.
      */
-    final ClassWriter writer = new ComputeClassWriter(
+    final var writer = new ComputeClassWriter(
         new ClassloaderByteArraySource(loader), this.computeCache,
         FrameOptions.pickFlags(classfileBuffer));
 
-    final int id = CodeCoverageStore.registerClass(className);
+    final var id = CodeCoverageStore.registerClass(className);
     try {
       reader.accept(new CoverageClassVisitor(id, writer),
           ClassReader.EXPAND_FRAMES);

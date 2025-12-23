@@ -260,7 +260,7 @@ public final class MutationDetails implements Serializable {
     if (obj == null || getClass() != obj.getClass()) {
       return false;
     }
-    final MutationDetails other = (MutationDetails) obj;
+    final var other = (MutationDetails) obj;
     return Objects.equals(id, other.id);
   }
 }

@@ -64,7 +64,7 @@ public class AdaptedJUnitTestUnit extends AbstractTestUnit {
     filterIfRequired(rc, runner);
 
     try {
-        final CustomRunnerExecutor nativeCe = new CustomRunnerExecutor(
+        final var nativeCe = new CustomRunnerExecutor(
             this.getDescription(), runner, rc);
         nativeCe.run();
 
@@ -91,7 +91,7 @@ public class AdaptedJUnitTestUnit extends AbstractTestUnit {
             + ". Mutation may have prevented JUnit from constructing test");
         return;
       }
-      final Filterable f = (Filterable) runner;
+      final var f = (Filterable) runner;
       try {
         f.filter(this.filter.get());
       } catch (final NoTestsRemainException e1) {

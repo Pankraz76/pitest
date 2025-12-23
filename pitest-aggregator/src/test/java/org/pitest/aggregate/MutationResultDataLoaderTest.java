@@ -22,8 +22,8 @@ public class MutationResultDataLoaderTest {
 
   @Before
   public void setup() throws Exception {
-    final URL url = MutationResultDataLoaderTest.class.getResource("/full-data/mutations.xml");
-    final File file = new File(url.toURI());
+    final var url = MutationResultDataLoaderTest.class.getResource("/full-data/mutations.xml");
+    final var file = new File(url.toURI());
 
     this.underTest = new MutationResultDataLoader(Arrays.asList(file));
   }

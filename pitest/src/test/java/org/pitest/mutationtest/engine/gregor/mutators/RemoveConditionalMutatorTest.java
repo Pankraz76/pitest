@@ -391,7 +391,7 @@ public class RemoveConditionalMutatorTest {
     public void shouldReplaceIFGE_ORDER_F() {
         v = forMutator(new RemoveConditionalMutator(Choice.ORDER, false));
         v.forIntFunctionClass(HasIFGE.class);
-        final String expected = "was >= zero";
+        final var expected = "was >= zero";
         v.forIntFunctionClass(HasIFGE.class)
                 .firstMutantShouldReturn(1, expected);
         v.forIntFunctionClass(HasIFGE.class)
@@ -415,7 +415,7 @@ public class RemoveConditionalMutatorTest {
 
     @Test
     public void shouldReplaceIFGT_ORDER_T() {
-        final String expected = "was <= zero";
+        final var expected = "was <= zero";
         v = forMutator(new RemoveConditionalMutator(Choice.ORDER, true));
         v.forIntFunctionClass(HasIFGT.class)
                 .firstMutantShouldReturn(1, expected);
@@ -427,7 +427,7 @@ public class RemoveConditionalMutatorTest {
     public void shouldReplaceIFGT_ORDER_F() {
         v = forMutator(new RemoveConditionalMutator(Choice.ORDER, false));
 
-        final String expected = "was > zero";
+        final var expected = "was > zero";
         v.forIntFunctionClass(HasIFGT.class)
                 .firstMutantShouldReturn(1, expected);
         v.forIntFunctionClass(HasIFGT.class)
@@ -452,7 +452,7 @@ public class RemoveConditionalMutatorTest {
     @Test
     public void shouldReplaceIFLT_ORDER_T() {
         v = forMutator(new RemoveConditionalMutator(Choice.ORDER, true));
-        final String expected = "was >= zero";
+        final var expected = "was >= zero";
         v.forIntFunctionClass(HasIFLT.class)
                 .firstMutantShouldReturn(1, expected);
         v.forIntFunctionClass(HasIFLT.class)
@@ -463,7 +463,7 @@ public class RemoveConditionalMutatorTest {
     public void shouldReplaceIFLT_ORDER_T_F() {
         v = forMutator(new RemoveConditionalMutator(Choice.ORDER, false));
 
-        final String expected = "was < zero";
+        final var expected = "was < zero";
         v.forIntFunctionClass(HasIFLT.class)
                 .firstMutantShouldReturn(1, expected);
         v.forIntFunctionClass(HasIFLT.class)
@@ -488,7 +488,7 @@ public class RemoveConditionalMutatorTest {
     @Test
     public void shouldReplaceIF_ICMPLE_ORDER_T() {
         v = forMutator(new RemoveConditionalMutator(Choice.ORDER, true));
-        final String expected = "was > zero";
+        final var expected = "was > zero";
         v.forIntFunctionClass(HasIF_ICMPLE.class)
                 .firstMutantShouldReturn(1, expected);
         v.forIntFunctionClass(HasIF_ICMPLE.class)
@@ -500,7 +500,7 @@ public class RemoveConditionalMutatorTest {
     public void shouldReplaceIF_ICMPLE_ORDER_F() {
         v = forMutator(new RemoveConditionalMutator(Choice.ORDER, false));
 
-        final String expected = "was <= zero";
+        final var expected = "was <= zero";
         v.forIntFunctionClass(HasIF_ICMPLE.class)
                 .firstMutantShouldReturn(1, expected);
         v.forIntFunctionClass(HasIF_ICMPLE.class)
@@ -525,7 +525,7 @@ public class RemoveConditionalMutatorTest {
     @Test
     public void shouldReplaceIF_ICMPGE_ORDER_T() {
         v = forMutator(new RemoveConditionalMutator(Choice.ORDER, true));
-        final String expected = "was < zero";
+        final var expected = "was < zero";
         v.forIntFunctionClass(HasIF_ICMPGE.class)
                 .firstMutantShouldReturn(1, expected);
         v.forIntFunctionClass(HasIF_ICMPGE.class)
@@ -537,7 +537,7 @@ public class RemoveConditionalMutatorTest {
     public void shouldReplaceIF_ICMPGE_ORDER_F() {
         v = forMutator(new RemoveConditionalMutator(Choice.ORDER, false));
 
-        final String expected = "was >= zero";
+        final var expected = "was >= zero";
         v.forIntFunctionClass(HasIF_ICMPGE.class)
                 .firstMutantShouldReturn(1, expected);
         v.forIntFunctionClass(HasIF_ICMPGE.class)
@@ -562,7 +562,7 @@ public class RemoveConditionalMutatorTest {
     @Test
     public void shouldReplaceIF_ICMPGT_ORDER_T() {
         v = forMutator(new RemoveConditionalMutator(Choice.ORDER, true));
-        final String expected = "was <= zero";
+        final var expected = "was <= zero";
         v.forIntFunctionClass(HasIF_ICMPGT.class)
                 .firstMutantShouldReturn(1, expected);
         v.forIntFunctionClass(HasIF_ICMPGT.class)
@@ -574,7 +574,7 @@ public class RemoveConditionalMutatorTest {
     public void shouldReplaceIF_ICMPGT_ORDER_F() {
         v = forMutator(new RemoveConditionalMutator(Choice.ORDER, false));
 
-        final String expected = "was > zero";
+        final var expected = "was > zero";
         v.forIntFunctionClass(HasIF_ICMPGT.class)
                 .firstMutantShouldReturn(1, expected);
         v.forIntFunctionClass(HasIF_ICMPGT.class)
@@ -663,7 +663,7 @@ public class RemoveConditionalMutatorTest {
     private static class HasIF_ICMPNE implements IntFunction<String> {
         @Override
         public String apply(int i) {
-            final int j = getZeroButPreventInlining();
+            final var j = getZeroButPreventInlining();
             if (i == j) {
                 return "was zero";
             } else {
@@ -675,7 +675,7 @@ public class RemoveConditionalMutatorTest {
     private static class HasIF_ICMPEQ implements IntFunction<String> {
         @Override
         public String apply(int i) {
-            final int j = getZeroButPreventInlining();
+            final var j = getZeroButPreventInlining();
             if (i != j) {
                 return "was not zero";
             } else {
@@ -753,7 +753,7 @@ public class RemoveConditionalMutatorTest {
     static class HasIF_ICMPLE implements IntFunction<String> {
         @Override
         public String apply(int i) {
-            final int j = getZeroButPreventInlining();
+            final var j = getZeroButPreventInlining();
             if (i > j) {
                 return "was > zero";
             } else {
@@ -765,7 +765,7 @@ public class RemoveConditionalMutatorTest {
     static class HasIF_ICMPGE implements IntFunction<String> {
         @Override
         public String apply(int i) {
-            final int j = getZeroButPreventInlining();
+            final var j = getZeroButPreventInlining();
             if (i < j) {
                 return "was < zero";
             } else {
@@ -777,7 +777,7 @@ public class RemoveConditionalMutatorTest {
     static class HasIF_ICMPGT implements IntFunction<String> {
         @Override
         public String apply(int i) {
-            final int j = getZeroButPreventInlining();
+            final var j = getZeroButPreventInlining();
             if (i <= j) {
                 return "was <= zero";
             } else {
@@ -789,7 +789,7 @@ public class RemoveConditionalMutatorTest {
     static class HasIF_ICMPLT implements IntFunction<String> {
         @Override
         public String apply(int i) {
-            final int j = getZeroButPreventInlining();
+            final var j = getZeroButPreventInlining();
             if (i >= j) {
                 return "was >= zero";
             } else {

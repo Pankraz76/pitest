@@ -94,16 +94,16 @@ public class ClassPathTest {
 
   @Test
   public void handlesEmptyFilesWithoutError() throws IOException {
-    File empty = dir.newFile("empty.jar");
-    ClassPath underTest = new ClassPath(asList(empty));
+    var empty = dir.newFile("empty.jar");
+    var underTest = new ClassPath(asList(empty));
     assertThat(underTest.getClassData("")).isNull();
   }
 
   @Test
   public void doesNotErrorWhenNonArchiveFilesOnClasspath() throws IOException {
-    File notAJar = dir.newFile("notajar");
+    var notAJar = dir.newFile("notajar");
     Files.write(notAJar.toPath(), "some content".getBytes());
-    ClassPath underTest = new ClassPath(asList(notAJar));
+    var underTest = new ClassPath(asList(notAJar));
     assertThat(underTest.getClassData("")).isNull();
   }
 

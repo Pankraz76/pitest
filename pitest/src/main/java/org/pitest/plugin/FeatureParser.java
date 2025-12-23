@@ -26,19 +26,19 @@ public class FeatureParser {
 
   private Function<String, FeatureSetting> stringToSettings() {
     return a -> {
-      final String text = a.trim();
-      final ToggleStatus status = parseStatus(text);
-      final String name = parseName(text);
+      final var text = a.trim();
+      final var status = parseStatus(text);
+      final var name = parseName(text);
       return new FeatureSetting(name, status, parseConfig(text));
     };
   }
 
   private Map<String, List<String>> parseConfig(String a) {
     final Map<String, List<String>> vals = new HashMap<>();
-    final int confStart = a.indexOf('(') + 1;
-    final int end = a.indexOf(')');
+    final var confStart = a.indexOf('(') + 1;
+    final var end = a.indexOf(')');
     if ((confStart != -1) && (confStart < end)) {
-      final String[] parts = split(a.substring(confStart, end));
+      final var parts = split(a.substring(confStart, end));
       for (final String part : parts) {
         extractValue(part, vals);
       }
@@ -47,9 +47,9 @@ public class FeatureParser {
   }
 
   private void extractValue(String part, Map<String, List<String>> vals) {
-    final String[] pairs = part.split("\\[");
-    for (int i = 0; i != pairs.length; i = i + 2) {
-      final String key = pairs[i].trim();
+    final var pairs = part.split("\\[");
+    for (var i = 0; i != pairs.length; i = i + 2) {
+      final var key = pairs[i].trim();
       List<String> current = vals.get(key);
       if (current == null) {
         current = new ArrayList<>();
@@ -68,8 +68,8 @@ public class FeatureParser {
   }
 
   private String parseName(String a) {
-    final String name = a.substring(1);
-    final int confStart = name.indexOf('(');
+    final var name = a.substring(1);
+    final var confStart = name.indexOf('(');
     if (confStart == -1) {
       return name;
     } else {

@@ -6,7 +6,7 @@ public class TestThrowsExceptionInFinallyBlock {
 
   @Test
   public void test() {
-    final ThrowsExceptionInFinallyBlockTestee t = new ThrowsExceptionInFinallyBlockTestee();
+    final var t = new ThrowsExceptionInFinallyBlockTestee();
     t.foo();
   }
 

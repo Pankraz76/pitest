@@ -52,16 +52,16 @@ public class WorkerFactory {
   public MutationTestProcess createWorker(
       final Collection<MutationDetails> remainingMutations,
       final Collection<ClassName> testClasses) {
-    final MinionArguments fileArgs = new MinionArguments(remainingMutations,
+    final var fileArgs = new MinionArguments(remainingMutations,
         testClasses, this.config.getEngine().getName(), this.args, this.timeoutStrategy,
         Log.verbosity(), this.fullMutationMatrix, this.pitConfig);
 
-    final ProcessArgs args = ProcessArgs.withClassPath(this.classPath)
+    final var args = ProcessArgs.withClassPath(this.classPath)
         .andLaunchOptions(this.config.getLaunchOptions())
         .andBaseDir(this.baseDir).andStdout(captureStdOutIfVerbose())
         .andStderr(captureStdErrIfVerbose());
 
-    final SocketFinder sf = new SocketFinder();
+    final var sf = new SocketFinder();
     return new MutationTestProcess(
         sf.getNextAvailableServerSocket(), args, fileArgs);
   }

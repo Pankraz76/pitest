@@ -85,7 +85,7 @@ public class DefaultCoverageGenerator implements CoverageGenerator {
   @Override
   public CoverageData calculateCoverage(Predicate<ClassName> testFilter) {
     try {
-      final long t0 = System.nanoTime();
+      final var t0 = System.nanoTime();
 
       this.timings.registerStart(Timings.Stage.SCAN_CLASS_PATH);
       List<String> tests = this.code.testTrees()
@@ -96,7 +96,7 @@ public class DefaultCoverageGenerator implements CoverageGenerator {
 
       this.timings.registerEnd(Timings.Stage.SCAN_CLASS_PATH);
 
-      final CoverageData coverage = new CoverageData(this.code, new LineMapper(
+      final var coverage = new CoverageData(this.code, new LineMapper(
           this.code), tests.size());
 
       this.timings.registerStart(Timings.Stage.COVERAGE);
@@ -109,7 +109,7 @@ public class DefaultCoverageGenerator implements CoverageGenerator {
       }
       this.timings.registerEnd(Timings.Stage.COVERAGE);
 
-      final long time = NANOSECONDS.toSeconds(System.nanoTime() - t0);
+      final var time = NANOSECONDS.toSeconds(System.nanoTime() - t0);
 
       LOG.info("Calculated coverage in " + time + " seconds.");
       for (String msg : testStats.messages()) {
@@ -143,10 +143,10 @@ public class DefaultCoverageGenerator implements CoverageGenerator {
 
     final Consumer<CoverageResult> handler = resultProcessor(coverage);
 
-    final SocketFinder sf = new SocketFinder();
-    final ServerSocket socket = sf.getNextAvailableServerSocket();
+    final var sf = new SocketFinder();
+    final var socket = sf.getNextAvailableServerSocket();
 
-    final CoverageProcess process = new CoverageProcess(ProcessArgs
+    final var process = new CoverageProcess(ProcessArgs
         .withClassPath(this.code.getClassPath()).andBaseDir(this.workingDir)
         .andLaunchOptions(this.launchOptions).andStderr(logInfo())
         .andStdout(captureStandardOutIfVerbose()), this.coverageOptions,
@@ -154,7 +154,7 @@ public class DefaultCoverageGenerator implements CoverageGenerator {
 
     process.start();
 
-    final ExitCode exitCode = process.waitToDie();
+    final var exitCode = process.waitToDie();
 
     if (exitCode == ExitCode.TEST_PLUGIN_ISSUE) {
       LOG.severe("Pitest could not run any tests. Please check that you have installed the pitest plugin for your testing library (eg JUnit 5, TestNG). If your project uses JUnit 4 "

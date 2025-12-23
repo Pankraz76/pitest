@@ -93,7 +93,7 @@ public class MutationTotalsTest {
 
   @Test
   public void shouldAccumulateAddedValues() {
-    final MutationTotals extra = new MutationTotals();
+    final var extra = new MutationTotals();
     extra.addFiles(2);
     extra.addLines(8);
     extra.addLinesCovered(4);

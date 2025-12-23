@@ -13,9 +13,9 @@ public class PackageSummaryDataTest {
 
   @Test
   public void shouldReturnSummaryDataInAlphabeticOrder() {
-    final PackageSummaryData testee = new PackageSummaryData("foo");
-    final MutationTestSummaryData a = makeSummaryData("a");
-    final MutationTestSummaryData z = makeSummaryData("z");
+    final var testee = new PackageSummaryData("foo");
+    final var a = makeSummaryData("a");
+    final var z = makeSummaryData("z");
     testee.addSummaryData(z);
     testee.addSummaryData(a);
     assertEquals(Arrays.asList(a, z), testee.getSummaryData());
@@ -24,9 +24,9 @@ public class PackageSummaryDataTest {
 
   @Test
   public void shouldSortByPackageName() {
-    final PackageSummaryData aa = new PackageSummaryData("aa");
-    final PackageSummaryData ab = new PackageSummaryData("ab");
-    final PackageSummaryData c = new PackageSummaryData("c");
+    final var aa = new PackageSummaryData("aa");
+    final var ab = new PackageSummaryData("ab");
+    final var c = new PackageSummaryData("c");
     final List<PackageSummaryData> actual = Arrays.asList(c, aa, ab);
     Collections.sort(actual);
     assertEquals(Arrays.asList(aa, ab, c), actual);

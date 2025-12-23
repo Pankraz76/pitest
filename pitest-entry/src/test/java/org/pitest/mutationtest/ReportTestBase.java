@@ -97,37 +97,37 @@ public abstract class ReportTestBase {
   }
 
   protected void createAndRun() {
-    final SettingsFactory settings = new SettingsFactory(this.data, this.plugins);
+    final var settings = new SettingsFactory(this.data, this.plugins);
     createAndRun(settings);
   }
 
   protected void createAndRun(SettingsFactory settings) {
-    final JavaAgent agent = new JarCreatingJarFinder();
+    final var agent = new JarCreatingJarFinder();
     try {
 
-      final CoverageOptions coverageOptions = createCoverageOptions(settings.createCoverageOptions().getPitConfig());
-      final LaunchOptions launchOptions = new LaunchOptions(agent,
+      final var coverageOptions = createCoverageOptions(settings.createCoverageOptions().getPitConfig());
+      final var launchOptions = new LaunchOptions(agent,
           new DefaultJavaExecutableLocator(), this.data.getJvmArgs(),
           new HashMap<>());
 
-      final PathFilter pf = new PathFilter(p -> true, p -> true);
-      final ProjectClassPaths cps = new ProjectClassPaths(
+      final var pf = new PathFilter(p -> true, p -> true);
+      final var cps = new ProjectClassPaths(
           this.data.getClassPath(), this.data.createClassesFilter(), pf);
 
-      final Timings timings = new Timings(new NoTestStats());
-      final CodeSource code = new DefaultCodeSource(cps);
+      final var timings = new Timings(new NoTestStats());
+      final var code = new DefaultCodeSource(cps);
 
-      final CoverageGenerator coverageDatabase = new DefaultCoverageGenerator(
+      final var coverageDatabase = new DefaultCoverageGenerator(
                 null, coverageOptions, launchOptions, code,
                 new NullCoverageExporter(), new NoTestStats(), timings, Verbosity.DEFAULT);
 
-      final History history = new NullHistory();
+      final var history = new NullHistory();
 
-      final MutationStrategies strategies = new MutationStrategies(
+      final var strategies = new MutationStrategies(
           new GregorEngineFactory(), history, coverageDatabase,
           listenerFactory(), result -> result, cov -> cov, null, new NoVerification());
 
-      final MutationCoverage testee = new MutationCoverage(strategies, null,
+      final var testee = new MutationCoverage(strategies, null,
           code, this.data, new SettingsFactory(this.data, this.plugins),
           timings);
 

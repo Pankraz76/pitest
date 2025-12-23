@@ -47,21 +47,21 @@ public class ReflectionTest {
   @Test
   public void publicFieldsReturnsFieldsDeclaredInParent() throws Exception {
     final Set<Field> actual = Reflection.publicFields(Child.class);
-    final Field expected = Parent.class.getField("first");
+    final var expected = Parent.class.getField("first");
     assertTrue(actual.contains(expected));
   }
 
   @Test
   public void publicFieldsReturnsFieldsDeclaredInChild() throws Exception {
     final Set<Field> actual = Reflection.publicFields(Child.class);
-    final Field expected = Child.class.getField("second");
+    final var expected = Child.class.getField("second");
     assertTrue(actual.contains(expected));
   }
 
   @Test
   public void publicFieldsReturnsStaticFields() throws Exception {
     final Set<Field> actual = Reflection.publicFields(Child.class);
-    final Field expected = Child.class.getField("third");
+    final var expected = Child.class.getField("third");
     assertTrue(actual.contains(expected));
   }
 }

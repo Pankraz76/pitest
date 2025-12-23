@@ -77,8 +77,8 @@ public final class JavassistCoverageInterceptor {
 
   private static byte[] transformBytes(final ClassLoader loader,
       final String className, final byte[] classfileBuffer) {
-    final ClassReader reader = new ClassReader(classfileBuffer);
-    final ClassWriter writer = new ComputeClassWriter(
+    final var reader = new ClassReader(classfileBuffer);
+    final var writer = new ComputeClassWriter(
         new ClassloaderByteArraySource(loader), COMPUTE_CACHE,
         FrameOptions.pickFlags(classfileBuffer));
 
@@ -88,7 +88,7 @@ public final class JavassistCoverageInterceptor {
     // If this changes this might become a bug, however it would also probably not be possible
     // to support powermock if this assumption changed, so this code would most likely be deleted.
 
-    final int id = CodeCoverageStore.registerClass(className);
+    final var id = CodeCoverageStore.registerClass(className);
     try {
       reader.accept(new CoverageClassVisitor(id, writer),
           ClassReader.EXPAND_FRAMES);

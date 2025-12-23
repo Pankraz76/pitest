@@ -49,9 +49,9 @@ public class HistoryTest {
 
     @Test
     public void sameResultsWhenNoChanges() throws Exception {
-        Project project = createProject(root, ClassA.class, ClassATest.class);
-        AnalysisResult run1 = runPitest(project);
-        AnalysisResult run2 = runPitest(project);
+        var project = createProject(root, ClassA.class, ClassATest.class);
+        var run1 = runPitest(project);
+        var run2 = runPitest(project);
 
         assertSameNumberOfMutationsKilled(run1, run2);
         assertThat(numberOfTestsRun(run2)).isEqualTo(0);
@@ -60,13 +60,13 @@ public class HistoryTest {
 
     @Test
     public void sameResultWhenCodeUnderTestTouched() throws Exception {
-        Project project = createProject(root, ClassA.class, ClassATest.class);
+        var project = createProject(root, ClassA.class, ClassATest.class);
 
-        AnalysisResult run1 = runPitest(project);
+        var run1 = runPitest(project);
 
         project.modifyClass(ClassA.class);
 
-        AnalysisResult run2 = runPitest(project);
+        var run2 = runPitest(project);
 
         assertSameNumberOfMutationsKilled(run1, run2);
         assertThat(numberOfTestsRun(run2)).isGreaterThan(0);
@@ -74,13 +74,13 @@ public class HistoryTest {
 
     @Test
     public void testsReRunWhenTestAltered() throws Exception {
-        Project project = createProject(root, ClassA.class, ClassATest.class);
+        var project = createProject(root, ClassA.class, ClassATest.class);
 
         runPitest(project);
 
         project.modifyClass(ClassATest.class);
 
-        AnalysisResult run2 = runPitest(project);
+        var run2 = runPitest(project);
 
         assertThat(numberOfTestsRun(run2)).isGreaterThan(0);
     }
@@ -88,12 +88,12 @@ public class HistoryTest {
 
     @Test
     public void mutationsUncoveredWhenTestRemoved() throws Exception {
-        Project project = createProject(root, ClassA.class, ClassATest.class);
-        AnalysisResult run1 = runPitest(project);
+        var project = createProject(root, ClassA.class, ClassATest.class);
+        var run1 = runPitest(project);
 
         project.removeTest(ClassATest.class);
 
-        AnalysisResult run2 = runPitest(project);
+        var run2 = runPitest(project);
 
         assertThat(getTotalDetectedMutations(run2)).isEqualTo(0);
         assertThat(run1).isNotEqualTo(run2);
@@ -101,12 +101,12 @@ public class HistoryTest {
 
     @Test
     public void mutationsKilledWhenTestAdded() throws Exception {
-        Project project = createProject(root, ClassA.class);
-        AnalysisResult run1 = runPitest(project);
+        var project = createProject(root, ClassA.class);
+        var run1 = runPitest(project);
 
         project.addTest(ClassATest.class);
 
-        AnalysisResult run2 = runPitest(project);
+        var run2 = runPitest(project);
 
         assertThat(getTotalDetectedMutations(run2)).isEqualTo(1);
         assertThat(run1).isNotEqualTo(run2);
@@ -114,12 +114,12 @@ public class HistoryTest {
 
     @Test
     public void prioritisesLastKillingTest() throws Exception {
-        Project project = createProject(root, ClassA.class, UselessTest1.class, UselessTest2.class, SlowKillingTest.class);
-        AnalysisResult run1 = runPitest(project);
+        var project = createProject(root, ClassA.class, UselessTest1.class, UselessTest2.class, SlowKillingTest.class);
+        var run1 = runPitest(project);
 
         project.modifyClass(ClassA.class);
 
-        AnalysisResult run2 = runPitest(project);
+        var run2 = runPitest(project);
 
         assertThat(numberOfTestsRun(run2)).isLessThan(numberOfTestsRun(run1));
     }
@@ -130,8 +130,8 @@ public class HistoryTest {
     }
 
     private AnalysisResult runPitest(Project project) throws IOException {
-        EntryPoint entryPoint = new EntryPoint();
-        ReportOptions data = new ReportOptions();
+        var entryPoint = new EntryPoint();
+        var data = new ReportOptions();
         data.setReportDir(project.reportsDir());
         data.setGroupConfig(new TestGroupConfig());
         data.setExcludedRunners(Collections.emptyList());
@@ -142,7 +142,7 @@ public class HistoryTest {
         data.setHistoryInputLocation(project.root().resolve("history.txt").toFile());
         data.setHistoryOutputLocation(project.root().resolve("history.txt").toFile());
 
-        SettingsFactory settings = settingsFactory(project, data);
+        var settings = settingsFactory(project, data);
         return entryPoint.execute(project.root().toFile(), data, settings, new HashMap<>());
 
     }
@@ -151,7 +151,7 @@ public class HistoryTest {
         return new SettingsFactory(data, PluginServices.makeForContextLoader()) {
             public CodeSource createCodeSource(ProjectClassPaths classPath) {
                 ClassloaderByteArraySource bas = ClassloaderByteArraySource.fromContext();
-                Repository r = new Repository(bas);
+                var r = new Repository(bas);
                 return new CodeSource() {
                     @Override
                     public Stream<ClassTree> codeTrees() {
@@ -252,15 +252,15 @@ public class HistoryTest {
     }
 
     private Project createProject(TemporaryFolder tempFolder, Class<?> c, Class<?>... tests) throws IOException {
-        Path root = tempFolder.getRoot().toPath();
+        var root = tempFolder.getRoot().toPath();
         Path project = Files.createDirectories(root.resolve("project"));
         Files.createDirectory(project.resolve("reports"));
         return new Project(project, asList(c), asList(tests));
     }
 
     private void assertSameNumberOfMutationsKilled(AnalysisResult r, AnalysisResult r2) {
-        long detected1 = getTotalDetectedMutations(r);
-        long detected2 = getTotalDetectedMutations(r2);
+        var detected1 = getTotalDetectedMutations(r);
+        var detected2 = getTotalDetectedMutations(r2);
         assertThat(detected1).isEqualTo(detected2);
     }
 

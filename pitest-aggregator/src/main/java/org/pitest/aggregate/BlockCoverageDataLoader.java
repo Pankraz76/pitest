@@ -31,14 +31,14 @@ class BlockCoverageDataLoader extends DataLoader<BlockCoverage> {
 
   @Override
   protected Set<BlockCoverage> mapToData(XMLStreamReader xr) throws XMLStreamException {
-    XmlMapper xm = new XmlMapper();
+    var xm = new XmlMapper();
     final Set<BlockCoverage> data = new HashSet<>();
     while (xr.hasNext()) {
       xr.next();
       if (xr.getEventType() == START_ELEMENT) {
         if ("block".equals(xr.getLocalName())) {
           try {
-            CoverageXml line = xm.readValue(xr, CoverageXml.class);
+            var line = xm.readValue(xr, CoverageXml.class);
             data.add(xmlToCoverage(line));
           } catch (IOException e) {
             throw Unchecked.translateCheckedException(e);
@@ -51,10 +51,10 @@ class BlockCoverageDataLoader extends DataLoader<BlockCoverage> {
 
   private BlockCoverage xmlToCoverage(CoverageXml line) {
     ClassName className = ClassName.fromString(line.classname);
-    String methodName = line.method.substring(0, line.method.indexOf(OPEN_PAREN));
-    String methodDesc = line.method.substring(line.method.indexOf(OPEN_PAREN));
-    Location location = new Location(className, methodName, methodDesc);
-    BlockLocation loc = new BlockLocation(location, line.number);
+    var methodName = line.method.substring(0, line.method.indexOf(OPEN_PAREN));
+    var methodDesc = line.method.substring(line.method.indexOf(OPEN_PAREN));
+    var location = new Location(className, methodName, methodDesc);
+    var loc = new BlockLocation(location, line.number);
     return new BlockCoverage(loc, toTestStrings(line));
   }
 

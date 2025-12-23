@@ -66,7 +66,7 @@ public final class TestMethod {
     if (obj == null || getClass() != obj.getClass()) {
       return false;
     }
-    final TestMethod other = (TestMethod) obj;
+    final var other = (TestMethod) obj;
     return Objects.equals(method, other.method) &&
             Objects.equals(expected, other.expected);
   }

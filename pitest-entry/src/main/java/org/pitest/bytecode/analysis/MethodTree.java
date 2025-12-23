@@ -37,7 +37,7 @@ public class MethodTree {
    */
   @Deprecated
   public AbstractInsnNode realInstructionBefore(int index) {
-    AbstractInsnNode candidate = instructions().get(index - 1);
+    var candidate = instructions().get(index - 1);
     if (candidate.getOpcode() == -1) {
       return realInstructionBefore(index - 1);
     }

@@ -68,7 +68,7 @@ public final class Location implements Comparable<Location>, Serializable  {
     if (obj == null || getClass() != obj.getClass()) {
       return false;
     }
-    final Location other = (Location) obj;
+    final var other = (Location) obj;
     return Objects.equals(clazz, other.clazz)
             && Objects.equals(method, other.method)
             && Objects.equals(methodDesc, other.methodDesc);
@@ -86,7 +86,7 @@ public final class Location implements Comparable<Location>, Serializable  {
 
   @Override
   public int compareTo(final Location o) {
-    int comp = this.clazz.compareTo(o.getClassName());
+    var comp = this.clazz.compareTo(o.getClassName());
     if (comp != 0) {
       return comp;
     }

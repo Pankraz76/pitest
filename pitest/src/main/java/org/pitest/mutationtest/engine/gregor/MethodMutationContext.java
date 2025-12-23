@@ -22,14 +22,14 @@ class MethodMutationContext implements MutationContext, InstructionCounter {
   @Override
   public MutationIdentifier registerMutation(
       final MethodMutatorFactory factory, final String description) {
-    final MutationIdentifier newId = getNextMutationIdentifier(factory);
+    final var newId = getNextMutationIdentifier(factory);
     registerMutation(newId, description);
     return newId;
   }
 
   @Override
   public void registerMutation(MutationIdentifier id, String description) {
-    final MutationDetails details = new MutationDetails(id,
+    final var details = new MutationDetails(id,
             this.classContext.getFileName(), description, this.lastLineNumber,
             this.classContext.getCurrentBlock());
     registerMutation(details);

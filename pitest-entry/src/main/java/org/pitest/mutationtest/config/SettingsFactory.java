@@ -70,7 +70,7 @@ public class SettingsFactory {
 
   public CoverageExporter createCoverageExporter() {
     if (this.options.shouldExportLineCoverage()) {
-      final FeatureParser parser = new FeatureParser();
+      final var parser = new FeatureParser();
       return new CompoundCoverageExporterFactory(parser.parseFeatures(this.options.getFeatures()), this.plugins.findCoverageExport())
                 .create(this.options.getReportDirectoryStrategy());
     } else {
@@ -79,9 +79,9 @@ public class SettingsFactory {
   }
 
   public TestStatListener createTestStatListener() {
-    ResultOutputStrategy outputStrategy = getOutputStrategy();
+    var outputStrategy = getOutputStrategy();
 
-    final FeatureParser parser = new FeatureParser();
+    final var parser = new FeatureParser();
     List<TestStatListenerFactory> available = plugins.findTestStatListeners();
     FeatureSelector<TestStatListenerFactory> features = new FeatureSelector<>(parser.parseFeatures(this.options.getFeatures()), available);
     List<TestStatListenerFactory> enabled = features.getActiveFeatures();
@@ -93,7 +93,7 @@ public class SettingsFactory {
   }
 
   public TestFilter createTestFilter() {
-    FeatureParser parser = new FeatureParser();
+    var parser = new FeatureParser();
     List<TestFilterFactory> available = plugins.findTestFilters();
     FeatureSelector<TestFilterFactory> features = new FeatureSelector<>(parser.parseFeatures(this.options.getFeatures()), available);
     List<TestFilterFactory> enabled = features.getActiveFeatures();
@@ -116,12 +116,12 @@ public class SettingsFactory {
   }
 
   public MutationResultListenerFactory createListener() {
-    final FeatureParser parser = new FeatureParser();
+    final var parser = new FeatureParser();
     return new CompoundListenerFactory(parser.parseFeatures(this.options.getFeatures()), findListeners());
   }
 
   public ConfigurationUpdater createUpdater() {
-    final FeatureParser parser = new FeatureParser();
+    final var parser = new FeatureParser();
     return new CompoundConfigurationUpdater(parser.parseFeatures(this.options.getFeatures()), new ArrayList<>(plugins.findConfigurationUpdaters()));
   }
 
@@ -155,7 +155,7 @@ public class SettingsFactory {
   public HistoryFactory createHistory() {
     List<HistoryFactory> available = this.plugins.findHistory();
 
-    final FeatureParser parser = new FeatureParser();
+    final var parser = new FeatureParser();
     FeatureSelector<HistoryFactory> historyFeatures = new FeatureSelector<>(parser.parseFeatures(this.options.getFeatures()), available);
     List<HistoryFactory> enabledHistory = historyFeatures.getActiveFeatures();
 
@@ -169,7 +169,7 @@ public class SettingsFactory {
   }
 
   public void describeFeatures(Consumer<Feature> enabled, Consumer<Feature> disabled) {
-    final FeatureParser parser = new FeatureParser();
+    final var parser = new FeatureParser();
     final Collection<ProvidesFeature> available = new ArrayList<>(this.plugins.findFeatures());
     final List<FeatureSetting> settings = parser.parseFeatures(this.options.getFeatures());
     final FeatureSelector<ProvidesFeature> selector = new FeatureSelector<>(settings, available);
@@ -193,7 +193,7 @@ public class SettingsFactory {
   }
 
   public void checkRequestedFeatures() {
-    FeatureParser parser = new FeatureParser();
+    var parser = new FeatureParser();
     Set<String> available = this.plugins.findFeatures().stream()
             .map(f -> f.provides().name().toUpperCase())
             .collect(Collectors.toSet());
@@ -210,7 +210,7 @@ public class SettingsFactory {
   public TestPrioritiserFactory getTestPrioritiser() {
     final Collection<? extends TestPrioritiserFactory> testPickers = this.plugins
         .findTestPrioritisers();
-    TestFilter filter = createTestFilter();
+    var filter = createTestFilter();
     return new FilteringPrioritiser(firstOrDefault(testPickers, new DefaultTestPrioritiserFactory()), filter);
   }
 
@@ -223,7 +223,7 @@ public class SettingsFactory {
   public CompoundInterceptorFactory getInterceptor() {
     final Collection<? extends MutationInterceptorFactory> interceptors = this.plugins
         .findInterceptors();
-    final FeatureParser parser = new FeatureParser();
+    final var parser = new FeatureParser();
     return new CompoundInterceptorFactory(parser.parseFeatures(this.options.getFeatures()), new ArrayList<>(interceptors));
   }
 

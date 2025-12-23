@@ -80,7 +80,7 @@ public class MutantVerifier {
 
     private Function<MutationDetails, Loc> toLocation(final ClassTree tree) {
         return a -> {
-            final MethodTree method = tree.method(a.getId().getLocation()).get();
+            final var method = tree.method(a.getId().getLocation()).get();
             return new Loc(a.getInstructionIndex(), method.instruction(a.getInstructionIndex()));
         };
     }

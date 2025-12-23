@@ -17,7 +17,7 @@ public class ContextTest {
     @Test
     public void canStoreThenRetrieve() {
         SlotRead<Integer> slot = Slot.create(Integer.class).read();
-        Context underTest = Context.start().store(slot.slot().write(), 42);
+        var underTest = Context.start().store(slot.slot().write(), 42);
 
         Optional<Integer> actual = underTest.retrieve(slot);
         assertThat(actual).contains(42);
@@ -27,7 +27,7 @@ public class ContextTest {
     public void canStoreAndRetrieveTwoValues() {
         Slot<Integer> slot1 = Slot.create(Integer.class);
         Slot<Integer> slot2 = Slot.create(Integer.class);
-        Context underTest = Context.start()
+        var underTest = Context.start()
                 .store(slot1.write(), 42)
                 .store(slot2.write(), 101);
 
@@ -40,7 +40,7 @@ public class ContextTest {
         Slot<Integer> slot1 = Slot.create(Integer.class);
         Slot<Integer> slot2 = Slot.create(Integer.class);
         Slot<Integer> slot3 = Slot.create(Integer.class);
-        Context underTest = Context.start()
+        var underTest = Context.start()
                 .store(slot1.write(), 42)
                 .store(slot2.write(), 101)
                 .store(slot3.write(), 8);
@@ -57,7 +57,7 @@ public class ContextTest {
         Slot<Integer> slot3 = Slot.create(Integer.class);
         Slot<Integer> slot4 = Slot.create(Integer.class);
         Slot<Integer> slot5 = Slot.create(Integer.class);
-        Context underTest = Context.start()
+        var underTest = Context.start()
                 .store(slot1.write(), 1)
                 .store(slot2.write(), 2)
                 .store(slot3.write(), 3)

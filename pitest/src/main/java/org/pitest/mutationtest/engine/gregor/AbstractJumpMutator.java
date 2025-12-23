@@ -59,9 +59,9 @@ public abstract class AbstractJumpMutator extends MethodVisitor {
   }
 
   private void createMutationForJumpInsn(final int opcode, final Label label) {
-    final Substitution substitution = this.getMutations().get(opcode);
+    final var substitution = this.getMutations().get(opcode);
 
-    final MutationIdentifier newId = this.context.registerMutation(
+    final var newId = this.context.registerMutation(
         this.factory, substitution.description);
 
     if (this.context.shouldMutate(newId)) {

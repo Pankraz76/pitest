@@ -33,8 +33,8 @@ public class BiFunctionMutantVerifier<A, B, C> extends MutatorVerifier {
      * Suppliers allow consumable inputs (eg streams) can be reused
      */
     public void firstMutantShouldReturn(Supplier<A> as, Supplier<B> bs, C expected) {
-        A a = as.get();
-        B b = bs.get();
+        var a = as.get();
+        var b = bs.get();
         if (checkUnmutated()) {
             assertThat(runWithoutMutation(a,b))
                     .describedAs("Expected unmutated code to return different value to mutated code")
@@ -52,7 +52,7 @@ public class BiFunctionMutantVerifier<A, B, C> extends MutatorVerifier {
     }
 
     private C mutateAndCall(A a, B b, Mutant mutant) {
-        ClassLoader loader = this.createClassLoader(mutant);
+        var loader = this.createClassLoader(mutant);
         return this.runInClassLoader(loader, a, b);
     }
 
@@ -60,7 +60,7 @@ public class BiFunctionMutantVerifier<A, B, C> extends MutatorVerifier {
         try {
             Class<?> forLoader = loader.loadClass(target.getName());
 
-            Constructor c = forLoader.getDeclaredConstructor();
+            var c = forLoader.getDeclaredConstructor();
             c.setAccessible(true);
             BiFunction<A, B, C> instance = (BiFunction<A, B, C>) c.newInstance();
             return instance.apply(a, b);

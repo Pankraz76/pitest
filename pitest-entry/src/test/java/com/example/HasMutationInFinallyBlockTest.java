@@ -8,7 +8,7 @@ public class HasMutationInFinallyBlockTest {
 
   @Test
   public void testIncrementsI() {
-    final HasMutationsInFinallyBlock testee = new HasMutationsInFinallyBlock();
+    final var testee = new HasMutationsInFinallyBlock();
     assertEquals(2, testee.foo(1));
   }
 

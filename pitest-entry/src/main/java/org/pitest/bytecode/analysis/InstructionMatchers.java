@@ -46,10 +46,10 @@ public class InstructionMatchers {
   }
 
   public static Match<AbstractInsnNode> newCall(ClassName target) {
-    final String clazz = target.asInternalName();
+    final var clazz = target.asInternalName();
     return (c, t) -> {
       if ( t instanceof TypeInsnNode ) {
-        final TypeInsnNode call = (TypeInsnNode) t;
+        final var call = (TypeInsnNode) t;
         return result(call.getOpcode() == Opcodes.NEW && call.desc.equals(clazz), c);
       }
       return result(false, c);
@@ -59,7 +59,7 @@ public class InstructionMatchers {
   public static Match<AbstractInsnNode> ldcString(Predicate<String> match) {
     return (c, t) -> {
       if ( t instanceof LdcInsnNode) {
-        final LdcInsnNode ldc = (LdcInsnNode) t;
+        final var ldc = (LdcInsnNode) t;
         return result(ldc.cst instanceof String && match.test((String) ldc.cst), c);
       }
       return result(false, c);
@@ -171,7 +171,7 @@ public class InstructionMatchers {
   public static Match<AbstractInsnNode> methodCallNamed(String name) {
     return (c, t) -> {
       if ( t instanceof MethodInsnNode ) {
-        final MethodInsnNode call = (MethodInsnNode) t;
+        final var call = (MethodInsnNode) t;
         return result(call.name.equals(name), c);
       }
       return result(false, c);
@@ -194,7 +194,7 @@ public class InstructionMatchers {
   public static  Match<AbstractInsnNode> methodCallTo(final ClassName owner, Predicate<String> name) {
     return (c, t) -> {
       if ( t instanceof MethodInsnNode ) {
-        final MethodInsnNode call = (MethodInsnNode) t;
+        final var call = (MethodInsnNode) t;
         return result( name.test(call.name) && call.owner.equals(owner.asInternalName()), c);
       }
       return result(false, c);
@@ -208,7 +208,7 @@ public class InstructionMatchers {
   public static Match<AbstractInsnNode> getStatic(String owner, String field) {
     return (c, t) -> {
        if (t instanceof FieldInsnNode) {
-         FieldInsnNode fieldNode = (FieldInsnNode) t;
+         var fieldNode = (FieldInsnNode) t;
          return result( t.getOpcode() == Opcodes.GETSTATIC && fieldNode.name.equals(field) && fieldNode.owner.equals(owner), c);
        }
       return result(false, c);
@@ -244,7 +244,7 @@ public class InstructionMatchers {
       if (!(a instanceof JumpInsnNode)) {
         return result(false, context);
       }
-      final JumpInsnNode jump = (JumpInsnNode) a;
+      final var jump = (JumpInsnNode) a;
 
       return result(context.retrieve(loopStart).filter(isEqual(jump.label)).isPresent(), context);
     };
@@ -267,7 +267,7 @@ public class InstructionMatchers {
        return result(false, c);
      }
 
-     final LabelNode l = (LabelNode) t;
+     final var l = (LabelNode) t;
      return result(c.retrieve(loopEnd).filter(isEqual(l)).isPresent(), c);
 
     };

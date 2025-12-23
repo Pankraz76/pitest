@@ -77,7 +77,7 @@ public class EqualsPerformanceShortcutFilter implements MutationInterceptor {
 
   private List<MutationDetails> filter(
       List<MutationDetails> inEquals, Mutater m) {
-    final Location equalsMethod = inEquals.get(0).getId().getLocation();
+    final var equalsMethod = inEquals.get(0).getId().getLocation();
 
     final Optional<MethodTree> maybeEquals = this.currentClass.methods().stream()
         .filter(MethodMatchers.forLocation(equalsMethod))
@@ -103,7 +103,7 @@ public class EqualsPerformanceShortcutFilter implements MutationInterceptor {
     }
 
     final ClassTree mutant = ClassTree.fromBytes(m.getMutation(a.getId()).getBytes());
-    final MethodTree mutantEquals = mutant.methods().stream()
+    final var mutantEquals = mutant.methods().stream()
         .filter(MethodMatchers.forLocation(tree.asLocation()))
         .findFirst()
         .get();
@@ -120,7 +120,7 @@ public class EqualsPerformanceShortcutFilter implements MutationInterceptor {
 
   private Predicate<MutationDetails> inEqualsMethod() {
     return a -> {
-      final Location loc = a.getId().getLocation();
+      final var loc = a.getId().getLocation();
       return loc.getMethodDesc().equals("(Ljava/lang/Object;)Z")
           && loc.getMethodName().equals("equals");
     };

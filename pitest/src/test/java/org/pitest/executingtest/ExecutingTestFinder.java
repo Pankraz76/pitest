@@ -37,7 +37,7 @@ public class ExecutingTestFinder implements TestUnitFinder {
     }
 
     private TestUnit toTest(Class<?> clazz, Method m) {
-        TestMethod testMethod = new TestMethod(m);
+        var testMethod = new TestMethod(m);
         List<TestStep> steps = asList(NoArgsInstantiateStep.instantiate(clazz), new CallStep(testMethod));
         return new ExecutingTestUnit(new Description(testMethod.getName(), clazz), steps);
     }

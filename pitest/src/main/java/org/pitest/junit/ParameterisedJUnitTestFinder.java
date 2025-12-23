@@ -94,7 +94,7 @@ public class ParameterisedJUnitTestFinder implements TestUnitFinder {
   }
 
   private List<String> getCategories(final Class<?> a) {
-    final Category c = a.getAnnotation(Category.class);
+    final var c = a.getAnnotation(Category.class);
     return Stream.of(c)
             .flatMap(toCategoryNames())
             .collect(Collectors.toList());

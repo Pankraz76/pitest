@@ -59,7 +59,7 @@ public class SettingsFactoryTest {
     this.options.setExportLineCoverage(true);
     this.options.setShouldCreateTimestampedReports(false);
     this.options.setReportDir(reportDir.getRoot().getAbsolutePath());
-    CoverageExporter actual = this.testee.createCoverageExporter();
+    var actual = this.testee.createCoverageExporter();
     actual.recordCoverage(Collections.emptyList());
 
     assertThat(Files.list(reportDir.getRoot().toPath()))
@@ -72,7 +72,7 @@ public class SettingsFactoryTest {
     this.options.setShouldCreateTimestampedReports(false);
     this.options.setReportDir(reportDir.getRoot().getAbsolutePath());
     this.options.setFeatures(Arrays.asList("-defaultCoverage"));
-    CoverageExporter actual = this.testee.createCoverageExporter();
+    var actual = this.testee.createCoverageExporter();
     actual.recordCoverage(Collections.emptyList());
 
     assertThat(Files.list(reportDir.getRoot().toPath()))
@@ -111,7 +111,7 @@ public class SettingsFactoryTest {
   @Test
   public void shouldReturnADefaultJavaExecutableWhenNoneIsSpecified() {
     this.options.setJavaExecutable(null);
-    File actual = new File(this.testee.getJavaExecutable().javaExecutable());
+    var actual = new File(this.testee.getJavaExecutable().javaExecutable());
     if (System.getProperty("os.name").contains("Windows")) {
       actual = new File(actual.getPath() + ".exe");
     }
@@ -128,7 +128,7 @@ public class SettingsFactoryTest {
   public void shouldNotAllowUserToCalculateCoverageForCoreClasses() {
     this.options.setTargetClasses(Collections
         .singleton("java.Integer"));
-    final CoverageOptions actual = this.testee.createCoverageOptions();
+    final var actual = this.testee.createCoverageOptions();
     assertFalse(actual.getFilter().test("java.Integer"));
   }
 
@@ -136,7 +136,7 @@ public class SettingsFactoryTest {
   public void shouldNotAllowUserToCalculateCoverageForCoverageImplementation() {
     this.options.setTargetClasses(Collections
         .singleton("/org/pitest/coverage"));
-    final CoverageOptions actual = this.testee.createCoverageOptions();
+    final var actual = this.testee.createCoverageOptions();
     assertFalse(actual.getFilter().test("org/pitest/coverage"));
   }
 

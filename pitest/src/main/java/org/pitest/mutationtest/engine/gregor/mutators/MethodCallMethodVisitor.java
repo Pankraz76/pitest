@@ -74,7 +74,7 @@ class MethodCallMethodVisitor extends MethodVisitor {
         || isCallToSuperOrOwnConstructor(name, owner)) {
       this.mv.visitMethodInsn(opcode, owner, name, desc, itf);
     } else {
-      final MutationIdentifier newId = this.context.registerMutation(
+      final var newId = this.context.registerMutation(
           this.factory, "removed call to " + owner + "::" + name);
 
       if (this.context.shouldMutate(newId)) {
@@ -106,8 +106,8 @@ class MethodCallMethodVisitor extends MethodVisitor {
 
   private void popStack(final String desc, final String name) {
     final Type[] argTypes = Type.getArgumentTypes(desc);
-    for (int i = argTypes.length - 1; i >= 0; i--) {
-      final Type argumentType = argTypes[i];
+    for (var i = argTypes.length - 1; i >= 0; i--) {
+      final var argumentType = argTypes[i];
       if (argumentType.getSize() != 1) {
         this.mv.visitInsn(POP2);
       } else {
@@ -127,7 +127,7 @@ class MethodCallMethodVisitor extends MethodVisitor {
   private void putReturnValueOnStack(final String desc, final String name) {
     final Type returnType = Type.getReturnType(desc);
     if (!returnType.equals(Type.VOID_TYPE)) {
-      final Integer opCode = RETURN_TYPE_MAP.get(returnType);
+      final var opCode = RETURN_TYPE_MAP.get(returnType);
       if (opCode == null) {
         this.mv.visitInsn(Opcodes.ACONST_NULL);
       } else {

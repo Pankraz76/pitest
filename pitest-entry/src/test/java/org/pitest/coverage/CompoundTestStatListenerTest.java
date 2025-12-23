@@ -15,7 +15,7 @@ public class CompoundTestStatListenerTest {
 
     @Test
     public void delegatesAcceptToChildren() {
-        CoverageResult cr = CoverageMother.aCoverageResult().build();
+        var cr = CoverageMother.aCoverageResult().build();
         testee.accept(cr);
 
         Mockito.verify(a).accept(cr);

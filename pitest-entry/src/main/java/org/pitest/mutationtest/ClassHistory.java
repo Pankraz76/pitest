@@ -44,7 +44,7 @@ public class ClassHistory implements Serializable {
     if (obj == null || getClass() != obj.getClass()) {
       return false;
     }
-    final ClassHistory other = (ClassHistory) obj;
+    final var other = (ClassHistory) obj;
     return Objects.equals(id, other.id)
             && Objects.equals(coverageId, other.coverageId);
   }

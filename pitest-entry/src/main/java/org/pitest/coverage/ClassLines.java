@@ -52,7 +52,7 @@ public final class ClassLines {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        ClassLines that = (ClassLines) o;
+        var that = (ClassLines) o;
         return name.equals(that.name);
     }
 

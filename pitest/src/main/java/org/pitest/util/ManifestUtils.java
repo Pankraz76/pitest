@@ -27,7 +27,6 @@ import java.util.jar.JarInputStream;
 import java.util.jar.JarOutputStream;
 import java.util.jar.Manifest;
 import java.util.stream.Collectors;
-import java.util.zip.ZipOutputStream;
 
 /**
  * Ugly static methods to create and parse classpath manifests
@@ -41,13 +40,13 @@ public class ManifestUtils {
   // JetBrains copyright notice and licence retained above.
   public static File createClasspathJarFile(String classpath)
           throws IOException {
-    final Manifest manifest = new Manifest();
-    final Attributes attributes = manifest.getMainAttributes();
+    final var manifest = new Manifest();
+    final var attributes = manifest.getMainAttributes();
     attributes.put(Attributes.Name.MANIFEST_VERSION, "1.0");
 
-    StringBuilder classpathForManifest = new StringBuilder();
-    int idx = 0;
-    int endIdx = 0;
+    var classpathForManifest = new StringBuilder();
+    var idx = 0;
+    var endIdx = 0;
     while (endIdx >= 0) {
       endIdx = classpath.indexOf(File.pathSeparator, idx);
       String path = endIdx < 0 ? classpath.substring(idx)
@@ -62,8 +61,8 @@ public class ManifestUtils {
     attributes.put(Attributes.Name.CLASS_PATH, classpathForManifest.toString());
 
     File jarFile = File.createTempFile(CLASSPATH_JAR_FILE_PREFIX, ".jar");
-    try (BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(jarFile));
-         ZipOutputStream jarPlugin = new JarOutputStream(out, manifest)
+    try (var out = new BufferedOutputStream(new FileOutputStream(jarFile));
+         var jarPlugin = new JarOutputStream(out, manifest)
     )  {
       jarFile.deleteOnExit();
     }
@@ -72,12 +71,12 @@ public class ManifestUtils {
   }
 
   public static Collection<File> readClasspathManifest(File file) {
-    try (FileInputStream fis = new FileInputStream(file);
-         JarInputStream jarStream = new JarInputStream(fis)) {
-      Manifest mf = jarStream.getManifest();
-      Attributes att = mf.getMainAttributes();
-      String cp = att.getValue(Attributes.Name.CLASS_PATH);
-      String[] parts = cp.split("file:");
+    try (var fis = new FileInputStream(file);
+         var jarStream = new JarInputStream(fis)) {
+      var mf = jarStream.getManifest();
+      var att = mf.getMainAttributes();
+      var cp = att.getValue(Attributes.Name.CLASS_PATH);
+      var parts = cp.split("file:");
       return Arrays.stream(parts)
               .filter(part -> !part.isEmpty())
               .map(part -> new File(part.trim()))

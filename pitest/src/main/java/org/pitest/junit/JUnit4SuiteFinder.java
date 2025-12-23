@@ -27,7 +27,7 @@ public class JUnit4SuiteFinder implements TestSuiteFinder {
 
   @Override
   public List<Class<?>> apply(final Class<?> a) {
-    final SuiteClasses annotation = a.getAnnotation(SuiteClasses.class);
+    final var annotation = a.getAnnotation(SuiteClasses.class);
 
     if ((annotation != null) && hasSuitableRunnner(a)) {
       return Arrays.asList(annotation.value());
@@ -38,7 +38,7 @@ public class JUnit4SuiteFinder implements TestSuiteFinder {
 
   private boolean hasSuitableRunnner(final Class<?> clazz) {
 
-    final RunWith runWith = clazz.getAnnotation(RunWith.class);
+    final var runWith = clazz.getAnnotation(RunWith.class);
     if (runWith != null) {
       return (runWith.value().equals(Suite.class));
     }

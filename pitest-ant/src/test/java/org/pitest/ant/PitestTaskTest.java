@@ -349,7 +349,7 @@ public class PitestTaskTest {
 
   @Test
   public void shouldSetPitClasspathOnJavaTask() throws Exception {
-    final String classpath = "bin/" + File.pathSeparator + "lib/util.jar";
+    final var classpath = "bin/" + File.pathSeparator + "lib/util.jar";
     this.pitestTask.setPitClasspath(classpath);
     this.pitestTask.execute(this.java);
 
@@ -381,8 +381,8 @@ public class PitestTaskTest {
 
   @Test
   public void shouldSetPitClasspathAntReferenceOnJavaTask() throws Exception {
-    final String classpath = "app.classpath";
-    final Object reference = "antReference";
+    final var classpath = "app.classpath";
+    final var reference = "antReference";
     when(this.project.getReference(classpath)).thenReturn(reference);
 
     this.pitestTask.setPitClasspath(classpath);
@@ -395,8 +395,8 @@ public class PitestTaskTest {
 
   @Test
   public void shouldPassClasspathAntReferenceToPit() throws Exception {
-    final String classpath = "app.classpath";
-    final Object reference = "antReference";
+    final var classpath = "app.classpath";
+    final var reference = "antReference";
     when(this.project.getReference(classpath)).thenReturn(reference);
 
     this.pitestTask.setClasspath(classpath);
@@ -526,8 +526,8 @@ public class PitestTaskTest {
 
     @Override
     public boolean matches(final Path argPath) {
-      final String[] paths = argPath.toString().split(File.pathSeparator);
-      final boolean matches = paths.length == this.expectedPaths.length;
+      final var paths = argPath.toString().split(File.pathSeparator);
+      final var matches = paths.length == this.expectedPaths.length;
       if (matches) {
         for (final String expectedPathElement : this.expectedPaths) {
           if (isNotPresent(paths, expectedPathElement)) {
@@ -540,7 +540,7 @@ public class PitestTaskTest {
 
     private boolean isNotPresent(final String[] paths,
         final String expectedPathElement) {
-      final String element = normalizePath(expectedPathElement);
+      final var element = normalizePath(expectedPathElement);
       for (final String pathElement : paths) {
         if (pathElement.endsWith(element)) {
           return false;
@@ -550,7 +550,7 @@ public class PitestTaskTest {
     }
 
     private String normalizePath(final String expectedPathElement) {
-      String element = expectedPathElement;
+      var element = expectedPathElement;
       element = element.replace("/", File.separator);
       element = element.replace("\\", File.separator);
       if (element.endsWith(File.separator)) {

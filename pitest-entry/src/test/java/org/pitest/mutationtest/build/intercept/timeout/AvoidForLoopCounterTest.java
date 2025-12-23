@@ -24,13 +24,13 @@ public class AvoidForLoopCounterTest {
 
   @Test
   public void shouldNotFilterMutantsWhenNoLoopPresent() {
-    final FilterTester verifier = new FilterTester(PATH, this.testee, Mutator.all());
+    final var verifier = new FilterTester(PATH, this.testee, Mutator.all());
     verifier.assertFiltersNMutationFromSample(0, "IHaveNoLoops");
   }
 
   @Test
   public void shouldNotFilterIncrementMutantsInConditions() {
-    final FilterTester verifier = new FilterTester(PATH, this.testee, Mutator.all());
+    final var verifier = new FilterTester(PATH, this.testee, Mutator.all());
     verifier.assertFiltersNMutationFromClass(0, HasIncrementsInIfs.class);
   }
 
@@ -89,7 +89,7 @@ public class AvoidForLoopCounterTest {
 
   static class ReverseLoop {
     void foo() {
-      for (int i = 9; i > 0; i--) {
+      for (var i = 9; i > 0; i--) {
         System.out.println("" + i);
       }
     }
@@ -97,7 +97,7 @@ public class AvoidForLoopCounterTest {
 
   static class LessThanLoop {
     void foo() {
-      for (int i = 0; i < 10; i++) {
+      for (var i = 0; i < 10; i++) {
         System.out.println("" + i);
       }
     }
@@ -105,7 +105,7 @@ public class AvoidForLoopCounterTest {
 
   static class SmallConstantLoop {
     void foo() {
-      for (int i = 0; i < 2; i++) {
+      for (var i = 0; i < 2; i++) {
         System.out.println("" + i);
       }
     }
@@ -130,8 +130,8 @@ public class AvoidForLoopCounterTest {
 
   static class HasAForLoopAndOtherIncrements {
     void foo() {
-      int j = 0;
-      for (int i = 0; i != 10; i++) {
+      var j = 0;
+      for (var i = 0; i != 10; i++) {
         j++;
         System.out.println("" + j);
       }
@@ -140,7 +140,7 @@ public class AvoidForLoopCounterTest {
 
   static class HasAForLoop {
     void foo() {
-      for (int i = 0; i != 10; i++) {
+      for (var i = 0; i != 10; i++) {
         System.out.println("" + i);
       }
     }
@@ -148,7 +148,7 @@ public class AvoidForLoopCounterTest {
 
   static class HasForLoopOverList {
     void foo(List<Integer> is) {
-      for (int i = 0; i != is.size(); i++) {
+      for (var i = 0; i != is.size(); i++) {
         System.out.println("" + i);
       }
     }
@@ -157,7 +157,7 @@ public class AvoidForLoopCounterTest {
   static class HasForLoopOverListStoredAsField {
     List<Integer> is;
     void foo() {
-      for (int i = 0; i != this.is.size(); i++) {
+      for (var i = 0; i != this.is.size(); i++) {
         System.out.println("" + i);
       }
     }
@@ -165,7 +165,7 @@ public class AvoidForLoopCounterTest {
 
   static class HasArrayIteration {
     void foo(int[] is) {
-      for (int i = 0; i != is.length; i++) {
+      for (var i = 0; i != is.length; i++) {
         System.out.println("" + i);
       }
     }

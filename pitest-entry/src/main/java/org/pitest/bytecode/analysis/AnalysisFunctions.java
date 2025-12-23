@@ -9,7 +9,7 @@ import org.pitest.mutationtest.engine.MutationDetails;
 public class AnalysisFunctions {
   public static Function<MethodTree, Predicate<MutationDetails>> matchMutationsInMethod() {
     return method -> {
-      final Location methodLocation = method.asLocation();
+      final var methodLocation = method.asLocation();
       return a -> methodLocation.equals(a.getId().getLocation());
     };
   }

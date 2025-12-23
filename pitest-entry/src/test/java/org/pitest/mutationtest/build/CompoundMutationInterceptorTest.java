@@ -57,7 +57,7 @@ public class CompoundMutationInterceptorTest {
   @Test
   public void initialisesAllChildren() {
     this.testee = new CompoundMutationInterceptor(Arrays.asList(this.modifyChild, this.filterChild));
-    final CodeSource source = new DefaultCodeSource(new ProjectClassPaths(null, null,null));
+    final var source = new DefaultCodeSource(new ProjectClassPaths(null, null,null));
 
     this.testee.initialise(source);
     verify(this.modifyChild).initialise(source);
@@ -67,7 +67,7 @@ public class CompoundMutationInterceptorTest {
   @Test
   public void shouldNotifyAllChildrenOfNewClass() {
     this.testee = new CompoundMutationInterceptor(Arrays.asList(this.modifyChild,this.filterChild));
-    final ClassTree aClass = new ClassTree(null);
+    final var aClass = new ClassTree(null);
 
     this.testee.begin(aClass);
     verify(this.modifyChild).begin(aClass);
@@ -77,7 +77,7 @@ public class CompoundMutationInterceptorTest {
   @Test
   public void shouldFilterChildren() {
     this.testee = new CompoundMutationInterceptor(Arrays.asList(this.modifyChild,this.filterChild));
-    final ClassTree aClass = new ClassTree(null);
+    final var aClass = new ClassTree(null);
 
     this.testee.filter(i -> i == modifyChild).begin(aClass);
     verify(this.modifyChild).begin(aClass);

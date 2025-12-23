@@ -123,7 +123,7 @@ public class FCollectionTest {
     final Collection<Integer> xs = Arrays.asList(1, 2, 3);
     final BiFunction<Integer, Integer, Integer> f = (a, b) -> a + b;
 
-    final int actual = FCollection.fold(f, 2, xs);
+    final var actual = FCollection.fold(f, 2, xs);
     assertEquals(8, actual);
   }
 

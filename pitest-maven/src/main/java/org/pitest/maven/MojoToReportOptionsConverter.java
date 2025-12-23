@@ -97,8 +97,8 @@ public class MojoToReportOptionsConverter {
 
     addCrossModuleDirsToClasspath(classPath);
 
-    ReportOptions option = parseReportOptions(classPath);
-    ReportOptions withSureFire = updateFromSurefire(option);
+    var option = parseReportOptions(classPath);
+    var withSureFire = updateFromSurefire(option);
 
     // Null check here is a bad unit testing artifact, should never be null in real life
     ReportOptions effective = withSureFire != null ? withSureFire : option;
@@ -157,10 +157,10 @@ public class MojoToReportOptionsConverter {
     }
 
     // Look for platform engine or platform commons on classpath
-    Artifact toMatch = maybeJUnitPlatform.get();
+    var toMatch = maybeJUnitPlatform.get();
 
     // Assume that artifact has been released with same version number as engine and commons
-    DefaultArtifact platformLauncher = new DefaultArtifact(toMatch.getGroupId(), artifactId, "jar",
+    var platformLauncher = new DefaultArtifact(toMatch.getGroupId(), artifactId, "jar",
             toMatch.getVersion());
 
     addArtifact(classPath, platformLauncher);
@@ -185,10 +185,10 @@ public class MojoToReportOptionsConverter {
     }
 
     // Look for platform engine or platform commons on classpath
-    Artifact toMatch = maybeApi.get();
+    var toMatch = maybeApi.get();
 
     // Assume that engine has been released with same version number as api
-    DefaultArtifact platformLauncher = new DefaultArtifact(toMatch.getGroupId(), "junit-jupiter-engine", "jar",
+    var platformLauncher = new DefaultArtifact(toMatch.getGroupId(), "junit-jupiter-engine", "jar",
             toMatch.getVersion());
 
     addArtifact(classPath, platformLauncher);
@@ -198,19 +198,19 @@ public class MojoToReportOptionsConverter {
   private void addArtifact(List<String> classPath, DefaultArtifact platformLauncher) {
     try {
 
-      ArtifactRequest r = new ArtifactRequest();
+      var r = new ArtifactRequest();
       r.setArtifact(platformLauncher);
 
       r.setRepositories(this.mojo.getProject().getRemotePluginRepositories());
-      ArtifactResult resolved = this.mojo.repositorySystem().resolveArtifact(mojo.session().getRepositorySession(), r);
+      var resolved = this.mojo.repositorySystem().resolveArtifact(mojo.session().getRepositorySession(), r);
 
       this.log.info("Auto adding " + resolved + " to classpath.");
       classPath.add(resolved.getArtifact().getFile().getAbsolutePath());
 
       // get any transitive dependencies,
       // although this doesn't seem to be neccesary for current releases of junit
-      DependencyRequest dependencyRequest = new DependencyRequest(new DefaultDependencyNode(platformLauncher), null);
-      DependencyResult transitive = this.mojo.repositorySystem().resolveDependencies(mojo.session().getRepositorySession(), dependencyRequest);
+      var dependencyRequest = new DependencyRequest(new DefaultDependencyNode(platformLauncher), null);
+      var transitive = this.mojo.repositorySystem().resolveDependencies(mojo.session().getRepositorySession(), dependencyRequest);
       for (ArtifactResult result : transitive.getArtifactResults()) {
         this.log.info("Auto adding " + result + " to classpath.");
         classPath.add(result.getArtifact().getFile().getAbsolutePath());
@@ -237,7 +237,7 @@ public class MojoToReportOptionsConverter {
 
   private void removeExcludedDependencies(List<String> classPath) {
     for (Object artifact : this.mojo.getProject().getArtifacts()) {
-      final Artifact dependency = (Artifact) artifact;
+      final var dependency = (Artifact) artifact;
       if (this.mojo.getClasspathDependencyExcludes().contains(
           dependency.getGroupId() + ":" + dependency.getArtifactId())) {
         classPath.remove(dependency.getFile().getPath());
@@ -246,7 +246,7 @@ public class MojoToReportOptionsConverter {
   }
 
   private ReportOptions parseReportOptions(final List<String> classPath) {
-    final ReportOptions data = new ReportOptions();
+    final var data = new ReportOptions();
 
     if (this.mojo.getProject().getBuild() != null) {
 
@@ -415,11 +415,11 @@ public class MojoToReportOptionsConverter {
 
   private void useHistoryFileInTempDir(final ReportOptions data) {
     String tempDir = System.getProperty("java.io.tmpdir");
-    MavenProject project = this.mojo.getProject();
-    String name = project.getGroupId() + "."
+    var project = this.mojo.getProject();
+    var name = project.getGroupId() + "."
         + project.getArtifactId() + "."
         + project.getVersion() + "_pitest_history.bin";
-    File historyFile = new File(tempDir, name);
+    var historyFile = new File(tempDir, name);
 
     if (mojo.getHistoryInputFile() != null || mojo.getHistoryOutputFile() != null) {
       log.info("Using withHistory option. This overrides the explicitly set history file paths.");
@@ -439,7 +439,7 @@ public class MojoToReportOptionsConverter {
       return option;
     }
 
-    Plugin surefire = plugins.iterator().next();
+    var surefire = plugins.iterator().next();
     if (surefire != null) {
       return this.surefireConverter.update(option,
           (Xpp3Dom) surefire.getConfiguration());
@@ -463,7 +463,7 @@ public class MojoToReportOptionsConverter {
   }
 
   private void setTestGroups(final ReportOptions data) {
-    final TestGroupConfig conf = new TestGroupConfig(
+    final var conf = new TestGroupConfig(
         this.mojo.getExcludedGroups(), this.mojo.getIncludedGroups());
     data.setGroupConfig(conf);
   }
@@ -507,10 +507,10 @@ public class MojoToReportOptionsConverter {
   private Collection<String> findOccupiedTestPackages() {
     // use only the tests within current project, even if in
     // cross module mode
-    String outputDirName = this.mojo.getProject().getBuild()
+    var outputDirName = this.mojo.getProject().getBuild()
         .getTestOutputDirectory();
     if (outputDirName != null) {
-        File outputDir = new File(outputDirName);
+        var outputDir = new File(outputDirName);
         return findOccupiedPackagesIn(outputDir);
     } else {
         return Collections.emptyList();
@@ -564,7 +564,7 @@ public class MojoToReportOptionsConverter {
 
   public static Collection<String> findOccupiedPackagesIn(File dir) {
     if (dir.exists()) {
-      DirectoryClassPathRoot root = new DirectoryClassPathRoot(dir);
+      var root = new DirectoryClassPathRoot(dir);
       Set<String> occupiedPackages = new HashSet<>();
       FCollection.mapTo(root.classNames(), classToPackageGlob(),
           occupiedPackages);
@@ -596,7 +596,7 @@ public class MojoToReportOptionsConverter {
   }
 
   private Properties createPluginProperties() {
-    Properties p = new Properties();
+    var p = new Properties();
     if (this.mojo.getPluginProperties() != null) {
       p.putAll(this.mojo.getPluginProperties());
     }
@@ -616,7 +616,7 @@ public class MojoToReportOptionsConverter {
   private String replacePropertyExpressions(String argLine) {
     for (Enumeration<?> e = mojo.getProject().getProperties().propertyNames(); e.hasMoreElements();) {
 
-      String key = e.nextElement().toString();
+      var key = e.nextElement().toString();
 
       // Replace surefire late evaluation syntax properties
       argLine = replaceFieldForSymbol('@', key, argLine);
@@ -632,7 +632,7 @@ public class MojoToReportOptionsConverter {
   }
 
   private String replaceFieldForSymbol(char symbol, String key, String argLine) {
-    String field = symbol + "{" + key + "}";
+    var field = symbol + "{" + key + "}";
     if (argLine.contains(field))  {
       return argLine.replace(field, mojo.getProject().getProperties().getProperty(key, ""));
     }
@@ -640,7 +640,7 @@ public class MojoToReportOptionsConverter {
   }
 
   private String replaceSettingsField(String argLine) {
-    String field = "${settings.localRepository}";
+    var field = "${settings.localRepository}";
     if (argLine.contains(field))  {
       return argLine.replace(field, mojo.getSettings().getLocalRepository());
     }

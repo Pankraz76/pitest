@@ -9,7 +9,7 @@ public class JUnitThreeSuite extends TestCase {
   }
 
   public static junit.framework.Test suite() {
-    final TestSuite suite = new TestSuite();
+    final var suite = new TestSuite();
     suite.addTest(JUnitThreeSubSuite.suite());
     return suite;
   }

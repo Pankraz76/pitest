@@ -38,7 +38,7 @@ public class InputStreamLineIterable implements Iterable<String> {
   }
 
   public String next() {
-    final String t = this.next;
+    final var t = this.next;
     advance();
     return t;
   }

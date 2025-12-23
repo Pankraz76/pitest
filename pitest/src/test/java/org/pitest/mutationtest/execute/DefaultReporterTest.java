@@ -30,22 +30,22 @@ public class DefaultReporterTest {
 
   @Test
   public void shouldSendMutationIdentifierToOutputStream() throws IOException {
-    final MutationIdentifier mi = aMutationId().withIndex(0).withMutator("foo")
+    final var mi = aMutationId().withIndex(0).withMutator("foo")
         .build();
     this.testee.describe(mi);
-    final SafeDataInputStream is = resultToStream();
+    final var is = resultToStream();
     assertEquals(Id.DESCRIBE, is.readByte());
     assertEquals(is.read(MutationIdentifier.class), mi);
   }
 
   @Test
   public void shouldSendDetectionStatus() throws IOException {
-    final MutationIdentifier mi = aMutationId().withIndex(0).withMutator("foo")
+    final var mi = aMutationId().withIndex(0).withMutator("foo")
         .build();
-    final MutationStatusTestPair ms = new MutationStatusTestPair(2,
+    final var ms = new MutationStatusTestPair(2,
         DetectionStatus.KILLED, "foo");
     this.testee.report(mi, ms);
-    final SafeDataInputStream is = resultToStream();
+    final var is = resultToStream();
     assertEquals(Id.REPORT, is.readByte());
     assertEquals(is.read(MutationIdentifier.class), mi);
     assertEquals(is.read(MutationStatusTestPair.class), ms);
@@ -59,7 +59,7 @@ public class DefaultReporterTest {
   @Test
   public void shouldSendExitCode() {
     this.testee.done(ExitCode.TIMEOUT);
-    final SafeDataInputStream is = resultToStream();
+    final var is = resultToStream();
     assertEquals(Id.DONE, is.readByte());
     assertEquals(is.readInt(), ExitCode.TIMEOUT.getCode());
   }

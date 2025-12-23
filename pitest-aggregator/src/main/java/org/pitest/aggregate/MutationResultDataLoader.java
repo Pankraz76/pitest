@@ -30,14 +30,14 @@ class MutationResultDataLoader extends DataLoader<MutationResult> {
 
   @Override
   protected Set<MutationResult> mapToData(XMLStreamReader xr) throws XMLStreamException {
-    XmlMapper xm = new XmlMapper();
+    var xm = new XmlMapper();
     final Set<MutationResult> data = new HashSet<>();
     while (xr.hasNext()) {
       xr.next();
       if (xr.getEventType() == START_ELEMENT) {
         if ("mutation".equals(xr.getLocalName())) {
           try {
-            MutationXml mutation = xm.readValue(xr, MutationXml.class);
+            var mutation = xm.readValue(xr, MutationXml.class);
             data.add(xmlToResult(mutation));
           } catch (IOException e) {
             throw Unchecked.translateCheckedException(e);
@@ -49,9 +49,9 @@ class MutationResultDataLoader extends DataLoader<MutationResult> {
   }
 
   private MutationResult xmlToResult(MutationXml xml) {
-    Location location = new Location(ClassName.fromString(xml.mutatedClass),
+    var location = new Location(ClassName.fromString(xml.mutatedClass),
             xml.mutatedMethod, xml.methodDescription);
-    MutationIdentifier id = new MutationIdentifier(location, xml.indexes, xml.mutator);
+    var id = new MutationIdentifier(location, xml.indexes, xml.mutator);
     String[] killingTests = xml.killingTest == null ? new String[0] : new String[] { xml.killingTest };
     String[] succeedingTests = xml.succeedingTests == null ? new String[0] : xml.succeedingTests.split(",");
     return new MutationResult(new MutationDetails(id,

@@ -20,7 +20,7 @@ public class BasicTestStatListenerFactoryTest {
 
     @Test
     public void isOnByDefault() {
-        BasicTestStatListenerFactory testee = new BasicTestStatListenerFactory();
+        var testee = new BasicTestStatListenerFactory();
         assertThat(testee.provides().isOnByDefault()).isTrue();
     }
 

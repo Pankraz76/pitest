@@ -36,7 +36,7 @@ public class LineMapperTest {
 
     final Location l = Location.location(ClassName.fromClass(OneBlock.class),
         "foo", "()I");
-    final BlockLocation bl = new BlockLocation(l, 0);
+    final var bl = new BlockLocation(l, 0);
 
     assertThat(actual.get(bl)).containsOnly(5);
 
@@ -115,7 +115,7 @@ public class LineMapperTest {
       throws ClassNotFoundException {
     when(this.source.getBytes(anyString())).thenReturn(
         Optional.ofNullable(ClassUtils.classAsBytes(clazz)));
-    final LineMap testee = new LineMapper(this.source);
+    final var testee = new LineMapper(this.source);
     return testee.mapLines(ClassName.fromClass(clazz));
   }
 

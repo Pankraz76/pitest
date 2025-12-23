@@ -32,11 +32,11 @@ public class ClassInfoTest {
 
   @Test
   public void shouldCreateDifferentHierarchicalHashWhenParentClassChanges() {
-    final ClassInfo parent = new ClassInfo(emptyClassPointer(),
+    final var parent = new ClassInfo(emptyClassPointer(),
         emptyClassPointer(), this.data);
-    final ClassInfo classA = new ClassInfo(emptyClassPointer(),
+    final var classA = new ClassInfo(emptyClassPointer(),
         emptyClassPointer(), this.data);
-    final ClassInfo classB = new ClassInfo(pointerTo(parent),
+    final var classB = new ClassInfo(pointerTo(parent),
         emptyClassPointer(), this.data);
 
     assertFalse(classA.getHierarchicalId().getHierarchicalHash()
@@ -45,11 +45,11 @@ public class ClassInfoTest {
 
   @Test
   public void shouldCreateDifferentHierarchicalHashWhenOuterClassChanges() {
-    final ClassInfo outer = new ClassInfo(emptyClassPointer(),
+    final var outer = new ClassInfo(emptyClassPointer(),
         emptyClassPointer(), this.data);
-    final ClassInfo classA = new ClassInfo(emptyClassPointer(),
+    final var classA = new ClassInfo(emptyClassPointer(),
         emptyClassPointer(), this.data);
-    final ClassInfo classB = new ClassInfo(emptyClassPointer(),
+    final var classB = new ClassInfo(emptyClassPointer(),
         pointerTo(outer), this.data);
 
     assertFalse(classA.getHierarchicalId().getHierarchicalHash()

@@ -61,7 +61,7 @@ public class CompoundTestListenerTest {
 
   @Test
   public void shouldCallOnTestErrorForAllChildren() {
-    final ClassMutationResults metaData = new ClassMutationResults(
+    final var metaData = new ClassMutationResults(
         Collections.<MutationResult> emptyList());
     this.testee.handleMutationResult(metaData);
     verify(this.firstChild, times(1)).handleMutationResult(metaData);

@@ -45,7 +45,7 @@ public class CodeHistoryTest {
 
   @Test
   public void shouldReturnNoneWhenNoMatchingHistoricResultExists() {
-    final MutationIdentifier id = aMutationId().build();
+    final var id = aMutationId().build();
     final Optional<MutationStatusTestPair> actual = this.testee
         .getPreviousResult(id);
     assertEquals(Optional.empty(), actual);
@@ -53,8 +53,8 @@ public class CodeHistoryTest {
 
   @Test
   public void shouldReturnHistoricResultWhenOneExists() {
-    final MutationIdentifier id = aMutationId().build();
-    final MutationStatusTestPair expected = new MutationStatusTestPair(0,
+    final var id = aMutationId().build();
+    final var expected = new MutationStatusTestPair(0,
         DetectionStatus.KILLED, "foo");
     this.results.put(id, expected);
     final Optional<MutationStatusTestPair> actual = this.testee
@@ -70,9 +70,9 @@ public class CodeHistoryTest {
 
   @Test
   public void shouldTreatClassesWithDifferentHashesAsChanged() {
-    final long currentHash = 42;
+    final var currentHash = 42L;
     final ClassName foo = ClassName.fromString("foo");
-    final ClassIdentifier currentId = new ClassIdentifier(currentHash, foo);
+    final var currentId = new ClassIdentifier(currentHash, foo);
     setCurrentClassPath(ClassInfoMother.make(currentId));
     this.historicClassPath.put(foo, makeHistory(new HierarchicalClassId(
         currentHash + 1, foo, "0")));
@@ -81,11 +81,11 @@ public class CodeHistoryTest {
 
   @Test
   public void shouldTreatClassesWithModifiedParentAsChanged() {
-    final long currentHash = 42;
+    final var currentHash = 42L;
     final ClassName foo = ClassName.fromString("foo");
 
     final ClassInfo parent = ClassInfoMother.make("parent");
-    final ClassIdentifier currentId = new ClassIdentifier(currentHash, foo);
+    final var currentId = new ClassIdentifier(currentHash, foo);
     final ClassInfo currentFoo = ClassInfoMother.make(currentId, parent);
 
     final ClassInfo modifiedParent = ClassInfoMother.make(new ClassIdentifier(
@@ -103,7 +103,7 @@ public class CodeHistoryTest {
   @Test
   public void shouldTreatClassesWithSameHashAsUnChanged() {
     final ClassName foo = ClassName.fromString("foo");
-    final HierarchicalClassId currentId = new HierarchicalClassId(0, foo, "0");
+    final var currentId = new HierarchicalClassId(0, foo, "0");
     setCurrentClassPath(currentId);
     this.historicClassPath.put(foo, makeHistory(currentId));
     assertFalse(this.testee.hasClassChanged(ClassName.fromString("foo")));

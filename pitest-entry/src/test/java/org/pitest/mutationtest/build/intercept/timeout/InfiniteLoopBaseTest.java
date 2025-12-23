@@ -41,7 +41,7 @@ public abstract class InfiniteLoopBaseTest {
   }
 
   void checkNotFiltered(ClassName clazz, Predicate<MethodTree> method) {
-    boolean testedSomething = false;
+    var testedSomething = false;
     for (final Compiler each : Compiler.values()) {
       final Optional<MethodTree> mt = parseMethodFromCompiledResource(clazz, each,
           method);
@@ -65,7 +65,7 @@ public abstract class InfiniteLoopBaseTest {
   }
 
   void checkFiltered(ClassName clazz, Predicate<MethodTree> method) {
-    boolean testedSomething = false;
+    var testedSomething = false;
     for (final Compiler each : Compiler.values()) {
       final Optional<MethodTree> mt = parseMethodFromCompiledResource(clazz, each,
           method);
@@ -84,12 +84,12 @@ public abstract class InfiniteLoopBaseTest {
   }
 
   private String toString(MethodTree mt) {
-    final ByteArrayOutputStream bos = new ByteArrayOutputStream();
+    final var bos = new ByteArrayOutputStream();
 
-    final TraceMethodVisitor mv = new TraceMethodVisitor(new Textifier());
+    final var mv = new TraceMethodVisitor(new Textifier());
 
     mt.rawNode().accept(mv);
-    try (PrintWriter pw = new PrintWriter(bos)) {
+    try (var pw = new PrintWriter(bos)) {
       mv.p.print(pw);
     }
 
@@ -98,7 +98,7 @@ public abstract class InfiniteLoopBaseTest {
 
   private Optional<MethodTree> parseMethodFromCompiledResource(ClassName clazz,
       Compiler compiler, Predicate<MethodTree> method) {
-    final ResourceFolderByteArraySource source = new ResourceFolderByteArraySource();
+    final var source = new ResourceFolderByteArraySource();
     final Optional<byte[]> bs = source.getBytes("loops/" + compiler.name() + "/" + clazz.getNameWithoutPackage().asJavaName());
     if (bs.isPresent()) {
       final ClassTree tree = ClassTree.fromBytes(bs.get());
@@ -108,7 +108,7 @@ public abstract class InfiniteLoopBaseTest {
   }
 
   ClassTree forClass(Class<?> clazz) {
-    final byte[] bs = this.source.getBytes(clazz.getName()).get();
+    final var bs = this.source.getBytes(clazz.getName()).get();
     return ClassTree.fromBytes(bs);
   }
 

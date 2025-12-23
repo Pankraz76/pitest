@@ -57,7 +57,7 @@ public final class HierarchicalClassId implements Serializable {
     if (obj == null || getClass() != obj.getClass()) {
       return false;
     }
-    final HierarchicalClassId other = (HierarchicalClassId) obj;
+    final var other = (HierarchicalClassId) obj;
     return Objects.equals(classId, other.classId)
             && Objects.equals(hierarchicalHash, other.hierarchicalHash);
   }

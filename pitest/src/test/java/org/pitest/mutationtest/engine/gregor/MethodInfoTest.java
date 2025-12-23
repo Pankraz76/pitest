@@ -36,71 +36,71 @@ public class MethodInfoTest {
 
   @Test
   public void isVoidShouldReturnTrueWhenMethodIsVoid() {
-    final MethodInfo testee = this.methodInfo.withMethodDescriptor(VOID_RETURN);
+    final var testee = this.methodInfo.withMethodDescriptor(VOID_RETURN);
     assertThat(testee.isVoid(), is(true));
   }
 
   @Test
   public void isVoidShouldReturnFalseWhenMethodIsNotVoid() {
-    final MethodInfo testee = this.methodInfo
+    final var testee = this.methodInfo
         .withMethodDescriptor(STRING_RETURN);
     assertThat(testee.isVoid(), is(false));
   }
 
   @Test
   public void isStaticShouldReturnTrueWhenMethodIsStatic() {
-    final MethodInfo testee = this.methodInfo.withAccess(STATIC_MODIFIER);
+    final var testee = this.methodInfo.withAccess(STATIC_MODIFIER);
     assertThat(testee.isStatic(), is(true));
   }
 
   @Test
   public void isStaticShouldReturnFalseWhenMethodIsNotStatic() {
-    final MethodInfo testee = this.methodInfo.withAccess(NON_STATIC_MODIFIER);
+    final var testee = this.methodInfo.withAccess(NON_STATIC_MODIFIER);
     assertThat(testee.isStatic(), is(false));
   }
 
   @Test
   public void isConstructorShouldReturnTrueWhenMethodIsConstructor() {
-    final MethodInfo testee = this.methodInfo.withMethodName("<init>");
+    final var testee = this.methodInfo.withMethodName("<init>");
     assertThat(testee.isConstructor(), is(true));
   }
 
   @Test
   public void isConstructorShouldReturnTrueWhenMethodIsRegularMethod() {
-    final MethodInfo testee = this.methodInfo.withMethodName("toString");
+    final var testee = this.methodInfo.withMethodName("toString");
     assertThat(testee.isConstructor(), is(false));
   }
 
   @Test
   public void isSyntheticShouldReturnTrueWhenSyntheticAccessFlagSet() {
-    final MethodInfo testee = this.methodInfo.withAccess(SYNTHETIC_MODIFIER);
+    final var testee = this.methodInfo.withAccess(SYNTHETIC_MODIFIER);
     assertThat(testee.isSynthetic(), is(true));
   }
 
   @Test
   public void isSyntheticShouldReturnFalseWhenNoSyntheticAccessFlagSet() {
-    final MethodInfo testee = this.methodInfo
+    final var testee = this.methodInfo
         .withAccess(NON_SYNTHETIC_MODIFIER);
     assertThat(testee.isSynthetic(), is(false));
   }
 
   @Test
   public void getReturnTypeReturnsCorrectReturnType() {
-    final MethodInfo testee = this.methodInfo
+    final var testee = this.methodInfo
         .withMethodDescriptor(STRING_RETURN);
     assertThat(testee.getReturnType(), is(Type.getType(String.class)));
   }
 
   @Test
   public void getDescriptionReturnsQualifiedMethodName() {
-    final String EXAMPLE_CLASS_NAME = "org.pitest.Example";
-    final ClassInfo EXAMPLE_CLASS_INFO = new ClassInfo(0,
+    final var EXAMPLE_CLASS_NAME = "org.pitest.Example";
+    final var EXAMPLE_CLASS_INFO = new ClassInfo(0,
         EXAMPLE_CLASS_NAME, "");
-    final String EXAMPLE_METHOD_NAME = "myMethod";
-    final String QUALIFIED_METHOD_NAME = EXAMPLE_CLASS_NAME + "::"
+    final var EXAMPLE_METHOD_NAME = "myMethod";
+    final var QUALIFIED_METHOD_NAME = EXAMPLE_CLASS_NAME + "::"
         + EXAMPLE_METHOD_NAME;
 
-    final MethodInfo testee = this.methodInfo.withOwner(EXAMPLE_CLASS_INFO)
+    final var testee = this.methodInfo.withOwner(EXAMPLE_CLASS_INFO)
         .withMethodName(EXAMPLE_METHOD_NAME);
 
     assertThat(testee.getDescription(), is(QUALIFIED_METHOD_NAME));

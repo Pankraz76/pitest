@@ -51,7 +51,7 @@ public class LineStyle {
       return "";
     }
 
-    final DetectionStatus status = this.line.detectionStatus().get();
+    final var status = this.line.detectionStatus().get();
     if (!status.isDetected()) {
       return "survived";
     }

@@ -33,7 +33,7 @@ public class IntMutantVerifier<B> extends MutatorVerifier {
     }
 
     public void firstMutantShouldReturn(IntSupplier is, B expected) {
-        int input = is.getAsInt();
+        var input = is.getAsInt();
 
         if (checkUnmutated()) {
             assertThat(runWithoutMutation(input))
@@ -42,7 +42,7 @@ public class IntMutantVerifier<B> extends MutatorVerifier {
         }
 
         List<MutationDetails> mutations = findMutations();
-        Mutant mutant = getFirstMutant(mutations);
+        var mutant = getFirstMutant(mutations);
         assertThat(mutateAndCall(input, mutant))
                 .as(() -> "Unexpected return value from mutant\n " + printMutant(mutant))
                 .isEqualTo(expected);
@@ -53,7 +53,7 @@ public class IntMutantVerifier<B> extends MutatorVerifier {
     }
 
     private B mutateAndCall(int input, Mutant mutant) {
-        ClassLoader loader = this.createClassLoader(mutant);
+        var loader = this.createClassLoader(mutant);
         return this.runInClassLoader(loader, input);
     }
 
@@ -61,7 +61,7 @@ public class IntMutantVerifier<B> extends MutatorVerifier {
         try {
             Class<?> forLoader = loader.loadClass(target.getName());
 
-            Constructor c = forLoader.getDeclaredConstructor();
+            var c = forLoader.getDeclaredConstructor();
             c.setAccessible(true);
             IntFunction<B> instance = (IntFunction<B>) c.newInstance();
             return instance.apply(input);

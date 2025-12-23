@@ -63,7 +63,7 @@ public class ArchiveClassPathRootTest {
   public void shouldReturnAReadableInputStream() {
     final byte b[] = new byte[100];
     try {
-      final InputStream actual = this.testee.getData("injar.p1.P1Test");
+      final var actual = this.testee.getData("injar.p1.P1Test");
       actual.read(b);
     } catch (final IOException ex) {
       fail();

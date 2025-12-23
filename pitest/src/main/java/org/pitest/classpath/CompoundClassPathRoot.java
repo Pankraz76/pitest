@@ -23,7 +23,7 @@ public class CompoundClassPathRoot implements ClassPathRoot,
   @Override
   public InputStream getData(final String name) throws IOException {
     for (final ClassPathRoot each : this.roots) {
-      final InputStream is = each.getData(name);
+      final var is = each.getData(name);
       if (is != null) {
         return is;
       }
@@ -51,7 +51,7 @@ public class CompoundClassPathRoot implements ClassPathRoot,
 
   private URL findRootForResource(final String name) throws IOException {
     for (final ClassPathRoot root : this.roots) {
-      final URL u = root.getResource(name);
+      final var u = root.getResource(name);
       if (u != null) {
         return u;
       }
@@ -61,7 +61,7 @@ public class CompoundClassPathRoot implements ClassPathRoot,
 
   @Override
   public Optional<String> cacheLocation() {
-    StringBuilder classpath = new StringBuilder();
+    var classpath = new StringBuilder();
     for (final ClassPathRoot each : this.roots) {
       final Optional<String> additional = each.cacheLocation();
       if (additional.isPresent()) {

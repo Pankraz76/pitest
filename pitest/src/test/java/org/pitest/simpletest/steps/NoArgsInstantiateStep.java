@@ -66,7 +66,7 @@ public final class NoArgsInstantiateStep implements TestStep {
     if (obj == null || getClass() != obj.getClass()) {
       return false;
     }
-    final NoArgsInstantiateStep other = (NoArgsInstantiateStep) obj;
+    final var other = (NoArgsInstantiateStep) obj;
     return Objects.equals(clazz, other.clazz);
   }
 }

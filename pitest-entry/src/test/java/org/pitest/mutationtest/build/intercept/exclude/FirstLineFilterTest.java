@@ -24,11 +24,11 @@ public class FirstLineFilterTest {
 
     @Test
     public void filtersMutantsOnLine1() {
-        MutationDetails line1 = MutationDetailsMother.aMutationDetail()
+        var line1 = MutationDetailsMother.aMutationDetail()
                 .withLineNumber(1)
                 .build();
 
-        MutationDetails line2 = MutationDetailsMother.aMutationDetail()
+        var line2 = MutationDetailsMother.aMutationDetail()
                 .withLineNumber(2)
                 .build();
 
@@ -37,11 +37,11 @@ public class FirstLineFilterTest {
 
     @Test
     public void filtersMutantsOnLine0() {
-        MutationDetails line0 = MutationDetailsMother.aMutationDetail()
+        var line0 = MutationDetailsMother.aMutationDetail()
                 .withLineNumber(0)
                 .build();
 
-        MutationDetails line2 = MutationDetailsMother.aMutationDetail()
+        var line2 = MutationDetailsMother.aMutationDetail()
                 .withLineNumber(2)
                 .build();
 

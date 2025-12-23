@@ -28,14 +28,14 @@ public class ArgLineParser {
             return Collections.emptyList();
         }
 
-        final StringTokenizer tokenizer = new StringTokenizer(in, "\"\' \\", true);
+        final var tokenizer = new StringTokenizer(in, "\"\' \\", true);
         List<String> tokens = new ArrayList<>();
 
         Deque<State> state = new ArrayDeque<>();
         state.push(START);
-        StringBuilder current = new StringBuilder();
+        var current = new StringBuilder();
         while (tokenizer.hasMoreTokens()) {
-            String token = tokenizer.nextToken();
+            var token = tokenizer.nextToken();
             switch (state.peek()) {
                 case START:
                     if (token.equals(SINGLE_QUOTE)) {

@@ -39,7 +39,7 @@ public class EqualsPerformanceShortcutFilterTest {
 
   @Test
   public void shouldNotFilterGeneralMutantsInEqualMethods() {
-    final GregorMutater mutator = createMutator(
+    final var mutator = createMutator(
             BooleanFalseReturnValsMutator.FALSE_RETURNS);
     final List<MutationDetails> mutations = mutator
         .findMutations(ClassName.fromClass(HasNonShortCutEquals.class));
@@ -90,7 +90,7 @@ public class EqualsPerformanceShortcutFilterTest {
   }
 
   ClassTree forClass(Class<?> clazz) {
-    final byte[] bs = this.source.getBytes(clazz.getName()).get();
+    final var bs = this.source.getBytes(clazz.getName()).get();
     return ClassTree.fromBytes(bs);
   }
 }
@@ -135,7 +135,7 @@ class HasShortCutEquals {
     if (getClass() != obj.getClass()) {
       return false;
     }
-    final HasShortCutEquals other = (HasShortCutEquals) obj;
+    final var other = (HasShortCutEquals) obj;
     if (this.s == null) {
       if (other.s != null) {
         return false;

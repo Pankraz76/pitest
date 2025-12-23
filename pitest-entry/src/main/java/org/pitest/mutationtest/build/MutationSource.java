@@ -44,7 +44,7 @@ public class MutationSource {
 
   public Collection<MutationDetails> createMutations(final ClassName clazz) {
 
-    final Mutater m = this.mutationConfig.createMutator(this.source);
+    final var m = this.mutationConfig.createMutator(this.source);
 
     final Collection<MutationDetails> availableMutations = m
         .findMutations(clazz);

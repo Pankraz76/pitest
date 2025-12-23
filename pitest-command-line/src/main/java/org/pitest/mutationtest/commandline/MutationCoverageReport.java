@@ -33,14 +33,14 @@ public class MutationCoverageReport {
   public static void main(final String[] args) {
 
     final PluginServices plugins = PluginServices.makeForContextLoader();
-    final OptionsParser parser = new OptionsParser(new PluginFilter(plugins));
-    final ParseResult pr = parser.parse(args);
+    final var parser = new OptionsParser(new PluginFilter(plugins));
+    final var pr = parser.parse(args);
 
     if (!pr.isOk()) {
       parser.printHelp();
       System.out.println(">>>> " + pr.getErrorMessage().get());
     } else {
-      final ReportOptions data = pr.getOptions();
+      final var data = pr.getOptions();
 
       final CombinedStatistics stats = runReport(data, plugins);
 
@@ -94,8 +94,8 @@ public class MutationCoverageReport {
   private static CombinedStatistics runReport(ReportOptions data,
       PluginServices plugins) {
 
-    final EntryPoint e = new EntryPoint();
-    final AnalysisResult result = e.execute(null, data, plugins,
+    final var e = new EntryPoint();
+    final var result = e.execute(null, data, plugins,
         new HashMap<>());
     if (result.getError().isPresent()) {
       throw Unchecked.translateCheckedException(result.getError().get());

@@ -19,7 +19,7 @@ class ScorePrecursor {
   }
 
   void registerResult(final DetectionStatus result) {
-    final StatusCount total = this.counts.get(result);
+    final var total = this.counts.get(result);
     total.increment();
   }
 

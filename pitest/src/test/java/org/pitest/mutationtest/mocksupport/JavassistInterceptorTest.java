@@ -29,7 +29,7 @@ public class JavassistInterceptorTest {
   @Before
   public void setUp() {
     this.interceptedClass = new AClassWithAOpenClassFileMethod();
-    final byte[] bytes = "replaced".getBytes();
+    final var bytes = "replaced".getBytes();
     this.mutant = new Mutant(new MutationDetails(aMutationId().withLocation(
         aLocation().withClass(ClassName.fromString("match"))).build(), "foo",
         "foo", 0, 0), bytes);

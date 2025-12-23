@@ -23,13 +23,13 @@ public class CoveredButOnlyPartiallyTestedTest {
 
   @Test
   public void testCoverMe() {
-    final CoveredButOnlyPartiallyTested testee = new CoveredButOnlyPartiallyTested();
+    final var testee = new CoveredButOnlyPartiallyTested();
     assertEquals(1, testee.coverMe());
   }
 
   @Test
   public void coverButDontTest() {
-    final CoveredButOnlyPartiallyTested testee = new CoveredButOnlyPartiallyTested();
+    final var testee = new CoveredButOnlyPartiallyTested();
     testee.coverMeButDontTestMe();
   }
 

@@ -23,7 +23,7 @@ public class PartiallyCoveredTesteeTest {
 
   @Test
   public void testCoverMe() {
-    final PartiallyCoveredTestee testee = new PartiallyCoveredTestee();
+    final var testee = new PartiallyCoveredTestee();
     assertEquals(1, testee.coverMe());
   }
 

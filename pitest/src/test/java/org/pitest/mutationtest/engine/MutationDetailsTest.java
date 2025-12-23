@@ -10,7 +10,7 @@ public class MutationDetailsTest {
 
   @Test
   public void shouldDefaultFilenameWhenNoneKnown() {
-    final MutationDetails testee = MutationDetailsMother
+    final var testee = MutationDetailsMother
         .aMutationDetail()
         .withFilename(null)
         .build();

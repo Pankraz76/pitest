@@ -49,8 +49,8 @@ public class DefaultCodeSourceTest {
 
   @Test
   public void shouldProvideNamesOfCodeClasses() {
-    final ClassInfo foo = makeClassInfo("Foo");
-    final ClassInfo bar = makeClassInfo("Bar");
+    final var foo = makeClassInfo("Foo");
+    final var bar = makeClassInfo("Bar");
     when(this.classPath.code()).thenReturn(
         Arrays.asList(foo.getName(), bar.getName()));
 

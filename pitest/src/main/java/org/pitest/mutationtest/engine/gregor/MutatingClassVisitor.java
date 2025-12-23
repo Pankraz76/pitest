@@ -60,15 +60,15 @@ class MutatingClassVisitor extends ClassVisitor {
 
   @Override
   public AnnotationVisitor visitAnnotation(String descriptor, boolean visible) {
-    AnnotationInfo annotationInfo = new AnnotationInfo(descriptor, visible);
+    var annotationInfo = new AnnotationInfo(descriptor, visible);
     for (final MethodMutatorFactory each : this.mutators) {
       if (each.skipAnnotation(this.nonMethodContext, annotationInfo)) {
         return null;
       }
     }
-    AnnotationVisitor next = super.visitAnnotation(descriptor, visible);
+    var next = super.visitAnnotation(descriptor, visible);
     for (final MethodMutatorFactory each : this.mutators) {
-      AnnotationVisitor fv = each.createForAnnotation(this.nonMethodContext, annotationInfo, next);
+      var fv = each.createForAnnotation(this.nonMethodContext, annotationInfo, next);
       if (fv != null) {
         next = fv;
       }
@@ -78,10 +78,10 @@ class MutatingClassVisitor extends ClassVisitor {
 
   @Override
   public FieldVisitor visitField(int access, String name, String descriptor, String signature, Object value) {
-      FieldVisitor next = super.visitField(access, name, descriptor, signature, value);
-      FieldInfo fieldInfo = new FieldInfo(access, name, descriptor, signature, value);
+      var next = super.visitField(access, name, descriptor, signature, value);
+      var fieldInfo = new FieldInfo(access, name, descriptor, signature, value);
       for (final MethodMutatorFactory each : this.mutators) {
-        FieldVisitor fv = each.createForField(this.nonMethodContext, fieldInfo, next);
+        var fv = each.createForField(this.nonMethodContext, fieldInfo, next);
         if (fv != null) {
           next = fv;
         }
@@ -94,15 +94,15 @@ class MutatingClassVisitor extends ClassVisitor {
       final String methodDescriptor, final String signature,
       final String[] exceptions) {
 
-    final MethodMutationContext methodContext = new MethodMutationContext(
+    final var methodContext = new MethodMutationContext(
         this.context, Location.location(
             ClassName.fromString(this.context.getClassInfo().getName()),
             methodName, methodDescriptor));
 
-    final MethodVisitor methodVisitor = this.cv.visitMethod(access, methodName,
+    final var methodVisitor = this.cv.visitMethod(access, methodName,
         methodDescriptor, signature, exceptions);
 
-    final MethodInfo info = new MethodInfo()
+    final var info = new MethodInfo()
     .withOwner(this.context.getClassInfo()).withAccess(access)
     .withMethodName(methodName).withMethodDescriptor(methodDescriptor);
 
@@ -135,9 +135,9 @@ class MutatingClassVisitor extends ClassVisitor {
       MethodMutationContext methodContext, final MethodInfo methodInfo,
       final MethodVisitor methodVisitor) {
 
-    MethodVisitor next = methodVisitor;
+    var next = methodVisitor;
     for (final MethodMutatorFactory each : this.mutators) {
-      MethodVisitor mv = each.create(methodContext, methodInfo, next);
+      var mv = each.create(methodContext, methodInfo, next);
       if (mv != null) {
         next = mv;
       }

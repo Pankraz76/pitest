@@ -88,15 +88,15 @@ public class ReportSourceLocator {
   }
 
   private File executeLocator(File reportsDirectory, Log log) {
-    File[] subdirectories = reportsDirectory
+    var subdirectories = reportsDirectory
         .listFiles(TIMESTAMPED_REPORTS_FILE_FILTER);
-    File latest = reportsDirectory;
+    var latest = reportsDirectory;
 
     log.debug("ReportSourceLocator starting search in directory ["
         + reportsDirectory.getAbsolutePath() + "]");
 
     if (subdirectories != null) {
-      LastModifiedFileComparator c = new LastModifiedFileComparator();
+      var c = new LastModifiedFileComparator();
 
       for (File f : subdirectories) {
         log.debug("comparing directory [" + f.getAbsolutePath()

@@ -24,7 +24,7 @@ public class AutoSetThreadsTest {
 
     @Test
     public void leavesNumberOfThreadsAs1IfOnly1Available() {
-        ReportOptions data = new ReportOptions();
+        var data = new ReportOptions();
         reportedCores = 1;
         data.setNumberOfThreads(1);
         underTest.updateConfig(unused(), data);
@@ -33,7 +33,7 @@ public class AutoSetThreadsTest {
 
     @Test
     public void usesThreeThreadsWhen4CoresAvailable() {
-        ReportOptions data = new ReportOptions();
+        var data = new ReportOptions();
         reportedCores = 4;
         data.setNumberOfThreads(1);
         underTest.updateConfig(unused(), data);
@@ -42,7 +42,7 @@ public class AutoSetThreadsTest {
 
     @Test
     public void usesFiveThreadsWhen8CoresAvailable() {
-        ReportOptions data = new ReportOptions();
+        var data = new ReportOptions();
         reportedCores = 8;
         data.setNumberOfThreads(1);
         underTest.updateConfig(unused(), data);
@@ -51,7 +51,7 @@ public class AutoSetThreadsTest {
 
     @Test
     public void uses8CoresWhen12Available() {
-        ReportOptions data = new ReportOptions();
+        var data = new ReportOptions();
         reportedCores = 12;
         data.setNumberOfThreads(1);
         underTest.updateConfig(unused(), data);

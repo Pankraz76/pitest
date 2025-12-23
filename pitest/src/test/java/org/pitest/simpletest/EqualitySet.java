@@ -40,7 +40,7 @@ public class EqualitySet<T> implements Iterable<T> {
   }
 
   public boolean addAll(final Collection<? extends T> arg0) {
-    boolean isAdded = false;
+    var isAdded = false;
     for (final T each : arg0) {
       isAdded |= add(each);
     }

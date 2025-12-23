@@ -48,7 +48,7 @@ class ArgumentPropagationVisitor extends MethodVisitor {
   public void visitMethodInsn(final int opcode, final String owner,
       final String name, final String desc, final boolean itf) {
     if (hasArgumentMatchingTheReturnType(desc)) {
-      final MutationIdentifier newId = this.context.registerMutation(
+      final var newId = this.context.registerMutation(
           this.factory, "replaced call to " + owner + "::" + name
           + " with argument");
       if (this.context.shouldMutate(newId)) {
@@ -70,7 +70,7 @@ class ArgumentPropagationVisitor extends MethodVisitor {
 
   private void replaceMethodCallWithArgumentHavingSameTypeAsReturnValue(
       final Type[] argTypes, final Type returnType, final int opcode) {
-    final int indexOfPropagatedArgument = findLastIndexOfArgumentWithSameTypeAsReturnValue(
+    final var indexOfPropagatedArgument = findLastIndexOfArgumentWithSameTypeAsReturnValue(
         argTypes, returnType);
     popArgumentsBeforePropagatedArgument(argTypes, indexOfPropagatedArgument);
     popArgumentsFollowingThePropagated(argTypes, returnType,
@@ -91,7 +91,7 @@ class ArgumentPropagationVisitor extends MethodVisitor {
   }
 
   private void popArguments(final Type[] argumentTypes) {
-    for (int i = argumentTypes.length - 1; i >= 0; i--) {
+    for (var i = argumentTypes.length - 1; i >= 0; i--) {
       popArgument(argumentTypes[i]);
     }
   }
@@ -100,7 +100,7 @@ class ArgumentPropagationVisitor extends MethodVisitor {
       final Type returnType, final int indexOfPropagatedArgument) {
     final Type[] argsFollowing = Arrays.copyOfRange(argTypes, 0,
         indexOfPropagatedArgument);
-    for (int j = argsFollowing.length - 1; j >= 0; j--) {
+    for (var j = argsFollowing.length - 1; j >= 0; j--) {
       swap(this.mv, returnType, argsFollowing[j]);
       popArgument(argsFollowing[j]);
     }

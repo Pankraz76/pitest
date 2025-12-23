@@ -65,7 +65,7 @@ public abstract class MethodDecoratorTest {
 
   @Test
   public void shouldForwardVisitAnnotationDefaultCallsToChild() {
-    AnnotationVisitor av = getTesteeVisitor().visitAnnotationDefault();
+    var av = getTesteeVisitor().visitAnnotationDefault();
     if (av != null)
       av.visit("foo", "bar");
     getTesteeVisitor().visitInsn(NOP);
@@ -125,7 +125,7 @@ public abstract class MethodDecoratorTest {
 
   @Test
   public void shouldForwardVisitJumpInsnToChild() {
-    final Label l = new Label();
+    final var l = new Label();
     getTesteeVisitor().visitJumpInsn(1, l);
     getTesteeVisitor().visitEnd();
     verify(this.mv).visitJumpInsn(eq(1), any(Label.class));
@@ -133,7 +133,7 @@ public abstract class MethodDecoratorTest {
 
   @Test
   public void shouldForwardVisitLabelToChild() {
-    final Label l = new Label();
+    final var l = new Label();
     getTesteeVisitor().visitLabel(l);
     getTesteeVisitor().visitInsn(Opcodes.ATHROW);
     getTesteeVisitor().visitEnd();
@@ -151,7 +151,7 @@ public abstract class MethodDecoratorTest {
 
   @Test
   public void shouldForwardVisitLineNumberToChild() {
-    final Label l = new Label();
+    final var l = new Label();
     getTesteeVisitor().visitLineNumber(1, l);
     getTesteeVisitor().visitInsn(Opcodes.ATHROW);
     getTesteeVisitor().visitEnd();
@@ -160,8 +160,8 @@ public abstract class MethodDecoratorTest {
 
   @Test
   public void shouldForwardVisitLocalVariableToChild() {
-    final Label l = new Label();
-    final Label l2 = new Label();
+    final var l = new Label();
+    final var l2 = new Label();
     getTesteeVisitor().visitCode();
     getTesteeVisitor().visitInsn(NOP);
     getTesteeVisitor().visitLocalVariable("foo", "bar", "one", l, l2, 2);
@@ -174,7 +174,7 @@ public abstract class MethodDecoratorTest {
 
   @Test
   public void shouldForwardVisitLookupSwitchInsnToChild() {
-    final Label l = new Label();
+    final var l = new Label();
     final Label[] l2 = { new Label() };
     final int[] i = { 1, 2, 3 };
     getTesteeVisitor().visitLookupSwitchInsn(l, i, l2);
@@ -219,7 +219,7 @@ public abstract class MethodDecoratorTest {
 
   @Test
   public void shouldForwardVisitTableSwitchInsnToChild() {
-    final Label l = new Label();
+    final var l = new Label();
     final Label[] l2 = { new Label() };
     getTesteeVisitor().visitTableSwitchInsn(1, 2, l, l2);
     getTesteeVisitor().visitInsn(Opcodes.ATHROW);
@@ -230,9 +230,9 @@ public abstract class MethodDecoratorTest {
 
   @Test
   public void shouldForwardVisitTryCatchBlockToChild() {
-    final Label l = new Label();
-    final Label l2 = new Label();
-    final Label l3 = new Label();
+    final var l = new Label();
+    final var l2 = new Label();
+    final var l3 = new Label();
 
     getTesteeVisitor().visitTryCatchBlock(l, l2, l3, "foo");
     getTesteeVisitor().visitInsn(NOP);

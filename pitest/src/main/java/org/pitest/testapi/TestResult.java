@@ -63,7 +63,7 @@ public final class TestResult {
     if (obj == null || getClass() != obj.getClass()) {
       return false;
     }
-    final TestResult other = (TestResult) obj;
+    final var other = (TestResult) obj;
     return Objects.equals(description, other.description)
             && Objects.equals(throwable, other.throwable)
             && state == other.state;

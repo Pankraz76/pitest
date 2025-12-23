@@ -24,7 +24,7 @@ public class FullyCoveredTesteeTest {
 
   @Test
   public void testCoverMe() {
-    final FullyCoveredTestee testee = new FullyCoveredTestee();
+    final var testee = new FullyCoveredTestee();
 
     assertThat(testee.coverMe(), is(1));
 

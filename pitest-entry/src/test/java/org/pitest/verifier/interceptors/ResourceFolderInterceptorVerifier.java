@@ -25,13 +25,13 @@ public class ResourceFolderInterceptorVerifier {
     }
 
     public Verifier forClass(String clazz) {
-        final Sample s = makeSample(clazz);
-        Mutater m = mutateFromResourceDir();
+        final var s = makeSample(clazz);
+        var m = mutateFromResourceDir();
         return new Verifier(s, testee, m);
     }
 
     private Sample makeSample(String sample) {
-        final String clazz = makeClassName(sample);
+        final var clazz = makeClassName(sample);
         final Optional<byte[]> bs = source.getBytes(clazz);
         if (bs.isPresent()) {
             return new Sample(ClassName.fromString(clazz), ClassTree.fromBytes(bs.get()));

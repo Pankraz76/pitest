@@ -34,8 +34,8 @@ public class ClassMutationResults {
   }
 
   public String getPackageName() {
-    final ClassName name = getMutatedClass();
-    final int lastDot = name.asJavaName().lastIndexOf('.');
+    final var name = getMutatedClass();
+    final var lastDot = name.asJavaName().lastIndexOf('.');
     return lastDot > 0 ? name.asJavaName().substring(0, lastDot) : "default";
   }
 
@@ -52,7 +52,7 @@ public class ClassMutationResults {
     if (obj == null || getClass() != obj.getClass()) {
       return false;
     }
-    final ClassMutationResults other = (ClassMutationResults) obj;
+    final var other = (ClassMutationResults) obj;
     return Objects.equals(mutations, other.mutations);
   }
 

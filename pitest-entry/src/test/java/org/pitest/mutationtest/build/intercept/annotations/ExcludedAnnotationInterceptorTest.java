@@ -245,27 +245,27 @@ class AnnotatedMethodClass {
 
 class LambdaInUnannotatedMethodClass {
   public void methodWithLambda() {
-    Runnable runnable = () -> System.out.println("Lambda inside unannotated method.");
+    var runnable = () -> System.out.println("Lambda inside unannotated method.");
   }
 }
 
 class LambdaInAnnotatedMethodClass {
   @TestGeneratedAnnotation
   public void methodWithLambda() {
-    Runnable runnable = () -> System.out.println("Lambda inside annotated method.");
+    var runnable = () -> System.out.println("Lambda inside annotated method.");
   }
 }
 
 class OverloadedMethods {
   public void foo(int x) {
     System.out.println("mutate me");
-    Runnable r = () -> System.out.println("Lambda in unannotated overloaded method with int");
+    var r = () -> System.out.println("Lambda in unannotated overloaded method with int");
   }
 
   @TestGeneratedAnnotation
   public void foo(String x) {
     System.out.println("don't mutate me");
-    Runnable r = () -> System.out.println("Lambda in annotated overloaded method with String");
+    var r = () -> System.out.println("Lambda in annotated overloaded method with String");
   }
 
   public void bar() {
@@ -276,16 +276,16 @@ class OverloadedMethods {
 class NestedLambdaInOverloadedMethods {
   public void baz(int x) {
     System.out.println("mutate me");
-    Runnable outerLambda = () -> {
-      Runnable innerLambda = () -> System.out.println("Nested lambda in unannotated overloaded method with int");
+    var outerLambda = () -> {
+      var innerLambda = () -> System.out.println("Nested lambda in unannotated overloaded method with int");
     };
   }
 
   @TestGeneratedAnnotation
   public void baz(String x) {
     System.out.println("don't mutate me");
-    Runnable outerLambda = () -> {
-      Runnable innerLambda = () -> System.out.println("Nested lambda in annotated overloaded method with String");
+    var outerLambda = () -> {
+      var innerLambda = () -> System.out.println("Nested lambda in annotated overloaded method with String");
     };
   }
 }

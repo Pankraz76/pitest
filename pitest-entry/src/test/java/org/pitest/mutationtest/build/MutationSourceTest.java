@@ -70,7 +70,7 @@ public class MutationSourceTest {
         expected);
     when(this.mutater.findMutations(any(ClassName.class)))
     .thenReturn(mutations);
-    final MutationDetails actual = this.testee.createMutations(this.foo)
+    final var actual = this.testee.createMutations(this.foo)
         .iterator().next();
     assertEquals(expected, actual.getTestsInOrder());
   }
@@ -90,7 +90,7 @@ public class MutationSourceTest {
   }
 
   private MutationDetails makeMutation(final String method) {
-    final MutationIdentifier id = new MutationIdentifier(aLocation()
+    final var id = new MutationIdentifier(aLocation()
         .withClass(this.foo).withMethod(method).build(), 0, "mutator");
     return new MutationDetails(id, "file", "desc", 1, 2);
   }

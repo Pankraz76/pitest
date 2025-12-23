@@ -151,7 +151,7 @@ public class MutationCoverageReportTest {
 
     final ClassName clazz = ClassName.fromClass(Foo.class);
 
-    final HierarchicalClassId fooId = new HierarchicalClassId(
+    final var fooId = new HierarchicalClassId(
         new ClassIdentifier(0, clazz), "0");
     final ClassInfo foo = ClassInfoMother.make(fooId.getId());
 
@@ -177,7 +177,7 @@ public class MutationCoverageReportTest {
   @Test
   public void shouldReportNoMutationsFoundWhenNoneDetected() {
     this.data.setFailWhenNoMutations(false);
-    final CombinedStatistics actual = createAndRunTestee();
+    final var actual = createAndRunTestee();
     assertEquals(0, actual.getMutationStatistics().getTotalMutations());
   }
 
@@ -203,7 +203,7 @@ public class MutationCoverageReportTest {
     when(this.code.getCodeUnderTestNames()).thenReturn(
         Collections.singleton(foo));
     when(this.coverageDb.getCodeLinesForClass(foo)).thenReturn(new ClassLines(foo, Collections.emptySet()));
-    final CombinedStatistics actual = createAndRunTestee();
+    final var actual = createAndRunTestee();
     assertEquals(1, actual.getMutationStatistics().getTotalMutations());
   }
 
@@ -218,7 +218,7 @@ public class MutationCoverageReportTest {
   }
 
   private CombinedStatistics createAndRunTestee() {
-    final MutationStrategies strategies = new MutationStrategies(
+    final var strategies = new MutationStrategies(
         new GregorEngineFactory(), this.history, this.coverage,
         this.listenerFactory, result -> result, cov -> cov, this.output, this.verifier).with(this.mutationFactory);
 

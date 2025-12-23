@@ -28,7 +28,7 @@ public class TestInfoNameComparatorTest {
 
   @Test
   public void shouldTreatIdenticallyNamesTestsAsEqual() {
-    final TestInfo sameName = new TestInfo("bar", "0name", 1000,
+    final var sameName = new TestInfo("bar", "0name", 1000,
         Optional.<ClassName> empty(), 0);
     assertEquals(0, this.testee.compare(this.lhs, sameName));
   }

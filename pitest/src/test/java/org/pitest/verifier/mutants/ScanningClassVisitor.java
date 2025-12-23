@@ -41,15 +41,15 @@ public class ScanningClassVisitor extends ClassVisitor {
                                      final String methodDescriptor, final String signature,
                                      final String[] exceptions) {
 
-        MutationContext context = fakeContext(classInfo);
+        var context = fakeContext(classInfo);
 
-        MethodInfo methodInfo = new MethodInfo()
+        var methodInfo = new MethodInfo()
                 .withOwner(classInfo).withAccess(access)
                 .withMethodName(methodName).withMethodDescriptor(methodDescriptor);
 
-        MethodVisitor next = super.visitMethod(access, methodName, methodDescriptor, signature, exceptions);
+        var next = super.visitMethod(access, methodName, methodDescriptor, signature, exceptions);
         for (final MethodMutatorFactory each : this.mmfs) {
-            MethodVisitor mv = each.create(context, methodInfo, next);
+            var mv = each.create(context, methodInfo, next);
             if (mv != null) {
                 next = mv;
             }
@@ -60,10 +60,10 @@ public class ScanningClassVisitor extends ClassVisitor {
 
     @Override
     public AnnotationVisitor visitAnnotation(String descriptor, boolean visible) {
-        AnnotationVisitor next = super.visitAnnotation(descriptor, visible);
-        AnnotationInfo annotationInfo = new AnnotationInfo(descriptor, visible);
+        var next = super.visitAnnotation(descriptor, visible);
+        var annotationInfo = new AnnotationInfo(descriptor, visible);
 
-        BasicContext context = fakeMethodContext();
+        var context = fakeMethodContext();
 
         for (final MethodMutatorFactory each : this.mmfs) {
             if (each.skipAnnotation(context, annotationInfo)) {
@@ -72,7 +72,7 @@ public class ScanningClassVisitor extends ClassVisitor {
         }
 
         for (final MethodMutatorFactory each : this.mmfs) {
-            AnnotationVisitor fv = each.createForAnnotation(context, annotationInfo, next);
+            var fv = each.createForAnnotation(context, annotationInfo, next);
             if (fv != null) {
                 next = fv;
             }
@@ -82,11 +82,11 @@ public class ScanningClassVisitor extends ClassVisitor {
 
     @Override
     public FieldVisitor visitField(int access, String name, String descriptor, String signature, Object value) {
-        FieldVisitor next = super.visitField(access, name, descriptor, signature, value);
-        FieldInfo fieldInfo = new FieldInfo(access, name, descriptor, signature, value);
+        var next = super.visitField(access, name, descriptor, signature, value);
+        var fieldInfo = new FieldInfo(access, name, descriptor, signature, value);
 
         for (final MethodMutatorFactory each : this.mmfs) {
-            FieldVisitor fv = each.createForField(fakeMethodContext(), fieldInfo, next);
+            var fv = each.createForField(fakeMethodContext(), fieldInfo, next);
             if (fv != null) {
                 next = fv;
             }

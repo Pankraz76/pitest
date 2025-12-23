@@ -12,7 +12,7 @@ public class TryWithResourcesNoThrow {
 
     public int usingTryWithResources() {
         final ThreadLocal<Integer> threadLocal = threadLocalMap.get("Value1");
-        try (final NoThrowAutoClosableResource myAutoClosable = new NoThrowAutoClosableResource()) {
+        try (final var myAutoClosable = new NoThrowAutoClosableResource()) {
             return threadLocal.get();
         } finally {
             System.out.println("mutate me");

@@ -159,12 +159,12 @@ public class AvoidForLoopCounterFilter implements MutationInterceptor {
 
   private Predicate<MutationDetails> mutatesAForLoopCounter() {
     return a -> {
-      final int instruction = a.getInstructionIndex();
+      final var instruction = a.getInstructionIndex();
       Optional<MethodTree> maybeMethod = AvoidForLoopCounterFilter.this.currentClass.method(a.getId().getLocation());
       if (maybeMethod.isEmpty()) {
         return false;
       }
-      MethodTree method = maybeMethod.get();
+      var method = maybeMethod.get();
       if (method.instructions().isEmpty()) {
         // occurs for mutations to annotations on interfaces
         return false;

@@ -260,7 +260,7 @@ public class TestJUnitConfiguration {
 
     @Test(timeout = 5)
     public void testBar() {
-      for (int i = 0; i != 10; i++) {
+      for (var i = 0; i != 10; i++) {
         try {
           Thread.sleep(1000);
         } catch (final InterruptedException e) {
@@ -356,7 +356,7 @@ public class TestJUnitConfiguration {
       }
 
       public void testPasses() {
-        final Runnable r = (Runnable) this.mock.proxy();
+        final var r = (Runnable) this.mock.proxy();
         r.run();
       }
     }
@@ -529,8 +529,8 @@ public class TestJUnitConfiguration {
     }
 
     public static junit.framework.Test suite() {
-      final TestSuite suite = new TestSuite();
-      JUnit3Test t = new JUnit3Test();
+      final var suite = new TestSuite();
+      var t = new JUnit3Test();
       t.setName("testSomething");
       suite.addTest(t);
       return suite;
@@ -643,7 +643,7 @@ public class TestJUnitConfiguration {
   }
 
   private List<TestUnit> find(Class<?> clazz) {
-    final FindTestUnits finder = new FindTestUnits(this.testee);
+    final var finder = new FindTestUnits(this.testee);
     return finder.findTestUnitsForAllSuppliedClasses(Arrays
         .asList(clazz));
   }

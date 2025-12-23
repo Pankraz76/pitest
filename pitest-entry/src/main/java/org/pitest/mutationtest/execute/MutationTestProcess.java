@@ -39,7 +39,7 @@ public class MutationTestProcess {
   public void results(final MutationStatusMap allmutations) throws IOException {
 
     for (final MutationDetails each : allmutations.allMutations()) {
-      final MutationStatusTestPair status = this.idMap.get(each.getId());
+      final var status = this.idMap.get(each.getId());
       if (status != null) {
         allmutations.setStatusForMutation(each, status);
       }

@@ -17,9 +17,9 @@ public class AnalyisPriorityComparatorTest {
 
   @Test
   public void shouldPrioritiseLargestFirst() {
-    final MutationAnalysisUnit a = unit(1);
-    final MutationAnalysisUnit b = unit(2);
-    final MutationAnalysisUnit c = unit(3);
+    final var a = unit(1);
+    final var b = unit(2);
+    final var c = unit(3);
     final List<MutationAnalysisUnit> actual = Arrays.asList(a, b, c);
     actual.sort(this.testee);
     assertEquals(Arrays.asList(c, b, a), actual);
@@ -27,9 +27,9 @@ public class AnalyisPriorityComparatorTest {
 
   @Test
   public void shouldPreserveCorrectOrder() {
-    final MutationAnalysisUnit a = unit(3);
-    final MutationAnalysisUnit b = unit(2);
-    final MutationAnalysisUnit c = unit(1);
+    final var a = unit(3);
+    final var b = unit(2);
+    final var c = unit(1);
     final List<MutationAnalysisUnit> actual = Arrays.asList(a, b, c);
     actual.sort(this.testee);
     assertEquals(Arrays.asList(a, b, c), actual);

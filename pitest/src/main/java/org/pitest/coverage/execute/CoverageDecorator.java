@@ -43,16 +43,16 @@ public class CoverageDecorator extends TestUnitDecorator {
   public void execute(final ResultCollector rc) {
     LOG.fine(() -> "Gathering coverage for test " + child().getDescription());
 
-    final int threadsBeforeTest = this.threads.getThreadCount();
+    final var threadsBeforeTest = this.threads.getThreadCount();
 
-    final long t0 = System.nanoTime();
-    final ExitingResultCollector wrappedCollector = new ExitingResultCollector(
+    final var t0 = System.nanoTime();
+    final var wrappedCollector = new ExitingResultCollector(
         rc);
     this.child().execute(wrappedCollector);
 
-    final int executionTime = (int) NANOSECONDS.toMillis(System.nanoTime() - t0);
+    final var executionTime = (int) NANOSECONDS.toMillis(System.nanoTime() - t0);
 
-    final int threadsAfterTest = this.threads.getThreadCount();
+    final var threadsAfterTest = this.threads.getThreadCount();
     if (threadsAfterTest > threadsBeforeTest) {
       LOG.warning("More threads at end of test (" + threadsAfterTest + ") "
           + child().getDescription().getName() + " than start. ("

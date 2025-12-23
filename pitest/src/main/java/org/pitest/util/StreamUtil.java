@@ -15,7 +15,7 @@ public abstract class StreamUtil {
 
   public static byte[] streamToByteArray(final InputStream in)
       throws IOException {
-    try (ByteArrayOutputStream result = new ByteArrayOutputStream()) {
+    try (var result = new ByteArrayOutputStream()) {
       copy(in, result);
       return result.toByteArray();
     }

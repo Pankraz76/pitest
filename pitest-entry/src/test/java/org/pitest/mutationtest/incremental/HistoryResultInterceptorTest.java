@@ -22,7 +22,7 @@ public class HistoryResultInterceptorTest {
 
     @Test
     public void recordsMutationResults() {
-        final MutationResult mr = makeResult();
+        final var mr = makeResult();
         final ClassMutationResults metaData = MutationTestResultMother
                 .createClassResults(mr);
         Collection<ClassMutationResults> mutants = asList(metaData);

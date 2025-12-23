@@ -25,7 +25,7 @@ public class Log {
     if ((System.getProperty("java.util.logging.config.file") == null)
         && (System.getProperty("java.util.logging.config.class") == null)) {
       LOGGER.setUseParentHandlers(false);
-      final Handler handler = new ConsoleHandler();
+      final var handler = new ConsoleHandler();
       handler.setFormatter(new PlainFormatter());
       addOrSetHandler(handler);
       LOGGER.setLevel(Level.INFO);
@@ -65,7 +65,7 @@ public class Log {
 
     @Override
     public String format(final LogRecord record) {
-      final StringBuilder buf = new StringBuilder(180);
+      final var buf = new StringBuilder(180);
 
       buf.append(this.dateFormat.format(new Date(record.getMillis())));
       buf.append(" PIT >> ");
@@ -75,9 +75,9 @@ public class Log {
 
       buf.append(LINE_SEPARATOR);
 
-      final Throwable throwable = record.getThrown();
+      final var throwable = record.getThrown();
       if (throwable != null) {
-        final StringWriter sink = new StringWriter();
+        final var sink = new StringWriter();
         throwable.printStackTrace(new PrintWriter(sink, true));
         buf.append(sink);
       }

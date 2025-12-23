@@ -21,18 +21,18 @@ public class CodeSourceAggregatorTest {
 
   @Before
   public void setup() throws Exception {
-    final File testDir = new File(CodeSourceAggregatorTest.class.getResource("/").toURI());
-    final File mainDir = new File(CodeSourceAggregatorTest.class.getResource("/org/pitest/aggregate/DataLoader.class").toURI()).getParentFile() // aggregate
+    final var testDir = new File(CodeSourceAggregatorTest.class.getResource("/").toURI());
+    final var mainDir = new File(CodeSourceAggregatorTest.class.getResource("/org/pitest/aggregate/DataLoader.class").toURI()).getParentFile() // aggregate
         .getParentFile() // pitest
         .getParentFile() // org
         .getParentFile(); // classes
-    SettingsFactory f = new SettingsFactory(new ReportOptions(), PluginServices.makeForContextLoader());
+    var f = new SettingsFactory(new ReportOptions(), PluginServices.makeForContextLoader());
     this.underTest = new CodeSourceAggregator(f, Arrays.asList(testDir, mainDir));
   }
 
   @Test
   public void testCreateCodeSource() {
-    final CodeSource source = this.underTest.createCodeSource();
+    final var source = this.underTest.createCodeSource();
     assertNotNull(source);
 
     assertTrue(source.fetchClassHash(ClassName.fromClass(CodeSourceAggregator.class)).isPresent());

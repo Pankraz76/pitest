@@ -44,16 +44,16 @@ public class XMLReportListenerTest {
   public void shouldCreateAValidXmlDocumentWhenNoResults() {
     this.testee.runStart();
     this.testee.runEnd();
-    final String expected = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<mutations partial=\"false\">\n</mutations>\n";
+    final var expected = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<mutations partial=\"false\">\n</mutations>\n";
     assertThat(expected).isEqualTo(this.out.toString());
   }
 
   @Test
   public void shouldOutputKillingTestWhenOneFound() {
-    final MutationResult mr = createdKilledMutationWithKillingTestOf("foo");
+    final var mr = createdKilledMutationWithKillingTestOf("foo");
     this.testee
         .handleMutationResult(MutationTestResultMother.createClassResults(mr));
-    final String expected = "<mutation detected='true' status='KILLED' numberOfTestsRun='1'><sourceFile>file</sourceFile>" +
+    final var expected = "<mutation detected='true' status='KILLED' numberOfTestsRun='1'><sourceFile>file</sourceFile>" +
             "<mutatedClass>clazz</mutatedClass><mutatedMethod>method</mutatedMethod><methodDescription>()I</methodDescription><lineNumber>42</lineNumber>" +
             "<mutator>mutator</mutator><indexes><index>1</index></indexes><blocks><block>0</block></blocks><killingTest>foo</killingTest><description>desc</description></mutation>\n";
     assertThat(expected).isEqualTo(this.out.toString());
@@ -62,12 +62,12 @@ public class XMLReportListenerTest {
   @Test
   public void shouldOutputFullMutationMatrixWhenEnabled() {
     this.testee = new XMLReportListener(this.out, true, false);
-    final MutationResult mr = new MutationResult(
+    final var mr = new MutationResult(
             MutationTestResultMother.createDetails(),
             new MutationStatusTestPair(3, DetectionStatus.KILLED, Arrays.asList("foo", "foo2"), Arrays.asList("bar"), Arrays.asList("foo","foo2","bar")));
     this.testee
         .handleMutationResult(MutationTestResultMother.createClassResults(mr));
-    final String expected = "<mutation detected='true' status='KILLED' numberOfTestsRun='3'><sourceFile>file</sourceFile>" +
+    final var expected = "<mutation detected='true' status='KILLED' numberOfTestsRun='3'><sourceFile>file</sourceFile>" +
             "<mutatedClass>clazz</mutatedClass><mutatedMethod>method</mutatedMethod><methodDescription>()I</methodDescription><lineNumber>42</lineNumber><mutator>mutator</mutator>" +
             "<indexes><index>1</index></indexes><blocks><block>0</block></blocks><killingTests>foo|foo2</killingTests><succeedingTests>bar</succeedingTests><coveringTests>foo|foo2|bar</coveringTests><description>desc</description></mutation>\n";
     assertThat(expected).isEqualTo(this.out.toString());
@@ -75,7 +75,7 @@ public class XMLReportListenerTest {
 
   @Test
   public void shouldEscapeGTAndLTSymbols() {
-    final MutationResult mr = createdKilledMutationWithKillingTestOf("<foo>");
+    final var mr = createdKilledMutationWithKillingTestOf("<foo>");
     this.testee
         .handleMutationResult(MutationTestResultMother.createClassResults(mr));
     assertThat(this.out.toString()).contains("&lt;foo&gt;");
@@ -83,7 +83,7 @@ public class XMLReportListenerTest {
 
   @Test
   public void shouldEscapeNullBytes() {
-    final MutationResult mr = createdKilledMutationWithKillingTestOf("\0 Null-Byte");
+    final var mr = createdKilledMutationWithKillingTestOf("\0 Null-Byte");
     this.testee
             .handleMutationResult(MutationTestResultMother.createClassResults(mr));
     assertThat(this.out.toString()).contains(" Null-Byte");
@@ -98,10 +98,10 @@ public class XMLReportListenerTest {
 
   @Test
   public void shouldOutputNoneWhenNoKillingTestFound() throws IOException {
-    final MutationResult mr = createSurvivingMutant();
+    final var mr = createSurvivingMutant();
     this.testee
         .handleMutationResult(MutationTestResultMother.createClassResults(mr));
-    final String expected = "<mutation detected='false' status='SURVIVED' numberOfTestsRun='1'><sourceFile>file</sourceFile>" +
+    final var expected = "<mutation detected='false' status='SURVIVED' numberOfTestsRun='1'><sourceFile>file</sourceFile>" +
             "<mutatedClass>clazz</mutatedClass><mutatedMethod>method</mutatedMethod><methodDescription>()I</methodDescription><lineNumber>42</lineNumber>" +
             "<mutator>mutator</mutator><indexes><index>1</index></indexes><blocks><block>0</block></blocks><killingTest/><description>desc</description></mutation>\n";
     assertThat(expected).isEqualTo(this.out.toString());

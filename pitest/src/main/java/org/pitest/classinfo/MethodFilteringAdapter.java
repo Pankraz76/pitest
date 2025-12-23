@@ -39,7 +39,7 @@ public abstract class MethodFilteringAdapter extends ClassVisitor {
       final String desc, final String signature, final String[] exceptions) {
 
     preVisitMethod(access, name, desc, signature, exceptions);
-    final MethodVisitor methodVisitor = this.cv.visitMethod(access, name, desc,
+    final var methodVisitor = this.cv.visitMethod(access, name, desc,
         signature, exceptions);
     if (shouldInstrument(access, name, desc, signature, exceptions)) {
       return visitMethodIfRequired(access, name, desc, signature, exceptions,

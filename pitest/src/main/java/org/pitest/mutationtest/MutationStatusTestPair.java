@@ -132,7 +132,7 @@ public final class MutationStatusTestPair implements Serializable {
     if (obj == null || getClass() != obj.getClass()) {
       return false;
     }
-    final MutationStatusTestPair other = (MutationStatusTestPair) obj;
+    final var other = (MutationStatusTestPair) obj;
     return numberOfTestsRun == other.numberOfTestsRun
             && status == other.status
             && Objects.equals(killingTests, other.killingTests)

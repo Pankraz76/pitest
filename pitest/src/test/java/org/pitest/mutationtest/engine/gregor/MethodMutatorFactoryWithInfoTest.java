@@ -11,16 +11,16 @@ public class MethodMutatorFactoryWithInfoTest {
 
     @Test
     public void providesDocInfoWhenMutatorMatches() {
-        MethodMutatorFactoryWithInfo underTest = testeeMatchingMutation(true);
+        var underTest = testeeMatchingMutation(true);
 
-        MutantUrl expected = new MutantUrl(UrlType.DOC, "http://www.example.com");
+        var expected = new MutantUrl(UrlType.DOC, "http://www.example.com");
         assertThat(underTest.urlForMutant(aMutantId())).contains(expected);
 
     }
 
     @Test
     public void providesNoInfoWhenMutatorDoesntMatch() {
-        MethodMutatorFactoryWithInfo underTest = testeeMatchingMutation(false);
+        var underTest = testeeMatchingMutation(false);
         assertThat(underTest.urlForMutant(aMutantId())).isEmpty();
 
     }

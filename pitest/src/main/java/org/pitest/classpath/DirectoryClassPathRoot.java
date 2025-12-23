@@ -36,9 +36,9 @@ public class DirectoryClassPathRoot implements ClassPathRoot, IOHeavyRoot {
 
   @Override
   public InputStream getData(final String classname) throws IOException {
-    final String filename = classname.replace('.', File.separatorChar).concat(
+    final var filename = classname.replace('.', File.separatorChar).concat(
         ".class");
-    final File file = new File(this.root, filename);
+    final var file = new File(this.root, filename);
     if (file.canRead()) {
       return new FileInputStream(file);
     } else {
@@ -48,7 +48,7 @@ public class DirectoryClassPathRoot implements ClassPathRoot, IOHeavyRoot {
 
   @Override
   public URL getResource(final String name) throws MalformedURLException {
-    final File f = new File(this.root, name);
+    final var f = new File(this.root, name);
     if (f.canRead()) {
       // magically work around encoding issues
       return f.toURI().toURL();

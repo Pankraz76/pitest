@@ -16,7 +16,7 @@ public class MuteeInOtherClassloaderPooledTest {
     @Test
     public void returns42() throws Exception {
         Class<?> clz = otherLoader.loadClass(MuteeInOtherClassloader.class.getName());
-        IntSupplier underTest = (IntSupplier) clz.getConstructor().newInstance();
+        var underTest = (IntSupplier) clz.getConstructor().newInstance();
         assertEquals(42, underTest.getAsInt());
     }
 }

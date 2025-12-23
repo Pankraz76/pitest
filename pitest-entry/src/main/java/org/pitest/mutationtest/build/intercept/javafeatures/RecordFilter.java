@@ -60,7 +60,7 @@ public class RecordFilter implements MutationInterceptor {
     private boolean isRecordInit(MutationDetails m, int numberOfComponents) {
         // constructors with the same airty as the generated ones, but different
         // types won't get mutated. They're probably rare enough that this doesn't matter.
-        int airty = Type.getArgumentTypes(m.getId().getLocation().getMethodDesc()).length;
+        var airty = Type.getArgumentTypes(m.getId().getLocation().getMethodDesc()).length;
         return m.getMethod().equals("<init>") && airty == numberOfComponents;
     }
 
@@ -93,7 +93,7 @@ public class RecordFilter implements MutationInterceptor {
 
     private boolean isInvokeDynamicCallToObjectMethods(AbstractInsnNode node) {
         if (node instanceof InvokeDynamicInsnNode) {
-            InvokeDynamicInsnNode call = (InvokeDynamicInsnNode) node;
+            var call = (InvokeDynamicInsnNode) node;
             return call.bsm.getOwner().equals("java/lang/runtime/ObjectMethods")
                 && call.bsm.getName().equals("bootstrap");
 

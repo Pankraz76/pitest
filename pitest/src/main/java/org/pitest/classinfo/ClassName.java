@@ -48,7 +48,7 @@ public final class ClassName implements Comparable<ClassName>, Serializable {
   }
 
   public static ClassName fromString(final String clazz) {
-    final String name = clazz.replace('.', '/');
+    final var name = clazz.replace('.', '/');
     if (name.equals(OBJECT.asInternalName())) {
       return OBJECT;
     }
@@ -86,7 +86,7 @@ public final class ClassName implements Comparable<ClassName>, Serializable {
   }
 
   public ClassName getNameWithoutPackage() {
-    final int lastSeparator = this.name.lastIndexOf('/');
+    final var lastSeparator = this.name.lastIndexOf('/');
     if (lastSeparator != -1) {
       return ClassName.fromString(this.name.substring(lastSeparator + 1));
     }
@@ -94,7 +94,7 @@ public final class ClassName implements Comparable<ClassName>, Serializable {
   }
 
   public ClassName getPackage() {
-    final int lastSeparator = this.name.lastIndexOf('/');
+    final var lastSeparator = this.name.lastIndexOf('/');
     if (lastSeparator != -1) {
       return ClassName.fromString(this.name.substring(0, lastSeparator));
     }
@@ -102,14 +102,14 @@ public final class ClassName implements Comparable<ClassName>, Serializable {
   }
 
   public ClassName withoutPrefixChars(final int prefixLength) {
-    final String nameWithoutPackage = this.getNameWithoutPackage().asJavaName();
+    final var nameWithoutPackage = this.getNameWithoutPackage().asJavaName();
     return ClassName.fromString(this.getPackage().asJavaName()
         + "/"
         + nameWithoutPackage.substring(prefixLength));
   }
 
   public ClassName withoutSuffixChars(final int suffixLength) {
-    final String nameWithoutPacakge = this.getNameWithoutPackage().asJavaName();
+    final var nameWithoutPacakge = this.getNameWithoutPackage().asJavaName();
     return ClassName.fromString(this.getPackage().asJavaName()
         + "/"
         + nameWithoutPacakge.substring(0, nameWithoutPacakge.length()
@@ -155,7 +155,7 @@ public final class ClassName implements Comparable<ClassName>, Serializable {
     if (obj == null || getClass() != obj.getClass()) {
       return false;
     }
-    final ClassName other = (ClassName) obj;
+    final var other = (ClassName) obj;
     return name.equals(other.name);
   }
 

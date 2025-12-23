@@ -54,20 +54,20 @@ public class CoverageMinion {
 
     enableTransformations();
 
-    ExitCode exitCode = ExitCode.OK;
+    var exitCode = ExitCode.OK;
     Socket s = null;
     CoveragePipe invokeQueue = null;
     try {
 
-      final int port = Integer.parseInt(args[0]);
+      final var port = Integer.parseInt(args[0]);
       s = new Socket("localhost", port);
       // if we can't read/write in 10 seconds, something is badly wrong
       s.setSoTimeout(10000);
 
-      final SafeDataInputStream dis = new SafeDataInputStream(
+      final var dis = new SafeDataInputStream(
           s.getInputStream());
 
-      final CoverageOptions paramsFromParent = dis.read(CoverageOptions.class);
+      final var paramsFromParent = dis.read(CoverageOptions.class);
 
       configureVerbosity(paramsFromParent);
 
@@ -90,7 +90,7 @@ public class CoverageMinion {
 
       if (!toExecute.isEmpty()) {
         LOG.info(() -> "Executing " + toExecute.size() + " tests not run during discovery.");
-        CoverageWorker worker = new CoverageWorker(invokeQueue, toExecute);
+        var worker = new CoverageWorker(invokeQueue, toExecute);
         worker.run();
       } else {
         LOG.info(() -> "All " + tus.size() + " tests were executed as part of discovery.");
@@ -124,7 +124,7 @@ public class CoverageMinion {
   private static void enableTransformations() {
     ClientPluginServices plugins = ClientPluginServices.makeForContextLoader();
     for (TransformationPlugin each : plugins.findTransformations()) {
-      ClassFileTransformer transformer = each.makeCoverageTransformer();
+      var transformer = each.makeCoverageTransformer();
       if (transformer != null) {
         HotSwapAgent.addTransformer(transformer);
       }
@@ -162,8 +162,8 @@ public class CoverageMinion {
   }
 
   private static List<TestUnit> discoverTests(Configuration testPlugin, List<ClassName> classes, CoveragePipe invokeQueue) {
-    TestUnitExecutionListener listener = new CoverageTestExecutionListener(invokeQueue);
-    FindTestUnits finder = new FindTestUnits(testPlugin, listener);
+    var listener = new CoverageTestExecutionListener(invokeQueue);
+    var finder = new FindTestUnits(testPlugin, listener);
 
     List<TestUnit> tus = finder
         .findTestUnitsForAllSuppliedClasses(classes.stream()
@@ -177,7 +177,7 @@ public class CoverageMinion {
   private static Configuration createTestPlugin(
       final CoverageOptions paramsFromParent) {
     final ClientPluginServices plugins = ClientPluginServices.makeForContextLoader();
-    final MinionSettings factory = new MinionSettings(plugins);
+    final var factory = new MinionSettings(plugins);
     return factory.getTestFrameworkPlugin(paramsFromParent.getPitConfig(), ClassloaderByteArraySource.fromContext());
   }
 
@@ -190,10 +190,10 @@ public class CoverageMinion {
 
   private static List<ClassName> receiveTestClassesFromParent(
       final SafeDataInputStream dis) {
-    final int count = dis.readInt();
+    final var count = dis.readInt();
     LOG.fine(() -> "Expecting " + count + " tests classes from parent");
     final List<ClassName> classes = new ArrayList<>(count);
-    for (int i = 0; i != count; i++) {
+    for (var i = 0; i != count; i++) {
       classes.add(ClassName.fromString(dis.readString()));
     }
     LOG.fine(() -> "Tests classes received");

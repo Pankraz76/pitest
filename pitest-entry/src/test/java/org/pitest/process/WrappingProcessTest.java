@@ -32,11 +32,11 @@ public class WrappingProcessTest {
   public void waitToDieShouldReturnProcessExitCode() throws IOException,
   InterruptedException {
 
-    final LaunchOptions launchOptions = new LaunchOptions(NullJavaAgent.instance(),
+    final var launchOptions = new LaunchOptions(NullJavaAgent.instance(),
         new DefaultJavaExecutableLocator(), Collections.emptyList(),
         new HashMap<>());
 
-    final ProcessArgs processArgs = ProcessArgs
+    final var processArgs = ProcessArgs
         .withClassPath(new ClassPath().getLocalClassPath())
         .andBaseDir(new File(System.getProperty("user.dir")))
         .andLaunchOptions(launchOptions).andStdout(nullHandler())
@@ -45,7 +45,7 @@ public class WrappingProcessTest {
     final WrappingProcess wrappingProcess = WrappingProcess.create(-1, processArgs,
         getClass());
     wrappingProcess.start();
-    final JavaProcess process = wrappingProcess.getProcess();
+    final var process = wrappingProcess.getProcess();
 
     assertTrue(process.isAlive());
     assertEquals(EXIT_CODE, process.waitToDie());

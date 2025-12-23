@@ -38,7 +38,7 @@ public class ReportGenerationManager {
 
   public void generateSiteReport(ReportGenerationContext context) {
     ReportGenerationResultEnum result;
-    boolean successfulExecution = false;
+    var successfulExecution = false;
 
     context.setReportsDataDirectory(this.reportLocator.locate(
         context.getReportsDataDirectory(), context.getLogger()));

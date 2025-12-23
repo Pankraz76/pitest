@@ -105,7 +105,7 @@ public class CoverageClassVisitor extends MethodFilteringAdapter {
 
     //If there is no <clinit>, then generate one that sets the probe field directly
     if (!foundClinit) {
-      MethodVisitor clinitMv = this.cv
+      var clinitMv = this.cv
           .visitMethod(Opcodes.ACC_STATIC, "<clinit>", "()V", null, null);
       clinitMv.visitCode();
 

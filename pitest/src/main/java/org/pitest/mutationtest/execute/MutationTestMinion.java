@@ -68,23 +68,23 @@ public class MutationTestMinion {
   public void run() {
     try {
 
-      final MinionArguments paramsFromParent = this.dis
+      final var paramsFromParent = this.dis
           .read(MinionArguments.class);
 
       configureVerbosity(paramsFromParent);
 
       final ClassLoader loader = IsolationUtils.getContextClassLoader();
 
-      final ClassByteArraySource byteSource = new CachingByteArraySource(new ClassloaderByteArraySource(
+      final var byteSource = new CachingByteArraySource(new ClassloaderByteArraySource(
           loader), CACHE_SIZE);
 
-      final HotSwap hotswap = new HotSwap();
+      final var hotswap = new HotSwap();
 
-      final MutationEngine engine = createEngine(paramsFromParent.engine, paramsFromParent.engineArgs);
+      final var engine = createEngine(paramsFromParent.engine, paramsFromParent.engineArgs);
 
-      final ResetEnvironment reset = this.plugins.createReset();
+      final var reset = this.plugins.createReset();
 
-      final MutationTestWorker worker = new MutationTestWorker(hotswap,
+      final var worker = new MutationTestWorker(hotswap,
           engine.createMutator(byteSource), loader, reset, paramsFromParent.fullMutationMatrix);
 
       final List<TestUnit> tests = findTestsForTestClasses(loader,
@@ -129,21 +129,21 @@ public class MutationTestMinion {
     enableTransformations();
     HotSwapAgent.addTransformer(new CatchNewClassLoadersTransformer());
 
-    final int port = Integer.parseInt(args[0]);
+    final var port = Integer.parseInt(args[0]);
 
     Socket s = null;
     try {
       s = new Socket("localhost", port);
       // if we can't read/write in 20 seconds, something is badly wrong
       s.setSoTimeout(20000);
-      final SafeDataInputStream dis = new SafeDataInputStream(
+      final var dis = new SafeDataInputStream(
           s.getInputStream());
 
-      final Reporter reporter = new DefaultReporter(s.getOutputStream());
+      final var reporter = new DefaultReporter(s.getOutputStream());
       addMemoryWatchDog(reporter);
       final ClientPluginServices plugins = ClientPluginServices.makeForContextLoader();
-      final MinionSettings factory = new MinionSettings(plugins);
-      final MutationTestMinion instance = new MutationTestMinion(factory, dis, reporter);
+      final var factory = new MinionSettings(plugins);
+      final var instance = new MutationTestMinion(factory, dis, reporter);
       instance.run();
     } catch (final Throwable ex) {
       ex.printStackTrace(System.out);
@@ -163,14 +163,14 @@ public class MutationTestMinion {
     final Collection<Class<?>> tcs = testClasses.stream()
             .flatMap(ClassName.nameToClass(loader))
             .collect(Collectors.toList());
-    final FindTestUnits finder = new FindTestUnits(pitConfig);
+    final var finder = new FindTestUnits(pitConfig);
     return finder.findTestUnitsForAllSuppliedClasses(tcs);
   }
 
   private static void enableTransformations() {
     ClientPluginServices plugins = ClientPluginServices.makeForContextLoader();
     for (TransformationPlugin each : plugins.findTransformations()) {
-      ClassFileTransformer transformer = each.makeMutationTransformer();
+      var transformer = each.makeMutationTransformer();
       if (transformer != null) {
         HotSwapAgent.addTransformer(transformer);
       }
@@ -188,10 +188,10 @@ public class MutationTestMinion {
   }
 
   private static void addMemoryWatchDog(final Reporter r) {
-    final NotificationListener listener = (notification, handback) -> {
-    final String type = notification.getType();
+    final var listener = (notification, handback) -> {
+    final var type = notification.getType();
     if (type.equals(MemoryNotificationInfo.MEMORY_THRESHOLD_EXCEEDED)) {
-    final CompositeData cd = (CompositeData) notification.getUserData();
+    final var cd = (CompositeData) notification.getUserData();
     final MemoryNotificationInfo memInfo = MemoryNotificationInfo
         .from(cd);
     CommandLineMessage.report(memInfo.getPoolName()

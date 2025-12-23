@@ -49,7 +49,7 @@ public class InterceptorParametersTest {
   private InterceptorParameters makeFor(String key, String ... vals) {
     final Map<String, List<String>> values = new HashMap<>();
     values.put(key, Arrays.asList(vals));
-    final FeatureSetting fs = new FeatureSetting(null, null, values);
+    final var fs = new FeatureSetting(null, null, values);
     return new InterceptorParameters(fs, null, null,null, null, null);
   }
 
