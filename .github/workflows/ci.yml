@@ -38,8 +38,8 @@ jobs:
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-maven-
       - name: Spotless ✨
-        run: mvn spotlessCheck
+        run: mvn spotless:check
       - name: Rewrite ⚙️
-        run: mvn rewriteDryRun
+        run: mvn rewrite:dryRun
       - name: Test 📊
         run: mvn -B install # install rather than verify to ensure correct version used during integration test
