@@ -121,7 +121,7 @@ public abstract class FCollection {
       final int targetLength, final Iterable<T> ts) {
     final List<List<T>> list = new ArrayList<>();
     List<T> temp = new ArrayList<>();
-    var i = 0;
+    int i = 0;
     for (final T each : ts) {
       if (i == targetLength) {
         list.add(temp);

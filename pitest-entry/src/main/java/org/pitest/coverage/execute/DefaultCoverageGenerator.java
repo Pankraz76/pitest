@@ -111,7 +111,7 @@ public class DefaultCoverageGenerator implements CoverageGenerator {
 
       final var time = NANOSECONDS.toSeconds(System.nanoTime() - t0);
 
-      LOG.info("Calculated coverage in " + time + " seconds.");
+      LOG.info("Calculated coverage in " + time + " seconds");
       for (String msg : testStats.messages()) {
         LOG.info(msg);
       }
