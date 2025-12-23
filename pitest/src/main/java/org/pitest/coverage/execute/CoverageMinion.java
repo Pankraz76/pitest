@@ -97,8 +97,7 @@ public class CoverageMinion {
       }
 
     } catch (final PitHelpError phe) {
-      LOG.log(Level.SEVERE, phe.getMessage());
-      LOG.log(Level.SEVERE, phe.getMessage());
+      LOG.severe(phe.getMessage());
       exitCode = ExitCode.TEST_PLUGIN_ISSUE;
     } catch (final Throwable ex) {
       ex.printStackTrace(System.out);
