@@ -421,7 +421,7 @@
 					<configuration>
 						<skipMavenParsing>true</skipMavenParsing>
 						<activeRecipes>
-							<recipe>org.junit.openrewrite.SanityCheck</recipe>
+							<recipe>org.pitest.openrewrite.SanityCheck</recipe>
 						</activeRecipes>
 						<exclusions>
 							<exclusion>**.ci-temp**</exclusion>
