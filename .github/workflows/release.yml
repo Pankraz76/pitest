@@ -17,7 +17,7 @@ jobs:
         run: |
           cat <(echo -e "${{ secrets.GPG_SECRET_KEY }}") | gpg --batch --import
           gpg --list-secret-keys --keyid-format LONG
-      - name: Checkout project
+      - name: Checkout Repository 📥
         uses: actions/checkout@v3
       - name: Cache local Maven repository
         uses: actions/cache@v3
