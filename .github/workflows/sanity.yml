@@ -26,7 +26,8 @@ jobs:
           path: ~/.m2/repository
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-maven-
-#      - name: Spotless ✨
-#        run: ./mvnw spotless:check # plugin:3.1.0:check failed: Unable to load the mojo 'check' in the plugin 'com.diffplug.spotless:spotless-maven-plugin:3.1.0' due to an API incompatibility:
+      #      - name: Spotless ✨
+      #        run: ./mvnw spotless:check # plugin:3.1.0:check failed: Unable to load the mojo 'check' in the plugin 'com.diffplug.spotless:spotless-maven-plugin:3.1.0' due to an API incompatibility:
       - name: Rewrite ⚙️
         run: ./mvnw rewrite:dryRun
+
