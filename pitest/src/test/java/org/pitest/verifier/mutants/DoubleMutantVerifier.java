@@ -33,7 +33,7 @@ public class DoubleMutantVerifier<B> extends MutatorVerifier {
     }
 
     public void firstMutantShouldReturn(DoubleSupplier ds, B expected) {
-        double input = ds.getAsDouble();
+        var input = ds.getAsDouble();
         if (checkUnmutated()) {
             assertThat(runWithoutMutation(input))
                     .describedAs("Expected unmutated code to return different value to mutated code")

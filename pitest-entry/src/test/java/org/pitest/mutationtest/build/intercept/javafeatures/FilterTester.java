@@ -69,10 +69,10 @@ public class FilterTester {
     final List<MutationDetails> mutations = mutator.findMutations(s.className);
     final Collection<MutationDetails> actual = filter(s.clazz, mutations, mutator);
 
-    final Set<Loc> originalLocations = new LinkedHashSet<>();
+    final var originalLocations = new LinkedHashSet<Loc>();
     FCollection.mapTo(mutations, toLocation(s.clazz), originalLocations);
 
-    final Set<Loc> filteredLocations = new LinkedHashSet<>();
+    final var filteredLocations = new LinkedHashSet<Loc>();
     FCollection.mapTo(actual, toLocation(s.clazz), filteredLocations);
 
     assertThat(filteredLocations)

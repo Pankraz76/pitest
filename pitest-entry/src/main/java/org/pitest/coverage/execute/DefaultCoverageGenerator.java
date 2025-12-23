@@ -85,7 +85,7 @@ public class DefaultCoverageGenerator implements CoverageGenerator {
   @Override
   public CoverageData calculateCoverage(Predicate<ClassName> testFilter) {
     try {
-      final long t0 = System.nanoTime();
+      final var t0 = System.nanoTime();
 
       this.timings.registerStart(Timings.Stage.SCAN_CLASS_PATH);
       List<String> tests = this.code.testTrees()
@@ -109,7 +109,7 @@ public class DefaultCoverageGenerator implements CoverageGenerator {
       }
       this.timings.registerEnd(Timings.Stage.COVERAGE);
 
-      final long time = NANOSECONDS.toSeconds(System.nanoTime() - t0);
+      final var time = NANOSECONDS.toSeconds(System.nanoTime() - t0);
 
       LOG.info("Calculated coverage in " + time + " seconds.");
       for (String msg : testStats.messages()) {

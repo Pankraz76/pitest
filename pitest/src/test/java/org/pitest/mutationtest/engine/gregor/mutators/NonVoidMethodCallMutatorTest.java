@@ -136,7 +136,7 @@ public class NonVoidMethodCallMutatorTest {
 
         @Override
         public String call() {
-            final boolean result = booleanMethod();
+            final var result = booleanMethod();
             return "" + result;
         }
     }
@@ -148,7 +148,7 @@ public class NonVoidMethodCallMutatorTest {
 
         @Override
         public String call() {
-            final double result = doubleMethod();
+            final var result = doubleMethod();
             return "" + result;
         }
     }
@@ -172,7 +172,7 @@ public class NonVoidMethodCallMutatorTest {
 
         @Override
         public String call() {
-            final char result = charMethod();
+            final var result = charMethod();
             return "" + result;
         }
     }
@@ -196,7 +196,7 @@ public class NonVoidMethodCallMutatorTest {
 
         @Override
         public String call() {
-            final long result = longMethod();
+            final var result = longMethod();
             return "" + result;
         }
     }
@@ -208,7 +208,7 @@ public class NonVoidMethodCallMutatorTest {
 
         @Override
         public String call() {
-            final float result = floatMethod();
+            final var result = floatMethod();
             return "" + result;
         }
     }
@@ -242,7 +242,7 @@ public class NonVoidMethodCallMutatorTest {
         @Override
         @SuppressWarnings("finally")
         public String call() {
-            int c = 2;
+            var c = 2;
             try {
                 c = set(1);
             } finally {

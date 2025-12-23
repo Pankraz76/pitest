@@ -78,7 +78,7 @@ public class ArchiveClassPathRoot implements ClassPathRoot, IOHeavyRoot {
 
   @Override
   public Collection<String> classNames() {
-    final List<String> names = new ArrayList<>();
+    final var names = new ArrayList<String>();
     try (ZipHandle root = getRoot()) {
       final Enumeration<? extends ZipEntry> entries = root.entries();
       while (entries.hasMoreElements()) {

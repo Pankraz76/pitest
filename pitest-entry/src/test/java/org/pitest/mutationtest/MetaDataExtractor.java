@@ -25,7 +25,7 @@ public class MetaDataExtractor implements MutationResultListener {
   private final List<MutationResult> data = new ArrayList<>();
 
   public List<DetectionStatus> getDetectionStatus() {
-    final List<DetectionStatus> dss = new ArrayList<>();
+    final var dss = new ArrayList<DetectionStatus>();
     for (final MutationResult each : this.data) {
       dss.add(each.getStatus());
     }
@@ -33,7 +33,7 @@ public class MetaDataExtractor implements MutationResultListener {
   }
 
   public List<Integer> getLineNumbers() {
-    final List<Integer> dss = new ArrayList<>();
+    final var dss = new ArrayList<Integer>();
     for (final MutationResult each : this.data) {
       dss.add(each.getDetails().getLineNumber());
     }

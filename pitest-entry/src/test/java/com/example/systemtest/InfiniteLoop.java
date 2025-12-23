@@ -2,7 +2,7 @@ package com.example.systemtest;
 
 public class InfiniteLoop {
     public static int loop() {
-        int i = 1;
+        var i = 1;
         do {
             i++;
             try {

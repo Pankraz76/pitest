@@ -165,8 +165,8 @@ public class ArgumentPropagationMutatorTest {
     private static class HasSeveralArgumentWithMatchingType implements BiFunction<Integer, Integer, String> {
         @Override
         public String apply(Integer i1, Integer i2) {
-            int int1 = i1;
-            int int2 = i2;
+            var int1 = i1;
+            var int2 = i2;
             final String anInt = "3";
             return String.valueOf(aMethod(int1, anInt, int2));
         }

@@ -59,7 +59,7 @@ public class CoverageMinion {
     CoveragePipe invokeQueue = null;
     try {
 
-      final int port = Integer.parseInt(args[0]);
+      final var port = Integer.parseInt(args[0]);
       s = new Socket("localhost", port);
       // if we can't read/write in 10 seconds, something is badly wrong
       s.setSoTimeout(10000);
@@ -190,10 +190,10 @@ public class CoverageMinion {
 
   private static List<ClassName> receiveTestClassesFromParent(
       final SafeDataInputStream dis) {
-    final int count = dis.readInt();
+    final var count = dis.readInt();
     LOG.fine(() -> "Expecting " + count + " tests classes from parent");
-    final List<ClassName> classes = new ArrayList<>(count);
-    for (int i = 0; i != count; i++) {
+    final var classes = new ArrayList<ClassName>(count);
+    for (var i = 0; i != count; i++) {
       classes.add(ClassName.fromString(dis.readString()));
     }
     LOG.fine(() -> "Tests classes received");

@@ -42,7 +42,7 @@ public class BlockTrackingMethodDecorator extends MethodNode {
   public void visitEnd() {
     super.visitEnd();
 
-    final Deque<Block> blocks = new ArrayDeque<>(
+    final var blocks = new ArrayDeque<Block>(
         ControlFlowAnalyser.analyze(this));
 
     blockCounter.registerNewMethodStart();

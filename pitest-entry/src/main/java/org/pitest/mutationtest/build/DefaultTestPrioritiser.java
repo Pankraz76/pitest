@@ -44,7 +44,7 @@ public class DefaultTestPrioritiser implements TestPrioritiser {
 
   private List<TestInfo> prioritizeTests(ClassName clazz,
       Collection<TestInfo> testsForMutant) {
-    final List<TestInfo> sortedTis = new ArrayList<>(testsForMutant);
+    final var sortedTis = new ArrayList<TestInfo>(testsForMutant);
     sortedTis.sort(new TestInfoPriorisationComparator(clazz, TIME_WEIGHTING_FOR_DIRECT_UNIT_TESTS));
     return sortedTis;
   }

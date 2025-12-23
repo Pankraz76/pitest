@@ -81,7 +81,7 @@ public class MutationTestWorker {
       if (DEBUG) {
         LOG.fine("Running mutation " + mutation);
       }
-      final long t0 = System.nanoTime();
+      final var t0 = System.nanoTime();
       processMutation(r, testSource, mutation);
       if (DEBUG) {
         LOG.fine("processed mutation in " + NANOSECONDS.toMillis(System.nanoTime() - t0)
@@ -143,7 +143,7 @@ public class MutationTestWorker {
     }
 
     final Container c = createNewContainer();
-    final long t0 = System.nanoTime();
+    final var t0 = System.nanoTime();
 
     if (this.hotswap.insertClass(mutationId.getClassName(), this.loader,
         mutatedClass.getBytes())) {
@@ -167,7 +167,7 @@ public class MutationTestWorker {
     return new UnContainer() {
       @Override
       public List<TestResult> execute(final TestUnit group) {
-        final Collection<TestResult> results = new ConcurrentLinkedDeque<>();
+        final var results = new ConcurrentLinkedDeque<TestResult>();
         final ExitingResultCollector rc = new ExitingResultCollector(
             new ConcreteResultCollector(results));
         group.execute(rc);

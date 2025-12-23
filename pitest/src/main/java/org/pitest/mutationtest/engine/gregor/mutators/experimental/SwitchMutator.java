@@ -69,7 +69,7 @@ public class SwitchMutator implements MethodMutatorFactory {
     private Label[] swapLabels(final Label[] labels, final Label defaultLabel,
         final Label newDefault) {
       final Label[] swapped = new Label[labels.length];
-      for (int i = 0; i < labels.length; i++) {
+      for (var i = 0; i < labels.length; i++) {
         final Label candidate = labels[i];
         if (candidate == defaultLabel) {
           swapped[i] = newDefault;

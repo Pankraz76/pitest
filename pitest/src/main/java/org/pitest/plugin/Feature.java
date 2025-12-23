@@ -46,7 +46,7 @@ public final class Feature implements Comparable<Feature> {
   }
 
   public Feature withParameter(FeatureParameter param) {
-    final List<FeatureParameter> params = new ArrayList<>(this.params);
+    final var params = new ArrayList<FeatureParameter>(this.params);
     params.add(param);
     return new Feature(this.onByDefault, this.isInternal, this.order, this.name, this.description, params);
   }

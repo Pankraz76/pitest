@@ -108,7 +108,7 @@ public abstract class FCollection {
   @Deprecated
   public static <T> Collection<T> flatten(
       final Iterable<? extends Iterable<? extends T>> ts) {
-    final List<T> list = new ArrayList<>();
+    final var list = new ArrayList<T>();
     for (final Iterable<? extends T> it : ts) {
       for (final T each : it) {
         list.add(each);
@@ -119,9 +119,9 @@ public abstract class FCollection {
 
   public static <T> List<List<T>> splitToLength(
       final int targetLength, final Iterable<T> ts) {
-    final List<List<T>> list = new ArrayList<>();
-    List<T> temp = new ArrayList<>();
-    int i = 0;
+    final var list = new ArrayList<List<T>>();
+    var temp = new ArrayList<T>();
+    var i = 0;
     for (final T each : ts) {
       if (i == targetLength) {
         list.add(temp);
@@ -139,7 +139,7 @@ public abstract class FCollection {
 
   public static <A, B> Map<A, Collection<B>> bucket(final Iterable<B> bs,
       final Function<B, A> f) {
-    final Map<A, Collection<B>> bucketed = new HashMap<>();
+    final var bucketed = new HashMap<A, Collection<B>>();
     for (final B each : bs) {
       final A key = f.apply(each);
       Collection<B> existing = bucketed.computeIfAbsent(key, k -> new ArrayList<>());

@@ -75,7 +75,7 @@ public class VoidMethodCallMutatorTest {
     @Override
     @SuppressWarnings("finally")
     public String call() throws Exception {
-      final double a = 1;
+      final var a = 1D;
       final String b = "foo";
       try {
         set(1, 2L, a, this, b);
@@ -104,7 +104,7 @@ public class VoidMethodCallMutatorTest {
     @Override
     @SuppressWarnings("finally")
     public String call() throws Exception {
-      final double a = 1;
+      final var a = 1D;
       final String b = "foo";
       try {
         set(1, 2L, a, this, b);

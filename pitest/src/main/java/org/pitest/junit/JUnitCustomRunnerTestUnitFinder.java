@@ -115,7 +115,7 @@ public class JUnitCustomRunnerTestUnitFinder implements TestUnitFinder {
       return filteredUnits;
     }
 
-    final List<TestUnit> units = new ArrayList<>();
+    final var units = new ArrayList<TestUnit>();
     for (final TestUnit unit: filteredUnits) {
       if (this.includedTestMethods.contains(unit.getDescription().getName().split("\\(")[0])) {
         units.add(unit);

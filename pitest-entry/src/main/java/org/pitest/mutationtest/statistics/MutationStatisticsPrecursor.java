@@ -47,10 +47,10 @@ class MutationStatisticsPrecursor {
 
   public MutationStatistics toStatistics() {
     final Iterable<Score> scores = getScores();
-    final long totalMutations = FCollection.fold(addTotals(), 0L, scores);
-    final long totalDetected = FCollection
+    final var totalMutations = FCollection.fold(addTotals(), 0L, scores);
+    final var totalDetected = FCollection
         .fold(addDetectedTotals(), 0L, scores);
-    final long totalWithCoverage = FCollection.fold(addCoveredTotals(), 0L, scores);
+    final var totalWithCoverage = FCollection.fold(addCoveredTotals(), 0L, scores);
     return new MutationStatistics(scores, totalMutations, totalDetected, totalWithCoverage,
         this.numberOfTestsRun, mutatedClasses());
   }

@@ -68,7 +68,7 @@ public class JUnitCustomRunnerTestUnitFinderTest {
 
   @Test
   public void shouldFindTheoryTestViaMethodNameTest() {
-    final List<String> includedMethods = new ArrayList<>();
+    final var includedMethods = new ArrayList<String>();
     includedMethods.add("testTheory1");
     includedMethods.add("testTheory3");
     setIncludedTestMethods(includedMethods);

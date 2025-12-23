@@ -81,7 +81,7 @@ public class EquivalentReturnMutationFilter implements MutationInterceptorFactor
   }
 
   private static Match<AbstractInsnNode> isZeroConstant() {
-    Set<Integer> zeroConstants = new HashSet<>();
+    var zeroConstants = new HashSet<Integer>();
 
     zeroConstants.add(Opcodes.ICONST_0);
     zeroConstants.add(Opcodes.LCONST_0);
@@ -146,7 +146,7 @@ public class EquivalentReturnMutationFilter implements MutationInterceptorFactor
   }
 
   private SequenceQuery<AbstractInsnNode> primitiveZeroConstants() {
-    Set<Integer> zeroConstants = new HashSet<>();
+    var zeroConstants = new HashSet<Integer>();
     zeroConstants.add(Opcodes.ICONST_0);
     zeroConstants.add(Opcodes.LCONST_0);
     zeroConstants.add(Opcodes.FCONST_0);

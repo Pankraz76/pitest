@@ -61,7 +61,7 @@ public class ParameterisedJUnitTestFinder implements TestUnitFinder {
 
   private List<TestUnit> handleParameterizedTest(final Class<?> clazz,
       final Description description) {
-    final List<TestUnit> result = new ArrayList<>();
+    final var result = new ArrayList<TestUnit>();
     for (final Description each : description.getChildren()) {
       FCollection.mapTo(each.getChildren(), parameterizedToTestUnit(clazz),
           result);

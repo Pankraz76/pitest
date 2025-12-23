@@ -35,7 +35,7 @@ public class DirectoryResultOutputStrategy implements ResultOutputStrategy {
   @Override
   public Writer createWriterForFile(final String file) {
     try {
-      final int fileSepIndex = file.lastIndexOf(File.separatorChar);
+      final var fileSepIndex = file.lastIndexOf(File.separatorChar);
       if (fileSepIndex > 0) {
         final String directory = this.reportDir.getAbsolutePath()
             + File.separatorChar + file.substring(0, fileSepIndex);

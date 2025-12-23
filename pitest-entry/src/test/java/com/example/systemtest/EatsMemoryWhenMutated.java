@@ -5,8 +5,8 @@ import java.util.List;
 
 public class EatsMemoryWhenMutated {
     public static int loop() throws InterruptedException {
-        int i = 1;
-        final List<String[]> vals = new ArrayList<>();
+        var i = 1;
+        final var vals = new ArrayList<String[]>();
         Thread.sleep(1500);
         do {
             i++;

@@ -70,7 +70,7 @@ public final class ReportAggregator {
   public AggregationResult aggregateReport() throws ReportAggregationException {
     SmartSourceLocator sourceLocator = new SmartSourceLocator(asPaths(this.sourceCodeDirectories), inputCharset);
 
-    boolean partialCoverage = scanForPartialCoverageFlag(mutationFiles);
+    var partialCoverage = scanForPartialCoverageFlag(mutationFiles);
 
     final MutationResultListener mutationResultListener = createResultListener(sourceLocator, Collections.emptySet(), partialCoverage);
     final ReportAggregatorResultListener reportAggregatorResultListener = new ReportAggregatorResultListener();

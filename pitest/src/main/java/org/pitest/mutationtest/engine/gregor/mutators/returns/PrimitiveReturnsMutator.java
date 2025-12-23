@@ -39,7 +39,7 @@ public enum PrimitiveReturnsMutator implements MethodMutatorFactory {
   }
 
   private boolean returnsBoolean(MethodInfo methodInfo) {
-    final int sort = Type.getReturnType(methodInfo.getMethodDescriptor()).getSort();
+    final var sort = Type.getReturnType(methodInfo.getMethodDescriptor()).getSort();
     return sort == Type.BOOLEAN;
   }
 
@@ -143,7 +143,7 @@ class PrimitivesReturnValsMethodVisitor extends AbstractInsnMutator {
       }
 
       private String makeMessage(String methodDescriptor) {
-        final int sort = Type.getReturnType(methodDescriptor).getSort();
+        final var sort = Type.getReturnType(methodDescriptor).getSort();
         switch (sort) {
         case Type.BYTE:
           return "replaced byte return with 0";

@@ -25,7 +25,7 @@ final class MultiContext implements Context {
 
     @Override
     public <S> Context store(SlotWrite<S> slot, S value) {
-        Map<Slot,Object> mutatedSlots = new IdentityHashMap<>(slots);
+        var mutatedSlots = new IdentityHashMap<Slot,Object>(slots);
         mutatedSlots.put(slot.slot(), value);
         return new MultiContext(mutatedSlots, debug);
     }

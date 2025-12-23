@@ -39,7 +39,7 @@ public class DirectoriesOnlyWalker extends DirectoryWalker {
     }
     
     public List<File> locateDirectories(File startDir) {
-        List<File> foundDirs = new LinkedList<>();
+        var foundDirs = new LinkedList<File>();
         
         try {
           this.walk(startDir, foundDirs);

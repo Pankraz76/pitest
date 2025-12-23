@@ -137,7 +137,7 @@ abstract class AbstractPitAggregationReportMojo extends PitReportMojo {
 
   @SuppressWarnings({ "rawtypes", "unchecked" })
   private List<File> convertToRootDirs(final List... directoryLists) {
-    final List<String> roots = new ArrayList<>();
+    final var roots = new ArrayList<String>();
     for (final List directoryList : directoryLists) {
       roots.addAll(directoryList);
     }
@@ -162,7 +162,7 @@ abstract class AbstractPitAggregationReportMojo extends PitReportMojo {
 
   @SuppressWarnings("unchecked")
   private List<File> getCompiledDirs(final MavenProject project) {
-    final List<String> sourceRoots = new ArrayList<>();
+    final var sourceRoots = new ArrayList<String>();
     for (final Object artifactObj : FCollection
         .filter(project.getPluginArtifactMap().values(), new DependencyFilter(
             PluginServices.makeForLoader(this.getClass().getClassLoader())))) {

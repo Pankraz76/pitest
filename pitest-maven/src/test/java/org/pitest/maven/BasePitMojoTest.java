@@ -121,7 +121,7 @@ public abstract class BasePitMojoTest extends AbstractMojoTestCase {
 
     configureMojo(pitMojo, pluginConfiguration);
 
-    final Map<String, Artifact> pluginArtifacts = new HashMap<>();
+    final var pluginArtifacts = new HashMap<String, Artifact>();
     setVariableValueToObject(pitMojo, "pluginArtifactMap", pluginArtifacts);
 
     setVariableValueToObject(pitMojo, "project", this.project);
@@ -129,7 +129,7 @@ public abstract class BasePitMojoTest extends AbstractMojoTestCase {
     setVariableValueToObject(pitMojo, "settings", this.settings);
 
     if (pitMojo.getAdditionalClasspathElements() == null) {
-      ArrayList<String> elements = new ArrayList<>();
+      var elements = new ArrayList<String>();
       setVariableValueToObject(pitMojo, "additionalClasspathElements", elements);
     }
 

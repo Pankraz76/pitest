@@ -26,7 +26,7 @@ public class CoverageTransformer implements ClassFileTransformer {
   public byte[] transform(final ClassLoader loader, final String className,
       final Class<?> classBeingRedefined,
       final ProtectionDomain protectionDomain, final byte[] classfileBuffer) {
-    final boolean include = shouldInclude(className);
+    final var include = shouldInclude(className);
     if (include) {
       try {
         return transformBytes(pickLoader(loader), className, classfileBuffer);
@@ -54,7 +54,7 @@ public class CoverageTransformer implements ClassFileTransformer {
         new ClassloaderByteArraySource(loader), this.computeCache,
         FrameOptions.pickFlags(classfileBuffer));
 
-    final int id = CodeCoverageStore.registerClass(className);
+    final var id = CodeCoverageStore.registerClass(className);
     try {
       reader.accept(new CoverageClassVisitor(id, writer),
           ClassReader.EXPAND_FRAMES);

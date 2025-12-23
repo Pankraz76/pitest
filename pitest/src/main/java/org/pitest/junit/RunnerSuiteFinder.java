@@ -39,7 +39,7 @@ public class RunnerSuiteFinder implements TestSuiteFinder {
     try {
       final Runner runner = AdaptedJUnitTestUnit.createRunner(a);
 
-      final List<Description> allChildren = new ArrayList<>();
+      final var allChildren = new ArrayList<Description>();
       flattenChildren(allChildren, runner.getDescription());
 
       final List<Description> suites = FCollection.filter(allChildren,

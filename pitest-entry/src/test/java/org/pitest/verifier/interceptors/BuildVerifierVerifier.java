@@ -77,7 +77,7 @@ public class BuildVerifierVerifier {
 
 
     public static CodeSource codeSourceReturning(ClassName clazz, ClassName... classes) {
-        List<ClassName> cs = new ArrayList<>();
+        var cs = new ArrayList<ClassName>();
         cs.add(clazz);
         cs.addAll(Arrays.stream(classes).collect(Collectors.toList()));
 

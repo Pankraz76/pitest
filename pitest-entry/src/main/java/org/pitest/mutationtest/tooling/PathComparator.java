@@ -24,8 +24,8 @@ class PathComparator implements Comparator<Object> {
 
     @Override
     public int compare(Object o1, Object o2) {
-        int a = distanceFromBase(o1.toString());
-        int b = distanceFromBase(o2.toString());
+        var a = distanceFromBase(o1.toString());
+        var b = distanceFromBase(o2.toString());
 
         return b - a;
     }
@@ -33,7 +33,7 @@ class PathComparator implements Comparator<Object> {
     private int distanceFromBase(String s1) {
         String[] a = s1.split(separator);
 
-        for (int i = 0; i != baseParts.length; i++) {
+        for (var i = 0; i != baseParts.length; i++) {
             if (a.length == i || !a[i].equals(baseParts[i])) {
                 return i;
             }

@@ -39,7 +39,7 @@ public enum BigIntegerMutator implements MethodMutatorFactory {
     private static final Map<String, Replacement> REPLACEMENTS;
 
     static {
-      Map<String, Replacement> map = new HashMap<>();
+      var map = new HashMap<String, Replacement>();
 
       String unary = "(Ljava/math/BigInteger;)Ljava/math/BigInteger;";
       put(map, new Replacement("add", "subtract", unary));
@@ -120,7 +120,7 @@ public enum BigIntegerMutator implements MethodMutatorFactory {
         Object... bootstrapMethodArguments) {
       bootstrapMethodHandle = mutateHandle(bootstrapMethodHandle);
       Object[] methodArgs = new Object[bootstrapMethodArguments.length];
-      for (int i = 0; i < bootstrapMethodArguments.length; i++) {
+      for (var i = 0; i < bootstrapMethodArguments.length; i++) {
         Object bootstrapMethodArgument = bootstrapMethodArguments[i];
         if (bootstrapMethodArgument instanceof Handle) {
           methodArgs[i] = mutateHandle((Handle) bootstrapMethodArgument);
@@ -135,7 +135,7 @@ public enum BigIntegerMutator implements MethodMutatorFactory {
      * Mutates a handle within an invoke virtual.
      */
     private Handle mutateHandle(Handle handle) {
-      int opcode = handle.getTag();
+      var opcode = handle.getTag();
       String owner = handle.getOwner();
       String name = handle.getName();
       String descriptor = handle.getDesc();

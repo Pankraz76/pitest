@@ -21,7 +21,7 @@ public class HasMutableStaticInitializer {
   public static int j;
 
   static {
-    final int a = Integer.valueOf(100);
+    final var a = Integer.valueOf(100);
     i = a;
     j = i + 1;
   }

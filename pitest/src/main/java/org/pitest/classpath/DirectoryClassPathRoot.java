@@ -63,7 +63,7 @@ public class DirectoryClassPathRoot implements ClassPathRoot, IOHeavyRoot {
   }
 
   private Collection<String> classNames(final File file) {
-    final List<String> classNames = new LinkedList<>();
+    final var classNames = new LinkedList<String>();
     for (final File f : file.listFiles()) {
       if (f.isDirectory()) {
         classNames.addAll(classNames(f));

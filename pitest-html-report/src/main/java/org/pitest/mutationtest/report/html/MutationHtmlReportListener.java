@@ -219,7 +219,7 @@ public class MutationHtmlReportListener implements MutationResultListener {
     final Writer writer = this.outputStrategy.createWriterForFile("index.html");
     final MutationTotals totals = new MutationTotals();
 
-    final List<PackageSummaryData> psd = new ArrayList<>(
+    final var psd = new ArrayList<PackageSummaryData>(
         this.packageSummaryData.values());
     Collections.sort(psd);
     for (final PackageSummaryData psData : psd) {

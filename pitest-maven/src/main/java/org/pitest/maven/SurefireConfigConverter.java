@@ -69,7 +69,7 @@ public class SurefireConfigConverter {
   }
 
   private void convertExcludes(ReportOptions option, Xpp3Dom configuration) {
-    List<Predicate<String>> excludes = new ArrayList<>();
+    var excludes = new ArrayList<Predicate<String>>();
     List<Predicate<String>> surefireExcludes =
             extract("excludes", configuration).stream()
                             .map(p -> p.value)
@@ -103,7 +103,7 @@ public class SurefireConfigConverter {
   private List<Pair> extract(String childname, Xpp3Dom config) {
     final Xpp3Dom subelement = config.getChild(childname);
     if (subelement != null) {
-      List<Pair> result = new LinkedList<>();
+      var result = new LinkedList<Pair>();
       final Xpp3Dom[] children = subelement.getChildren();
       for (Xpp3Dom child : children) {
         result.add(new Pair(child.getName(), child.getValue()));

@@ -108,7 +108,7 @@ public class OptionsParserTest {
   public void shouldParseCommaSeparatedListOfJVMArgs() {
     final ReportOptions actual = parseAddingRequiredArgs("--jvmArgs", "foo,bar");
 
-    List<String> expected = new ArrayList<>();
+    var expected = new ArrayList<String>();
     expected.add("foo");
     expected.add("bar");
     assertEquals(expected, actual.getJvmArgs());
@@ -709,7 +709,7 @@ public class OptionsParserTest {
   private String getNonCanonicalGregorEngineClassPath() {
     final String gregorEngineClassPath = GregorMutationEngine.class
         .getProtectionDomain().getCodeSource().getLocation().getFile();
-    final int lastOccurrenceOfFileSeparator = gregorEngineClassPath
+    final var lastOccurrenceOfFileSeparator = gregorEngineClassPath
         .lastIndexOf(JAVA_PATH_SEPARATOR);
     return new StringBuilder(gregorEngineClassPath).replace(
         lastOccurrenceOfFileSeparator, lastOccurrenceOfFileSeparator + 1,
@@ -722,7 +722,7 @@ public class OptionsParserTest {
 
   private ReportOptions parseAddingRequiredArgs(final String... args) {
 
-    final List<String> a = new ArrayList<>();
+    final var a = new ArrayList<String>();
     a.addAll(Arrays.asList(args));
     addIfNotPresent(a, "--targetClasses");
     addIfNotPresent(a, "--reportDir");

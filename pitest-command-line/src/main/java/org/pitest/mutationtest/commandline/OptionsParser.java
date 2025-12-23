@@ -544,7 +544,7 @@ public class OptionsParser {
 
   private void setClassPath(final OptionSet userArgs, final ReportOptions data) {
 
-    final List<String> elements = new ArrayList<>();
+    final var elements = new ArrayList<String>();
     if (data.isIncludeLaunchClasspath()) {
       elements.addAll(ClassPath.getClassPathElementsAsPaths());
     } else {

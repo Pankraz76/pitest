@@ -114,7 +114,7 @@ public class InlinedFinallyBlockFilter implements MutationInterceptor {
   public Collection<MutationDetails> intercept(
       Collection<MutationDetails> mutations, Mutater m) {
 
-    List<MutationDetails> combined = new ArrayList<>(
+    var combined = new ArrayList<MutationDetails>(
         mutations.size());
     Map<LineMutatorPair, Collection<MutationDetails>> mutatorLineBuckets = bucket(
         mutations, toLineMutatorPair());
@@ -154,7 +154,7 @@ public class InlinedFinallyBlockFilter implements MutationInterceptor {
     }
 
     final MutationDetails baseMutation = mutationsInHandlerBlock.get(0);
-    final int firstBlock = baseMutation.getBlocks().get(0);
+    final var firstBlock = baseMutation.getBlocks().get(0);
 
     // check that we have at least on mutation in a different block
     // to the base one (is this not implied by there being only 1 mutation in
@@ -206,7 +206,7 @@ public class InlinedFinallyBlockFilter implements MutationInterceptor {
 
   private static MutationDetails makeCombinedMutant(Collection<MutationDetails> value) {
     MutationDetails first = value.iterator().next();
-    Set<Integer> indexes = new HashSet<>();
+    var indexes = new HashSet<Integer>();
     mapTo(value, MutationDetails::getFirstIndex, indexes);
 
     final MutationIdentifier id = new MutationIdentifier(first.getId()

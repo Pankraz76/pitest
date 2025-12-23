@@ -66,10 +66,10 @@ public class MutantVerifier {
 
     @Deprecated
     public MutantVerifier mutantsFilteredAtNLocations(int n) {
-        final Set<Loc> originalLocations = new LinkedHashSet<>();
+        final var originalLocations = new LinkedHashSet<Loc>();
         FCollection.mapTo(mutations, toLocation(sample.clazz), originalLocations);
 
-        final Set<Loc> filteredLocations = new LinkedHashSet<>();
+        final var filteredLocations = new LinkedHashSet<Loc>();
         FCollection.mapTo(afterFiltering, toLocation(sample.clazz), filteredLocations);
 
         softly.assertThat(filteredLocations)

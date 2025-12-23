@@ -268,7 +268,7 @@ public class CoverageProcessSystemTest {
   private List<CoverageResult> runCoverageForTest(final Class<?> test)
       throws IOException, InterruptedException {
 
-    final List<CoverageResult> coveredClasses = new ArrayList<>();
+    final var coveredClasses = new ArrayList<CoverageResult>();
 
     runCoverageProcess(test, coveredClasses);
     return coveredClasses;

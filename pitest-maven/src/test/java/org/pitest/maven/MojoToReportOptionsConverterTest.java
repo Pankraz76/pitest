@@ -111,7 +111,7 @@ public class MojoToReportOptionsConverterTest extends BasePitMojoTest {
         "                  </jvmArgs>";
     final ReportOptions actual = parseConfig(xml);
 
-    List<String> expectedArgs = new ArrayList<>();
+    var expectedArgs = new ArrayList<String>();
     expectedArgs.add("foo");
     expectedArgs.add("bar");
 
@@ -377,7 +377,7 @@ public class MojoToReportOptionsConverterTest extends BasePitMojoTest {
       throws DependencyResolutionRequiredException {
     final String sep = File.pathSeparator;
 
-    final Set<Artifact> artifacts = new HashSet<>();
+    final var artifacts = new HashSet<Artifact>();
     final Artifact dependency = Mockito.mock(Artifact.class);
     when(dependency.getGroupId()).thenReturn("group");
     when(dependency.getArtifactId()).thenReturn("artifact");

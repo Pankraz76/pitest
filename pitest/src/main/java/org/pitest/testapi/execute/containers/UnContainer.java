@@ -28,7 +28,7 @@ public class UnContainer implements Container {
 
   @Override
   public List<TestResult> execute(final TestUnit group) {
-    final Collection<TestResult> results = new ConcurrentLinkedDeque<>();
+    final var results = new ConcurrentLinkedDeque<TestResult>();
     final ConcreteResultCollector rc = new ConcreteResultCollector(results);
     group.execute(rc);
     return new ArrayList<>(results);

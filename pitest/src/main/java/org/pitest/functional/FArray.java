@@ -37,7 +37,7 @@ public abstract class FArray {
   }
 
   public static <T> List<T> filter(final T[] xs, final Predicate<T> predicate) {
-    final List<T> dest = new ArrayList<>();
+    final var dest = new ArrayList<T>();
     filter(xs, predicate, dest);
     return dest;
   }

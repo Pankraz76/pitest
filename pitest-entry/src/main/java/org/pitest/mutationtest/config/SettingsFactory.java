@@ -83,7 +83,7 @@ public class SettingsFactory {
 
     final FeatureParser parser = new FeatureParser();
     List<TestStatListenerFactory> available = plugins.findTestStatListeners();
-    FeatureSelector<TestStatListenerFactory> features = new FeatureSelector<>(parser.parseFeatures(this.options.getFeatures()), available);
+    var features = new FeatureSelector<TestStatListenerFactory>(parser.parseFeatures(this.options.getFeatures()), available);
     List<TestStatListenerFactory> enabled = features.getActiveFeatures();
 
     List<TestStatListener> listeners = enabled.stream()
@@ -95,7 +95,7 @@ public class SettingsFactory {
   public TestFilter createTestFilter() {
     FeatureParser parser = new FeatureParser();
     List<TestFilterFactory> available = plugins.findTestFilters();
-    FeatureSelector<TestFilterFactory> features = new FeatureSelector<>(parser.parseFeatures(this.options.getFeatures()), available);
+    var features = new FeatureSelector<TestFilterFactory>(parser.parseFeatures(this.options.getFeatures()), available);
     List<TestFilterFactory> enabled = features.getActiveFeatures();
 
     List<TestFilter> filters = enabled.stream()
@@ -156,7 +156,7 @@ public class SettingsFactory {
     List<HistoryFactory> available = this.plugins.findHistory();
 
     final FeatureParser parser = new FeatureParser();
-    FeatureSelector<HistoryFactory> historyFeatures = new FeatureSelector<>(parser.parseFeatures(this.options.getFeatures()), available);
+    var historyFeatures = new FeatureSelector<HistoryFactory>(parser.parseFeatures(this.options.getFeatures()), available);
     List<HistoryFactory> enabledHistory = historyFeatures.getActiveFeatures();
 
     if (enabledHistory.isEmpty()) {
@@ -170,9 +170,9 @@ public class SettingsFactory {
 
   public void describeFeatures(Consumer<Feature> enabled, Consumer<Feature> disabled) {
     final FeatureParser parser = new FeatureParser();
-    final Collection<ProvidesFeature> available = new ArrayList<>(this.plugins.findFeatures());
+    final var available = new ArrayList<ProvidesFeature>(this.plugins.findFeatures());
     final List<FeatureSetting> settings = parser.parseFeatures(this.options.getFeatures());
-    final FeatureSelector<ProvidesFeature> selector = new FeatureSelector<>(settings, available);
+    final var selector = new FeatureSelector<ProvidesFeature>(settings, available);
 
     List<Feature> enabledFeatures = selector.getActiveFeatures().stream()
       .map(toFeature())

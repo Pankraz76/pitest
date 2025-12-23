@@ -90,7 +90,7 @@ public class MethodTree {
   }
 
   public List<AnnotationNode> annotations() {
-    final List<AnnotationNode> annotaions = new ArrayList<>();
+    final var annotaions = new ArrayList<AnnotationNode>();
     if (this.rawNode.invisibleAnnotations != null) {
       annotaions.addAll(this.rawNode.invisibleAnnotations);
     }
@@ -101,7 +101,7 @@ public class MethodTree {
   }
 
   private List<AbstractInsnNode> createInstructionList() {
-    final List<AbstractInsnNode> list = new ArrayList<>();
+    final var list = new ArrayList<AbstractInsnNode>();
     for (AbstractInsnNode abstractInsnNode : this.rawNode.instructions) {
       list.add(abstractInsnNode);
     }

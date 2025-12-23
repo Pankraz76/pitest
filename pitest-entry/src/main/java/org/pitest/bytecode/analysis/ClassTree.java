@@ -63,7 +63,7 @@ public class ClassTree {
   }
 
   public List<AnnotationNode> annotations() {
-    final List<AnnotationNode> annotations = new ArrayList<>();
+    final var annotations = new ArrayList<AnnotationNode>();
     if (this.rawNode.invisibleAnnotations != null) {
       annotations.addAll(this.rawNode.invisibleAnnotations);
     }

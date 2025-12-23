@@ -57,7 +57,7 @@ public class Verifier {
     public MutantVerifier forMutantsMatching(Predicate<MutationDetails> match) {
         List<MutationDetails> mutations = mutator.findMutations(sample.className);
         Collection<MutationDetails> afterFiltering = filter(sample.clazz, mutations, mutator);
-        List<MutationDetails> filtered = new ArrayList<>(mutations);
+        var filtered = new ArrayList<MutationDetails>(mutations);
         filtered.removeAll(afterFiltering);
 
         return new MutantVerifier(sample, this.match.and(match), mutations, afterFiltering, filtered);

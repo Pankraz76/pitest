@@ -18,29 +18,29 @@ public class SequenceQuery<T> {
   }
 
   public SequenceQuery<T> then(SequenceQuery<T> next) {
-    final Concat<T> concat = new Concat<>(this.token, next.token);
+    final var concat = new Concat<T>(this.token, next.token);
     return new SequenceQuery<>(concat);
   }
 
   public SequenceQuery<T> or(SequenceQuery<T> next) {
-    final Or<T> or = new Or<>(this.token, next.token);
+    final var or = new Or<T>(this.token, next.token);
     return new SequenceQuery<>(or);
   }
 
   public SequenceQuery<T> thenAnyOf(SequenceQuery<T> left,
       SequenceQuery<T> right) {
-    final Or<T> or = new Or<>(left.token, right.token);
-    final Concat<T> concat = new Concat<>(this.token, or);
+    final var or = new Or<T>(left.token, right.token);
+    final var concat = new Concat<T>(this.token, or);
     return new SequenceQuery<>(concat);
   }
 
   public SequenceQuery<T> zeroOrMore(SequenceQuery<T> next) {
-    final Concat<T> concat = new Concat<>(this.token, new Repeat<>(next.token));
+    final var concat = new Concat<T>(this.token, new Repeat<>(next.token));
     return new SequenceQuery<>(concat);
   }
 
   public SequenceQuery<T> oneOrMore(SequenceQuery<T> next) {
-    final Concat<T> concat = new Concat<>(this.token, new Plus<>(next.token));
+    final var concat = new Concat<T>(this.token, new Plus<>(next.token));
     return new SequenceQuery<>(concat);
   }
 
@@ -113,7 +113,7 @@ public class SequenceQuery<T> {
 
     @Override
     public State<T> make(State<T> andThen) {
-      final Split<T> placeHolder = new Split<>(null, null);
+      final var placeHolder = new Split<T>(null, null);
       final State<T> right = this.r.make(placeHolder);
       placeHolder.out1 = new Split<>(right, andThen);
       return placeHolder;
@@ -130,7 +130,7 @@ public class SequenceQuery<T> {
 
     @Override
     public State<T> make(State<T> andThen) {
-      final Concat<T> concat = new Concat<>(this.r, new Repeat<>(this.r));
+      final var concat = new Concat<T>(this.r, new Repeat<>(this.r));
       return concat.make(andThen);
     }
   }
@@ -173,7 +173,7 @@ class NFASequenceMatcher<T> implements SequenceMatcher<T> {
   }
 
   private Set<StateContext<T>> run(List<T> sequence, Context initialContext) {
-    Set<StateContext<T>> currentState = new HashSet<>();
+    var currentState = new HashSet<StateContext<T>>();
     addState(currentState, new StateContext<>(this.start, initialContext));
 
     for (final T t : sequence) {
@@ -210,7 +210,7 @@ class NFASequenceMatcher<T> implements SequenceMatcher<T> {
 
     // adhoc testing suggests setting the initial HashSet size saves 15% of analysis
     // execution time
-    final Set<StateContext<T>> nextStates = new HashSet<>(currentState.size());
+    final var nextStates = new HashSet<StateContext<T>>(currentState.size());
 
     for (final StateContext<T> each : currentState) {
       if (each.state instanceof Consume) {

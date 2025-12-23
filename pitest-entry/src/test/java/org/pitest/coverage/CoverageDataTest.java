@@ -244,8 +244,8 @@ public class CoverageDataTest {
 
   private HashMap<BlockLocation, Set<Integer>> makeCoverageMapForBlock(
       BlockLocationBuilder blocks, Integer... lines) {
-    final HashMap<BlockLocation, Set<Integer>> map = new HashMap<>();
-    final Set<Integer> s = new HashSet<>();
+    final var map = new HashMap<BlockLocation, Set<Integer>>();
+    final var s = new HashSet<Integer>();
     s.addAll(Arrays.asList(lines));
     map.put(blocks.build(), s);
     return map;

@@ -260,7 +260,7 @@ public class TestJUnitConfiguration {
 
     @Test(timeout = 5)
     public void testBar() {
-      for (int i = 0; i != 10; i++) {
+      for (var i = 0; i != 10; i++) {
         try {
           Thread.sleep(1000);
         } catch (final InterruptedException e) {

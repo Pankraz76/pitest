@@ -29,9 +29,9 @@ public class ArgLineParser {
         }
 
         final StringTokenizer tokenizer = new StringTokenizer(in, "\"\' \\", true);
-        List<String> tokens = new ArrayList<>();
+        var tokens = new ArrayList<String>();
 
-        Deque<State> state = new ArrayDeque<>();
+        var state = new ArrayDeque<State>();
         state.push(START);
         StringBuilder current = new StringBuilder();
         while (tokenizer.hasMoreTokens()) {

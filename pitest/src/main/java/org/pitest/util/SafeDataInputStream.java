@@ -45,7 +45,7 @@ public class SafeDataInputStream {
 
   public byte[] readBytes() {
     try {
-      final int length = this.dis.readInt();
+      final var length = this.dis.readInt();
       final byte[] data = new byte[length];
       this.dis.readFully(data);
       return data;

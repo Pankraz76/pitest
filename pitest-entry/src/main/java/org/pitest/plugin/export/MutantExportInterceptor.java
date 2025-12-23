@@ -65,10 +65,10 @@ public class MutantExportInterceptor implements MutationInterceptor {
   public Collection<MutationDetails> intercept(
       Collection<MutationDetails> mutations, Mutater m) {
 
-    final List<MutationDetails> indexable = new ArrayList<>(mutations);
+    final var indexable = new ArrayList<MutationDetails>(mutations);
 
     try {
-      for (int i = 0; i != indexable.size(); i++) {
+      for (var i = 0; i != indexable.size(); i++) {
         exportMutantDetails(m, indexable, i);
       }
     } catch (final IOException ex) {

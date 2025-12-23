@@ -6,7 +6,7 @@ public class HasTernaryTest {
 
   @Test
   public void testTernary(){
-    int ret = HasTernaryTestee.mutable(10);
+    var ret = HasTernaryTestee.mutable(10);
 
   }
 }

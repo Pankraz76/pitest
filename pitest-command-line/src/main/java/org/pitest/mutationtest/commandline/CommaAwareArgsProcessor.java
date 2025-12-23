@@ -31,7 +31,7 @@ public class CommaAwareArgsProcessor {
             return Collections.emptyList();
         }
 
-        Set<Integer> modifiedIndices = new HashSet<>();
+        var modifiedIndices = new HashSet<Integer>();
         String preprocessedOptions = replaceCommas(commandLineOption, modifiedIndices);
 
         String[] arguments = preprocessedOptions.split(",");
@@ -42,8 +42,8 @@ public class CommaAwareArgsProcessor {
      * Put commas back and delete region marker.
      */
     private List<String> postProcess(Set<Integer> modifiedIndices, String[] arguments) {
-        List<String> newArguments = new ArrayList<>();
-        int base = 0;
+        var newArguments = new ArrayList<String>();
+        var base = 0;
         for (String argument : arguments) {
             newArguments.add(buildNewArgument(modifiedIndices, base, argument).toString());
             base += argument.length() + 1;
@@ -53,8 +53,8 @@ public class CommaAwareArgsProcessor {
 
     private StringBuilder buildNewArgument(Set<Integer> modifiedIndices, int base, String argument) {
         StringBuilder newArgument = new StringBuilder();
-        for (int j = 0; j < argument.length(); j++) {
-            char current = argument.charAt(j);
+        for (var j = 0; j < argument.length(); j++) {
+            var current = argument.charAt(j);
 
             // Only remove region markers, if commas have been replaced. Otherwise treat them as part of the argument.
             if (!modifiedIndices.isEmpty() && (current == REGION_BEGIN || current == REGION_END)) {
@@ -71,10 +71,10 @@ public class CommaAwareArgsProcessor {
 
     private String replaceCommas(String single, Set<Integer> modifiedIndices) {
         StringBuilder newString = new StringBuilder();
-        boolean inSpecialRegion = false;
-        for (int i = 0; i < single.length(); i++) {
-            char current = single.charAt(i);
-            char tobeAdded = current;
+        var inSpecialRegion = false;
+        for (var i = 0; i < single.length(); i++) {
+            var current = single.charAt(i);
+            var tobeAdded = current;
             if (current == REGION_BEGIN && !inSpecialRegion) {
                 inSpecialRegion = true;
             } else if (current == REGION_END && inSpecialRegion) {

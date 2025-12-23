@@ -48,7 +48,7 @@ public class PackageSummaryData implements Comparable<PackageSummaryData> {
   }
 
   public List<MutationTestSummaryData> getSummaryData() {
-    final ArrayList<MutationTestSummaryData> values = new ArrayList<>(
+    final var values = new ArrayList<MutationTestSummaryData>(
         this.fileNameToSummaryData.values());
     values.sort(new MutationTestSummaryDataFileNameComparator());
     return values;

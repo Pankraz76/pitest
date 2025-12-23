@@ -32,7 +32,7 @@ class BlockCoverageDataLoader extends DataLoader<BlockCoverage> {
   @Override
   protected Set<BlockCoverage> mapToData(XMLStreamReader xr) throws XMLStreamException {
     XmlMapper xm = new XmlMapper();
-    final Set<BlockCoverage> data = new HashSet<>();
+    final var data = new HashSet<BlockCoverage>();
     while (xr.hasNext()) {
       xr.next();
       if (xr.getEventType() == START_ELEMENT) {

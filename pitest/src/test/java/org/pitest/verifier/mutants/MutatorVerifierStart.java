@@ -125,7 +125,7 @@ public class MutatorVerifierStart {
     private GregorMutater makeEngine() {
         // sandwich between NullMutators as a (non robust) check
         // that the mutator provides a unique id
-        List<MethodMutatorFactory> mutators = new ArrayList<>();
+        var mutators = new ArrayList<MethodMutatorFactory>();
         mutators.add(new NullMutator());
         mutators.addAll(mmfs);
         mutators.add(new NullMutator());

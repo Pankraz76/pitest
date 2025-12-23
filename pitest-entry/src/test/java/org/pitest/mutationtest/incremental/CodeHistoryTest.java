@@ -70,7 +70,7 @@ public class CodeHistoryTest {
 
   @Test
   public void shouldTreatClassesWithDifferentHashesAsChanged() {
-    final long currentHash = 42;
+    final var currentHash = 42L;
     final ClassName foo = ClassName.fromString("foo");
     final ClassIdentifier currentId = new ClassIdentifier(currentHash, foo);
     setCurrentClassPath(ClassInfoMother.make(currentId));
@@ -81,7 +81,7 @@ public class CodeHistoryTest {
 
   @Test
   public void shouldTreatClassesWithModifiedParentAsChanged() {
-    final long currentHash = 42;
+    final var currentHash = 42L;
     final ClassName foo = ClassName.fromString("foo");
 
     final ClassInfo parent = ClassInfoMother.make("parent");

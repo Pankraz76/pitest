@@ -38,7 +38,7 @@ public abstract class ServiceLoader {
       final ClassLoader loader) throws IOException {
     final Enumeration<URL> e = loader.getResources("META-INF/services/"
         + ifc.getName());
-    final Collection<S> services = new ArrayList<>();
+    final var services = new ArrayList<S>();
     while (e.hasMoreElements()) {
       final URL url = e.nextElement();
       try (InputStream is = url.openStream()) {
@@ -58,7 +58,7 @@ public abstract class ServiceLoader {
       if (line == null) {
         break;
       }
-      final int comment = line.indexOf('#');
+      final var comment = line.indexOf('#');
       if (comment >= 0) {
         line = line.substring(0, comment);
       }

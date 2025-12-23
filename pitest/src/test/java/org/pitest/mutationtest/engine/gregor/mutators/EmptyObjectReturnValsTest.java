@@ -264,7 +264,7 @@ public class EmptyObjectReturnValsTest {
   private static class AMap implements Callable<Map<String, String>> {
     @Override
     public Map<String, String> call() throws Exception {
-      Map<String,String> m = new HashMap<>();
+      var m = new HashMap<String,String>();
       m.put("a", "b");
       return m;
     }

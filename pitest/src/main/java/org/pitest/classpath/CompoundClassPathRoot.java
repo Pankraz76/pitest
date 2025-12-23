@@ -33,7 +33,7 @@ public class CompoundClassPathRoot implements ClassPathRoot,
 
   @Override
   public Collection<String> classNames() {
-    final List<String> arrayList = new ArrayList<>();
+    final var arrayList = new ArrayList<String>();
     for (final ClassPathRoot root : this.roots) {
       arrayList.addAll(root.classNames());
     }

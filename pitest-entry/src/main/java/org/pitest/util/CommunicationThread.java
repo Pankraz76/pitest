@@ -47,7 +47,7 @@ public final class CommunicationThread {
   }
 
   private FutureTask<ExitCode> createFuture() {
-    final FutureTask<ExitCode> newFuture = new FutureTask<>(
+    final var newFuture = new FutureTask<ExitCode>(
         new SocketReadingCallable(this.socket, this.sendInitialData,
             this.receive));
     final Thread thread = new Thread(newFuture);

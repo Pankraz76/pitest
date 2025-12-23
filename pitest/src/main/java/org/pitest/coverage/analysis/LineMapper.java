@@ -26,7 +26,7 @@ public class LineMapper implements LineMap {
   @Override
   public Map<BlockLocation, Set<Integer>> mapLines(final ClassName clazz) {
 
-    final Map<BlockLocation, Set<Integer>> map = new HashMap<>();
+    final var map = new HashMap<BlockLocation, Set<Integer>>();
 
     final Optional<byte[]> maybeBytes = this.source.getBytes(clazz.asInternalName());
     // classes generated at runtime eg by mocking frameworks
@@ -41,7 +41,7 @@ public class LineMapper implements LineMap {
         final Location l = Location.location(clazz,
             mn.name, mn.desc);
         final List<Block> blocks = ControlFlowAnalyser.analyze(mn);
-        for (int i = 0; i != blocks.size(); i++) {
+        for (var i = 0; i != blocks.size(); i++) {
           final Block each = blocks.get(i);
           final BlockLocation bl = new BlockLocation(l, i);
           map.put(bl, each.getLines());

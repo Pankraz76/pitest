@@ -61,7 +61,7 @@ public class HasSwitchOnStringTesteeTest {
   public void switchIntegerAndThenSwitchStringShouldReturnA1()
       throws Exception {
     // given
-    final int input = 1;
+    final var input = 1;
 
     // when
     final String result = testee.switchIntegerAndThenSwitchString(input);
@@ -74,7 +74,7 @@ public class HasSwitchOnStringTesteeTest {
   public void switchIntegerAndThenSwitchStringShouldReturnB1()
       throws Exception {
     // given
-    final int input = 2;
+    final var input = 2;
 
     // when
     final String result = testee.switchIntegerAndThenSwitchString(input);
@@ -87,7 +87,7 @@ public class HasSwitchOnStringTesteeTest {
   public void switchIntegerAndThenSwitchStringShouldReturnC1()
       throws Exception {
     // given
-    final int input = 3;
+    final var input = 3;
 
     // when
     final String result = testee.switchIntegerAndThenSwitchString(input);
@@ -100,7 +100,7 @@ public class HasSwitchOnStringTesteeTest {
   public void switchIntegerAndThenSwitchStringShouldThrowIllegalArgumentException()
       throws Exception {
     // given
-    final int input = 4;
+    final var input = 4;
 
     // when
     testee.switchIntegerAndThenSwitchString(input);

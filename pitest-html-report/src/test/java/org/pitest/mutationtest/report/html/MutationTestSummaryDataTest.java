@@ -37,7 +37,7 @@ public class MutationTestSummaryDataTest {
 
   @Test
   public void shouldReturnCorrectNumberOfLinesWhenAnalysedInOneUnit() {
-    final int lines = 4;
+    final var lines = 4;
     final ClassLines clazz = makeClass(lines);
     this.testee = buildSummaryData(clazz);
     assertThat(this.testee.getTotals().getNumberOfLines()).isEqualTo(lines);
@@ -45,7 +45,7 @@ public class MutationTestSummaryDataTest {
 
   @Test
   public void shouldReturnCorrectNumberOfCoveredLinesWhenAnalysedInOneUnit() {
-    final int linesCovered = 100;
+    final var linesCovered = 100;
     final ClassLines clazz = makeClass(200);
     this.testee = buildSummaryData(clazz, linesCovered);
     assertEquals(linesCovered, this.testee.getTotals()
@@ -63,7 +63,7 @@ public class MutationTestSummaryDataTest {
 
   @Test
   public void shouldReturnCorrectNumberOfLinesWhenAnalysedInTwoUnit() {
-    final int lines = 100;
+    final var lines = 100;
     final ClassLines clazz = makeClass(lines);
     this.testee = buildSummaryData(clazz);
     final MutationTestSummaryData additonalDataForSameClass = buildSummaryData(clazz);
@@ -73,7 +73,7 @@ public class MutationTestSummaryDataTest {
 
   @Test
   public void shouldReturnCorrectNumberOfCoveredLinesWhenAnalysedInTwoUnits() {
-    final int linesCovered = 100;
+    final var linesCovered = 100;
     final ClassLines clazz = makeClass(200);
     this.testee = buildSummaryData(clazz, linesCovered);
     final MutationTestSummaryData additonalDataForSameClass = buildSummaryData(

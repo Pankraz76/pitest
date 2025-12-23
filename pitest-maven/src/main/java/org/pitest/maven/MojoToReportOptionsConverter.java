@@ -78,7 +78,7 @@ public class MojoToReportOptionsConverter {
 
   public ReportOptions convert() {
 
-    final List<String> classPath = new ArrayList<>();
+    final var classPath = new ArrayList<String>();
 
     try {
       classPath.addAll(this.mojo.getProject().getTestClasspathElements());
@@ -250,7 +250,7 @@ public class MojoToReportOptionsConverter {
 
     if (this.mojo.getProject().getBuild() != null) {
 
-      List<String> codePaths = new ArrayList<>();
+      var codePaths = new ArrayList<String>();
       codePaths.add(this.mojo.getProject().getBuild()
               .getOutputDirectory());
 
@@ -340,7 +340,7 @@ public class MojoToReportOptionsConverter {
   }
 
   private List<String> determineSourceRoots() {
-    final List<String> sourceRoots = new ArrayList<>();
+    final var sourceRoots = new ArrayList<String>();
     sourceRoots.addAll(this.mojo.getProject().getCompileSourceRoots());
     sourceRoots.addAll(this.mojo.getProject().getTestCompileSourceRoots());
     if (mojo.isCrossModule()) {
@@ -565,7 +565,7 @@ public class MojoToReportOptionsConverter {
   public static Collection<String> findOccupiedPackagesIn(File dir) {
     if (dir.exists()) {
       DirectoryClassPathRoot root = new DirectoryClassPathRoot(dir);
-      Set<String> occupiedPackages = new HashSet<>();
+      var occupiedPackages = new HashSet<String>();
       FCollection.mapTo(root.classNames(), classToPackageGlob(),
           occupiedPackages);
       return occupiedPackages;

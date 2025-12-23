@@ -88,7 +88,7 @@ public class ObjectOutputStreamHistoryTest {
             Optional.ofNullable(reader));
         this.testee.initialize();
 
-        final Map<ClassName, ClassHistory> expected = new HashMap<>();
+        final var expected = new HashMap<ClassName, ClassHistory>();
         expected.put(foo.getName(), foo);
         expected.put(bar.getName(), bar);
         assertEquals(expected, this.testee.getHistoricClassPath());
@@ -110,7 +110,7 @@ public class ObjectOutputStreamHistoryTest {
         this.testee = new ObjectOutputStreamHistory(this.code, this.writerFactory,
             Optional.ofNullable(reader));
         this.testee.initialize();
-        final Map<MutationIdentifier, MutationStatusTestPair> expected = new HashMap<>();
+        final var expected = new HashMap<MutationIdentifier, MutationStatusTestPair>();
         expected.put(mr.getDetails().getId(), mr.getStatusTestPair());
         assertEquals(expected, this.testee.getHistoricResults());
     }
