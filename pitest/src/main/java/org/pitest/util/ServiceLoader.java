@@ -58,7 +58,7 @@ public abstract class ServiceLoader {
       if (line == null) {
         break;
       }
-      final int comment = line.indexOf('#');
+      final var comment = line.indexOf('#');
       if (comment >= 0) {
         line = line.substring(0, comment);
       }

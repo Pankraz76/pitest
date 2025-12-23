@@ -9,7 +9,7 @@ public class AnonymousClass {
         Runnable r = new Runnable() {
             @Override
             public void run() {
-                int i = 1;
+                var i = 1;
                 i++;
                 i++;
                 result[0] = i;

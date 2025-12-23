@@ -107,7 +107,7 @@ public class Java9Process implements WrappingProcess {
     }
 
     private static void removeFromClassPath(List<String> cmd, Predicate<String> match) {
-        for (int i = cmd.size() - 1; i >= 0; i--) {
+        for (var i = cmd.size() - 1; i >= 0; i--) {
             if (match.test(cmd.get(i))) {
                 cmd.remove(i);
             }

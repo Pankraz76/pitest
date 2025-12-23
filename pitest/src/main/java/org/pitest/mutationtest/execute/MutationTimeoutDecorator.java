@@ -44,7 +44,7 @@ public final class MutationTimeoutDecorator extends TestUnitDecorator {
   @Override
   public void execute(final ResultCollector rc) {
 
-    final long maxTime = this.timeOutStrategy
+    final var maxTime = this.timeOutStrategy
         .getAllowedTime(this.executionTime);
 
     final FutureTask<?> future = createFutureForChildTestUnit(rc);

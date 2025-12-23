@@ -66,7 +66,7 @@ public class CoverageTestExecutionListener implements TestUnitExecutionListener 
             }
         }
 
-        final int threadsAfterTest = threads.getThreadCount();
+        final var threadsAfterTest = threads.getThreadCount();
         if (threadsAfterTest > threadsBeforeTest.getOrDefault(description, 0)) {
             LOG.warning("More threads at end of test (" + threadsAfterTest + ") "
                     + description + " than start. ("

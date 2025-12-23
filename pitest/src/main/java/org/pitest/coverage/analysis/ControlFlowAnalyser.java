@@ -39,12 +39,12 @@ public class ControlFlowAnalyser {
     addtryCatchBoundaries(mn, jumpTargets);
 
     Set<Integer> blockLines = smallSet();
-    int lastLine = Integer.MIN_VALUE;
+    var lastLine = Integer.MIN_VALUE;
 
-    final int lastInstruction = mn.instructions.size() - 1;
+    final var lastInstruction = mn.instructions.size() - 1;
 
-    int blockStart = 0;
-    for (int i = 0; i != mn.instructions.size(); i++) {
+    var blockStart = 0;
+    for (var i = 0; i != mn.instructions.size(); i++) {
 
       final AbstractInsnNode ins = mn.instructions.get(i);
 
@@ -112,7 +112,7 @@ public class ControlFlowAnalyser {
   }
 
   private static boolean isReturn(final AbstractInsnNode ins) {
-    final int opcode = ins.getOpcode();
+    final var opcode = ins.getOpcode();
     switch (opcode) {
     case RETURN:
     case ARETURN:

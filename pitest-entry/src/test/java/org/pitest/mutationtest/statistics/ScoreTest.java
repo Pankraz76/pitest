@@ -129,7 +129,7 @@ public class ScoreTest {
   }
 
   private void registerResults(final DetectionStatus status, final int times) {
-    for (int i = 0; i != times; i++) {
+    for (var i = 0; i != times; i++) {
       this.testee.registerResult(status);
     }
   }

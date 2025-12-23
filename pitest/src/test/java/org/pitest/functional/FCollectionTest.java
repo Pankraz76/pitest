@@ -5,13 +5,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -123,8 +117,7 @@ public class FCollectionTest {
     final Collection<Integer> xs = Arrays.asList(1, 2, 3);
     final BiFunction<Integer, Integer, Integer> f = (a, b) -> a + b;
 
-    final int actual = FCollection.fold(f, 2, xs);
-    assertEquals(8, actual);
+      assertEquals(Optional.of(8), FCollection.<Integer, Integer>fold(f, 2, xs));
   }
 
   @Test

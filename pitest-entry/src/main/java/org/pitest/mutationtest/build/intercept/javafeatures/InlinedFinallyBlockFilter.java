@@ -154,7 +154,7 @@ public class InlinedFinallyBlockFilter implements MutationInterceptor {
     }
 
     final MutationDetails baseMutation = mutationsInHandlerBlock.get(0);
-    final int firstBlock = baseMutation.getBlocks().get(0);
+    final var firstBlock = baseMutation.getBlocks().get(0);
 
     // check that we have at least on mutation in a different block
     // to the base one (is this not implied by there being only 1 mutation in

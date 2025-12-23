@@ -438,7 +438,7 @@ public class PitMojoTest extends BasePitMojoTest {
   private void setupSuvivingMutants(long survivors)
       throws MojoExecutionException {
     Iterable<Score> scores = Collections.<Score>emptyList();
-    int detected = 100;
+    var detected = 100;
     final MutationStatistics stats = new MutationStatistics(scores, detected + survivors, detected, detected + survivors, 0, Collections.emptySet());
     CoverageSummary sum = new CoverageSummary(0, 0, 0);
     final CombinedStatistics cs = new CombinedStatistics(stats, sum, Collections.emptyList());

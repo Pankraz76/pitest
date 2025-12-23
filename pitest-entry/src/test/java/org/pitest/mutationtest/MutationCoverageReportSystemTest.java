@@ -470,7 +470,7 @@ public class MutationCoverageReportSystemTest extends ReportTestBase {
     // Read bytes and write to destination until eof
 
     final byte[] buf = new byte[1024];
-    int len = 0;
+    var len = 0;
     while ((len = in.read(buf)) >= 0) {
       out.write(buf, 0, len);
     }

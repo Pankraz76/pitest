@@ -144,7 +144,7 @@ class StringTableSwitch {
 
 class SmallStringSwitch {
     public int target(String in) {
-        int a = 0;
+        var a = 0;
         switch (in) {
             case "Boo":
                 a = a + 1;
@@ -161,7 +161,7 @@ class SmallStringSwitch {
 
 class MultipleSwitches {
     public int target(String in) {
-        int a = 0;
+        var a = 0;
         switch (in) {
             case "Boo":
                 a = a + 1;

@@ -35,7 +35,7 @@ public class ClassMutationResults {
 
   public String getPackageName() {
     final ClassName name = getMutatedClass();
-    final int lastDot = name.asJavaName().lastIndexOf('.');
+    final var lastDot = name.asJavaName().lastIndexOf('.');
     return lastDot > 0 ? name.asJavaName().substring(0, lastDot) : "default";
   }
 

@@ -35,8 +35,8 @@ public class FeatureParser {
 
   private Map<String, List<String>> parseConfig(String a) {
     final Map<String, List<String>> vals = new HashMap<>();
-    final int confStart = a.indexOf('(') + 1;
-    final int end = a.indexOf(')');
+    final var confStart = a.indexOf('(') + 1;
+    final var end = a.indexOf(')');
     if ((confStart != -1) && (confStart < end)) {
       final String[] parts = split(a.substring(confStart, end));
       for (final String part : parts) {
@@ -48,7 +48,7 @@ public class FeatureParser {
 
   private void extractValue(String part, Map<String, List<String>> vals) {
     final String[] pairs = part.split("\\[");
-    for (int i = 0; i != pairs.length; i = i + 2) {
+    for (var i = 0; i != pairs.length; i = i + 2) {
       final String key = pairs[i].trim();
       List<String> current = vals.get(key);
       if (current == null) {
@@ -69,7 +69,7 @@ public class FeatureParser {
 
   private String parseName(String a) {
     final String name = a.substring(1);
-    final int confStart = name.indexOf('(');
+    final var confStart = name.indexOf('(');
     if (confStart == -1) {
       return name;
     } else {

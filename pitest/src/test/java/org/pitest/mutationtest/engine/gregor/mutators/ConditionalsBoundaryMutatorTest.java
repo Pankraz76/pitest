@@ -154,7 +154,7 @@ public class ConditionalsBoundaryMutatorTest {
 
         @Override
         public String apply(int i) {
-            final int j = getZeroButPreventInlining();
+            final var j = getZeroButPreventInlining();
             if (i > j) {
                 return "was > zero";
             } else {
@@ -167,7 +167,7 @@ public class ConditionalsBoundaryMutatorTest {
 
         @Override
         public String apply(int i) {
-            final int j = getZeroButPreventInlining();
+            final var j = getZeroButPreventInlining();
             if (i < j) {
                 return "was < zero";
             } else {
@@ -180,7 +180,7 @@ public class ConditionalsBoundaryMutatorTest {
 
         @Override
         public String apply(int i) {
-            final int j = getZeroButPreventInlining();
+            final var j = getZeroButPreventInlining();
             if (i <= j) {
                 return "was <= zero";
             } else {
@@ -193,7 +193,7 @@ public class ConditionalsBoundaryMutatorTest {
 
         @Override
         public String apply(int i) {
-            final int j = getZeroButPreventInlining();
+            final var j = getZeroButPreventInlining();
             if (i >= j) {
                 return "was >= zero";
             } else {
