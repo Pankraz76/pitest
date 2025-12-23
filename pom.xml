@@ -414,6 +414,33 @@
 						<doclint>none</doclint>
 					</configuration>
 				</plugin>
+				<plugin>
+					<groupId>org.openrewrite.maven</groupId>
+					<artifactId>rewrite-maven-plugin</artifactId>
+					<version>6.26.0</version>
+					<configuration>
+						<skipMavenParsing>true</skipMavenParsing>
+						<activeRecipes>
+							<recipe>org.checkstyle.AllAutoFixes</recipe>
+						</activeRecipes>
+						<exclusions>
+							<exclusion>**.ci-temp**</exclusion>
+							<exclusion>**/resources-noncompilable/**</exclusion>
+						</exclusions>
+					</configuration>
+					<dependencies>
+						<dependency>
+							<groupId>org.openrewrite.recipe</groupId>
+							<artifactId>rewrite-migrate-java</artifactId>
+							<version>3.22.0</version>
+						</dependency>
+						<dependency>
+							<groupId>org.openrewrite.recipe</groupId>
+							<artifactId>rewrite-static-analysis</artifactId>
+							<version>2.24.0</version>
+						</dependency>
+					</dependencies>
+				</plugin>
 			</plugins>
 		</pluginManagement>
 		<!-- execute for every child -->
