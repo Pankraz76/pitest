@@ -37,7 +37,7 @@ public class SignatureEqualityStrategy implements EqualityStrategy<TestMethod> {
       final Class<?>[] params1 = me.getParameterTypes();
       final Class<?>[] params2 = other.getParameterTypes();
       if (params1.length == params2.length) {
-        for (var i = 0; i < params1.length; i++) {
+        for (int i = 0; i < params1.length; i++) {
           if (params1[i] != params2[i]) {
             return false;
           }

@@ -5,6 +5,7 @@ import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 import org.pitest.coverage.BlockCoverage;
 import org.pitest.coverage.CoverageExporter;
@@ -52,7 +53,7 @@ public class DefaultCoverageExporter implements CoverageExporter {
             + "' number='" + each.getBlock().getBlock()
             + "'>");
     write(out, "<tests>\n");
-    final var ts = new ArrayList<String>(each.getTests());
+    final List<String> ts = new ArrayList<>(each.getTests());
     Collections.sort(ts);
     for (final String test : ts) {
       write(out, "<test name='" + escapeXml11(test) + "'/>\n");

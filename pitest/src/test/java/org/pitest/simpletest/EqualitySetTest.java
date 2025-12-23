@@ -26,7 +26,7 @@ public class EqualitySetTest {
     this.testee.add("one");
     this.testee.add("two");
     final List<String> expected = Arrays.asList("one", "two");
-    final var actual = new ArrayList<String>();
+    final List<String> actual = new ArrayList<>();
     for (final String each : this.testee) {
       actual.add(each);
     }

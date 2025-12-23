@@ -119,7 +119,7 @@ class Foo {
 
 class VeryMutable {
   public int foo(int i) {
-    for (var y = 0; y != i; y++) {
+    for (int y = 0; y != i; y++) {
       System.out.println("" + (i * y));
     }
     return i + 2;

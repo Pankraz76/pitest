@@ -69,7 +69,7 @@ public class ClassPath {
   private static List<ClassPathRoot> createRoots(final Collection<File> files) {
     File lastFile = null;
     try {
-      final var rs = new ArrayList<ClassPathRoot>();
+      final List<ClassPathRoot> rs = new ArrayList<>();
 
       for (final File f : files) {
         lastFile = f;
@@ -112,7 +112,7 @@ public class ClassPath {
   }
 
   public static Collection<String> getClassPathElementsAsPaths() {
-    final var filesAsString = new LinkedHashSet<String>();
+    final Set<String> filesAsString = new LinkedHashSet<>();
     FCollection.mapTo(getClassPathElementsAsFiles(), File::getPath,
         filesAsString);
     return filesAsString;
@@ -120,7 +120,7 @@ public class ClassPath {
 
 
   public static Collection<File> getClassPathElementsAsFiles() {
-    final var us = new LinkedHashSet<File>();
+    final Set<File> us = new LinkedHashSet<>();
     FCollection.mapTo(getClassPathElementsAsAre(), stringToCanonicalFile(), us);
     
     addEntriesFromClasspathManifest(us);

@@ -49,10 +49,10 @@ public class TimeSpan {
 
   @Override
   public String toString() {
-    final var millis = duration();
-    final var seconds = (int) (MILLISECONDS.toSeconds(millis) % 60);
-    final var minutes = (int) (MILLISECONDS.toMinutes(millis) % 60);
-    final var hours = (int) MILLISECONDS.toHours(millis);
+    final long millis = duration();
+    final int seconds = (int) (MILLISECONDS.toSeconds(millis) % 60);
+    final int minutes = (int) (MILLISECONDS.toMinutes(millis) % 60);
+    final int hours = (int) MILLISECONDS.toHours(millis);
 
     if (hours != 0) {
       return "" + hours + " hours, " + minutes + " minutes and " + seconds

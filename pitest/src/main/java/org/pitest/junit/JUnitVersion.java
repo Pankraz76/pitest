@@ -14,8 +14,8 @@ public final class JUnitVersion implements Comparable<JUnitVersion> {
             throw new IllegalArgumentException("Invalid version string! Could not parse " + version);
         }
 
-        final var major = Integer.parseInt(matcher.group(1));
-        final var minor = Integer.parseInt(matcher.group(2));
+        final int major = Integer.parseInt(matcher.group(1));
+        final int minor = Integer.parseInt(matcher.group(2));
 
         return new JUnitVersion(major, minor);
     }
@@ -69,7 +69,7 @@ public final class JUnitVersion implements Comparable<JUnitVersion> {
 
     @Override
     public int hashCode() {
-        var result = this.major;
+        int result = this.major;
         result = (31 * result) + this.minor;
         return result;
     }

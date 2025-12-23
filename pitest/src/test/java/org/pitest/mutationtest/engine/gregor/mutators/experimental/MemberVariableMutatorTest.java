@@ -161,7 +161,7 @@ public class MemberVariableMutatorTest {
             // -> stack: 100, 2
             // iadd
             // istore_1
-            final var i = 100 + (this.member = 2);
+            final int i = 100 + (this.member = 2);
             return "" + this.member + " " + i;
         }
 
@@ -197,7 +197,7 @@ public class MemberVariableMutatorTest {
             // -> stack: 0 100, 0 2
             // ladd
             // lstore_1
-            final var i = 100 + (this.member = 2);
+            final long i = 100 + (this.member = 2);
             return "" + this.member + " " + i;
         }
     }

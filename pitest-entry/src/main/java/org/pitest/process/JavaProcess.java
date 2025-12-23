@@ -43,7 +43,7 @@ public class JavaProcess {
   }
 
   public int waitToDie() throws InterruptedException {
-    final var exitVal = this.process.waitFor();
+    final int exitVal = this.process.waitFor();
     this.out.requestStop();
     this.err.requestStop();
     return exitVal;

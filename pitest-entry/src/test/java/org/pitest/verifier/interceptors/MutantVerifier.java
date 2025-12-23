@@ -9,6 +9,7 @@ import org.pitest.mutationtest.engine.MutationDetails;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
@@ -65,10 +66,10 @@ public class MutantVerifier {
 
     @Deprecated
     public MutantVerifier mutantsFilteredAtNLocations(int n) {
-        final var originalLocations = new LinkedHashSet<Loc>();
+        final Set<Loc> originalLocations = new LinkedHashSet<>();
         FCollection.mapTo(mutations, toLocation(sample.clazz), originalLocations);
 
-        final var filteredLocations = new LinkedHashSet<Loc>();
+        final Set<Loc> filteredLocations = new LinkedHashSet<>();
         FCollection.mapTo(afterFiltering, toLocation(sample.clazz), filteredLocations);
 
         softly.assertThat(filteredLocations)

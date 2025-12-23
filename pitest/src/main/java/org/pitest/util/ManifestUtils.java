@@ -46,8 +46,8 @@ public class ManifestUtils {
     attributes.put(Attributes.Name.MANIFEST_VERSION, "1.0");
 
     StringBuilder classpathForManifest = new StringBuilder();
-    var idx = 0;
-    var endIdx = 0;
+    int idx = 0;
+    int endIdx = 0;
     while (endIdx >= 0) {
       endIdx = classpath.indexOf(File.pathSeparator, idx);
       String path = endIdx < 0 ? classpath.substring(idx)

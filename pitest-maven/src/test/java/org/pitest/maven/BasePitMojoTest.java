@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -120,7 +121,7 @@ public abstract class BasePitMojoTest extends AbstractMojoTestCase {
 
     configureMojo(pitMojo, pluginConfiguration);
 
-    final var pluginArtifacts = new HashMap<String, Artifact>();
+    final Map<String, Artifact> pluginArtifacts = new HashMap<>();
     setVariableValueToObject(pitMojo, "pluginArtifactMap", pluginArtifacts);
 
     setVariableValueToObject(pitMojo, "project", this.project);
@@ -128,7 +129,7 @@ public abstract class BasePitMojoTest extends AbstractMojoTestCase {
     setVariableValueToObject(pitMojo, "settings", this.settings);
 
     if (pitMojo.getAdditionalClasspathElements() == null) {
-      var elements = new ArrayList<String>();
+      ArrayList<String> elements = new ArrayList<>();
       setVariableValueToObject(pitMojo, "additionalClasspathElements", elements);
     }
 

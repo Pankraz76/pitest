@@ -5,6 +5,7 @@ import static org.pitest.bytecode.analysis.MethodMatchers.forLocation;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Optional;
@@ -44,7 +45,7 @@ public abstract class InfiniteLoopFilter implements MutationInterceptor {
 
     final Map<Location,Collection<MutationDetails>> buckets = FCollection.bucket(mutations, mutationToLocation());
 
-    final var willTimeout = new ArrayList<MutationDetails>();
+    final List<MutationDetails> willTimeout = new ArrayList<>();
     for (final Entry<Location, Collection<MutationDetails>> each : buckets.entrySet() ) {
       willTimeout.addAll(findTimeoutMutants(each.getKey(), each.getValue(), m));
     }
@@ -70,7 +71,7 @@ public abstract class InfiniteLoopFilter implements MutationInterceptor {
       return Collections.emptyList();
     }
 
-    final var timeouts = new ArrayList<MutationDetails>();
+    final List<MutationDetails> timeouts = new ArrayList<>();
     for (final MutationDetails each : mutations) {
       // avoid cost of static analysis by first checking mutant is on
       // on instruction that could affect looping

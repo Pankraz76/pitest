@@ -46,7 +46,7 @@ public class DefaultPITClassloader extends ClassLoader {
   }
 
   private void definePackage(final String name) {
-    final var i = name.lastIndexOf('.');
+    final int i = name.lastIndexOf('.');
     if (i != -1) {
       final String pkgname = name.substring(0, i);
       if (this.getPackage(pkgname) == null) {

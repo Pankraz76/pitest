@@ -52,11 +52,11 @@ public class BasicTestUnitFinder implements TestUnitFinder {
   public List<TestUnit> findTestUnits(final Class<?> testClass, TestUnitExecutionListener unused) {
     try {
 
-      final var units = new ArrayList<TestUnit>();
+      final List<TestUnit> units = new ArrayList<>();
       final InstantiationStrategy instantiationStrategy = findInstantiationStrategy(testClass);
       final List<TestStep> instantiations = instantiationStrategy
           .instantiations(testClass);
-      for (var instantiation = 0; instantiation != instantiations.size(); instantiation++) {
+      for (int instantiation = 0; instantiation != instantiations.size(); instantiation++) {
         for (final TestMethod m : findTestMethods(testClass)) {
           final TestStep step = instantiations.get(instantiation);
           units
@@ -85,7 +85,7 @@ public class BasicTestUnitFinder implements TestUnitFinder {
       final TestStep instantiationStep, final String namePrefix,
       final Class<?> testClass, final TestMethod testMethod) {
 
-    final var steps = new ArrayList<TestStep>();
+    final List<TestStep> steps = new ArrayList<>();
 
     steps.add(instantiationStep);
     steps.add(new CallStep(testMethod));
@@ -112,7 +112,7 @@ public class BasicTestUnitFinder implements TestUnitFinder {
 
   private Collection<TestMethod> findTestMethods(final Class<?> clazz) {
 
-    final var set = new EqualitySet<TestMethod>(
+    final EqualitySet<TestMethod> set = new EqualitySet<>(
         new SignatureEqualityStrategy());
     final Consumer<Optional<TestMethod>> addToSet = a -> a.ifPresent(m -> set.add(m));
     final Collection<Method> methods = Reflection.allMethods(clazz);

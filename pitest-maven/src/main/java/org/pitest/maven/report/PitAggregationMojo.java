@@ -42,7 +42,7 @@ public class PitAggregationMojo extends AbstractPitAggregationReportMojo {
   // https://github.com/jacoco/jacoco/blob/master/jacoco-maven-plugin/src/org/jacoco/maven/ReportAggregateMojo.java
   @Override
   List<MavenProject> findDependencies() {
-    final var result = new ArrayList<MavenProject>();
+    final List<MavenProject> result = new ArrayList<>();
     final List<String> scopeList = Arrays.asList(Artifact.SCOPE_COMPILE,
         Artifact.SCOPE_RUNTIME, Artifact.SCOPE_PROVIDED, Artifact.SCOPE_TEST);
     for (final Object dependencyObject : getProject().getDependencies()) {

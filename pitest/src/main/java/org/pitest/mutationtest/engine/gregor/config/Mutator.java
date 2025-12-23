@@ -71,7 +71,7 @@ public final class Mutator {
 
   private static Collection<MethodMutatorFactory> combine(
       Collection<MethodMutatorFactory> a, Collection<MethodMutatorFactory> b) {
-    final var l = new ArrayList<MethodMutatorFactory>(a);
+    final List<MethodMutatorFactory> l = new ArrayList<>(a);
     l.addAll(b);
     return l;
   }

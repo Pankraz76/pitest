@@ -148,7 +148,7 @@ public class EntryPoint {
   }
 
   private List<String> createJvmArgs(ReportOptions data) {
-    var args = new ArrayList<String>(data.getJvmArgs());
+    List<String> args = new ArrayList<>(data.getJvmArgs());
     args.addAll(ArgLineParser.split(data.getArgLine()));
     return args;
   }

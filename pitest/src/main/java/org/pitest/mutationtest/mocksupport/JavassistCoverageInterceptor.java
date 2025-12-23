@@ -88,7 +88,7 @@ public final class JavassistCoverageInterceptor {
     // If this changes this might become a bug, however it would also probably not be possible
     // to support powermock if this assumption changed, so this code would most likely be deleted.
 
-    final var id = CodeCoverageStore.registerClass(className);
+    final int id = CodeCoverageStore.registerClass(className);
     try {
       reader.accept(new CoverageClassVisitor(id, writer),
           ClassReader.EXPAND_FRAMES);

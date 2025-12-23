@@ -19,6 +19,7 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Optional;
 import java.util.List;
+import java.util.Queue;
 import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -57,7 +58,7 @@ public class ExcludedAnnotationInterceptor implements MutationInterceptor {
 
       // Keep track of processed methods to avoid infinite loops - TODO not clear
       // that this is necessary
-      var processedMethods = new HashSet<Location>(avoidedMethodSignatures);
+      Set<Location> processedMethods = new HashSet<>(avoidedMethodSignatures);
 
       // 2. For each avoided method, collect lambda methods recursively
       for (MethodTree avoidedMethod : avoidedMethods) {
@@ -84,7 +85,7 @@ public class ExcludedAnnotationInterceptor implements MutationInterceptor {
   private void collectLambdaMethods(MethodTree method, ClassTree clazz,
                                     Set<Location> avoidedMethodSignatures,
                                     Set<Location> processedMethods) {
-    var methodsToProcess = new LinkedList<MethodTree>();
+    Queue<MethodTree> methodsToProcess = new LinkedList<>();
     methodsToProcess.add(method);
 
     while (!methodsToProcess.isEmpty()) {

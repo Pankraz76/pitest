@@ -5,7 +5,7 @@ package com.example.java8;
  */
 public class Java8Class {
     public int foo() {
-        var i = 1;
+        int i = 1;
         i++;
         i++;
         return i;

@@ -38,7 +38,7 @@ class IncrementalAnalyser implements MutationAnalyser {
   @Override
   public List<MutationResult> analyse(Collection<MutationDetails> mutation) {
 
-    final var mrs = new ArrayList<MutationResult>(
+    final List<MutationResult> mrs = new ArrayList<>(
         mutation.size());
     for (final MutationDetails each : mutation) {
       final Optional<MutationStatusTestPair> maybeResult = this.history
@@ -56,7 +56,7 @@ class IncrementalAnalyser implements MutationAnalyser {
   }
 
   private void logTotals() {
-    var numberOfReducedMutations = 0;
+    int numberOfReducedMutations = 0;
     for (final Entry<DetectionStatus, Long> each : this.preAnalysed.entrySet()) {
       final Long numberOfMutationsInStatus = each.getValue();
       final DetectionStatus mutationStatus = each.getKey();

@@ -7,6 +7,7 @@ import org.pitest.plugin.FeatureSetting;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -46,7 +47,7 @@ public class InterceptorParametersTest {
   }
 
   private InterceptorParameters makeFor(String key, String ... vals) {
-    final var values = new HashMap<String, List<String>>();
+    final Map<String, List<String>> values = new HashMap<>();
     values.put(key, Arrays.asList(vals));
     final FeatureSetting fs = new FeatureSetting(null, null, values);
     return new InterceptorParameters(fs, null, null,null, null, null);

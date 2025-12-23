@@ -104,7 +104,7 @@ public class TestGregorMutater {
                 .findMutations();
 
         assertEquals(3, actualDetails.size());
-        final var firstMutationBlock = actualDetails.get(0).getFirstBlock();
+        final int firstMutationBlock = actualDetails.get(0).getFirstBlock();
         assertEquals(firstMutationBlock + 1, actualDetails.get(1).getFirstBlock());
         assertEquals(firstMutationBlock + 2, actualDetails.get(2).getFirstBlock());
     }
@@ -116,7 +116,7 @@ public class TestGregorMutater {
                 .findMutations();
 
         assertEquals(2, actualDetails.size());
-        final var firstMutationBlock = actualDetails.get(0).getFirstBlock();
+        final int firstMutationBlock = actualDetails.get(0).getFirstBlock();
         assertEquals(firstMutationBlock + 1, actualDetails.get(1).getFirstBlock());
     }
 
@@ -145,7 +145,7 @@ public class TestGregorMutater {
     private void assertTwoMutationsInDifferentBlocks(
             final List<MutationDetails> actualDetails) {
         assertEquals(2, actualDetails.size());
-        final var firstMutationBlock = actualDetails.get(0).getFirstBlock();
+        final int firstMutationBlock = actualDetails.get(0).getFirstBlock();
         assertEquals(firstMutationBlock + 1, actualDetails.get(1).getFirstBlock());
     }
 
@@ -166,8 +166,8 @@ public class TestGregorMutater {
 
     public static class HasMultipleMutations {
         public int mutable() {
-            var j = 10;
-            for (var i = 0; i != 10; i++) {
+            int j = 10;
+            for (int i = 0; i != 10; i++) {
                 j = j << 1;
             }
 

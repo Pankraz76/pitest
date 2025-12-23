@@ -43,7 +43,7 @@ public class MutationAnalysisExecutor {
 
     signalRunStartToAllListeners();
 
-    final var results = new ArrayList<Future<MutationMetaData>>(
+    final List<Future<MutationMetaData>> results = new ArrayList<>(
         testUnits.size());
 
     for (final MutationAnalysisUnit unit : testUnits) {

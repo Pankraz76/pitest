@@ -41,9 +41,9 @@ public class StringUtil {
   public static void escapeBasicHtmlChars(final String s,
       final StringBuilder out) {
 
-    for (var i = 0; i < s.length(); i++) {
-      final var c = s.charAt(i);
-      final var v = c;
+    for (int i = 0; i < s.length(); i++) {
+      final char c = s.charAt(i);
+      final int v = c;
 
       if (v == 0) {
         out.append("\\0");

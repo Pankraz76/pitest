@@ -10,6 +10,7 @@ import org.pitest.mutationtest.engine.gregor.MethodMutatorFactory;
 import org.pitest.mutationtest.engine.gregor.MutationContext;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class RemoveConditionalMutator implements MethodMutatorFactory {
 
@@ -39,7 +40,7 @@ public class RemoveConditionalMutator implements MethodMutatorFactory {
   }
 
   public static Iterable<MethodMutatorFactory> factory() {
-    final var variations = new ArrayList<MethodMutatorFactory>();
+    final List<MethodMutatorFactory> variations = new ArrayList<>();
     final Choice[] allChoices = { Choice.EQUAL, Choice.ORDER };
     final boolean[] arrWith = { true, false };
     for (final Choice c : allChoices) {

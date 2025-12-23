@@ -7,7 +7,7 @@ public class Java8LambdaExpression {
     public int foo() {
         final int[] result = new int[1];
         Runnable r = () -> {
-            var i = 1;
+            int i = 1;
             i++;
             i++;
             result[0] = i;

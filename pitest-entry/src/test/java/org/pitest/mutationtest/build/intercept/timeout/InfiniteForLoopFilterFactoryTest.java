@@ -170,27 +170,27 @@ public class InfiniteForLoopFilterFactoryTest extends InfiniteLoopBaseTest {
 class HasForLoops {
   
   public void noLoop() {
-    var i = 0;
+    int i = 0;
     if (i++ > 0) {
       System.out.println("" + i);
     }
   }
   
   public void normalLoop() {
-    for (var i = 0; i != 10; i++) {
+    for (int i = 0; i != 10; i++) {
       System.out.println("" + i);
     }
   }
   
   public void incrementInsideLoop() {
-    for (var i = 0; i != 10;) {
+    for (int i = 0; i != 10;) {
       System.out.println("" + i);
       i = i + 4;
     }
   }
   
   public void incrementInsideLoopConditionally() {
-    for (var i = 0; i != 10;) {
+    for (int i = 0; i != 10;) {
       System.out.println("" + i);
       if ( i != 10 ) {
         i = i + 4;
@@ -199,13 +199,13 @@ class HasForLoops {
   }
   
   public void infiniteNoIncrement() {
-    for (var i = 0; i != 10;) {
+    for (int i = 0; i != 10;) {
       System.out.println("" + i);
     }
   }
   
   public void infiniteMoreComplex() {
-    for (var i = 0; i != 10;) {
+    for (int i = 0; i != 10;) {
       System.out.println("" + i);
       if ( i != 7) {
         System.out.println("7 " + i);
@@ -220,18 +220,18 @@ class HasForLoops {
       return;
     }
     
-    for (var a = 0; a != 10; a++) {
+    for (int a = 0; a != 10; a++) {
       System.out.println("" + a);
     }
     
-    for (var i = 0; i != 10;) {
+    for (int i = 0; i != 10;) {
       System.out.println("" + i);
     }
   }
   
   public void returnsInLoop() {
-    var j = 0;
-    for (var i = 0; i != 10;) {
+    int j = 0;
+    for (int i = 0; i != 10;) {
       j = j + 1;
       if ( j > 10 ) {
         return;
@@ -240,8 +240,8 @@ class HasForLoops {
   }
   
   public void brokenByBreak() {
-    var j = 0;
-    for (var i = 0; i != 10;) {
+    int j = 0;
+    for (int i = 0; i != 10;) {
       if ( j > 10 ) {
         break;
       }
@@ -250,13 +250,13 @@ class HasForLoops {
   }
   
   public void infiniteNoConditional() {
-    for (var i = 0; ; i++) {
+    for (int i = 0; ; i++) {
       System.out.println("" + i);
     }
   }
   
   public void infiniteAlwaysTrue() {
-    for (var i = 0;true; i++) {
+    for (int i = 0;true; i++) {
       System.out.println("" + i);
     }
   }
@@ -270,7 +270,7 @@ class HasForLoops {
 
 class HasWhileLoops {
   public void simpleWhile() {
-    var i = 0;
+    int i = 0;
     while (i != 10) {
       System.out.println("" + i);
       i = i + 1;
@@ -278,7 +278,7 @@ class HasWhileLoops {
   }
   
   public void simpleDoWhile() {
-    var i = 0;
+    int i = 0;
     do {
       System.out.println("" + i);
       i = i + 2;
@@ -295,7 +295,7 @@ class HasWhileLoops {
 
 class MutateMyForLoop {
   public int normalLoop(int j) {
-    for (var i = 0; i != 10; i++) {
+    for (int i = 0; i != 10; i++) {
       System.out.println("" + i);
     }
     // but leave my increment alone
@@ -306,7 +306,7 @@ class MutateMyForLoop {
 
 class DontFilterMyAlreadyInfiniteLoop {
   public int normalLoop(int j) {
-    for (var i = 0; i != 10;) {
+    for (int i = 0; i != 10;) {
       System.out.println("" + i);
     }
     return j++;

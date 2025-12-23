@@ -112,7 +112,7 @@ public class MutationCoverage {
     LOG.fine("Maximum available memory is " + (runtime.maxMemory() / MB)
         + " mb");
 
-    final var t0 = System.nanoTime();
+    final long t0 = System.nanoTime();
 
     List<BuildMessage> issues = verifyBuildSuitableForMutationTesting();
 
@@ -209,12 +209,12 @@ public class MutationCoverage {
             .filter(mutatedClasses::contains)
             .collect(Collectors.toList());
 
-    var numberOfCodeLines = examinedClasses.stream()
+    int numberOfCodeLines = examinedClasses.stream()
             .map(c -> modifiedCoverage.getCodeLinesForClass(c))
             .map(c -> c.getNumberOfCodeLines())
             .reduce(0, Integer::sum);
 
-    var coveredLines = examinedClasses.stream()
+    int coveredLines = examinedClasses.stream()
             .mapToInt(c -> modifiedCoverage.getCoveredLines(c).size())
             .sum();
 
@@ -265,7 +265,7 @@ public class MutationCoverage {
                                                     History history,
                                                     MutationStatisticsListener stats,
                                                     MutationEngine engine, List<BuildMessage> issues) {
-    final var ls = new ArrayList<MutationResultListener>();
+    final List<MutationResultListener> ls = new ArrayList<>();
 
     ls.add(stats);
 

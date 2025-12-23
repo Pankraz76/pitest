@@ -34,7 +34,7 @@ public class LongMutantVerifier<B> extends MutatorVerifier {
 
     public void firstMutantShouldReturn(LongSupplier ls, B expected) {
 
-        var input = ls.getAsLong();
+        long input = ls.getAsLong();
 
         if (checkUnmutated()) {
             assertThat(runWithoutMutation(input))

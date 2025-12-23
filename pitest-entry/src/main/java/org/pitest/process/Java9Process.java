@@ -83,7 +83,7 @@ public class Java9Process implements WrappingProcess {
         // All arguments are passed via a temporary file, thereby avoiding command line length limits
         Path argsFile = CACHE.computeIfAbsent(javaAgent.getJarLocation(), j -> createArgsFile(fileArgs));
 
-        var cmd = new ArrayList<String>();
+        List<String> cmd = new ArrayList<>();
         cmd.add(javaProc);
         addLaunchJavaAgentsAndEnvironmentVariables(cmd);
         cmd.add("@" + argsFile.toFile().getAbsolutePath());
@@ -107,7 +107,7 @@ public class Java9Process implements WrappingProcess {
     }
 
     private static void removeFromClassPath(List<String> cmd, Predicate<String> match) {
-        for (var i = cmd.size() - 1; i >= 0; i--) {
+        for (int i = cmd.size() - 1; i >= 0; i--) {
             if (match.test(cmd.get(i))) {
                 cmd.remove(i);
             }
@@ -119,7 +119,7 @@ public class Java9Process implements WrappingProcess {
         // remove other arg files from the command line
         List<String> argsWithoutArgFiles = removeArgFiles(args);
 
-        var cmd = new ArrayList<String>();
+        List<String> cmd = new ArrayList<>();
 
         cmd.add("-classpath");
         cmd.add(classPath.replace(" ", "\" \""));

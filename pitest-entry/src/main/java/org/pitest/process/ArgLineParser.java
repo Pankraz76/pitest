@@ -3,6 +3,7 @@ package org.pitest.process;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Deque;
 import java.util.List;
 import java.util.StringTokenizer;
 
@@ -28,9 +29,9 @@ public class ArgLineParser {
         }
 
         final StringTokenizer tokenizer = new StringTokenizer(in, "\"\' \\", true);
-        var tokens = new ArrayList<String>();
+        List<String> tokens = new ArrayList<>();
 
-        var state = new ArrayDeque<State>();
+        Deque<State> state = new ArrayDeque<>();
         state.push(START);
         StringBuilder current = new StringBuilder();
         while (tokenizer.hasMoreTokens()) {

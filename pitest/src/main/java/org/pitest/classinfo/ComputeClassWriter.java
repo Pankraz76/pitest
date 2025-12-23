@@ -96,11 +96,11 @@ public class ComputeClassWriter extends ClassWriter {
     final StringBuilder b1 = typeAncestors(type1, info1);
     final StringBuilder b2 = typeAncestors(type2, info2);
     String result = "java/lang/Object";
-    var end1 = b1.length();
-    var end2 = b2.length();
+    int end1 = b1.length();
+    int end2 = b2.length();
     while (true) {
-      final var start1 = b1.lastIndexOf(";", end1 - 1);
-      final var start2 = b2.lastIndexOf(";", end2 - 1);
+      final int start1 = b1.lastIndexOf(";", end1 - 1);
+      final int start2 = b2.lastIndexOf(";", end2 - 1);
       if ((start1 != -1) && (start2 != -1)
           && ((end1 - start1) == (end2 - start2))) {
         final String p1 = b1.substring(start1 + 1, end1);

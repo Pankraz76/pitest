@@ -35,6 +35,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.function.Predicate;
 
 import static java.util.Arrays.asList;
@@ -110,7 +111,7 @@ public class MojoToReportOptionsConverterTest extends BasePitMojoTest {
         "                  </jvmArgs>";
     final ReportOptions actual = parseConfig(xml);
 
-    var expectedArgs = new ArrayList<String>();
+    List<String> expectedArgs = new ArrayList<>();
     expectedArgs.add("foo");
     expectedArgs.add("bar");
 
@@ -376,7 +377,7 @@ public class MojoToReportOptionsConverterTest extends BasePitMojoTest {
       throws DependencyResolutionRequiredException {
     final String sep = File.pathSeparator;
 
-    final var artifacts = new HashSet<Artifact>();
+    final Set<Artifact> artifacts = new HashSet<>();
     final Artifact dependency = Mockito.mock(Artifact.class);
     when(dependency.getGroupId()).thenReturn("group");
     when(dependency.getArtifactId()).thenReturn("artifact");

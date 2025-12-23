@@ -134,8 +134,8 @@ public class ObjectOutputStreamHistory implements History {
 
   private void restoreClassPath() {
     try {
-      final var classPathSize = Long.parseLong(this.input.readLine());
-      for (var i = 0; i != classPathSize; i++) {
+      final long classPathSize = Long.parseLong(this.input.readLine());
+      for (int i = 0; i != classPathSize; i++) {
         final ClassHistory coverage = deserialize(this.input.readLine(),
             ClassHistory.class);
         this.previousClassPath.put(coverage.getName(), coverage);

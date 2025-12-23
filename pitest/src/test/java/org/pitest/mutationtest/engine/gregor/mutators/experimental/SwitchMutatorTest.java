@@ -132,7 +132,7 @@ public class SwitchMutatorTest {
 
         @Override
         public Character apply(Character c) {
-            var value = c.charValue();
+            char value = c.charValue();
             switch (value) {
                 case 'a':
                     return 'z';
@@ -193,7 +193,7 @@ public class SwitchMutatorTest {
 
         @Override
         public Integer apply(int value) {
-            var i = 1;
+            int i = 1;
             switch (value) {
                 case 0:
                     i = 10;
@@ -213,7 +213,7 @@ public class SwitchMutatorTest {
 
         @Override
         public Integer apply(int value) {
-            var i = 1;
+            int i = 1;
             switch (value) {
                 case 100:
                     i = 42;

@@ -52,7 +52,7 @@ public class PluginServices {
    * @return list of plugins
    */
   public Collection<? extends ToolClasspathPlugin> findToolClasspathPlugins() {
-    final var l = new ArrayList<ToolClasspathPlugin>();
+    final List<ToolClasspathPlugin> l = new ArrayList<>();
     l.addAll(findListeners());
     l.addAll(findGroupers());
     l.addAll(findTestPrioritisers());
@@ -75,7 +75,7 @@ public class PluginServices {
    * under test at runtime
    */
   public List<? extends ClientClasspathPlugin> findClientClasspathPlugins() {
-    final var l = new ArrayList<ClientClasspathPlugin>();
+    final List<ClientClasspathPlugin> l = new ArrayList<>();
     l.addAll(findMutationEngines());
     l.addAll(findMutationOperators());
     l.addAll(findTestFrameworkPlugins());

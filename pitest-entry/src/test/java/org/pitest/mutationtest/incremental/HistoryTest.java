@@ -259,8 +259,8 @@ public class HistoryTest {
     }
 
     private void assertSameNumberOfMutationsKilled(AnalysisResult r, AnalysisResult r2) {
-        var detected1 = getTotalDetectedMutations(r);
-        var detected2 = getTotalDetectedMutations(r2);
+        long detected1 = getTotalDetectedMutations(r);
+        long detected2 = getTotalDetectedMutations(r2);
         assertThat(detected1).isEqualTo(detected2);
     }
 

@@ -174,7 +174,7 @@ class StaticInitializerInterceptor implements MutationInterceptor {
               .collect(Collectors.groupingBy(Call::from));
 
 
-      var calledOnlyFromStaticInitializer = new HashSet<Location>();
+      Set<Location> calledOnlyFromStaticInitializer = new HashSet<>();
 
       visit(callTree, calledOnlyFromStaticInitializer, clinit.get().asLocation());
 

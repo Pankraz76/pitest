@@ -6,7 +6,7 @@ public class LineNumbersSpanBlocks {
     final int result;
 
     if (digits == 1) {
-      final var day = 6;
+      final int day = 6;
 
       result = day * 7;
     } else if (digits == 2) {

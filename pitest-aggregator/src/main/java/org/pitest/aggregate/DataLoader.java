@@ -30,7 +30,7 @@ abstract class DataLoader<T> {
   }
 
   public Set<T> loadData() throws ReportAggregationException {
-    final var data = new HashSet<T>();
+    final Set<T> data = new HashSet<>();
 
     for (final File file : this.filesToLoad) {
       data.addAll(loadData(file));

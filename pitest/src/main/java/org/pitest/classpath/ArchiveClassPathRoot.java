@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Enumeration;
+import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipException;
 import java.util.zip.ZipFile;
@@ -77,7 +78,7 @@ public class ArchiveClassPathRoot implements ClassPathRoot, IOHeavyRoot {
 
   @Override
   public Collection<String> classNames() {
-    final var names = new ArrayList<String>();
+    final List<String> names = new ArrayList<>();
     try (ZipHandle root = getRoot()) {
       final Enumeration<? extends ZipEntry> entries = root.entries();
       while (entries.hasMoreElements()) {

@@ -36,8 +36,8 @@ Serializable {
 
   @Override
   public int compare(final TestInfo arg0, final TestInfo arg1) {
-    final var t0 = arg0.getTime();
-    final var t1 = arg1.getTime();
+    final int t0 = arg0.getTime();
+    final int t1 = arg1.getTime();
     return t0 - t1 - distanceWeighting(arg0, arg1);
   }
 

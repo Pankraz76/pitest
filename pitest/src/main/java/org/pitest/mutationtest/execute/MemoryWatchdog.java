@@ -39,8 +39,8 @@ public class MemoryWatchdog {
     for (final MemoryPoolMXBean mp : memPools) {
       if (mp.isUsageThresholdSupported()) {
         final MemoryUsage mu = mp.getUsage();
-        final var max = mu.getMax();
-        final var alert = (max * threshold) / 100;
+        final long max = mu.getMax();
+        final long alert = (max * threshold) / 100;
         // LOG.info("Setting a threshold shutdown on pool: " + mp.getName()
         // + " for: " + alert);
         mp.setUsageThreshold(alert);

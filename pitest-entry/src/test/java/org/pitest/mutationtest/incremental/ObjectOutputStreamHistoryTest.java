@@ -16,6 +16,7 @@ import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Map;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -87,7 +88,7 @@ public class ObjectOutputStreamHistoryTest {
             Optional.ofNullable(reader));
         this.testee.initialize();
 
-        final var expected = new HashMap<ClassName, ClassHistory>();
+        final Map<ClassName, ClassHistory> expected = new HashMap<>();
         expected.put(foo.getName(), foo);
         expected.put(bar.getName(), bar);
         assertEquals(expected, this.testee.getHistoricClassPath());
@@ -109,7 +110,7 @@ public class ObjectOutputStreamHistoryTest {
         this.testee = new ObjectOutputStreamHistory(this.code, this.writerFactory,
             Optional.ofNullable(reader));
         this.testee.initialize();
-        final var expected = new HashMap<MutationIdentifier, MutationStatusTestPair>();
+        final Map<MutationIdentifier, MutationStatusTestPair> expected = new HashMap<>();
         expected.put(mr.getDetails().getId(), mr.getStatusTestPair());
         assertEquals(expected, this.testee.getHistoricResults());
     }

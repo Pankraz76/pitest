@@ -31,7 +31,7 @@ class MutationResultDataLoader extends DataLoader<MutationResult> {
   @Override
   protected Set<MutationResult> mapToData(XMLStreamReader xr) throws XMLStreamException {
     XmlMapper xm = new XmlMapper();
-    final var data = new HashSet<MutationResult>();
+    final Set<MutationResult> data = new HashSet<>();
     while (xr.hasNext()) {
       xr.next();
       if (xr.getEventType() == START_ELEMENT) {

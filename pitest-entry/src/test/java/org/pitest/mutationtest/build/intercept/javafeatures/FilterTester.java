@@ -21,6 +21,7 @@ import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -68,10 +69,10 @@ public class FilterTester {
     final List<MutationDetails> mutations = mutator.findMutations(s.className);
     final Collection<MutationDetails> actual = filter(s.clazz, mutations, mutator);
 
-    final var originalLocations = new LinkedHashSet<Loc>();
+    final Set<Loc> originalLocations = new LinkedHashSet<>();
     FCollection.mapTo(mutations, toLocation(s.clazz), originalLocations);
 
-    final var filteredLocations = new LinkedHashSet<Loc>();
+    final Set<Loc> filteredLocations = new LinkedHashSet<>();
     FCollection.mapTo(actual, toLocation(s.clazz), filteredLocations);
 
     assertThat(filteredLocations)

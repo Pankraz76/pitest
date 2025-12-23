@@ -20,7 +20,7 @@ public interface CodeSource extends ClassHashSource, ClassByteArraySource {
   Stream<ClassTree> codeTrees();
 
   default Set<ClassName> getAllClassAndTestNames() {
-    final var names = new HashSet<ClassName>();
+    final Set<ClassName> names = new HashSet<>();
     names.addAll(getCodeUnderTestNames());
     names.addAll(getTestClassNames());
     return names;

@@ -53,7 +53,7 @@ public class MutationTestBuilder {
 
   public List<MutationAnalysisUnit> createMutationTestUnits(
       final Collection<ClassName> codeClasses) {
-    final var tus = new ArrayList<MutationAnalysisUnit>();
+    final List<MutationAnalysisUnit> tus = new ArrayList<>();
 
     final List<MutationDetails> mutations = codeClasses.stream()
                     .flatMap(c -> mutationSource.createMutations(c).stream())

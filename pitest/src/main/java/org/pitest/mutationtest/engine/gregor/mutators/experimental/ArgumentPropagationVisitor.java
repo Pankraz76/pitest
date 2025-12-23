@@ -70,7 +70,7 @@ class ArgumentPropagationVisitor extends MethodVisitor {
 
   private void replaceMethodCallWithArgumentHavingSameTypeAsReturnValue(
       final Type[] argTypes, final Type returnType, final int opcode) {
-    final var indexOfPropagatedArgument = findLastIndexOfArgumentWithSameTypeAsReturnValue(
+    final int indexOfPropagatedArgument = findLastIndexOfArgumentWithSameTypeAsReturnValue(
         argTypes, returnType);
     popArgumentsBeforePropagatedArgument(argTypes, indexOfPropagatedArgument);
     popArgumentsFollowingThePropagated(argTypes, returnType,
@@ -91,7 +91,7 @@ class ArgumentPropagationVisitor extends MethodVisitor {
   }
 
   private void popArguments(final Type[] argumentTypes) {
-    for (var i = argumentTypes.length - 1; i >= 0; i--) {
+    for (int i = argumentTypes.length - 1; i >= 0; i--) {
       popArgument(argumentTypes[i]);
     }
   }
@@ -100,7 +100,7 @@ class ArgumentPropagationVisitor extends MethodVisitor {
       final Type returnType, final int indexOfPropagatedArgument) {
     final Type[] argsFollowing = Arrays.copyOfRange(argTypes, 0,
         indexOfPropagatedArgument);
-    for (var j = argsFollowing.length - 1; j >= 0; j--) {
+    for (int j = argsFollowing.length - 1; j >= 0; j--) {
       swap(this.mv, returnType, argsFollowing[j]);
       popArgument(argsFollowing[j]);
     }

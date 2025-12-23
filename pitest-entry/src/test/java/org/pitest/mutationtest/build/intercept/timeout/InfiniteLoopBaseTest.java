@@ -41,7 +41,7 @@ public abstract class InfiniteLoopBaseTest {
   }
 
   void checkNotFiltered(ClassName clazz, Predicate<MethodTree> method) {
-    var testedSomething = false;
+    boolean testedSomething = false;
     for (final Compiler each : Compiler.values()) {
       final Optional<MethodTree> mt = parseMethodFromCompiledResource(clazz, each,
           method);
@@ -65,7 +65,7 @@ public abstract class InfiniteLoopBaseTest {
   }
 
   void checkFiltered(ClassName clazz, Predicate<MethodTree> method) {
-    var testedSomething = false;
+    boolean testedSomething = false;
     for (final Compiler each : Compiler.values()) {
       final Optional<MethodTree> mt = parseMethodFromCompiledResource(clazz, each,
           method);

@@ -33,7 +33,7 @@ public class IntMutantVerifier<B> extends MutatorVerifier {
     }
 
     public void firstMutantShouldReturn(IntSupplier is, B expected) {
-        var input = is.getAsInt();
+        int input = is.getAsInt();
 
         if (checkUnmutated()) {
             assertThat(runWithoutMutation(input))

@@ -28,7 +28,7 @@ public class ClassUtils {
                                      .getContentLength()];
 
       int i;
-      var counter = 0;
+      int counter = 0;
       while ((i = stream.read()) != -1) {
         result[counter] = (byte) i;
         counter++;

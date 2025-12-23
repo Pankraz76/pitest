@@ -17,7 +17,7 @@ public class SignatureParser {
           return Collections.emptySet();
       }
 
-      var types = new HashSet<String>();
+      Set<String> types = new HashSet<>();
       SignatureReader r = new SignatureReader(signature);
       SignatureVisitor visitor = new SignatureVisitor(ASMVersion.asmVersion()) {
           @Override

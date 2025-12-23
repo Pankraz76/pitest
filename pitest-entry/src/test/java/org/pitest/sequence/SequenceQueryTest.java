@@ -181,7 +181,7 @@ public class SequenceQueryTest {
 
     private Match<Integer> matchesSlot(SlotRead<Integer> read) {
         return (c, i) -> {
-            var b = c.retrieve(read).get().equals(i);
+            boolean b = c.retrieve(read).get().equals(i);
             return result(b,c);
         };
     }

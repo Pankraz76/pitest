@@ -23,6 +23,7 @@ import org.pitest.coverage.analysis.Block;
 import org.pitest.coverage.analysis.ControlFlowAnalyser;
 
 import java.util.ArrayDeque;
+import java.util.Deque;
 
 public class BlockTrackingMethodDecorator extends MethodNode {
 
@@ -41,7 +42,7 @@ public class BlockTrackingMethodDecorator extends MethodNode {
   public void visitEnd() {
     super.visitEnd();
 
-    final var blocks = new ArrayDeque<Block>(
+    final Deque<Block> blocks = new ArrayDeque<>(
         ControlFlowAnalyser.analyze(this));
 
     blockCounter.registerNewMethodStart();

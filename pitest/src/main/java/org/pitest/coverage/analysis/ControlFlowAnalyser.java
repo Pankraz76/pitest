@@ -29,7 +29,7 @@ public class ControlFlowAnalyser {
   private static final int LIKELY_NUMBER_OF_LINES_PER_BLOCK = 7;
 
   public static List<Block> analyze(final MethodNode mn) {
-    final var blocks = new ArrayList<Block>(mn.instructions.size());
+    final List<Block> blocks = new ArrayList<>(mn.instructions.size());
 
     final Set<LabelNode> jumpTargets = findJumpTargets(mn.instructions);
 
@@ -39,12 +39,12 @@ public class ControlFlowAnalyser {
     addtryCatchBoundaries(mn, jumpTargets);
 
     Set<Integer> blockLines = smallSet();
-    var lastLine = Integer.MIN_VALUE;
+    int lastLine = Integer.MIN_VALUE;
 
-    final var lastInstruction = mn.instructions.size() - 1;
+    final int lastInstruction = mn.instructions.size() - 1;
 
-    var blockStart = 0;
-    for (var i = 0; i != mn.instructions.size(); i++) {
+    int blockStart = 0;
+    for (int i = 0; i != mn.instructions.size(); i++) {
 
       final AbstractInsnNode ins = mn.instructions.get(i);
 
@@ -112,7 +112,7 @@ public class ControlFlowAnalyser {
   }
 
   private static boolean isReturn(final AbstractInsnNode ins) {
-    final var opcode = ins.getOpcode();
+    final int opcode = ins.getOpcode();
     switch (opcode) {
     case RETURN:
     case ARETURN:
@@ -129,7 +129,7 @@ public class ControlFlowAnalyser {
   }
 
   private static Set<LabelNode> findJumpTargets(final InsnList instructions) {
-    final var jumpTargets = new HashSet<LabelNode>();
+    final Set<LabelNode> jumpTargets = new HashSet<>();
     for (AbstractInsnNode o : instructions) {
       if (o instanceof JumpInsnNode) {
         jumpTargets.add(((JumpInsnNode) o).label);

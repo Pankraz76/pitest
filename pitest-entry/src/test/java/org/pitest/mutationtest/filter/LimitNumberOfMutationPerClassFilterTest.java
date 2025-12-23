@@ -20,6 +20,7 @@ import static org.pitest.mutationtest.LocationMother.aMutationId;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -62,7 +63,7 @@ public class LimitNumberOfMutationPerClassFilterTest {
   }
 
   private Collection<MutationDetails> make(final Integer... ids) {
-    final var ms = new ArrayList<MutationDetails>();
+    final List<MutationDetails> ms = new ArrayList<>();
     for (final int each : ids) {
       ms.add(makeMutation(each));
     }

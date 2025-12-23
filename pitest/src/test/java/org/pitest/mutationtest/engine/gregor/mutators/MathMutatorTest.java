@@ -475,7 +475,7 @@ public class MathMutatorTest {
     private static class HasFADD implements Function<Float, String> {
         @Override
         public String apply(Float f) {
-            var i = f.floatValue();
+            float i = f.floatValue();
             i++;
             return "" + i;
         }
@@ -484,7 +484,7 @@ public class MathMutatorTest {
     private static class HasFSUB implements Function<Float, String> {
         @Override
         public String apply(Float f) {
-            var i = f.floatValue();
+            float i = f.floatValue();
             i--;
             return "" + i;
         }
@@ -493,7 +493,7 @@ public class MathMutatorTest {
     private static class HasFMUL implements Function<Float, String> {
         @Override
         public String apply(Float f) {
-            var i = f.floatValue();
+            float i = f.floatValue();
             i = i * 2;
             return "" + i;
         }
@@ -502,7 +502,7 @@ public class MathMutatorTest {
     private static class HasFDIV implements Function<Float, String> {
         @Override
         public String apply(Float f) {
-            var i = f.floatValue();
+            float i = f.floatValue();
             i = i / 2;
             return "" + i;
         }
@@ -511,7 +511,7 @@ public class MathMutatorTest {
     private static class HasFREM implements Function<Float, String> {
         @Override
         public String apply(Float f) {
-            var i = f.floatValue();
+            float i = f.floatValue();
             i = i % 2;
             return "" + i;
         }

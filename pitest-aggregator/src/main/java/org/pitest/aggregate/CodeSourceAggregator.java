@@ -45,7 +45,7 @@ class CodeSourceAggregator {
   }
 
   private Predicate<String> createClassPredicate() {
-    final var classes = new HashSet<String>();
+    final Collection<String> classes = new HashSet<>();
     for (final File buildOutputDirectory : this.compiledCodeDirectories) {
       if (buildOutputDirectory.exists()) {
         final DirectoryClassPathRoot dcRoot = new DirectoryClassPathRoot(buildOutputDirectory);

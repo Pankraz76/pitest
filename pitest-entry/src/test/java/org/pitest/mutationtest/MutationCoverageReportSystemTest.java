@@ -243,7 +243,7 @@ public class MutationCoverageReportSystemTest extends ReportTestBase {
       this.data.setTargetClasses(asList("com.outofclasspath.*Mutee*"));
       this.data.setTargetTests(predicateFor("com.outofclasspath.*"));
 
-      final var cp = new ArrayList<String>();
+      final List<String> cp = new ArrayList<>();
       cp.addAll(ClassPath.getClassPathElementsAsPaths());
       cp.add(location);
 
@@ -470,7 +470,7 @@ public class MutationCoverageReportSystemTest extends ReportTestBase {
     // Read bytes and write to destination until eof
 
     final byte[] buf = new byte[1024];
-    var len = 0;
+    int len = 0;
     while ((len = in.read(buf)) >= 0) {
       out.write(buf, 0, len);
     }

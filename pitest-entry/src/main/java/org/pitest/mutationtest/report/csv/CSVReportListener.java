@@ -44,7 +44,7 @@ public class CSVReportListener implements MutationResultListener {
 
   private String makeCsv(final Object... os) {
     final StringBuilder sb = new StringBuilder();
-    for (var i = 0; i != os.length; i++) {
+    for (int i = 0; i != os.length; i++) {
       sb.append(os[i].toString());
       if (i != (os.length - 1)) {
         sb.append(",");

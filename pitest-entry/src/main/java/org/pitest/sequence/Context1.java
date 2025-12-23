@@ -1,6 +1,7 @@
 package org.pitest.sequence;
 
 import java.util.IdentityHashMap;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -25,7 +26,7 @@ final class Context1 implements Context {
 
     @Override
     public <S> Context store(SlotWrite<S> slot, S value) {
-        var mutatedSlots = new IdentityHashMap<Slot,Object>();
+        Map<Slot,Object> mutatedSlots = new IdentityHashMap<>();
         mutatedSlots.put(this.slot, this.value);
         mutatedSlots.put(slot.slot(), value);
         return new MultiContext(mutatedSlots, debug);

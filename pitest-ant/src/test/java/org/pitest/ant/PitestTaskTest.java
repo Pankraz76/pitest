@@ -527,7 +527,7 @@ public class PitestTaskTest {
     @Override
     public boolean matches(final Path argPath) {
       final String[] paths = argPath.toString().split(File.pathSeparator);
-      final var matches = paths.length == this.expectedPaths.length;
+      final boolean matches = paths.length == this.expectedPaths.length;
       if (matches) {
         for (final String expectedPathElement : this.expectedPaths) {
           if (isNotPresent(paths, expectedPathElement)) {

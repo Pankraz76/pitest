@@ -129,7 +129,7 @@ public class MutationTestMinion {
     enableTransformations();
     HotSwapAgent.addTransformer(new CatchNewClassLoadersTransformer());
 
-    final var port = Integer.parseInt(args[0]);
+    final int port = Integer.parseInt(args[0]);
 
     Socket s = null;
     try {

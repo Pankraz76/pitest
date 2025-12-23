@@ -30,7 +30,7 @@ public class KeepAliveThread {
   private final ExecutorService ex;
 
   public KeepAliveThread() {
-    final var numberOfThreads = 5;
+    final int numberOfThreads = 5;
     this.ex = Executors.newFixedThreadPool(numberOfThreads);
   }
 

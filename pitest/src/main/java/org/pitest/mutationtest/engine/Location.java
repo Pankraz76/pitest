@@ -86,7 +86,7 @@ public final class Location implements Comparable<Location>, Serializable  {
 
   @Override
   public int compareTo(final Location o) {
-    var comp = this.clazz.compareTo(o.getClassName());
+    int comp = this.clazz.compareTo(o.getClassName());
     if (comp != 0) {
       return comp;
     }

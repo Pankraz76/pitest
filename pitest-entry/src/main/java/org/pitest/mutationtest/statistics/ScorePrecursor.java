@@ -54,7 +54,7 @@ class ScorePrecursor {
   }
 
   private static Map<DetectionStatus, StatusCount> createMap() {
-    final var map = new LinkedHashMap<DetectionStatus, StatusCount>();
+    final Map<DetectionStatus, StatusCount> map = new LinkedHashMap<>();
     for (final DetectionStatus each : DetectionStatus.values()) {
       map.put(each, new StatusCount(each, 0L));
     }

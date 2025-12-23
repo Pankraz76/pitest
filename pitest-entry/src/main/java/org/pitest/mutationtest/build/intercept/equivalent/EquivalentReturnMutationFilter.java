@@ -18,6 +18,7 @@ import org.pitest.sequence.SequenceQuery;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Set;
 
 import static org.pitest.bytecode.analysis.InstructionMatchers.getStatic;
 import static org.pitest.bytecode.analysis.InstructionMatchers.methodCallNamed;
@@ -80,7 +81,7 @@ public class EquivalentReturnMutationFilter implements MutationInterceptorFactor
   }
 
   private static Match<AbstractInsnNode> isZeroConstant() {
-    var zeroConstants = new HashSet<Integer>();
+    Set<Integer> zeroConstants = new HashSet<>();
 
     zeroConstants.add(Opcodes.ICONST_0);
     zeroConstants.add(Opcodes.LCONST_0);
@@ -145,7 +146,7 @@ public class EquivalentReturnMutationFilter implements MutationInterceptorFactor
   }
 
   private SequenceQuery<AbstractInsnNode> primitiveZeroConstants() {
-    var zeroConstants = new HashSet<Integer>();
+    Set<Integer> zeroConstants = new HashSet<>();
     zeroConstants.add(Opcodes.ICONST_0);
     zeroConstants.add(Opcodes.LCONST_0);
     zeroConstants.add(Opcodes.FCONST_0);
