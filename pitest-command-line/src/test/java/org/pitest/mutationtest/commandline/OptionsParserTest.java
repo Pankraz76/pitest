@@ -709,7 +709,7 @@ public class OptionsParserTest {
   private String getNonCanonicalGregorEngineClassPath() {
     final String gregorEngineClassPath = GregorMutationEngine.class
         .getProtectionDomain().getCodeSource().getLocation().getFile();
-    final int lastOccurrenceOfFileSeparator = gregorEngineClassPath
+    final var lastOccurrenceOfFileSeparator = gregorEngineClassPath
         .lastIndexOf(JAVA_PATH_SEPARATOR);
     return new StringBuilder(gregorEngineClassPath).replace(
         lastOccurrenceOfFileSeparator, lastOccurrenceOfFileSeparator + 1,

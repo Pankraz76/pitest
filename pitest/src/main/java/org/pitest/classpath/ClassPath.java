@@ -122,7 +122,7 @@ public class ClassPath {
   public static Collection<File> getClassPathElementsAsFiles() {
     final Set<File> us = new LinkedHashSet<>();
     FCollection.mapTo(getClassPathElementsAsAre(), stringToCanonicalFile(), us);
-    
+
     addEntriesFromClasspathManifest(us);
     return us;
   }
@@ -131,7 +131,7 @@ public class ClassPath {
    * Because classpaths can become longer than the OS supports pitest creates temporary jar files and places the classpath
    * in the manifest where there is no size limit.
    *
-   * We must therefore parse them out again here. 
+   * We must therefore parse them out again here.
    *
    * @param elements existing elements
    */

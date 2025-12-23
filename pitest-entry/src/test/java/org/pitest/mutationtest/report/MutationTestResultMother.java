@@ -21,13 +21,11 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import org.pitest.coverage.TestInfo;
 import org.pitest.mutationtest.ClassMutationResults;
 import org.pitest.mutationtest.DetectionStatus;
 import org.pitest.mutationtest.MutationResult;
 import org.pitest.mutationtest.MutationStatusTestPair;
 import org.pitest.mutationtest.engine.MutationDetails;
-import org.pitest.mutationtest.engine.MutationDetailsMother;
 import org.pitest.quickbuilder.Builder;
 import org.pitest.quickbuilder.Generator;
 import org.pitest.quickbuilder.SequenceBuilder;

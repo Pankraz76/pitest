@@ -29,7 +29,7 @@ public class RemoveSwitchMutator implements MethodMutatorFactory {
 
   static List<MethodMutatorFactory> makeMutators() {
     final List<MethodMutatorFactory> variations = new ArrayList<>();
-    for (int i = GENERATE_FROM_INCLUDING; i != GENERATE_UPTO_EXCLUDING; i++) {
+    for (var i = GENERATE_FROM_INCLUDING; i != GENERATE_UPTO_EXCLUDING; i++) {
       variations.add(new RemoveSwitchMutator(i));
     }
     return variations;

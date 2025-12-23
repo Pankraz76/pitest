@@ -392,7 +392,7 @@ public class InlineConstantMutatorTest {
 
         @Override
         public Boolean call(){
-            int i = Short.MAX_VALUE;
+            var i = Short.MAX_VALUE;
 
             if (i != Short.MAX_VALUE) {
                 i++; // prevent source formating from making final
@@ -408,9 +408,7 @@ public class InlineConstantMutatorTest {
 
         @Override
         public Short call(){
-            short s = Short.MAX_VALUE;
-            s = preventSourceFormatingMakingFinal(s);
-            return s;
+            return preventSourceFormatingMakingFinal(Short.MAX_VALUE);
         }
 
     }
@@ -419,9 +417,7 @@ public class InlineConstantMutatorTest {
 
         @Override
         public Integer call(){
-            int i = Short.MAX_VALUE;
-            i = preventSourceFormatingMakingFinal(i);
-            return i;
+            return (int) preventSourceFormatingMakingFinal(Short.MAX_VALUE);
         }
 
     }
@@ -430,9 +426,7 @@ public class InlineConstantMutatorTest {
 
         @Override
         public Byte call(){
-            byte b = Byte.MAX_VALUE;
-            b = preventSourceFormatingMakingFinal(b);
-            return b;
+            return preventSourceFormatingMakingFinal(Byte.MAX_VALUE);
         }
     }
 
@@ -521,8 +515,8 @@ public class InlineConstantMutatorTest {
 
         @Override
         public Float call(){
-            float f = 16.0F;
-            float f2 = 4.0F;
+            var f = 16.0F;
+            var f2 = 4.0F;
             f = preventSourceFormatingMakingFinal(f);
             f2 = preventSourceFormatingMakingFinal(f2);
             return f * f2;
@@ -560,8 +554,8 @@ public class InlineConstantMutatorTest {
 
         @Override
         public Double call(){
-            double d = 4578.1158D;
-            double d2 = 2.0D;
+            var d = 4578.1158D;
+            var d2 = 2.0D;
             d = preventSourceFormatingMakingFinal(d);
             d2 = preventSourceFormatingMakingFinal(d2);
             return d * d2;

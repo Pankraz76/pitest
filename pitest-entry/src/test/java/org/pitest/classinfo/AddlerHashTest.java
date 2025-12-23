@@ -27,7 +27,7 @@ public class AddlerHashTest {
   @Test
   public void shouldGenerateSameHashForSameInput()
       throws ClassNotFoundException {
-    final long expected = this.testee.hash(ClassUtils
+    final var expected = this.testee.hash(ClassUtils
         .classAsBytes(String.class));
     assertEquals(expected,
         this.testee.hash(ClassUtils.classAsBytes(String.class)));

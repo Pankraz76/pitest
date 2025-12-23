@@ -65,7 +65,7 @@ public class EquivalentReturnMutationFilterTest {
   public void filtersEquivalentPrimitiveIntMutantsInTryCatch() {
     this.verifier.assertFiltersNMutationFromClass(1, AlreadyReturnsConstZeroInTryCatch.class);
   }
-  
+
   @Test
   public void filtersEquivalentPrimitiveBooleanMutants() {
     this.verifier.assertFiltersMutationsFromMutator(FALSE_RETURNS.getGloballyUniqueId()
@@ -77,7 +77,7 @@ public class EquivalentReturnMutationFilterTest {
     this.verifier.assertFiltersMutationsFromMutator(TRUE_RETURNS.getGloballyUniqueId()
         , ReturnsTrue.class);
   }
-  
+
   @Test
   public void filtersEquivalentPrimitiveBooleanTrueMutantsInTryCatch() {
     this.verifier.assertFiltersMutationsFromMutator(TRUE_RETURNS.getGloballyUniqueId()
@@ -190,7 +190,7 @@ public class EquivalentReturnMutationFilterTest {
     this.verifier.assertFiltersNMutationFromClass(1, AlreadyReturnsEmptyListInTryCatch.class);
   }
 
-  
+
   @Test
   public void filtersEquivalentSetMutants() {
     this.verifier.assertFiltersNMutationFromClass(1, AlreadyReturnsEmptySet.class);
@@ -318,9 +318,9 @@ class AlreadyReturnsConstZeroInTryCatch {
   public int a(String s) {
     try {
       Double.valueOf(s);
-      return 0;      
+      return 0;
     } catch(NumberFormatException ex) {
-      return 42;  
+      return 42;
     }
   }
 }

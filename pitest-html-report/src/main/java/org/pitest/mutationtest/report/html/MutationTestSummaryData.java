@@ -81,7 +81,7 @@ public class MutationTestSummaryData {
     }
     final String packageName = iterator.next().name()
       .asJavaName();
-    final int lastDot = packageName.lastIndexOf('.');
+    final var lastDot = packageName.lastIndexOf('.');
     return lastDot > 0 ? packageName.substring(0, lastDot) : "default";
   }
 
@@ -89,7 +89,7 @@ public class MutationTestSummaryData {
     // FIXME, would need to replace here instead of add
     this.mutations.putAll(data.mutations);
     this.mutators.addAll(data.getMutators());
-    final int classesBefore = this.classes.size();
+    final var classesBefore = this.classes.size();
     this.classes.addAll(data.classes);
     if (classesBefore < this.classes.size()) {
       this.numberOfCoveredLines += data.numberOfCoveredLines;
@@ -136,7 +136,7 @@ public class MutationTestSummaryData {
   }
 
   private long getNumberOfMutationsDetected() {
-    int count = 0;
+    var count = 0;
     for (final MutationResult each : this.mutations.values()) {
       if (each.getStatus().isDetected()) {
         count++;

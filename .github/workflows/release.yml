@@ -1,4 +1,4 @@
-name: Release
+name: Release 🕊️
 on:
   push:
     branches:
@@ -17,15 +17,15 @@ jobs:
         run: |
           cat <(echo -e "${{ secrets.GPG_SECRET_KEY }}") | gpg --batch --import
           gpg --list-secret-keys --keyid-format LONG
-      - name: Checkout project
+      - name: Checkout Repository 📥
         uses: actions/checkout@v3
-      - name: Cache local Maven repository
+      - name: Setup Maven Cache 💾
         uses: actions/cache@v3
         with:
           path: ~/.m2/repository
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-maven-
-      - name: Setup Java JDK
+      - name: Setup Java JDK ☕️
         uses: actions/setup-java@v4
         with:
           distribution: temurin
@@ -38,7 +38,7 @@ jobs:
           git config user.email "actions@github.com"
           git config user.name "GitHub Actions"
       - name: Publish JAR
-        run: mvn -Dgpg.passphrase=${{ secrets.GPG_PASSPHRASE}} -B -Prelease deploy scm:tag -Drevision=${{ steps.extract_branch.outputs.branch }} -DskipTests=true
+        run: ./mvnw -Dgpg.passphrase=${{ secrets.GPG_PASSPHRASE}} -B -Prelease deploy scm:tag -Drevision=${{ steps.extract_branch.outputs.branch }} -DskipTests=true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}

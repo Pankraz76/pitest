@@ -160,7 +160,7 @@ public class MutationDiscoveryTest {
 
     assertThat(foundWhenDisabled.size()).isGreaterThan(foundByDefault.size());
   }
-  
+
   @Test
   public void shouldFilterObjectsRequireNonNullCallsForMethodReferences() {
     final ClassName clazz = ClassName.fromString("requirenotnull/MethodReferenceNullChecks_javac");
@@ -296,7 +296,7 @@ public class MutationDiscoveryTest {
 
   static class HasForLoop {
     public void foo() {
-      for (int i = 0; i != 10; i++) {
+      for (var i = 0; i != 10; i++) {
         System.out.println(i);
       }
     }

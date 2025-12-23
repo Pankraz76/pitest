@@ -146,7 +146,7 @@ public final class MutationIdentifier implements Comparable<MutationIdentifier>,
 
   @Override
   public int compareTo(final MutationIdentifier other) {
-    int comp = this.location.compareTo(other.getLocation());
+    var comp = this.location.compareTo(other.getLocation());
     if (comp != 0) {
       return comp;
     }

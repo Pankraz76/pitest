@@ -18,7 +18,6 @@ import org.pitest.classpath.ClassPath;
 import org.pitest.classpath.ClassloaderByteArraySource;
 import org.pitest.classpath.CodeSource;
 import org.pitest.classpath.ProjectClassPaths;
-import org.pitest.functional.Streams;
 import org.pitest.mutationtest.config.PluginServices;
 import org.pitest.mutationtest.config.ReportOptions;
 import org.pitest.mutationtest.config.SettingsFactory;
@@ -260,8 +259,8 @@ public class HistoryTest {
     }
 
     private void assertSameNumberOfMutationsKilled(AnalysisResult r, AnalysisResult r2) {
-        long detected1 = getTotalDetectedMutations(r);
-        long detected2 = getTotalDetectedMutations(r2);
+        var detected1 = getTotalDetectedMutations(r);
+        var detected2 = getTotalDetectedMutations(r2);
         assertThat(detected1).isEqualTo(detected2);
     }
 

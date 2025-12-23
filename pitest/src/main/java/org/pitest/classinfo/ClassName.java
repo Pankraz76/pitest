@@ -86,7 +86,7 @@ public final class ClassName implements Comparable<ClassName>, Serializable {
   }
 
   public ClassName getNameWithoutPackage() {
-    final int lastSeparator = this.name.lastIndexOf('/');
+    final var lastSeparator = this.name.lastIndexOf('/');
     if (lastSeparator != -1) {
       return ClassName.fromString(this.name.substring(lastSeparator + 1));
     }
@@ -94,7 +94,7 @@ public final class ClassName implements Comparable<ClassName>, Serializable {
   }
 
   public ClassName getPackage() {
-    final int lastSeparator = this.name.lastIndexOf('/');
+    final var lastSeparator = this.name.lastIndexOf('/');
     if (lastSeparator != -1) {
       return ClassName.fromString(this.name.substring(0, lastSeparator));
     }

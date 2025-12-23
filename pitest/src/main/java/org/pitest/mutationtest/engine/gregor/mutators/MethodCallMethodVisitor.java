@@ -106,7 +106,7 @@ class MethodCallMethodVisitor extends MethodVisitor {
 
   private void popStack(final String desc, final String name) {
     final Type[] argTypes = Type.getArgumentTypes(desc);
-    for (int i = argTypes.length - 1; i >= 0; i--) {
+    for (var i = argTypes.length - 1; i >= 0; i--) {
       final Type argumentType = argTypes[i];
       if (argumentType.getSize() != 1) {
         this.mv.visitInsn(POP2);

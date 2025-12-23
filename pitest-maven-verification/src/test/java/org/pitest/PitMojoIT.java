@@ -76,12 +76,12 @@ public class PitMojoIT {
 
     verifier.executeGoal("org.pitest:pitest-maven:mutationCoverage");
   }
-  
+
   @Test(timeout=60000)
   public void shouldNotHangWhenLargeAmountsOfConsoleOutput() throws Exception {
     File testDir = prepare("/pit-process-hang");
     verifier.executeGoal("test");
-    verifier.executeGoal("org.pitest:pitest-maven:mutationCoverage"); 
+    verifier.executeGoal("org.pitest:pitest-maven:mutationCoverage");
     // checkout output looks sane, but main point is that test completed
     assertThat(readResults(testDir))
     .contains(

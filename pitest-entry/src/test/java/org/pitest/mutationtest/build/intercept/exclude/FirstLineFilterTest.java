@@ -1,6 +1,5 @@
 package org.pitest.mutationtest.build.intercept.exclude;
 
-import junit.framework.TestCase;
 import org.junit.Test;
 import org.pitest.mutationtest.engine.MutationDetails;
 import org.pitest.mutationtest.engine.MutationDetailsMother;

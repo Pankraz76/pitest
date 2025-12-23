@@ -126,7 +126,7 @@ public class XMLReportListener implements MutationResultListener {
     if (!condition) {
       return "";
     }
-    
+
     return makeNode(value, tag);
   }
 
@@ -152,22 +152,22 @@ public class XMLReportListener implements MutationResultListener {
     return killingTest.map(s -> createTestDesc(Arrays.asList(s)))
             .orElse(null);
   }
-  
+
   private String createTestDesc(final List<String> tests) {
     if (tests.isEmpty()) {
       return "";
     }
-    
+
     StringBuilder builder = new StringBuilder();
-    
+
     for (String test : tests) {
       builder.append(test);
       builder.append(MUTATION_MATRIX_TEST_SEPARATOR);
     }
-    
+
     // remove last separator
     builder.setLength(builder.length() - 1);
-    
+
     return clean(builder.toString());
   }
 

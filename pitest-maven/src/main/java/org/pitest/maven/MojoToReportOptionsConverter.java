@@ -314,7 +314,7 @@ public class MojoToReportOptionsConverter {
     data.setDetectInlinedCode(this.mojo.isDetectInlinedCode());
 
     determineHistory(data);
-    
+
     data.setExportLineCoverage(this.mojo.isExportLineCoverage());
     data.setMutationEngine(this.mojo.getMutationEngine());
     data.setJavaExecutable(this.mojo.getJavaExecutable());
@@ -537,8 +537,8 @@ public class MojoToReportOptionsConverter {
       } else {
         return Collections.emptyList();
       }
-  }  
-  
+  }
+
   private Collection<String> determineTargetClasses() {
     return useConfiguredTargetClassesOrFindOccupiedPackages(this.mojo.getTargetClasses());
   }
@@ -561,7 +561,7 @@ public class MojoToReportOptionsConverter {
             .distinct()
             .collect(Collectors.toList());
   }
-  
+
   public static Collection<String> findOccupiedPackagesIn(File dir) {
     if (dir.exists()) {
       DirectoryClassPathRoot root = new DirectoryClassPathRoot(dir);
@@ -572,7 +572,7 @@ public class MojoToReportOptionsConverter {
     }
     return Collections.emptyList();
   }
-  
+
   private static Function<String,String> classToPackageGlob() {
     return a -> ClassName.fromString(a).getPackage().asJavaName() + ".*";
   }

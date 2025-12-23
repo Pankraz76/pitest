@@ -144,7 +144,7 @@ public class ReportOptions {
   private Collection<String>             includedTestMethods            = new ArrayList<>();
 
   private String                         testPlugin                     = "";
-  
+
 
   private Path                           projectBase;
   private Charset inputEncoding;

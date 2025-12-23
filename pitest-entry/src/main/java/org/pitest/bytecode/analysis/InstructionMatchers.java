@@ -167,7 +167,7 @@ public class InstructionMatchers {
   public static  Match<AbstractInsnNode> methodCall() {
     return isA(MethodInsnNode.class);
   }
-  
+
   public static Match<AbstractInsnNode> methodCallNamed(String name) {
     return (c, t) -> {
       if ( t instanceof MethodInsnNode ) {

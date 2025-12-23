@@ -106,7 +106,7 @@ public enum BigDecimalMutator implements MethodMutatorFactory {
         Object... bootstrapMethodArguments) {
       bootstrapMethodHandle = mutateHandle(bootstrapMethodHandle);
       Object[] methodArgs = new Object[bootstrapMethodArguments.length];
-      for (int i = 0; i < bootstrapMethodArguments.length; i++) {
+      for (var i = 0; i < bootstrapMethodArguments.length; i++) {
         Object bootstrapMethodArgument = bootstrapMethodArguments[i];
         if (bootstrapMethodArgument instanceof Handle) {
           methodArgs[i] = mutateHandle((Handle) bootstrapMethodArgument);
@@ -121,7 +121,7 @@ public enum BigDecimalMutator implements MethodMutatorFactory {
      * Mutates a handle within an invoke virtual.
      */
     private Handle mutateHandle(Handle handle) {
-      int opcode = handle.getTag();
+      var opcode = handle.getTag();
       String owner = handle.getOwner();
       String name = handle.getName();
       String descriptor = handle.getDesc();

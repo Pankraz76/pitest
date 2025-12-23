@@ -238,7 +238,7 @@ public class PitestTaskTest {
     this.pitestTask.execute(this.java);
     verify(this.arg).setValue("--excludedRunners=foo");
   }
-  
+
   @Test
   public void shouldPassIncludedTestMethodsOptionToJavaTask() {
     this.pitestTask.setIncludedTestMethods("footest");
@@ -252,7 +252,7 @@ public class PitestTaskTest {
     this.pitestTask.execute(this.java);
     verify(this.arg).setValue("--mutableCodePaths=foo");
   }
-  
+
   @Test
   public void shouldOnlyPassTheSpecifiedOptions() throws Exception {
     this.pitestTask.setVerbose("true");
@@ -527,7 +527,7 @@ public class PitestTaskTest {
     @Override
     public boolean matches(final Path argPath) {
       final String[] paths = argPath.toString().split(File.pathSeparator);
-      final boolean matches = paths.length == this.expectedPaths.length;
+      final var matches = paths.length == this.expectedPaths.length;
       if (matches) {
         for (final String expectedPathElement : this.expectedPaths) {
           if (isNotPresent(paths, expectedPathElement)) {

@@ -180,7 +180,7 @@ public class SettingsFactory {
       .distinct()
       .sorted(byName())
       .collect(Collectors.toList());
-      
+
     enabledFeatures.forEach(enabled);
 
     available.stream()

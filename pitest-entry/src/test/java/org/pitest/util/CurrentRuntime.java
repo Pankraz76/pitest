@@ -7,7 +7,7 @@ public class CurrentRuntime {
         if (version.startsWith("1.")) {
             version = version.substring(2, 3);
         } else {
-            int dot = version.indexOf(".");
+            var dot = version.indexOf(".");
             if (dot != -1) {
                 version = version.substring(0, dot);
             }

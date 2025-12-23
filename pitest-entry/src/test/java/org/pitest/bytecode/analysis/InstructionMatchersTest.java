@@ -16,7 +16,6 @@ import static org.pitest.bytecode.analysis.InstructionMatchers.isA;
 import static org.pitest.bytecode.analysis.InstructionMatchers.methodCallTo;
 import static org.pitest.bytecode.analysis.InstructionMatchers.opCode;
 
-import java.util.Collections;
 
 import org.junit.Test;
 import org.objectweb.asm.Opcodes;
