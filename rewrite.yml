@@ -5,7 +5,6 @@ displayName: Apply all common best practices
 description: Comprehensive code quality recipe combining modernization, security, and best practices.
 recipeList:
   - org.openrewrite.java.migrate.lang.var.UseVarForPrimitive
-  - org.openrewrite.java.migrate.lang.var.UseVarForGenericsConstructors
 # - org.openrewrite.staticanalysis.NoDoubleBraceInitialization
 # - org.openrewrite.gradle.UpdateGradleWrapper
 # - org.openrewrite.java.migrate.lang.var.UseVarForGenericMethodInvocations # bug
