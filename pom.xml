@@ -420,6 +420,7 @@
 					<version>6.26.0</version>
 					<configuration>
 						<skipMavenParsing>true</skipMavenParsing>
+						<failOnDryRunResults>true</failOnDryRunResults>
 						<activeRecipes>
 							<recipe>org.pitest.openrewrite.SanityCheck</recipe>
 						</activeRecipes>
