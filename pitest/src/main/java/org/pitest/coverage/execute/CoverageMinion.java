@@ -89,20 +89,20 @@ public class CoverageMinion {
       List<TestUnit> toExecute = removeTestsExecutedDuringDiscovery(tus);
 
       if (!toExecute.isEmpty()) {
-        LOG.info(() -> "Executing " + toExecute.size() + " tests not run during discovery.");
+        LOG.info(() -> "Executing " + toExecute.size() + " tests not run during discovery");
         CoverageWorker worker = new CoverageWorker(invokeQueue, toExecute);
         worker.run();
       } else {
-        LOG.info(() -> "All " + tus.size() + " tests were executed as part of discovery.");
+        LOG.info(() -> "All " + tus.size() + " tests were executed as part of discovery");
       }
 
     } catch (final PitHelpError phe) {
       LOG.log(Level.SEVERE, phe.getMessage());
+      LOG.log(Level.SEVERE, phe.getMessage());
       exitCode = ExitCode.TEST_PLUGIN_ISSUE;
     } catch (final Throwable ex) {
       ex.printStackTrace(System.out);
-      LOG.log(Level.SEVERE, "Error calculating coverage. Process will exit.",
-          ex);
+      LOG.log(Level.SEVERE, "Error calculating coverage, Process will exit", ex);
       exitCode = ExitCode.UNKNOWN_ERROR;
     } finally {
       if (invokeQueue != null) {
