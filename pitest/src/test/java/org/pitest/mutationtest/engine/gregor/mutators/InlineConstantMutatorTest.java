@@ -408,9 +408,7 @@ public class InlineConstantMutatorTest {
 
         @Override
         public Short call(){
-            short s = Short.MAX_VALUE;
-            s = preventSourceFormatingMakingFinal(s);
-            return s;
+            return preventSourceFormatingMakingFinal(Short.MAX_VALUE);
         }
 
     }
