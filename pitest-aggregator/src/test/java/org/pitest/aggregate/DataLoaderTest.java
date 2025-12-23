@@ -48,7 +48,7 @@ public class DataLoaderTest {
     String file = "/snippets/linecoverage.xml";
     BlockCoverageDataLoader dataLoader = new BlockCoverageDataLoader(asList(new File(file)));
     Set<BlockCoverage> results = dataLoader.loadData(DataLoaderTest.class.getResourceAsStream(file), new File(file));
-    
+
     assertEquals(1, results.size());
     BlockCoverage result = results.iterator().next();
     assertEquals("com.example.DividerTest", result.getBlock().getLocation().getClassName().asJavaName());

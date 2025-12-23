@@ -12,7 +12,7 @@ import com.example.java8.Java8InterfaceTest;
 import com.example.java8.Java8LambdaExpressionTest;
 
 
-public class VerifyJava8IT extends ReportTestBase { 
+public class VerifyJava8IT extends ReportTestBase {
 
   /**
    * @author iirekm@gmail.com
@@ -63,5 +63,5 @@ public class VerifyJava8IT extends ReportTestBase {
       createAndRun();
       verifyResults(KILLED, KILLED);
   }
-  
+
 }

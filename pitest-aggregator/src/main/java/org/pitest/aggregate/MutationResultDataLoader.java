@@ -27,7 +27,7 @@ class MutationResultDataLoader extends DataLoader<MutationResult> {
   MutationResultDataLoader(final Collection<File> filesToLoad) {
     super(filesToLoad);
   }
-  
+
   @Override
   protected Set<MutationResult> mapToData(XMLStreamReader xr) throws XMLStreamException {
     XmlMapper xm = new XmlMapper();

@@ -29,7 +29,7 @@ public class MethodTree {
   public Location asLocation() {
     return Location.location(this.owner, this.rawNode.name, this.rawNode.desc);
   }
-    
+
   /**
    * Looks backwards for the next real instruction node (i.e. not a label or line number)
    * @param index index to work backwards from
@@ -55,7 +55,7 @@ public class MethodTree {
     }
     return instructions().get(index);
   }
-  
+
   public List<AbstractInsnNode> instructions() {
     if (this.lazyInstructions != null) {
       return this.lazyInstructions;

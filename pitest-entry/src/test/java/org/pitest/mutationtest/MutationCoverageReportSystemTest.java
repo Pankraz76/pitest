@@ -199,7 +199,7 @@ public class MutationCoverageReportSystemTest extends ReportTestBase {
     createAndRun();
     verifyResults(KILLED);
   }
-  
+
   @Test
   public void computesFullMutationMatrix() {
     this.data
@@ -212,7 +212,7 @@ public class MutationCoverageReportSystemTest extends ReportTestBase {
     createAndRun();
     List<MutationResult> resultData = this.metaDataExtractor.getData();
     assertEquals(1, resultData.size());
-    
+
     MutationResult mutation = resultData.get(0);
     assertEquals(KILLED, mutation.getStatus());
     assertEquals(3, mutation.getNumberOfTestsRun());

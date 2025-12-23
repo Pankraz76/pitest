@@ -21,19 +21,19 @@ public class NonEmptyProjectCheckIT {
 
   @Rule
   public TemporaryFolder realDir = new TemporaryFolder();
-  
+
   NonEmptyProjectCheck testee = new NonEmptyProjectCheck();
-  
+
   @Mock
   private MavenProject project;
-  
+
   @Test
   public void shouldTreatProjectWithCodeAndTestsAsNonEmpty() {
     when(project.getTestCompileSourceRoots()).thenReturn(Collections.singletonList(dirThatExists()));
     when(project.getCompileSourceRoots()).thenReturn(Collections.singletonList(dirThatExists()));
     assertThat(testee.test(project)).isTrue();
   }
-  
+
   @Test
   public void shouldTreatProjectWithNoTestsAsEmpty() {
     when(project.getTestCompileSourceRoots()).thenReturn(Collections.singletonList(dirThatExists()));
@@ -47,11 +47,11 @@ public class NonEmptyProjectCheckIT {
     when(project.getCompileSourceRoots()).thenReturn(Collections.singletonList(dirThatExists()));
     assertThat(testee.test(project)).isFalse();
   }
-  
+
   private String dirThatExists() {
     return realDir.getRoot().getAbsolutePath();
   }
-  
+
   private String nonExistentDir() {
     return new File("ifthisfileexistsbybizarrechancethetestwillfail").getAbsolutePath();
   }

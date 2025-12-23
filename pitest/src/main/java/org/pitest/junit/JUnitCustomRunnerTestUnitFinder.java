@@ -67,7 +67,7 @@ public class JUnitCustomRunnerTestUnitFinder implements TestUnitFinder {
                                          Collection<String> includedTestMethods) {
     this(config, excludedRunners, includedTestMethods, r -> true);
   }
-  
+
   public JUnitCustomRunnerTestUnitFinder(TestGroupConfig config,
                                          Collection<String> excludedRunners,
                                          Collection<String> includedTestMethods,

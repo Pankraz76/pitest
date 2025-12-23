@@ -64,7 +64,7 @@ public class GregorMutater implements Mutater {
     context.setTargetMutation(Optional.empty());
     Optional<byte[]> bytes = GregorMutater.this.byteSource.getBytes(
         classToMutate.asInternalName());
-    
+
     return bytes.map(findMutations(context))
         .orElse(Collections.emptyList());
 

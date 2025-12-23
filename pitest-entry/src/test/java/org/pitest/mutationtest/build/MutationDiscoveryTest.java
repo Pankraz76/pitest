@@ -160,7 +160,7 @@ public class MutationDiscoveryTest {
 
     assertThat(foundWhenDisabled.size()).isGreaterThan(foundByDefault.size());
   }
-  
+
   @Test
   public void shouldFilterObjectsRequireNonNullCallsForMethodReferences() {
     final ClassName clazz = ClassName.fromString("requirenotnull/MethodReferenceNullChecks_javac");

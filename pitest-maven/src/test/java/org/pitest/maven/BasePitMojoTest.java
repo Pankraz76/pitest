@@ -75,12 +75,12 @@ public abstract class BasePitMojoTest extends AbstractMojoTestCase {
     when(this.project.getProperties()).thenReturn(properties);
     when(this.project.getTestClasspathElements()).thenReturn(this.classPath);
     when(this.project.getPackaging()).thenReturn("jar");
-    
+
     final Build build = new Build();
     build.setOutputDirectory("");
-    
+
     when(this.project.getBuild()).thenReturn(build);
-    
+
     when(this.plugins.findToolClasspathPlugins()).thenReturn(
         Collections.emptyList());
     when(this.plugins.findClientClasspathPlugins()).thenReturn(

@@ -13,7 +13,7 @@ public class MethodReferenceNullCheckFilterTest {
   private static final String             PATH      = "requirenotnull/{0}_{1}";
 
   MethodReferenceNullCheckFilter testee = new MethodReferenceNullCheckFilter();
-  
+
   FilterTester verifier = new FilterTester(PATH, this.testee, Mutator.all());
 
   @Test
