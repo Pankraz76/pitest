@@ -2,12 +2,9 @@ package org.pitest.mutationtest.build.intercept.groovy;
 
 import com.example.coverage.execute.samples.exceptions.CoveredBeforeExceptionTestee;
 import org.junit.Test;
-import org.pitest.mutationtest.engine.gregor.config.Mutator;
 import org.pitest.mutationtest.engine.gregor.mutators.NullMutateEverything;
-import org.pitest.util.ResourceFolderByteArraySource;
 import org.pitest.verifier.interceptors.InterceptorVerifier;
 import org.pitest.verifier.interceptors.VerifierStart;
-import org.pitest.verifier.mutants.MutatorVerifierStart;
 
 public class GroovyFilterTest {
 

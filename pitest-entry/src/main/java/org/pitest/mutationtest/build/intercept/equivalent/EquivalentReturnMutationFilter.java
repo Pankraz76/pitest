@@ -18,7 +18,6 @@ import org.pitest.sequence.SequenceQuery;
 
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.Set;
 
 import static org.pitest.bytecode.analysis.InstructionMatchers.getStatic;
 import static org.pitest.bytecode.analysis.InstructionMatchers.methodCallNamed;

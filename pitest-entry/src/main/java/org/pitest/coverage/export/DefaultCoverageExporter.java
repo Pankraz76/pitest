@@ -5,7 +5,6 @@ import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 
 import org.pitest.coverage.BlockCoverage;
 import org.pitest.coverage.CoverageExporter;

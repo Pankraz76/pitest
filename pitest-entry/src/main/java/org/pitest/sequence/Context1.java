@@ -1,7 +1,6 @@
 package org.pitest.sequence;
 
 import java.util.IdentityHashMap;
-import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 

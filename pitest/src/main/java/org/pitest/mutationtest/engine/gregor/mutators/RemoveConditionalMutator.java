@@ -10,7 +10,6 @@ import org.pitest.mutationtest.engine.gregor.MethodMutatorFactory;
 import org.pitest.mutationtest.engine.gregor.MutationContext;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class RemoveConditionalMutator implements MethodMutatorFactory {
 

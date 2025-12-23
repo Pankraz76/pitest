@@ -1,7 +1,6 @@
 package com.example.systemtest;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class EatsMemoryWhenMutated {
     public static int loop() throws InterruptedException {

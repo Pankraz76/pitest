@@ -23,7 +23,6 @@ import org.pitest.coverage.analysis.Block;
 import org.pitest.coverage.analysis.ControlFlowAnalyser;
 
 import java.util.ArrayDeque;
-import java.util.Deque;
 
 public class BlockTrackingMethodDecorator extends MethodNode {
 

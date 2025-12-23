@@ -21,7 +21,6 @@ import sun.pitest.InvokeReceiver;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.lang.instrument.IllegalClassFormatException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;

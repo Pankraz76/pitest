@@ -18,7 +18,6 @@ import org.pitest.classpath.ClassPath;
 import org.pitest.classpath.ClassloaderByteArraySource;
 import org.pitest.classpath.CodeSource;
 import org.pitest.classpath.ProjectClassPaths;
-import org.pitest.functional.Streams;
 import org.pitest.mutationtest.config.PluginServices;
 import org.pitest.mutationtest.config.ReportOptions;
 import org.pitest.mutationtest.config.SettingsFactory;

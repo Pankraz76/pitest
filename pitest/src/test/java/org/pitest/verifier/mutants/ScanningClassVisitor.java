@@ -15,7 +15,6 @@ import org.pitest.mutationtest.engine.gregor.FieldInfo;
 import org.pitest.mutationtest.engine.gregor.MethodInfo;
 import org.pitest.mutationtest.engine.gregor.MethodMutatorFactory;
 import org.pitest.mutationtest.engine.gregor.MutationContext;
-import org.pitest.mutationtest.engine.gregor.NoMethodContext;
 
 import java.util.List;
 
