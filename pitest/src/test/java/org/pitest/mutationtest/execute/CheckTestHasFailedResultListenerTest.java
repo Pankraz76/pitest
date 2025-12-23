@@ -63,7 +63,7 @@ public class CheckTestHasFailedResultListenerTest {
     this.testee.onTestStart(null);
     assertEquals(1, this.testee.getNumberOfTestsRun());
   }
-  
+
   @Test
   public void shouldNotRecordPassingTestsWhenFlagNotSet() {
     this.testee = new CheckTestHasFailedResultListener(false);

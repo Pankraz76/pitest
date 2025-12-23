@@ -20,7 +20,7 @@ public class HasIfOnAStringEqualityInsideSwitchTesteeTest {
     // then
     assertThat(result).isEqualTo("A");
   }
-  
+
   @Test
   public void stringSwitchShouldReturnAX() throws Exception {
     // given

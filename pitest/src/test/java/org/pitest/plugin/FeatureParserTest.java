@@ -6,10 +6,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThatCode;
 import java.util.Collections;
 import java.util.List;
 
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
-import java.util.Optional;
 
 public class FeatureParserTest {
   FeatureParser testee = new FeatureParser();

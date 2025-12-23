@@ -123,7 +123,7 @@ public class Java9Process implements WrappingProcess {
 
         cmd.add("-classpath");
         cmd.add(classPath.replace(" ", "\" \""));
-        
+
         addPITJavaAgent(agentJarLocator, cmd);
         cmd.addAll(argsWithoutArgFiles);
 

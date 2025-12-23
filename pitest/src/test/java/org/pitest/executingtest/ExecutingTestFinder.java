@@ -1,6 +1,5 @@
 package org.pitest.executingtest;
 
-import org.pitest.simpletest.NoArgsConstructorInstantiationStrategy;
 import org.pitest.simpletest.TestMethod;
 import org.pitest.simpletest.TestStep;
 import org.pitest.simpletest.steps.CallStep;

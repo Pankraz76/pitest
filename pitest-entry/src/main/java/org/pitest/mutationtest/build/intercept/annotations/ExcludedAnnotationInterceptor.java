@@ -125,7 +125,7 @@ public class ExcludedAnnotationInterceptor implements MutationInterceptor {
     }
     return Stream.empty();
   }
-  
+
   /**
    * Creates a predicate that checks if a method has an avoided annotation.
    *

@@ -36,7 +36,7 @@ public class RemoveSwitchMutatorTest {
 
   MutatorVerifierStart v = MutatorVerifierStart.forMutator(new RemoveSwitchMutator(2))
           .notCheckingUnMutatedValues();
-  
+
   @Test
   public void shouldProvideAMeaningfulName() {
     assertEquals("EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_[0-99]",

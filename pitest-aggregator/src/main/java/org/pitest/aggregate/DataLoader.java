@@ -50,7 +50,7 @@ abstract class DataLoader<T> {
       throw new ReportAggregationException("Could not read file: " + dataLocation.getAbsolutePath(), e);
     }
   }
-  
+
   Set<T> loadData(final InputStream inputStream, final File dataLocation) throws ReportAggregationException {
     try {
       XMLInputFactory xif = XMLInputFactory.newInstance();

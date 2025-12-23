@@ -45,7 +45,7 @@ import static org.pitest.sequence.Result.result;
  *
  */
 public class EquivalentReturnMutationFilter implements MutationInterceptorFactory {
-    
+
   @Override
   public String description() {
     return "Trivial return vals equivalence filter";

@@ -64,12 +64,12 @@ public final class MutationStatusTestPair implements Serializable {
     this.numberOfTestsRun = numberOfTestsRun;
     this.coveringTests = coveringTests;
   }
-  
+
   private static List<String> killingTestToList(String killingTest) {
     if (killingTest == null) {
       return Collections.emptyList();
     }
-    
+
     return Collections.singletonList(killingTest);
   }
 
@@ -89,14 +89,14 @@ public final class MutationStatusTestPair implements Serializable {
   }
 
   /** Get all killing tests.
-   *  If the full mutation matrix is not enabled, this will only be the first killing test. 
+   *  If the full mutation matrix is not enabled, this will only be the first killing test.
    */
   public List<String> getKillingTests() {
     return killingTests;
   }
 
   /** Get all succeeding tests.
-   *  If the full mutation matrix is not enabled, this list will be empty. 
+   *  If the full mutation matrix is not enabled, this list will be empty.
    */
   public List<String> getSucceedingTests() {
     return succeedingTests;

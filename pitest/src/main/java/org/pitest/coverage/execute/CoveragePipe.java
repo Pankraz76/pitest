@@ -32,7 +32,7 @@ public class CoveragePipe implements CoverageReceiver {
     }
     this.dos.writeBoolean(wasGreen);
     this.dos.writeInt(executionTime);
-    
+
     CodeCoverageStore.reset();
 
   }

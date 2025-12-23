@@ -111,7 +111,7 @@ public class PitMojoTest extends BasePitMojoTest {
       // pass
     }
   }
-  
+
   public void testDoesNotThrowsMojoFailureExceptionWhenSurvivingMutantsOnThreshold()
       throws Exception {
     this.testee = createPITMojo(createPomWithConfiguration("<maxSurviving>19</maxSurviving>"));
@@ -122,7 +122,7 @@ public class PitMojoTest extends BasePitMojoTest {
       fail();
     }
   }
-  
+
   public void testAllowsSurvivingMutantsThresholdToBeZero()
       throws Exception {
     this.testee = createPITMojo(createPomWithConfiguration("<maxSurviving>0</maxSurviving>"));
@@ -134,7 +134,7 @@ public class PitMojoTest extends BasePitMojoTest {
       // pass
     }
   }
-  
+
   public void testThrowsMojoFailureExceptionWhenCoverageBelowThreshold()
       throws Exception {
     this.testee = createPITMojo(createPomWithConfiguration("<coverageThreshold>50</coverageThreshold>"));
@@ -434,7 +434,7 @@ public class PitMojoTest extends BasePitMojoTest {
                     any(ReportOptions.class), any(PluginServices.class), anyMap()))
             .thenReturn(cs);
   }
-  
+
   private void setupSuvivingMutants(long survivors)
       throws MojoExecutionException {
     Iterable<Score> scores = Collections.<Score>emptyList();
