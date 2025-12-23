@@ -90,7 +90,7 @@ public class InlinedFinallyBlockFilter implements MutationInterceptor {
   private static Match<AbstractInsnNode> handlerLabel(Slot<List> handlers) {
     return (c,t) -> {
       if (t instanceof LabelNode) {
-        var label = (LabelNode) t;
+        LabelNode label = (LabelNode) t;
         List<LabelNode> labels = c.retrieve(handlers.read()).get();
         return result(labels.contains(label), c);
       }
@@ -153,8 +153,8 @@ public class InlinedFinallyBlockFilter implements MutationInterceptor {
       return;
     }
 
-    final var baseMutation = mutationsInHandlerBlock.get(0);
-    final var firstBlock = baseMutation.getBlocks().get(0);
+    final MutationDetails baseMutation = mutationsInHandlerBlock.get(0);
+    final int firstBlock = baseMutation.getBlocks().get(0);
 
     // check that we have at least on mutation in a different block
     // to the base one (is this not implied by there being only 1 mutation in
@@ -174,7 +174,7 @@ public class InlinedFinallyBlockFilter implements MutationInterceptor {
     if (maybeMethod.isEmpty()) {
       return false;
     }
-    var method = maybeMethod.get();
+    MethodTree method = maybeMethod.get();
     List<LabelNode> handlers = method.rawNode().tryCatchBlocks.stream()
             .filter(t -> t.type == null)
             .map(t -> t.handler)
@@ -205,11 +205,11 @@ public class InlinedFinallyBlockFilter implements MutationInterceptor {
   }
 
   private static MutationDetails makeCombinedMutant(Collection<MutationDetails> value) {
-    var first = value.iterator().next();
+    MutationDetails first = value.iterator().next();
     Set<Integer> indexes = new HashSet<>();
     mapTo(value, MutationDetails::getFirstIndex, indexes);
 
-    final var id = new MutationIdentifier(first.getId()
+    final MutationIdentifier id = new MutationIdentifier(first.getId()
         .getLocation(), indexes, first.getId().getMutator());
 
     return new MutationDetails(id, first.getFilename(), first.getDescription(),

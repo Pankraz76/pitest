@@ -5,7 +5,7 @@ import org.junit.Test;
 public class TestsClassWithException {
   @Test
   public void test() {
-    final var t = new ThrowsExceptionTestee();
+    final ThrowsExceptionTestee t = new ThrowsExceptionTestee();
     t.foo();
   }
 }

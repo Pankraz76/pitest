@@ -86,8 +86,8 @@ public class MutationHtmlReportListenerTest {
 
   @Test
   public void shouldTryToLocateSourceFilesFromMutatedClasses() {
-    final var fileName = "foo.java";
-    final var mr = new MutationResult(
+    final String fileName = "foo.java";
+    final MutationResult mr = new MutationResult(
         MutationTestResultMother.createDetails(fileName),
         new MutationStatusTestPair(1, DetectionStatus.KILLED, "testName"));
     when(this.sourceLocator.locate(any(Collection.class), any(String.class)))

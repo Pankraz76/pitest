@@ -31,7 +31,7 @@ public class FixedCodeSource implements CodeSource {
     }
 
     private static ClassTree toTree(Class<?> aClass) {
-        var cba = new ClassloaderByteArraySource(IsolationUtils.getContextClassLoader());
+        ClassloaderByteArraySource cba = new ClassloaderByteArraySource(IsolationUtils.getContextClassLoader());
         return ClassTree.fromBytes(cba.getBytes(aClass.getName()).get());
     }
 

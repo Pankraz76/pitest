@@ -220,7 +220,7 @@ public class TestMutationTesting {
   private void run(Class<?> clazz, Class<?> test, ExecutionMode mode,
       final String ... mutators) {
 
-    final var data = new ReportOptions();
+    final ReportOptions data = new ReportOptions();
 
     final Set<Predicate<String>> tests = Collections.singleton(isEqual(test.getName()));
     data.setTargetTests(tests);
@@ -231,7 +231,7 @@ public class TestMutationTesting {
     data.setTimeoutConstant(PercentAndConstantTimeoutStrategy.DEFAULT_CONSTANT);
     data.setTimeoutFactor(PercentAndConstantTimeoutStrategy.DEFAULT_FACTOR);
 
-    final var agent = new JarCreatingJarFinder();
+    final JavaAgent agent = new JarCreatingJarFinder();
 
     try {
       createEngineAndRun(data, mode, agent, Arrays.asList(mutators));
@@ -245,47 +245,47 @@ public class TestMutationTesting {
       JavaAgent agent,
       Collection<String> mutators) {
 
-    final var coverageOptions = createCoverageOptions(data);
+    final CoverageOptions coverageOptions = createCoverageOptions(data);
 
-    final var launchOptions = new LaunchOptions(agent,
+    final LaunchOptions launchOptions = new LaunchOptions(agent,
         new DefaultJavaExecutableLocator(), data.getJvmArgs(),
         new HashMap<>());
 
-    final var pf = new PathFilter(
+    final PathFilter pf = new PathFilter(
         Prelude.not(new DefaultDependencyPathPredicate()),
         Prelude.not(new DefaultDependencyPathPredicate()));
-    final var cps = new ProjectClassPaths(data.getClassPath(),
+    final ProjectClassPaths cps = new ProjectClassPaths(data.getClassPath(),
         data.createClassesFilter(), pf);
 
-    final var timings = new Timings(new NoTestStats());
-    final var code = new DefaultCodeSource(cps);
+    final Timings timings = new Timings(new NoTestStats());
+    final CodeSource code = new DefaultCodeSource(cps);
 
-    final var coverageGenerator = new DefaultCoverageGenerator(
+    final CoverageGenerator coverageGenerator = new DefaultCoverageGenerator(
             null, coverageOptions, launchOptions, code, new NullCoverageExporter(),
             new NoTestStats(), timings, Verbosity.DEFAULT);
 
-    final var coverageData = coverageGenerator.calculateCoverage(c -> true);
+    final CoverageDatabase coverageData = coverageGenerator.calculateCoverage(c -> true);
 
     final Collection<ClassName> codeClasses = code.getCodeUnderTestNames();
 
-    final var arguments = EngineArguments.arguments()
+    final EngineArguments arguments = EngineArguments.arguments()
         .withMutators(mutators);
 
-    final var engine = new GregorEngineFactory().createEngine(arguments);
+    final MutationEngine engine = new GregorEngineFactory().createEngine(arguments);
 
-    final var mutationConfig = new MutationConfig(engine,
+    final MutationConfig mutationConfig = new MutationConfig(engine,
         launchOptions);
 
-    final var bas = new ClassloaderByteArraySource(
+    final ClassloaderByteArraySource bas = new ClassloaderByteArraySource(
         IsolationUtils.getContextClassLoader());
 
     final MutationInterceptor emptyIntercpetor = CompoundMutationInterceptor.nullInterceptor();
 
-    final var source = new MutationSource(mutationConfig, new DefaultTestPrioritiser(
+    final MutationSource source = new MutationSource(mutationConfig, new DefaultTestPrioritiser(
             coverageData), bas, emptyIntercpetor);
 
 
-    final var wf = new WorkerFactory(null,
+    final WorkerFactory wf = new WorkerFactory(null,
         coverageOptions.getPitConfig(), mutationConfig, arguments,
         new PercentAndConstantTimeoutStrategy(data.getTimeoutFactor(),
             data.getTimeoutConstant()), data.getVerbosity(), false, data.getClassPath()
@@ -294,7 +294,7 @@ public class TestMutationTesting {
 
 
 
-    final var builder = new MutationTestBuilder(mode, wf,
+    final MutationTestBuilder builder = new MutationTestBuilder(mode, wf,
         new NullHistory(), source, new DefaultGrouper(0));
 
     final List<MutationAnalysisUnit> tus = builder

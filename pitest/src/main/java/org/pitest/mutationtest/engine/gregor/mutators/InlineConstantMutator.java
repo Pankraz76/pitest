@@ -97,7 +97,7 @@ public class InlineConstantMutator implements MethodMutatorFactory {
 
     private boolean mutate(final Long constant) {
 
-      final var replacement = constant + 1L;
+      final Long replacement = constant + 1L;
 
       if (shouldMutate(constant, replacement)) {
         translateToByteCode(replacement);
@@ -127,7 +127,7 @@ public class InlineConstantMutator implements MethodMutatorFactory {
 
     private <T extends Number> boolean shouldMutate(final T constant,
         final T replacement) {
-      final var mutationId = this.context.registerMutation(
+      final MutationIdentifier mutationId = this.context.registerMutation(
           InlineConstantMutator.this, "Substituted " + constant + " with "
               + replacement);
 
@@ -248,7 +248,7 @@ public class InlineConstantMutator implements MethodMutatorFactory {
     @Override
     public void visitInsn(final int opcode) {
 
-      final var inlineConstant = translateToNumber(opcode);
+      final Number inlineConstant = translateToNumber(opcode);
 
       if (inlineConstant == null) {
         super.visitInsn(opcode);

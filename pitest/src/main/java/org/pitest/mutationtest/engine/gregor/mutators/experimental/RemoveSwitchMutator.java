@@ -29,7 +29,7 @@ public class RemoveSwitchMutator implements MethodMutatorFactory {
 
   static List<MethodMutatorFactory> makeMutators() {
     final List<MethodMutatorFactory> variations = new ArrayList<>();
-    for (var i = GENERATE_FROM_INCLUDING; i != GENERATE_UPTO_EXCLUDING; i++) {
+    for (int i = GENERATE_FROM_INCLUDING; i != GENERATE_UPTO_EXCLUDING; i++) {
       variations.add(new RemoveSwitchMutator(i));
     }
     return variations;
@@ -70,7 +70,7 @@ public class RemoveSwitchMutator implements MethodMutatorFactory {
     public void visitTableSwitchInsn(final int min, final int max,
         final Label defaultLabel, final Label... labels) {
       if ((labels.length > RemoveSwitchMutator.this.key) && labels[key] != defaultLabel && shouldMutate(value(min,max))) {
-        final var newLabels = labels.clone();
+        final Label[] newLabels = labels.clone();
         newLabels[RemoveSwitchMutator.this.key] = defaultLabel;
         super.visitTableSwitchInsn(min, max, defaultLabel, newLabels);
       } else {
@@ -82,7 +82,7 @@ public class RemoveSwitchMutator implements MethodMutatorFactory {
     public void visitLookupSwitchInsn(final Label defaultLabel,
         final int[] ints, final Label[] labels) {
       if ((labels.length > RemoveSwitchMutator.this.key) && labels[key] != defaultLabel && shouldMutate(ints[key])) {
-        final var newLabels = labels.clone();
+        final Label[] newLabels = labels.clone();
         newLabels[RemoveSwitchMutator.this.key] = defaultLabel;
         super.visitLookupSwitchInsn(defaultLabel, ints, newLabels);
       } else {
@@ -91,7 +91,7 @@ public class RemoveSwitchMutator implements MethodMutatorFactory {
     }
 
     private boolean shouldMutate(int value) {
-      final var mutationId = this.context.registerMutation(
+      final MutationIdentifier mutationId = this.context.registerMutation(
           RemoveSwitchMutator.this, "RemoveSwitch "
               + RemoveSwitchMutator.this.key + " (case value " + value + ")");
       return this.context.shouldMutate(mutationId);

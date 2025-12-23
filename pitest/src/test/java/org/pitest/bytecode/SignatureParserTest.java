@@ -13,13 +13,13 @@ public class SignatureParserTest {
 
     @Test
     public void parsesSupplierOfStrings() {
-        var signature = "Ljava/util/function/Supplier<Ljava/lang/String;>;";
+        String signature = "Ljava/util/function/Supplier<Ljava/lang/String;>;";
         assertThat(SignatureParser.extractTypes(signature)).containsExactlyInAnyOrder("java/util/function/Supplier", "java/lang/String");
     }
 
     @Test
     public void parsesListsOfFunctions() {
-        var signature = "Ljava/util/List<Ljava/util/function/Function<Ljava/lang/Integer;Ljava/lang/Integer;>;>;";
+        String signature = "Ljava/util/List<Ljava/util/function/Function<Ljava/lang/Integer;Ljava/lang/Integer;>;>;";
         assertThat(SignatureParser.extractTypes(signature)).containsExactlyInAnyOrder("java/util/List", "java/util/function/Function", "java/lang/Integer");
     }
 }

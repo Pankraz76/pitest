@@ -21,7 +21,7 @@ public class PackageSummaryMap {
 
   public PackageSummaryData update(final String packageName,
       final MutationTestSummaryData data) {
-    final var psd = getPackageSummaryData(packageName);
+    final PackageSummaryData psd = getPackageSummaryData(packageName);
     psd.addSummaryData(data);
     return psd;
   }

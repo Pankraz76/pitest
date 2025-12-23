@@ -27,6 +27,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.function.Predicate;
 
@@ -94,16 +95,16 @@ public class ClassPathTest {
 
   @Test
   public void handlesEmptyFilesWithoutError() throws IOException {
-    var empty = dir.newFile("empty.jar");
-    var underTest = new ClassPath(asList(empty));
+    File empty = dir.newFile("empty.jar");
+    ClassPath underTest = new ClassPath(asList(empty));
     assertThat(underTest.getClassData("")).isNull();
   }
 
   @Test
   public void doesNotErrorWhenNonArchiveFilesOnClasspath() throws IOException {
-    var notAJar = dir.newFile("notajar");
+    File notAJar = dir.newFile("notajar");
     Files.write(notAJar.toPath(), "some content".getBytes());
-    var underTest = new ClassPath(asList(notAJar));
+    ClassPath underTest = new ClassPath(asList(notAJar));
     assertThat(underTest.getClassData("")).isNull();
   }
 

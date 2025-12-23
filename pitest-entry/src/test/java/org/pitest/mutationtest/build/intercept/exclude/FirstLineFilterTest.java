@@ -1,5 +1,6 @@
 package org.pitest.mutationtest.build.intercept.exclude;
 
+import junit.framework.TestCase;
 import org.junit.Test;
 import org.pitest.mutationtest.engine.MutationDetails;
 import org.pitest.mutationtest.engine.MutationDetailsMother;
@@ -24,11 +25,11 @@ public class FirstLineFilterTest {
 
     @Test
     public void filtersMutantsOnLine1() {
-        var line1 = MutationDetailsMother.aMutationDetail()
+        MutationDetails line1 = MutationDetailsMother.aMutationDetail()
                 .withLineNumber(1)
                 .build();
 
-        var line2 = MutationDetailsMother.aMutationDetail()
+        MutationDetails line2 = MutationDetailsMother.aMutationDetail()
                 .withLineNumber(2)
                 .build();
 
@@ -37,11 +38,11 @@ public class FirstLineFilterTest {
 
     @Test
     public void filtersMutantsOnLine0() {
-        var line0 = MutationDetailsMother.aMutationDetail()
+        MutationDetails line0 = MutationDetailsMother.aMutationDetail()
                 .withLineNumber(0)
                 .build();
 
-        var line2 = MutationDetailsMother.aMutationDetail()
+        MutationDetails line2 = MutationDetailsMother.aMutationDetail()
                 .withLineNumber(2)
                 .build();
 

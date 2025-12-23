@@ -35,15 +35,15 @@ class Receive implements ReceiveStrategy {
     }
 
     private void handleReport(final SafeDataInputStream is) {
-        final var mutation = is.read(MutationIdentifier.class);
-        final var value = is
+        final MutationIdentifier mutation = is.read(MutationIdentifier.class);
+        final MutationStatusTestPair value = is
                 .read(MutationStatusTestPair.class);
         this.idMap.put(mutation, value);
         LOG.fine(mutation + " " + value);
     }
 
     private void handleDescribe(final SafeDataInputStream is) {
-        final var mutation = is.read(MutationIdentifier.class);
+        final MutationIdentifier mutation = is.read(MutationIdentifier.class);
         this.idMap.put(mutation, MutationStatusTestPair.notAnalysed(1,
                 DetectionStatus.STARTED,null));
     }

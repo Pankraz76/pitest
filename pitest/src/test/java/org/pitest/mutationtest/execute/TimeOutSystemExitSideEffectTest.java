@@ -34,7 +34,7 @@ public class TimeOutSystemExitSideEffectTest {
 
   @Test
   public void shouldReportExitCodeOfTimeOut() {
-    final var testee = new TimeOutSystemExitSideEffect(
+    final TimeOutSystemExitSideEffect testee = new TimeOutSystemExitSideEffect(
         this.reporter);
     testee.apply();
     verify(this.reporter).done(ExitCode.TIMEOUT);

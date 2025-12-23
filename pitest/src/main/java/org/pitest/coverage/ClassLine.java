@@ -53,7 +53,7 @@ public final class ClassLine {
     if (obj == null || getClass() != obj.getClass()) {
       return false;
     }
-    final var other = (ClassLine) obj;
+    final ClassLine other = (ClassLine) obj;
     return lineNumber == other.lineNumber
             && Objects.equals(clazz, other.clazz);
   }

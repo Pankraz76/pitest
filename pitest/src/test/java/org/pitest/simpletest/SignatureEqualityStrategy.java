@@ -21,8 +21,8 @@ public class SignatureEqualityStrategy implements EqualityStrategy<TestMethod> {
 
   @Override
   public boolean isEqual(final TestMethod lhs, final TestMethod rhs) {
-    final var m1 = lhs.getMethod();
-    final var m2 = rhs.getMethod();
+    final Method m1 = lhs.getMethod();
+    final Method m2 = rhs.getMethod();
 
     return haveSameSignature(m1, m2);
   }
@@ -34,10 +34,10 @@ public class SignatureEqualityStrategy implements EqualityStrategy<TestMethod> {
         return false;
       }
 
-      final var params1 = me.getParameterTypes();
-      final var params2 = other.getParameterTypes();
+      final Class<?>[] params1 = me.getParameterTypes();
+      final Class<?>[] params2 = other.getParameterTypes();
       if (params1.length == params2.length) {
-        for (var i = 0; i < params1.length; i++) {
+        for (int i = 0; i < params1.length; i++) {
           if (params1[i] != params2[i]) {
             return false;
           }

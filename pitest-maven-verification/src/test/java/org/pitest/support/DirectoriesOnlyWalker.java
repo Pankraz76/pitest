@@ -24,9 +24,9 @@ import org.apache.commons.io.DirectoryWalker;
 import org.apache.commons.io.filefilter.FileFilterUtils;
 
 /**
- * Builds a list of all directories contained within a provided directory.  The starting directory is also contained
+ * Builds a list of all directories contained within a provided directory.  The starting directory is also contained 
  * within the list of directories. <br /><br />
- *
+ * 
  * <code>
  * DirectoriesOnlyWalker walker = new DirectoriesOnlyWalker(); <br />
  * List<File> directories = walker.locateDirectories(someDirectory);
@@ -37,24 +37,24 @@ public class DirectoriesOnlyWalker extends DirectoryWalker {
     public DirectoriesOnlyWalker() {
         super(FileFilterUtils.directoryFileFilter(), -1);
     }
-
+    
     public List<File> locateDirectories(File startDir) {
         List<File> foundDirs = new LinkedList<>();
-
+        
         try {
           this.walk(startDir, foundDirs);
         } catch (IOException e) {
           throw new RuntimeException(e);
         }
-
+        
       return foundDirs;
     }
 
     @Override
     protected boolean handleDirectory(File directory, int depth, Collection results) throws IOException {
         results.add(directory);
-
+        
         return super.handleDirectory(directory, depth, results);
     }
-
+  
 }

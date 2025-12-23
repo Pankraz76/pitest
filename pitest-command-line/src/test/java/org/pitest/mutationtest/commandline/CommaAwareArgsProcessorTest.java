@@ -42,7 +42,7 @@ public class CommaAwareArgsProcessorTest {
 
     @Test
     public void parseArgs() {
-        var optionParser = new OptionParser();
+        OptionParser optionParser = new OptionParser();
         ArgumentAcceptingOptionSpec<String> args = optionParser
                 .accepts(ConfigOption.CHILD_JVM.getParamName())
                 .withRequiredArg()
@@ -52,7 +52,7 @@ public class CommaAwareArgsProcessorTest {
                 .withRequiredArg()
                 .describedAs("unrelatedArgs");
 
-        final var userArgs = optionParser.parse(this.input.toArray(new String[0]));
+        final OptionSet userArgs = optionParser.parse(this.input.toArray(new String[0]));
         Assert.assertEquals(this.expected, new CommaAwareArgsProcessor(args).values(userArgs));
     }
 

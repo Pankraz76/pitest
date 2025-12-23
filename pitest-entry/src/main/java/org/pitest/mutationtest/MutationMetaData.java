@@ -71,7 +71,7 @@ public final class MutationMetaData {
     if (obj == null || getClass() != obj.getClass()) {
       return false;
     }
-    final var other = (MutationMetaData) obj;
+    final MutationMetaData other = (MutationMetaData) obj;
     return Objects.equals(mutations, other.mutations);
   }
 }

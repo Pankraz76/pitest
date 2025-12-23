@@ -37,7 +37,7 @@ public class TransformingClassLoader extends DefaultPITClassloader {
 
   @Override
   protected Class<?> defineClass(final String name, final byte[] bytes) {
-    final var b = transform(name, bytes);
+    final byte[] b = transform(name, bytes);
     return defineClass(name, b, 0, b.length);
   }
 

@@ -18,7 +18,7 @@ public class CompoundBuildVerifierFactoryTest {
 
     @Test
     public void returnsResultsFromChildren() {
-        var underTest = new CompoundBuildVerifierFactory(asList(
+        CompoundBuildVerifierFactory underTest = new CompoundBuildVerifierFactory(asList(
                 factoryFor(buildVerifier(asList("one"))),
                 factoryFor(buildVerifier(asList("two", "three")))));
 
@@ -27,7 +27,7 @@ public class CompoundBuildVerifierFactoryTest {
     }
     @Test
     public void removesDuplicateMessage() {
-        var underTest = new CompoundBuildVerifierFactory(asList(
+        CompoundBuildVerifierFactory underTest = new CompoundBuildVerifierFactory(asList(
                 factoryFor(buildVerifier(asList("one", "one"))),
                 factoryFor(buildVerifier(asList("two", "two")))));
 

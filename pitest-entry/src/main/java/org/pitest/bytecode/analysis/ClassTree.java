@@ -36,14 +36,14 @@ public class ClassTree {
   }
 
   public static ClassTree fromBytes(byte[] bytes) {
-    final var cr = new ClassReader(bytes);
-    final var classNode = new ClassNode();
+    final ClassReader cr = new ClassReader(bytes);
+    final ClassNode classNode = new ClassNode();
     cr.accept(classNode, ClassReader.EXPAND_FRAMES);
     return new ClassTree(classNode);
   }
 
   public byte[] toBytes() {
-    var classWriter = new ClassWriter(ClassWriter.COMPUTE_FRAMES);
+    ClassWriter classWriter = new ClassWriter(ClassWriter.COMPUTE_FRAMES);
     rawNode().accept(classWriter);
     return classWriter.toByteArray();
   }
@@ -131,7 +131,7 @@ public class ClassTree {
 
   @Override
   public String toString() {
-    final var writer = new StringWriter();
+    final StringWriter writer = new StringWriter();
     this.rawNode.accept(new TraceClassVisitor(null, new Textifier(), new PrintWriter(
         writer)));
     return writer.toString();

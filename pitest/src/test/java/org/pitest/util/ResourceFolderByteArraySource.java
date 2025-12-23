@@ -16,7 +16,7 @@ public class ResourceFolderByteArraySource implements ClassByteArraySource {
 
   @Override
   public Optional<byte[]> getBytes(final String classname) {
-    final var cp = new ClassPath(new ResourceFolderClassPathroot());
+    final ClassPath cp = new ClassPath(new ResourceFolderClassPathroot());
     try {
       return Optional.ofNullable(cp.getClassData(classname));
     } catch (final IOException ex) {
@@ -35,7 +35,7 @@ class ResourceFolderClassPathroot implements ClassPathRoot {
 
   @Override
   public InputStream getData(String name) throws IOException {
-    final var path = "sampleClasses/" + name.replace(".", "/")
+    final String path = "sampleClasses/" + name.replace(".", "/")
         + ".class.bin";
     return IsolationUtils.getContextClassLoader().getResourceAsStream(path);
   }

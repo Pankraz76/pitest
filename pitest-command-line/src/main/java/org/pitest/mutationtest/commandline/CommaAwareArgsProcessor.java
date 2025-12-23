@@ -26,15 +26,15 @@ public class CommaAwareArgsProcessor {
     }
 
     public List<String> values(OptionSet userArgs) {
-        final var commandLineOption = optionsSpec.value(userArgs);
+        final String commandLineOption = optionsSpec.value(userArgs);
         if (commandLineOption == null) {
             return Collections.emptyList();
         }
 
         Set<Integer> modifiedIndices = new HashSet<>();
-        var preprocessedOptions = replaceCommas(commandLineOption, modifiedIndices);
+        String preprocessedOptions = replaceCommas(commandLineOption, modifiedIndices);
 
-        var arguments = preprocessedOptions.split(",");
+        String[] arguments = preprocessedOptions.split(",");
         return postProcess(modifiedIndices, arguments);
     }
 
@@ -43,7 +43,7 @@ public class CommaAwareArgsProcessor {
      */
     private List<String> postProcess(Set<Integer> modifiedIndices, String[] arguments) {
         List<String> newArguments = new ArrayList<>();
-        var base = 0;
+        int base = 0;
         for (String argument : arguments) {
             newArguments.add(buildNewArgument(modifiedIndices, base, argument).toString());
             base += argument.length() + 1;
@@ -52,9 +52,9 @@ public class CommaAwareArgsProcessor {
     }
 
     private StringBuilder buildNewArgument(Set<Integer> modifiedIndices, int base, String argument) {
-        var newArgument = new StringBuilder();
-        for (var j = 0; j < argument.length(); j++) {
-            var current = argument.charAt(j);
+        StringBuilder newArgument = new StringBuilder();
+        for (int j = 0; j < argument.length(); j++) {
+            char current = argument.charAt(j);
 
             // Only remove region markers, if commas have been replaced. Otherwise treat them as part of the argument.
             if (!modifiedIndices.isEmpty() && (current == REGION_BEGIN || current == REGION_END)) {
@@ -70,11 +70,11 @@ public class CommaAwareArgsProcessor {
     }
 
     private String replaceCommas(String single, Set<Integer> modifiedIndices) {
-        var newString = new StringBuilder();
-        var inSpecialRegion = false;
-        for (var i = 0; i < single.length(); i++) {
-            var current = single.charAt(i);
-            var tobeAdded = current;
+        StringBuilder newString = new StringBuilder();
+        boolean inSpecialRegion = false;
+        for (int i = 0; i < single.length(); i++) {
+            char current = single.charAt(i);
+            char tobeAdded = current;
             if (current == REGION_BEGIN && !inSpecialRegion) {
                 inSpecialRegion = true;
             } else if (current == REGION_END && inSpecialRegion) {

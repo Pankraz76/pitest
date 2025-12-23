@@ -5,7 +5,7 @@ package com.example.java8;
  */
 public interface Java8Interface {
     default int foo() {
-        var i = 1;
+        int i = 1;
         i++;
         i++;
         return i;

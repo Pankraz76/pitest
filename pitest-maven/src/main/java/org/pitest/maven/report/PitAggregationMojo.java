@@ -46,9 +46,9 @@ public class PitAggregationMojo extends AbstractPitAggregationReportMojo {
     final List<String> scopeList = Arrays.asList(Artifact.SCOPE_COMPILE,
         Artifact.SCOPE_RUNTIME, Artifact.SCOPE_PROVIDED, Artifact.SCOPE_TEST);
     for (final Object dependencyObject : getProject().getDependencies()) {
-      final var dependency = (Dependency) dependencyObject;
+      final Dependency dependency = (Dependency) dependencyObject;
       if (scopeList.contains(dependency.getScope())) {
-        final var project = findProjectFromReactor(dependency);
+        final MavenProject project = findProjectFromReactor(dependency);
         if (project != null) {
           result.add(project);
         }

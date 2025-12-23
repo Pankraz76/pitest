@@ -5,7 +5,7 @@ import java.io.IOException;
 
 public class SimpleCloseCall {
     public static void main(String[] args) {
-        var os = new ByteArrayOutputStream();
+        ByteArrayOutputStream os = new ByteArrayOutputStream();
         try  {
             os.flush();
         } catch (IOException e) {

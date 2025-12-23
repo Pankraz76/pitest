@@ -199,7 +199,7 @@ public class MutationCoverageReportSystemTest extends ReportTestBase {
     createAndRun();
     verifyResults(KILLED);
   }
-
+  
   @Test
   public void computesFullMutationMatrix() {
     this.data
@@ -212,8 +212,8 @@ public class MutationCoverageReportSystemTest extends ReportTestBase {
     createAndRun();
     List<MutationResult> resultData = this.metaDataExtractor.getData();
     assertEquals(1, resultData.size());
-
-    var mutation = resultData.get(0);
+    
+    MutationResult mutation = resultData.get(0);
     assertEquals(KILLED, mutation.getStatus());
     assertEquals(3, mutation.getNumberOfTestsRun());
     assertEquals(2, mutation.getKillingTests().size());
@@ -232,10 +232,10 @@ public class MutationCoverageReportSystemTest extends ReportTestBase {
   public void shouldMutateClassesSuppliedToAlternateClassPath()
       throws IOException {
     // yes, this is horrid
-    final var location = ("" + Math.random()).replaceAll("\\.", "") + ".jar";
+    final String location = ("" + Math.random()).replaceAll("\\.", "") + ".jar";
     try {
-      try (var fos = new FileOutputStream(location)) {
-        final var stream = IsolationUtils.getContextClassLoader()
+      try (FileOutputStream fos = new FileOutputStream(location)) {
+        final InputStream stream = IsolationUtils.getContextClassLoader()
              .getResourceAsStream("outofcp.jar");
         copy(stream, fos);
       }
@@ -470,7 +470,7 @@ public class MutationCoverageReportSystemTest extends ReportTestBase {
     // Read bytes and write to destination until eof
 
     final byte[] buf = new byte[1024];
-    var len = 0;
+    int len = 0;
     while ((len = in.read(buf)) >= 0) {
       out.write(buf, 0, len);
     }

@@ -76,8 +76,8 @@ public class MutatorVerifier {
     }
 
     protected void verifyMutant(Mutant mutant) {
-        var sw = new StringWriter();
-        var pw = new PrintWriter(sw);
+        StringWriter sw = new StringWriter();
+        PrintWriter pw = new PrintWriter(sw);
         CheckClassAdapter.verify(new ClassReader(mutant.getBytes()), false, pw);
         assertThat(sw.toString())
                 .describedAs("Mutant is not a valid class")
@@ -99,7 +99,7 @@ public class MutatorVerifier {
         assertThat(actual)
                 .as(() -> "Expecting at least one mutant to be generated for " + printClass(clazz))
                 .isNotEmpty();
-        final var mutant = this.engine.getMutation(actual.iterator().next()
+        final Mutant mutant = this.engine.getMutation(actual.iterator().next()
                 .getId());
         verifyMutant(mutant);
         return mutant;
@@ -110,14 +110,14 @@ public class MutatorVerifier {
     }
 
     protected String printClass(ClassName clazz) {
-        var bytes = ClassloaderByteArraySource.fromContext().getBytes(clazz.asInternalName())
+        byte[] bytes = ClassloaderByteArraySource.fromContext().getBytes(clazz.asInternalName())
                 .get();
         return print(bytes);
     }
 
     protected String print(byte[] bytes) {
-        var reader = new ClassReader(bytes);
-        var bos = new ByteArrayOutputStream();
+        ClassReader reader = new ClassReader(bytes);
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
         reader.accept(new TraceClassVisitor(null, new Textifier(), new PrintWriter(bos)), 8);
         return bos.toString();
     }

@@ -19,31 +19,31 @@ public class MutationIdentifierTest {
 
   @Test
   public void shouldEqualSelf() {
-    final var a = aMutationId().withIndex(1).withMutator("M").build();
+    final MutationIdentifier a = aMutationId().withIndex(1).withMutator("M").build();
     assertTrue(a.equals(a));
   }
 
   @Test
   public void shouldBeUnEqualWhenIndexDiffers() {
-    final var a = aMutationId().withIndex(1).build();
-    final var b = aMutationId().withIndex(2).build();
+    final MutationIdentifier a = aMutationId().withIndex(1).build();
+    final MutationIdentifier b = aMutationId().withIndex(2).build();
     assertFalse(a.equals(b));
     assertFalse(b.equals(a));
   }
 
   @Test
   public void shouldBeUnEqualWhenMutatorDiffers() {
-    final var a = aMutationId().withMutator("FOO").build();
-    final var b = aMutationId().withMutator("BAR").build();
+    final MutationIdentifier a = aMutationId().withMutator("FOO").build();
+    final MutationIdentifier b = aMutationId().withMutator("BAR").build();
     assertFalse(a.equals(b));
     assertFalse(b.equals(a));
   }
 
   @Test
   public void shouldBeUnEqualWhenLocationDiffers() {
-    final var a = aMutationId().withLocation(
+    final MutationIdentifier a = aMutationId().withLocation(
         aLocation().withMethod("FOO")).build();
-    final var b = aMutationId().withLocation(
+    final MutationIdentifier b = aMutationId().withLocation(
         aLocation().withMethod("BAR")).build();
     assertFalse(a.equals(b));
     assertFalse(b.equals(a));
@@ -51,8 +51,8 @@ public class MutationIdentifierTest {
 
   @Test
   public void shouldHaveSymmetricEqulasImplementation() {
-    final var a = aMutationId().withIndex(1).withMutator("M").build();
-    final var b = aMutationId().withIndex(1).withMutator("M").build();
+    final MutationIdentifier a = aMutationId().withIndex(1).withMutator("M").build();
+    final MutationIdentifier b = aMutationId().withIndex(1).withMutator("M").build();
     assertTrue(a.equals(b));
     assertTrue(b.equals(a));
     assertTrue(a.hashCode() == b.hashCode());
@@ -60,57 +60,57 @@ public class MutationIdentifierTest {
 
   @Test
   public void shouldMatchWhenObjectsAreEqual() {
-    final var a = aMutationId().build();
-    final var b = aMutationId().build();
+    final MutationIdentifier a = aMutationId().build();
+    final MutationIdentifier b = aMutationId().build();
     assertTrue(a.matches(b));
   }
 
   @Test
   public void shouldMatchWhenIndexesOverlap() {
-    final var a = new MutationIdentifier(aLocation().build(),
+    final MutationIdentifier a = new MutationIdentifier(aLocation().build(),
         new HashSet<>(Arrays.asList(1, 2)), "M");
-    final var b = new MutationIdentifier(aLocation().build(), 1, "M");
+    final MutationIdentifier b = new MutationIdentifier(aLocation().build(), 1, "M");
     assertTrue(a.matches(b));
   }
 
   @Test
   public void shouldNotMatchWhenIndexesDoNotOverlap() {
-    final var a = new MutationIdentifier(aLocation().build(),
+    final MutationIdentifier a = new MutationIdentifier(aLocation().build(),
         new HashSet<Integer>(100, 200), "M");
-    final var b = new MutationIdentifier(aLocation().build(), 1, "M");
+    final MutationIdentifier b = new MutationIdentifier(aLocation().build(), 1, "M");
     assertFalse(a.matches(b));
   }
 
   @Test
   public void shouldNotMatchWhenMutatorsDiffer() {
-    final var a = aMutationId().withMutator("A").build();
-    final var b = aMutationId().withMutator("XXXX").build();
+    final MutationIdentifier a = aMutationId().withMutator("A").build();
+    final MutationIdentifier b = aMutationId().withMutator("XXXX").build();
     assertFalse(a.matches(b));
   }
 
   @Test
   public void shouldNotMatchWhenIndexesDiffer() {
-    final var a = aMutationId().withIndex(1).build();
-    final var b = aMutationId().withIndex(100).build();
+    final MutationIdentifier a = aMutationId().withIndex(1).build();
+    final MutationIdentifier b = aMutationId().withIndex(100).build();
     assertFalse(a.matches(b));
   }
 
   @Test
   public void shouldNotMatchWhenLocationsDiffer() {
-    final var a = new MutationIdentifier(aLocation()
+    final MutationIdentifier a = new MutationIdentifier(aLocation()
         .withMethodDescription("X").build(), 1, "M");
-    final var b = new MutationIdentifier(aLocation()
+    final MutationIdentifier b = new MutationIdentifier(aLocation()
         .withMethodDescription("Y").build(), 1, "M");
     assertFalse(a.matches(b));
   }
 
   @Test
   public void shouldSortInConsistantOrder() {
-    final var a = aMutationId().withIndex(1).withMutator("A").build();
-    final var b = aMutationId().withIndex(1).withMutator("Z").build();
-    final var c = aMutationId().withIndex(1).withMutator("AA").build();
-    final var d = aMutationId().withIndex(3).withMutator("AA").build();
-    final var e = aMutationId()
+    final MutationIdentifier a = aMutationId().withIndex(1).withMutator("A").build();
+    final MutationIdentifier b = aMutationId().withIndex(1).withMutator("Z").build();
+    final MutationIdentifier c = aMutationId().withIndex(1).withMutator("AA").build();
+    final MutationIdentifier d = aMutationId().withIndex(3).withMutator("AA").build();
+    final MutationIdentifier e = aMutationId()
         .withLocation(aLocation().withMethod("a")).withIndex(3)
         .withMutator("AA").build();
     List<MutationIdentifier> mis = Arrays.asList(a, b, c, d, e);

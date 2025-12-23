@@ -7,7 +7,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class AnExecutingTest {
     @ExecutingTest
     public void aTest() {
-        var a = new ATesteeClass();
+        ATesteeClass a = new ATesteeClass();
         assertThat(a.foo(1)).isEqualTo("bizz");
     }
 }

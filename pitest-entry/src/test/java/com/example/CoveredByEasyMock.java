@@ -21,7 +21,7 @@ public class CoveredByEasyMock {
   }
 
   public void doStuff(final AnInterface ai) {
-    for (var i = 0; i != 2; i++) {
+    for (int i = 0; i != 2; i++) {
       ai.callMe();
     }
 

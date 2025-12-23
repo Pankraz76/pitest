@@ -109,7 +109,7 @@ public class JarCreatingJarFinderTest {
 
   @Test
   public void shouldAddPITToTheBootClassPath() throws IOException {
-    final var actual = getGeneratedManifestAttribute(JarCreatingJarFinder.BOOT_CLASSPATH);
+    final String actual = getGeneratedManifestAttribute(JarCreatingJarFinder.BOOT_CLASSPATH);
     assertTrue(!actual.equals(""));
   }
 
@@ -125,17 +125,17 @@ public class JarCreatingJarFinderTest {
 
   private void assertGeneratedManifestEntryEquals(final String key,
       final String expected) throws IOException, FileNotFoundException {
-    final var am = getGeneratedManifestAttribute(key);
+    final String am = getGeneratedManifestAttribute(key);
     assertEquals(expected, am);
   }
 
   private String getGeneratedManifestAttribute(final String key)
       throws IOException, FileNotFoundException {
     final Optional<String> actual = this.testee.getJarLocation();
-    final var f = new File(actual.get());
-    try (var jis = new JarInputStream(new FileInputStream(f))) {
-      final var m = jis.getManifest();
-      final var a = m.getMainAttributes();
+    final File f = new File(actual.get());
+    try (JarInputStream jis = new JarInputStream(new FileInputStream(f))) {
+      final Manifest m = jis.getManifest();
+      final Attributes a = m.getMainAttributes();
       return a.getValue(key);
     }
   }

@@ -46,7 +46,7 @@ import java.util.stream.Collectors;
 public final class PitMojo extends AbstractMojo {
 
   private final Predicate<MavenProject> notEmptyProject;
-
+  
   private final Predicate<Artifact>   filter;
 
   private final PluginServices        plugins;
@@ -59,7 +59,7 @@ public final class PitMojo extends AbstractMojo {
 
 
   // Concrete List types declared for all fields to work around maven 2 bug
-
+  
   /**
    * Classes to include in mutation test
    */
@@ -83,7 +83,7 @@ public final class PitMojo extends AbstractMojo {
    */
   @Parameter(property = "excludedClasses")
   private ArrayList<String>           excludedClasses;
-
+  
   /**
    * Classes not to run tests from
    */
@@ -119,14 +119,14 @@ public final class PitMojo extends AbstractMojo {
 
   /**
    * Convenience flag to read and write history to a local temp file.
-   *
+   * 
    * Setting this flag is the equivalent to calling maven with -DhistoryInputFile=file -DhistoryOutputFile=file
-   *
+   * 
    * Where file is a file named [groupid][artifactid][version]_pitest_history.bin in the temp directory
-   *
+   * 
    */
   @Parameter(defaultValue = "false", property = "withHistory")
-  private boolean                     withHistory;
+  private boolean                     withHistory;  
 
   /**
    * Number of threads to use
@@ -145,7 +145,7 @@ public final class PitMojo extends AbstractMojo {
    */
   @Parameter(property = "mutators")
   private ArrayList<String>           mutators;
-
+  
   /**
    * Features to activate/deactivate
    */
@@ -168,7 +168,7 @@ public final class PitMojo extends AbstractMojo {
   private float                       timeoutFactor;
 
   /**
-   * Constant factor to allow for timeouts
+   * Constant factor to allow for timeouts 
    */
   @Parameter(defaultValue = "3000", property = "timeoutConstant")
   private long                        timeoutConstant;
@@ -235,7 +235,7 @@ public final class PitMojo extends AbstractMojo {
 
   /**
    * Whether to create a full mutation matrix.
-   *
+   * 
    * If set to true all tests covering a mutation will be executed,
    * if set to false the test execution will stop after the first killing test.
    */
@@ -244,7 +244,7 @@ public final class PitMojo extends AbstractMojo {
   private boolean                     fullMutationMatrix;
   /**
    * Maximum number of mutations to include in a single analysis unit.
-   *
+   * 
    * If set to 1 will analyse very slowly, but with strong (jvm per mutant)
    * isolation.
    *
@@ -275,7 +275,7 @@ public final class PitMojo extends AbstractMojo {
    */
   @Parameter(defaultValue = "-1", property = "maxSurviving")
   private int                         maxSurviving = -1;
-
+    
   /**
    * Line coverage threshold at which to fail build
    */
@@ -310,9 +310,9 @@ public final class PitMojo extends AbstractMojo {
    */
   @Parameter(property = "classpathDependencyExcludes")
   private ArrayList<String>           classpathDependencyExcludes;
-
+  
   /**
-   *
+   * 
    */
   @Parameter(property = "excludedRunners")
   private ArrayList<String>           excludedRunners;
@@ -420,8 +420,8 @@ public final class PitMojo extends AbstractMojo {
    */
   @Parameter(property = "plugin.artifactMap", readonly = true, required = true)
   private Map<String, Artifact>       pluginArtifactMap;
-
-
+  
+  
   /**
    * Unused since 1.18.0. Temporarily left in place
    */
@@ -462,7 +462,7 @@ public final class PitMojo extends AbstractMojo {
 
     switchLogging();
     augmentConfig();
-    var shouldRun = shouldRun();
+    RunDecision shouldRun = shouldRun();
 
     if (shouldRun.shouldRun()) {
       this.getLog().info("Root dir is : " + projectBase);
@@ -476,7 +476,7 @@ public final class PitMojo extends AbstractMojo {
               .forEach(p -> this.getLog().info(
                       "Found shared classpath plugin : " + p.description()));
 
-      var operators =  this.plugins.findMutationOperators().stream()
+      String operators =  this.plugins.findMutationOperators().stream()
               .map(m -> m.getName())
               .collect(Collectors.joining(","));
 
@@ -559,7 +559,7 @@ public final class PitMojo extends AbstractMojo {
               + this.testStrengthThreshold);
     }
   }
-
+  
   private void throwErrorIfMoreThanMaximumSurvivors(final MutationStatistics result)
       throws MojoFailureException {
     if ((this.maxSurviving >= 0)
@@ -571,7 +571,7 @@ public final class PitMojo extends AbstractMojo {
   }
 
   protected Optional<CombinedStatistics> analyse() throws MojoExecutionException {
-    final var data = new MojoToReportOptionsConverter(this,
+    final ReportOptions data = new MojoToReportOptionsConverter(this,
         new SurefireConfigConverter(this.isParseSurefireArgLine()), this.filter).convert();
 
     // overwrite variable from surefire with any explicitly set
@@ -585,7 +585,7 @@ public final class PitMojo extends AbstractMojo {
   protected File detectBaseDir() {
     // execution project doesn't seem to always be available.
     // possibily a maven 2 vs maven 3 issue?
-    final var executionProject = this.project.getExecutionProject();
+    final MavenProject executionProject = this.project.getExecutionProject();
     if (executionProject == null) {
       return null;
     }
@@ -751,7 +751,7 @@ public final class PitMojo extends AbstractMojo {
   }
 
   protected RunDecision shouldRun() {
-    var decision = new RunDecision();
+    RunDecision decision = new RunDecision();
 
     if (this.skip) {
       decision.addReason("Execution of PIT should be skipped.");
@@ -815,7 +815,7 @@ public final class PitMojo extends AbstractMojo {
   public ArrayList<String> getExcludedRunners() {
     return withoutNulls(excludedRunners);
   }
-
+  
   public ArrayList<String> getFeatures() {
     ArrayList<String> consolidated = emptyWithoutNulls(features);
     consolidated.addAll(emptyWithoutNulls(extraFeatures));

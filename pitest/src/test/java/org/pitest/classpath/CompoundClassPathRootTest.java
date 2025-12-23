@@ -11,6 +11,7 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Optional;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -70,7 +71,7 @@ public class CompoundClassPathRootTest {
   @Test
   public void shouldReturnResourcesFromChildren() throws IOException {
     when(this.child1.getResource(any(String.class))).thenReturn(null);
-    final var url = new URL("http://localhost");
+    final URL url = new URL("http://localhost");
     when(this.child1.getResource(any(String.class))).thenReturn(url);
     assertThat(this.testee.getResource("Foo")).isSameAs(url);
   }

@@ -57,7 +57,7 @@ public final class PitError extends RuntimeException {
   }
 
   private static String createInputString(final List<String> inputArguments) {
-    final var sb = new StringBuilder();
+    final StringBuilder sb = new StringBuilder();
     FCollection.fold(append(), sb, inputArguments);
     return sb.toString();
   }

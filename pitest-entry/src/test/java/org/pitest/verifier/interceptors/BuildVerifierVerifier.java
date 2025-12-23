@@ -89,8 +89,8 @@ public class BuildVerifierVerifier {
     }
 
     public static CodeSource codeSourceReturning(ClassPathRoot root) {
-        final var pf = new PathFilter(p -> true, p -> true);
-        final var pcp = new ProjectClassPaths(
+        final PathFilter pf = new PathFilter(p -> true, p -> true);
+        final ProjectClassPaths pcp = new ProjectClassPaths(
                 new ClassPath(root), new ClassFilter(c -> true, c -> true), pf);
         return new DefaultCodeSource(pcp);
     }
@@ -101,8 +101,8 @@ public class BuildVerifierVerifier {
     }
 
     private static CodeSource emptyCodeSource() {
-        final var pf = new PathFilter(p -> true, p -> true);
-        final var pcp = new ProjectClassPaths(
+        final PathFilter pf = new PathFilter(p -> true, p -> true);
+        final ProjectClassPaths pcp = new ProjectClassPaths(
                 new ClassPath(), new ClassFilter(c -> true, c -> true), pf);
         return new DefaultCodeSource(pcp);
     }
@@ -151,7 +151,7 @@ class SampleClassRoot implements ClassPathRoot {
 
 
     private byte[] asBytes(ClassTree tree) {
-        var classWriter = new ClassWriter(ClassWriter.COMPUTE_FRAMES);
+        ClassWriter classWriter = new ClassWriter(ClassWriter.COMPUTE_FRAMES);
         tree.rawNode().accept(classWriter);
         return classWriter.toByteArray();
     }

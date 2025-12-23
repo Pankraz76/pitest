@@ -45,19 +45,19 @@ public class SurefireConfigConverter {
   }
 
   private void convertGroups(ReportOptions option, Xpp3Dom configuration) {
-    var existing = option.getGroupConfig();
+    TestGroupConfig existing = option.getGroupConfig();
     if ((existing == null)
         || (existing.getExcludedGroups().isEmpty() && existing
             .getIncludedGroups().isEmpty())) {
       List<String> groups = extractStrings("groups", configuration);
       List<String> excluded = extractStrings("excludedGroups", configuration);
-      var gc = new TestGroupConfig(excluded, groups);
+      TestGroupConfig gc = new TestGroupConfig(excluded, groups);
       option.setGroupConfig(gc);
     }
   }
 
   private List<String> extractStrings(String element, Xpp3Dom configuration) {
-    var groups = configuration.getChild(element);
+    Xpp3Dom groups = configuration.getChild(element);
     if (groups != null) {
       return Arrays.stream(groups.getValue().split("[ ,]+"))
               .filter(StringUtils::isNotBlank)
@@ -82,7 +82,7 @@ public class SurefireConfigConverter {
   }
 
   private void convertArgLine(ReportOptions option, Xpp3Dom configuration) {
-    var argLine = configuration.getChild("argLine");
+    Xpp3Dom argLine = configuration.getChild("argLine");
     if (argLine != null) {
       String existing = option.getArgLine() != null ? option.getArgLine() + " " : "";
       option.setArgLine(existing + argLine.getValue());
@@ -101,10 +101,10 @@ public class SurefireConfigConverter {
   }
 
   private List<Pair> extract(String childname, Xpp3Dom config) {
-    final var subelement = config.getChild(childname);
+    final Xpp3Dom subelement = config.getChild(childname);
     if (subelement != null) {
       List<Pair> result = new LinkedList<>();
-      final var children = subelement.getChildren();
+      final Xpp3Dom[] children = subelement.getChildren();
       for (Xpp3Dom child : children) {
         result.add(new Pair(child.getName(), child.getValue()));
       }
@@ -115,7 +115,7 @@ public class SurefireConfigConverter {
   }
 
   private void convertTestFailureIgnore(ReportOptions option, Xpp3Dom configuration) {
-    var testFailureIgnore = configuration.getChild("testFailureIgnore");
+    Xpp3Dom testFailureIgnore = configuration.getChild("testFailureIgnore");
     if (testFailureIgnore != null) {
       option.setSkipFailingTests(Boolean.parseBoolean(testFailureIgnore.getValue()));
     }

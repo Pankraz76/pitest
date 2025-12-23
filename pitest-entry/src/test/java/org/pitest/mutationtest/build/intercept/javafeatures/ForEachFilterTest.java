@@ -123,7 +123,7 @@ public class ForEachFilterTest {
     void foo(List<Integer> is) {
       final Iterator<Integer> it = is.iterator();
       while (it.hasNext()) {
-        final var each = it.next();
+        final Integer each = it.next();
         System.out.println(each);
       }
     }

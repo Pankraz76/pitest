@@ -35,11 +35,11 @@ public class DirectoryResultOutputStrategy implements ResultOutputStrategy {
   @Override
   public Writer createWriterForFile(final String file) {
     try {
-      final var fileSepIndex = file.lastIndexOf(File.separatorChar);
+      final int fileSepIndex = file.lastIndexOf(File.separatorChar);
       if (fileSepIndex > 0) {
-        final var directory = this.reportDir.getAbsolutePath()
+        final String directory = this.reportDir.getAbsolutePath()
             + File.separatorChar + file.substring(0, fileSepIndex);
-        final var directoryFile = new File(directory);
+        final File directoryFile = new File(directory);
         if (!directoryFile.exists()) {
           directoryFile.mkdirs();
         }

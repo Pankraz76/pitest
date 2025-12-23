@@ -23,9 +23,9 @@ ReportDirCreationStrategy {
 
   @Override
   public File createReportDir(final String base) {
-    final var sdf = new SimpleDateFormat("yyyyMMddHHmm");
-    final var timeString = sdf.format(new Date());
-    final var reportDir = new File(addPathSeparatorIfMissing(base)
+    final SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmm");
+    final String timeString = sdf.format(new Date());
+    final File reportDir = new File(addPathSeparatorIfMissing(base)
         + timeString);
     reportDir.mkdirs();
     return reportDir;

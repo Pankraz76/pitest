@@ -18,8 +18,8 @@ public class SignatureParser {
       }
 
       Set<String> types = new HashSet<>();
-      var r = new SignatureReader(signature);
-      var visitor = new SignatureVisitor(ASMVersion.asmVersion()) {
+      SignatureReader r = new SignatureReader(signature);
+      SignatureVisitor visitor = new SignatureVisitor(ASMVersion.asmVersion()) {
           @Override
           public void visitClassType(String name) {
               types.add(name);

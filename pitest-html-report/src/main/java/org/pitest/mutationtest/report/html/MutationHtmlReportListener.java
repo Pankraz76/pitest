@@ -84,7 +84,7 @@ public class MutationHtmlReportListener implements MutationResultListener {
   }
 
   private String loadCss() {
-    try (var is = IsolationUtils.getContextClassLoader()
+    try (InputStream is = IsolationUtils.getContextClassLoader()
                 .getResourceAsStream("templates/mutation/style.css")) {
       return new String(is.readAllBytes(), StandardCharsets.UTF_8);
     } catch (final IOException e) {
@@ -97,13 +97,13 @@ public class MutationHtmlReportListener implements MutationResultListener {
       final MutationTestSummaryData mutationMetaData) {
 
 
-    final var fileName = mutationMetaData.getPackageName()
+    final String fileName = mutationMetaData.getPackageName()
         + File.separator + mutationMetaData.getFileName() + ".html";
 
-    try (var writer = this.outputStrategy.createWriterForFile(fileName)) {
+    try (Writer writer = this.outputStrategy.createWriterForFile(fileName)) {
 
-      final var group = new StringTemplateGroup("mutation_test");
-      final var st = group
+      final StringTemplateGroup group = new StringTemplateGroup("mutation_test");
+      final StringTemplate st = group
           .getInstanceOf("templates/mutation/mutation_report");
       st.setAttribute("css", this.css);
 
@@ -111,7 +111,7 @@ public class MutationHtmlReportListener implements MutationResultListener {
 
       st.setAttribute("mutators", mutationMetaData.getMutators());
 
-      final var sourceFile = createAnnotatedSourceFile(mutationMetaData);
+      final SourceFile sourceFile = createAnnotatedSourceFile(mutationMetaData);
 
       st.setAttribute("sourceFile", sourceFile);
       st.setAttribute("mutatedClasses", mutationMetaData.getMutatedClasses());
@@ -127,7 +127,7 @@ public class MutationHtmlReportListener implements MutationResultListener {
 
   private PackageSummaryData collectPackageSummaries(
       final ClassMutationResults mutationMetaData) {
-    final var packageName = mutationMetaData.getPackageName();
+    final String packageName = mutationMetaData.getPackageName();
 
     return this.packageSummaryData.update(packageName,
         createSummaryData(this.coverage, mutationMetaData));
@@ -145,10 +145,10 @@ public class MutationHtmlReportListener implements MutationResultListener {
   private SourceFile createAnnotatedSourceFile(
       final MutationTestSummaryData mutationMetaData) throws IOException {
 
-    final var fileName = mutationMetaData.getFileName();
-    final var packageName = mutationMetaData.getPackageName();
+    final String fileName = mutationMetaData.getFileName();
+    final String packageName = mutationMetaData.getPackageName();
 
-    final var mutationsForThisFile = mutationMetaData
+    final MutationResultList mutationsForThisFile = mutationMetaData
         .getResults();
 
     final List<Line> lines = createAnnotatedSourceCodeLines(fileName,
@@ -167,7 +167,7 @@ public class MutationHtmlReportListener implements MutationResultListener {
     final Optional<Reader> reader = findSourceFile(classInfoToNames(classes),
         sourceFile);
     if (reader.isPresent()) {
-      final var alf = new AnnotatedLineFactory(
+      final AnnotatedLineFactory alf = new AnnotatedLineFactory(
           mutationsForThisFile.list(), this.coverage, classes, this.reportCoverage);
       return alf.convert(reader.get());
     }
@@ -201,7 +201,7 @@ public class MutationHtmlReportListener implements MutationResultListener {
   }
 
   private void createCssFile() {
-    final var cssWriter = this.outputStrategy.createWriterForFile("style.css");
+    final Writer cssWriter = this.outputStrategy.createWriterForFile("style.css");
     try {
       cssWriter.write(this.css);
       cssWriter.close();
@@ -212,12 +212,12 @@ public class MutationHtmlReportListener implements MutationResultListener {
 
   private void createIndexPages() {
 
-    final var group = new StringTemplateGroup("mutation_test");
-    final var st = group
+    final StringTemplateGroup group = new StringTemplateGroup("mutation_test");
+    final StringTemplate st = group
         .getInstanceOf("templates/mutation/mutation_package_index");
 
-    final var writer = this.outputStrategy.createWriterForFile("index.html");
-    final var totals = new MutationTotals();
+    final Writer writer = this.outputStrategy.createWriterForFile("index.html");
+    final MutationTotals totals = new MutationTotals();
 
     final List<PackageSummaryData> psd = new ArrayList<>(
         this.packageSummaryData.values());
@@ -251,11 +251,11 @@ public class MutationHtmlReportListener implements MutationResultListener {
   }
 
   private void createPackageIndexPage(final PackageSummaryData psData) {
-    final var group = new StringTemplateGroup("mutation_test");
-    final var st = group
+    final StringTemplateGroup group = new StringTemplateGroup("mutation_test");
+    final StringTemplate st = group
         .getInstanceOf("templates/mutation/package_index");
 
-    final var writer = this.outputStrategy.createWriterForFile(psData
+    final Writer writer = this.outputStrategy.createWriterForFile(psData
         .getPackageDirectory() + File.separator + "index.html");
     st.setAttribute("packageData", psData);
     st.setAttribute("outputCharset", this.outputCharset);
@@ -283,7 +283,7 @@ public class MutationHtmlReportListener implements MutationResultListener {
 
   @Override
   public void handleMutationResult(final ClassMutationResults metaData) {
-    final var packageData = collectPackageSummaries(metaData);
+    final PackageSummaryData packageData = collectPackageSummaries(metaData);
 
     generateAnnotatedSourceFile(packageData.getForSourceFile(metaData
         .getFileName()));

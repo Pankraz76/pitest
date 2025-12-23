@@ -21,6 +21,7 @@ import sun.pitest.InvokeReceiver;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.lang.instrument.IllegalClassFormatException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -55,16 +56,16 @@ public class CoverageTransformerTest {
 
   @Test
   public void shouldNotTransformClassesNotMatchingPredicate() {
-    final var testee = new CoverageTransformer(
+    final CoverageTransformer testee = new CoverageTransformer(
         False.<String> instance());
     assertNull(testee.transform(null, "anything", null, null, null));
   }
 
   @Test
   public void shouldTransformClassesMatchingPredicate() {
-    final var testee = new CoverageTransformer(
+    final CoverageTransformer testee = new CoverageTransformer(
         s -> true);
-    final var bs = this.bytes.getBytes(String.class.getName()).get();
+    final byte[] bs = this.bytes.getBytes(String.class.getName()).get();
     assertFalse(Arrays.equals(bs,
         testee.transform(null, "anything", null, null, bs)));
   }
@@ -81,28 +82,28 @@ public class CoverageTransformerTest {
   }
 
   private void assertValidClass(final Class<?> clazz) {
-    final var bs = transform(clazz);
+    final byte[] bs = transform(clazz);
     // printClass(bs);
-    final var sw = new StringWriter();
+    final StringWriter sw = new StringWriter();
     CheckClassAdapter.verify(new ClassReader(bs), false, new PrintWriter(sw));
     assertTrue(sw.toString(), sw.toString().length() == 0);
 
   }
 
   protected void printRaw(final Class<?> clazz) throws IOException {
-    final var r = new OtherClassLoaderClassPathRoot(
+    final OtherClassLoaderClassPathRoot r = new OtherClassLoaderClassPathRoot(
         IsolationUtils.getContextClassLoader());
     printClass(StreamUtil.streamToByteArray(r.getData(clazz.getName())));
   }
 
   protected void printClass(final byte[] bs) {
-    final var reader = new ClassReader(bs);
+    final ClassReader reader = new ClassReader(bs);
     reader.accept(new TraceClassVisitor(null, new ASMifier(), new PrintWriter(
         System.out)), ClassReader.EXPAND_FRAMES);
   }
 
   private byte[] transform(final Class<?> clazz) {
-    final var testee = new CoverageTransformer(
+    final CoverageTransformer testee = new CoverageTransformer(
         s -> true);
     return testee.transform(this.loader, clazz.getName(), null,
         null, this.bytes.getBytes(clazz.getName()).get());

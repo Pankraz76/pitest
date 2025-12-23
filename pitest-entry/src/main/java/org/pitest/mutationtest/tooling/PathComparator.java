@@ -24,16 +24,16 @@ class PathComparator implements Comparator<Object> {
 
     @Override
     public int compare(Object o1, Object o2) {
-        var a = distanceFromBase(o1.toString());
-        var b = distanceFromBase(o2.toString());
+        int a = distanceFromBase(o1.toString());
+        int b = distanceFromBase(o2.toString());
 
         return b - a;
     }
 
     private int distanceFromBase(String s1) {
-        var a = s1.split(separator);
+        String[] a = s1.split(separator);
 
-        for (var i = 0; i != baseParts.length; i++) {
+        for (int i = 0; i != baseParts.length; i++) {
             if (a.length == i || !a[i].equals(baseParts[i])) {
                 return i;
             }

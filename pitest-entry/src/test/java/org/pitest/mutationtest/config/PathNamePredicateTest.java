@@ -31,8 +31,8 @@ public class PathNamePredicateTest {
 
   @Test
   public void shouldMatchRootsWithMatchingNames() {
-    final var testFile = new File("/foo/bar");
-    final var root = new DirectoryClassPathRoot(testFile);
+    final File testFile = new File("/foo/bar");
+    final ClassPathRoot root = new DirectoryClassPathRoot(testFile);
     this.testee = new PathNamePredicate(isEqual(testFile
         .getAbsolutePath()));
     assertThat(this.testee.test(root), is(true));
@@ -40,7 +40,7 @@ public class PathNamePredicateTest {
 
   @Test
   public void shouldNotMatchRootsWithNonMatchingNames() {
-    final var root = new DirectoryClassPathRoot(new File("/foo/bar/"));
+    final ClassPathRoot root = new DirectoryClassPathRoot(new File("/foo/bar/"));
     this.testee = new PathNamePredicate(isEqual("phoee"));
     assertFalse(this.testee.test(root));
   }

@@ -32,8 +32,8 @@ public class StaticInitializerInterceptorFactory implements MutationInterceptorF
 
     private Set<String> functionalInterfaces() {
         Set<String> classes = new HashSet<>();
-        try (var r = new BufferedReader(new InputStreamReader(this.getClass().getResourceAsStream("/functional_interfaces.txt")))) {
-            var line = r.readLine();
+        try (BufferedReader r = new BufferedReader(new InputStreamReader(this.getClass().getResourceAsStream("/functional_interfaces.txt")))) {
+            String line = r.readLine();
             while (line != null) {
                 classes.add(line);
                 line = r.readLine();

@@ -17,22 +17,22 @@ public class FilteringPrioritiserTest {
 
     @Test
     public void appliesFilterToPrioritisedTestWhenFalse() {
-        var alwaysFalse = (t, m) -> false;
+        TestFilter alwaysFalse = (t, m) -> false;
         List<TestInfo> tests = asList(aTest(), aTest());
-        var underTest = new FilteringPrioritiser(alwaysSupply(tests), alwaysFalse);
+        FilteringPrioritiser underTest = new FilteringPrioritiser(alwaysSupply(tests), alwaysFalse);
 
-        var prioritiser = underTest.makeTestPrioritiser(new Properties(), unused(), unused());
+        TestPrioritiser prioritiser = underTest.makeTestPrioritiser(new Properties(), unused(), unused());
 
         assertThat(prioritiser.assignTests(unused())).isEmpty();
     }
 
     @Test
     public void appliesFilterToPrioritisedTestWhenTrue() {
-        var alwaysTrue = (t, m) -> true;
+        TestFilter alwaysTrue = (t, m) -> true;
         List<TestInfo> tests = asList(aTest(), aTest());
-        var underTest = new FilteringPrioritiser(alwaysSupply(tests), alwaysTrue);
+        FilteringPrioritiser underTest = new FilteringPrioritiser(alwaysSupply(tests), alwaysTrue);
 
-        var prioritiser = underTest.makeTestPrioritiser(new Properties(), unused(), unused());
+        TestPrioritiser prioritiser = underTest.makeTestPrioritiser(new Properties(), unused(), unused());
 
         assertThat(prioritiser.assignTests(unused())).containsExactlyElementsOf(tests);
     }

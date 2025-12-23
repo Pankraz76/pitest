@@ -70,7 +70,7 @@ public class JarCreatingJarFinder implements JavaAgent {
       final File randomName = File.createTempFile("pitest-agent",
           ".jar");
 
-      final var fos = new FileOutputStream(randomName);
+      final FileOutputStream fos = new FileOutputStream(randomName);
       createJarFromClassPathResources(fos, randomName.getAbsolutePath());
 
       randomName.deleteOnExit();
@@ -84,20 +84,20 @@ public class JarCreatingJarFinder implements JavaAgent {
 
   private void createJarFromClassPathResources(final FileOutputStream fos,
       final String location) throws IOException {
-    final var m = new Manifest();
+    final Manifest m = new Manifest();
 
     m.clear();
-    final var global = m.getMainAttributes();
+    final Attributes global = m.getMainAttributes();
     if (global.getValue(Attributes.Name.MANIFEST_VERSION) == null) {
       global.put(Attributes.Name.MANIFEST_VERSION, "1.0");
     }
-    final var mylocation = new File(location);
+    final File mylocation = new File(location);
     global.putValue(BOOT_CLASSPATH, getBootClassPath(mylocation));
     global.putValue(PREMAIN_CLASS, AGENT_CLASS_NAME);
     global.putValue(CAN_REDEFINE_CLASSES, "true");
     global.putValue(CAN_SET_NATIVE_METHOD, "true");
 
-    try (var jos = new JarOutputStream(fos, m)) {
+    try (JarOutputStream jos = new JarOutputStream(fos, m)) {
       addClass(HotSwapAgent.class, jos);
       addClass(CodeCoverageStore.class, jos);
       addClass(InvokeReceiver.class, jos);
@@ -110,8 +110,8 @@ public class JarCreatingJarFinder implements JavaAgent {
 
   private void addClass(final Class<?> clazz, final JarOutputStream jos)
       throws IOException {
-    final var className = clazz.getName();
-    final var ze = new ZipEntry(className.replace(".", "/") + ".class");
+    final String className = clazz.getName();
+    final ZipEntry ze = new ZipEntry(className.replace(".", "/") + ".class");
     jos.putNextEntry(ze);
     jos.write(classBytes(className));
     jos.closeEntry();
@@ -130,7 +130,7 @@ public class JarCreatingJarFinder implements JavaAgent {
   @Override
   public void close() {
     if (this.location.isPresent()) {
-      final var f = new File(this.location.get());
+      final File f = new File(this.location.get());
       f.delete();
     }
   }

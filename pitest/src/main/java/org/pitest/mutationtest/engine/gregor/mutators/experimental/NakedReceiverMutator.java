@@ -81,7 +81,7 @@ public enum NakedReceiverMutator implements MethodMutatorFactory {
     public void visitMethodInsn(final int opcode, final String owner,
         final String name, final String desc, final boolean itf) {
       if (isNonStaticCall(opcode) && hasReturnTypeMatchingReceiverType(desc, owner)) {
-        final var newId = this.context
+        final MutationIdentifier newId = this.context
             .registerMutation(this.factory,
                 "replaced call to " + owner + "::" + name + " with receiver");
         if (this.context.shouldMutate(newId)) {
@@ -101,7 +101,7 @@ public enum NakedReceiverMutator implements MethodMutatorFactory {
 
     private void popMethodArgumentsFromStack(String desc) {
       final Type[] argumentTypes = Type.getArgumentTypes(desc);
-      for (var i = argumentTypes.length; i != 0; i--) {
+      for (int i = argumentTypes.length; i != 0; i--) {
         popArgument(argumentTypes[i - 1]);
       }
     }

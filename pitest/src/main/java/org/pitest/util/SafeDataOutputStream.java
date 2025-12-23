@@ -40,7 +40,7 @@ public class SafeDataOutputStream {
   }
 
   public void writeString(final String str) {
-    final var data = str.getBytes(StandardCharsets.UTF_8);
+    final byte[] data = str.getBytes(StandardCharsets.UTF_8);
     writeBytes(data);
   }
 
@@ -103,8 +103,8 @@ public class SafeDataOutputStream {
   }
 
   private byte[] toByteArray(Serializable value) throws IOException {
-    try (var bos = new ByteArrayOutputStream()) {
-      final var out = new ObjectOutputStream(bos);
+    try (ByteArrayOutputStream bos = new ByteArrayOutputStream()) {
+      final ObjectOutput out = new ObjectOutputStream(bos);
       out.writeObject(value);
       out.flush();
       return bos.toByteArray();

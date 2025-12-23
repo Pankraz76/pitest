@@ -45,7 +45,7 @@ public final class BlockLocation {
     if (obj == null || getClass() != obj.getClass()) {
       return false;
     }
-    final var other = (BlockLocation) obj;
+    final BlockLocation other = (BlockLocation) obj;
     return block == other.block
             && Objects.equals(location, other.location);
   }

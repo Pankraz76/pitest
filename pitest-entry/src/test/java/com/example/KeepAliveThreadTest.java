@@ -28,7 +28,7 @@ public class KeepAliveThreadTest {
 
   @Test
   public void testKeepAlive2() {
-    final var kat = new KeepAliveThread();
+    final KeepAliveThread kat = new KeepAliveThread();
 
     kat.run();
 

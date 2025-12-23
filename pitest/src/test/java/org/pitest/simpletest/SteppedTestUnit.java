@@ -98,7 +98,7 @@ public class SteppedTestUnit extends AbstractTestUnit {
     if (obj == null || getClass() != obj.getClass()) {
       return false;
     }
-    final var other = (SteppedTestUnit) obj;
+    final SteppedTestUnit other = (SteppedTestUnit) obj;
     return Objects.equals(steps, other.steps)
             && Objects.equals(expected, other.expected);
   }

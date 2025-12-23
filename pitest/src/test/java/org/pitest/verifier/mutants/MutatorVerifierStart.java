@@ -77,48 +77,48 @@ public class MutatorVerifierStart {
 
     public MutatorVerifier forClass(Class<?> clazz) {
         assertScanDoesNotAlterClass(clazz);
-        var engine = makeEngine();
+        GregorMutater engine = makeEngine();
         return new MutatorVerifier(engine, clazz, mutantFilter, checkUnmutatedValues);
     }
 
     public MutatorVerifier forClass(String clazz) {
-        var engine = makeEngine();
+        GregorMutater engine = makeEngine();
         return new MutatorVerifier(engine, ClassName.fromString(clazz), mutantFilter, checkUnmutatedValues);
     }
 
     public <B> CallableMutantVerifier<B> forCallableClass(Class<? extends Callable<B>> clazz) {
         assertScanDoesNotAlterClass(clazz);
-        var engine = makeEngine();
+        GregorMutater engine = makeEngine();
         return new CallableMutantVerifier<B>(engine, clazz, mutantFilter, checkUnmutatedValues);
     }
 
     public <A,B> MutantVerifier<A,B> forFunctionClass(Class<? extends Function<A,B>> clazz) {
         assertScanDoesNotAlterClass(clazz);
-        var engine = makeEngine();
+        GregorMutater engine = makeEngine();
         return new MutantVerifier<A,B>(engine, clazz, mutantFilter, checkUnmutatedValues);
     }
 
     public <B> IntMutantVerifier<B> forIntFunctionClass(Class<? extends IntFunction<B>> clazz) {
         assertScanDoesNotAlterClass(clazz);
-        var engine = makeEngine();
+        GregorMutater engine = makeEngine();
         return new IntMutantVerifier<>(engine, clazz, mutantFilter, checkUnmutatedValues);
     }
 
     public <B> LongMutantVerifier<B> forLongFunctionClass(Class<? extends LongFunction<B>> clazz) {
         assertScanDoesNotAlterClass(clazz);
-        var engine = makeEngine();
+        GregorMutater engine = makeEngine();
         return new LongMutantVerifier<>(engine, clazz, mutantFilter, checkUnmutatedValues);
     }
 
     public <B> DoubleMutantVerifier<B> forDoubleFunctionClass(Class<? extends DoubleFunction<B>> clazz) {
         assertScanDoesNotAlterClass(clazz);
-        var engine = makeEngine();
+        GregorMutater engine = makeEngine();
         return new DoubleMutantVerifier<>(engine, clazz, mutantFilter, checkUnmutatedValues);
     }
 
     public <A,B,C> BiFunctionMutantVerifier<A,B,C> forBiFunctionClass(Class<? extends BiFunction<A,B,C>> clazz) {
         assertScanDoesNotAlterClass(clazz);
-        var engine = makeEngine();
+        GregorMutater engine = makeEngine();
         return new BiFunctionMutantVerifier<>(engine, clazz, mutantFilter, checkUnmutatedValues);
     }
 
@@ -134,11 +134,11 @@ public class MutatorVerifierStart {
 
     public void assertScanDoesNotAlterClass(Class<?> clazz) {
         ClassByteArraySource source = ClassloaderByteArraySource.fromContext();
-        var bytes = source.getBytes(clazz.getName()).get();
+        byte[] bytes = source.getBytes(clazz.getName()).get();
 
-        var writer = new ClassWriter(ClassWriter.COMPUTE_FRAMES);
-        final var reader = new ClassReader(bytes);
-        final var nv = new ScanningClassVisitor(writer, mmfs);
+        ClassWriter writer = new ClassWriter(ClassWriter.COMPUTE_FRAMES);
+        final ClassReader reader = new ClassReader(bytes);
+        final ScanningClassVisitor nv = new ScanningClassVisitor(writer, mmfs);
 
         reader.accept(nv, ClassReader.EXPAND_FRAMES);
 
@@ -149,15 +149,15 @@ public class MutatorVerifierStart {
     }
 
     private byte[] plainTransform(byte[] bytes) {
-        var writer = new ClassWriter(ClassWriter.COMPUTE_FRAMES);
-        final var reader = new ClassReader(bytes);
+        ClassWriter writer = new ClassWriter(ClassWriter.COMPUTE_FRAMES);
+        final ClassReader reader = new ClassReader(bytes);
         reader.accept(writer, ClassReader.EXPAND_FRAMES);
         return writer.toByteArray();
     }
 
     private String asString(byte[] bytes) {
-        var reader = new ClassReader(bytes);
-        var writer = new StringWriter();
+        ClassReader reader = new ClassReader(bytes);
+        StringWriter writer = new StringWriter();
         reader.accept(new TraceClassVisitor(null, new Textifier(), new PrintWriter(
                 writer)), ClassReader.EXPAND_FRAMES);
         return writer.toString();

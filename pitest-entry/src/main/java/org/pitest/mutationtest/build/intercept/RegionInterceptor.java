@@ -44,7 +44,7 @@ public abstract class RegionInterceptor implements MutationInterceptor {
 
     protected Predicate<MutationDetails> buildPredicate() {
         return a -> {
-            final var instruction = a.getInstructionIndex();
+            final int instruction = a.getInstructionIndex();
             final Optional<MethodTree> method = this.currentClass.method(a.getId().getLocation());
 
             if (method.isEmpty()) {

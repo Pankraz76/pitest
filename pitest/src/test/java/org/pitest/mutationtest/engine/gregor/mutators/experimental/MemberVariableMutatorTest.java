@@ -139,7 +139,7 @@ public class MemberVariableMutatorTest {
         @Override
         public String call() throws Exception {
             final Class<?> c = getClass();
-            final var i = (Integer) c.getField("member2").get(this);
+            final Integer i = (Integer) c.getField("member2").get(this);
             return "" + this.member2 + "-" + i; // will be optimized by compiler to
             // "42-" + i;
         }
@@ -161,7 +161,7 @@ public class MemberVariableMutatorTest {
             // -> stack: 100, 2
             // iadd
             // istore_1
-            final var i = 100 + (this.member = 2);
+            final int i = 100 + (this.member = 2);
             return "" + this.member + " " + i;
         }
 
@@ -197,7 +197,7 @@ public class MemberVariableMutatorTest {
             // -> stack: 0 100, 0 2
             // ladd
             // lstore_1
-            final var i = 100 + (this.member = 2);
+            final long i = 100 + (this.member = 2);
             return "" + this.member + " " + i;
         }
     }

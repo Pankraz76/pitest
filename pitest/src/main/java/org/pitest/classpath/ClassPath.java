@@ -98,7 +98,7 @@ public class ClassPath {
   }
 
   public byte[] getClassData(final String classname) throws IOException {
-    try (var is = this.root.getData(classname)) {
+    try (InputStream is = this.root.getData(classname)) {
       if (is != null) {
         return StreamUtil.streamToByteArray(is);
       } else {
@@ -122,7 +122,7 @@ public class ClassPath {
   public static Collection<File> getClassPathElementsAsFiles() {
     final Set<File> us = new LinkedHashSet<>();
     FCollection.mapTo(getClassPathElementsAsAre(), stringToCanonicalFile(), us);
-
+    
     addEntriesFromClasspathManifest(us);
     return us;
   }
@@ -131,7 +131,7 @@ public class ClassPath {
    * Because classpaths can become longer than the OS supports pitest creates temporary jar files and places the classpath
    * in the manifest where there is no size limit.
    *
-   * We must therefore parse them out again here.
+   * We must therefore parse them out again here. 
    *
    * @param elements existing elements
    */
@@ -172,7 +172,7 @@ public class ClassPath {
   /** FIXME move somewhere common */
   private static List<String> getClassPathElementsAsAre() {
     final String classPath = System.getProperty("java.class.path");
-    final var separator = File.pathSeparator;
+    final String separator = File.pathSeparator;
     if (classPath != null) {
       return Arrays.asList(classPath.split(separator));
     } else {

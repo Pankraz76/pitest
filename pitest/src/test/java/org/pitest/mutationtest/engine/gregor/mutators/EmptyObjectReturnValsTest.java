@@ -169,7 +169,7 @@ public class EmptyObjectReturnValsTest {
 
   @Test
   public void mutatesToEmptyStream() {
-    var actual = v.forCallableClass(AStream.class)
+    Stream actual = v.forCallableClass(AStream.class)
             .firstMutantReturnValue();
 
     assertThat(actual).isEmpty();
@@ -177,7 +177,7 @@ public class EmptyObjectReturnValsTest {
 
   @Test
   public void mutatesIterableToEmptyList() {
-    var actual = v.forCallableClass(AnIterable.class)
+    Iterable actual = v.forCallableClass(AnIterable.class)
             .firstMutantReturnValue();
 
     assertThat(actual).isEmpty();

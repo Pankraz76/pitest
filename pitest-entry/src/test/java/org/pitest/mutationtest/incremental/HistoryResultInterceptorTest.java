@@ -1,7 +1,10 @@
 package org.pitest.mutationtest.incremental;
 
+import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 import org.pitest.mutationtest.ClassMutationResults;
 import org.pitest.mutationtest.DetectionStatus;
 import org.pitest.mutationtest.History;
@@ -22,7 +25,7 @@ public class HistoryResultInterceptorTest {
 
     @Test
     public void recordsMutationResults() {
-        final var mr = makeResult();
+        final MutationResult mr = makeResult();
         final ClassMutationResults metaData = MutationTestResultMother
                 .createClassResults(mr);
         Collection<ClassMutationResults> mutants = asList(metaData);

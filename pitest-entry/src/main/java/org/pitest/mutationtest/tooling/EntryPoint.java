@@ -61,7 +61,7 @@ public class EntryPoint {
    */
   public AnalysisResult execute(File baseDir, ReportOptions data,
       PluginServices plugins, Map<String, String> environmentVariables) {
-    final var settings = new SettingsFactory(data, plugins);
+    final SettingsFactory settings = new SettingsFactory(data, plugins);
     return execute(baseDir, data, settings, environmentVariables);
   }
 
@@ -93,46 +93,46 @@ public class EntryPoint {
 
     checkMatrixMode(data);
 
-    final var cp = data.getClassPath();
+    final ClassPath cp = data.getClassPath();
 
     // workaround for apparent java 1.5 JVM bug . . . might not play nicely
     // with distributed testing
-    final var jac = new JarCreatingJarFinder(
+    final JavaAgent jac = new JarCreatingJarFinder(
         new ClassPathByteArraySource(cp));
 
-    final var ja = new KnownLocationJavaAgentFinder(
+    final KnownLocationJavaAgentFinder ja = new KnownLocationJavaAgentFinder(
         jac.getJarLocation().get());
 
-    final var reportOutput = settings.getOutputStrategy();
+    final ResultOutputStrategy reportOutput = settings.getOutputStrategy();
 
-    final var reportFactory = settings
+    final MutationResultListenerFactory reportFactory = settings
         .createListener();
 
-    final var coverageOptions = settings.createCoverageOptions();
-    final var launchOptions = new LaunchOptions(ja,
+    final CoverageOptions coverageOptions = settings.createCoverageOptions();
+    final LaunchOptions launchOptions = new LaunchOptions(ja,
         settings.getJavaExecutable(), createJvmArgs(data), environmentVariables);
 
-    final var cps = data.getMutationClassPaths();
+    final ProjectClassPaths cps = data.getMutationClassPaths();
 
-    final var code = settings.createCodeSource(cps);
+    final CodeSource code = settings.createCodeSource(cps);
 
-    var stats = settings.createTestStatListener();
-    final var timings = new Timings(stats);
-    final var coverageDatabase = new DefaultCoverageGenerator(
+    TestStatListener stats = settings.createTestStatListener();
+    final Timings timings = new Timings(stats);
+    final CoverageGenerator coverageDatabase = new DefaultCoverageGenerator(
         baseDir, coverageOptions, launchOptions, code,
         settings.createCoverageExporter(), stats, timings, data.getVerbosity());
 
     final Optional<WriterFactory> maybeWriter = data.createHistoryWriter();
-    var historyWriter = maybeWriter.orElse(new NullWriterFactory());
-    var historyFactory = settings.createHistory();
-    final var history = pickHistoryStore(code, data, maybeWriter, historyFactory);
+    WriterFactory historyWriter = maybeWriter.orElse(new NullWriterFactory());
+    HistoryFactory historyFactory = settings.createHistory();
+    final History history = pickHistoryStore(code, data, maybeWriter, historyFactory);
 
-    final var strategies = new MutationStrategies(
+    final MutationStrategies strategies = new MutationStrategies(
         settings.createEngine(), history, coverageDatabase, reportFactory, settings.getResultInterceptor().add(new HistoryResultInterceptor(history)),
         settings.createCoverageTransformer(code),
             reportOutput, settings.createVerifier().create(new BuildVerifierArguments(code, data)));
 
-    final var report = new MutationCoverage(strategies, baseDir,
+    final MutationCoverage report = new MutationCoverage(strategies, baseDir,
         code, data, settings, timings);
 
     try {
@@ -162,8 +162,8 @@ public class EntryPoint {
     if (reader.isEmpty() && historyWriter.isEmpty()) {
       return new NullHistory();
     }
-    var parser = new FeatureParser();
-    var select = new FeatureSelector(parser.parseFeatures(data.getFeatures()), singletonList(factory));
+    FeatureParser parser = new FeatureParser();
+    FeatureSelector select = new FeatureSelector(parser.parseFeatures(data.getFeatures()), singletonList(factory));
     return factory.makeHistory(new HistoryParams(select, code), historyWriter.orElse(new NullWriterFactory()), reader);
   }
 

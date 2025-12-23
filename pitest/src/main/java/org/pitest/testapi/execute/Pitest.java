@@ -69,13 +69,13 @@ public class Pitest {
   private void run(final Container container, final Configuration config,
       final Collection<Class<?>> classes) {
 
-    final var find = new FindTestUnits(config);
+    final FindTestUnits find = new FindTestUnits(config);
     run(container, find.findTestUnitsForAllSuppliedClasses(classes));
   }
 
   private void processResults(final List<TestResult> results) {
     for (final TestResult result : results) {
-      final var classifiedResult = classify(result);
+      final ResultType classifiedResult = classify(result);
       classifiedResult.getListenerFunction(result).accept(this.listener);
     }
   }

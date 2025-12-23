@@ -41,7 +41,7 @@ public class ReportSourceLocatorTest {
 
   @Test(expected = PitError.class)
   public void testCouldNotListdirectories() {
-    var mockReportsDir = this.buildMockReportsDirectory();
+    File mockReportsDir = this.buildMockReportsDirectory();
 
     when(mockReportsDir.listFiles(isA(FileFilter.class))).thenReturn(null);
     this.fixture.locate(mockReportsDir, this.mockLog);
@@ -49,7 +49,7 @@ public class ReportSourceLocatorTest {
 
   @Test
   public void testNoSubdirectories() {
-    var mockReportsDir = this.buildMockReportsDirectory();
+    File mockReportsDir = this.buildMockReportsDirectory();
 
     when(mockReportsDir.listFiles(isA(FileFilter.class))).thenReturn(
         new File[0]);
@@ -59,7 +59,7 @@ public class ReportSourceLocatorTest {
 
   @Test
   public void testOneSubdirectory() {
-    var mockReportsDir = this.buildMockReportsDirectory();
+    File mockReportsDir = this.buildMockReportsDirectory();
     File dummySubDir = mock(File.class);
 
     when(mockReportsDir.listFiles(isA(FileFilter.class))).thenReturn(
@@ -72,7 +72,7 @@ public class ReportSourceLocatorTest {
 
   @Test
   public void testMultipleSubdirectories() {
-    var mockReportsDir = this.buildMockReportsDirectory();
+    File mockReportsDir = this.buildMockReportsDirectory();
     File mockSubDir0 = mock(File.class);
     File mockSubDir1 = mock(File.class);
     File mockSubDir2 = mock(File.class);

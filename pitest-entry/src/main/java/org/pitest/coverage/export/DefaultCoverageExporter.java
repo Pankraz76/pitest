@@ -28,7 +28,7 @@ public class DefaultCoverageExporter implements CoverageExporter {
 
   @Override
   public void recordCoverage(final Collection<BlockCoverage> coverage) {
-    final var out = this.outputStrategy
+    final Writer out = this.outputStrategy
         .createWriterForFile("linecoverage.xml");
     writeHeader(out);
     for (final BlockCoverage each : coverage) {
@@ -44,7 +44,7 @@ public class DefaultCoverageExporter implements CoverageExporter {
   }
 
   private void writeLineCoverage(final BlockCoverage each, final Writer out) {
-    final var l = each.getBlock().getLocation();
+    final Location l = each.getBlock().getLocation();
     write(
         out,
         "<block classname='" + escapeXml11(l.getClassName().asJavaName()) + "'"

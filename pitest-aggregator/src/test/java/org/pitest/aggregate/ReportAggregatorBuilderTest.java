@@ -39,7 +39,7 @@ public class ReportAggregatorBuilderTest {
 
   @Test
   public void testLineCoverageFiles_withFake() {
-    var builder = ReportAggregator.builder()
+    ReportAggregator.Builder builder = ReportAggregator.builder()
         .lineCoverageFiles(Arrays.asList(new File("doesnotexist.xml")));
 
     assertTrue(builder.getMutationResultsFiles().isEmpty());
@@ -63,7 +63,7 @@ public class ReportAggregatorBuilderTest {
 
   @Test
   public void testMutationResultsFiles_withFake() {
-    var builder = ReportAggregator.builder()
+    ReportAggregator.Builder builder = ReportAggregator.builder()
         .mutationResultsFiles(Arrays.asList(new File("doesnotexist.xml")));
 
     assertTrue(builder.getMutationResultsFiles().isEmpty());
@@ -87,7 +87,7 @@ public class ReportAggregatorBuilderTest {
 
   @Test
   public void testSourceCodeDirectories_withFake() {
-    var builder = ReportAggregator.builder()
+    ReportAggregator.Builder builder = ReportAggregator.builder()
         .sourceCodeDirectories(Arrays.asList(new File("fakedirectory")));
 
     assertTrue(builder.getSourceCodeDirectories().isEmpty());
@@ -111,7 +111,7 @@ public class ReportAggregatorBuilderTest {
 
   @Test
   public void testCompiledCodeDirectories_withFake() {
-    var builder = ReportAggregator.builder()
+    ReportAggregator.Builder builder = ReportAggregator.builder()
         .compiledCodeDirectories(Arrays.asList(new File("fakedirectory")));
 
     assertTrue(builder.getCompiledCodeDirectories().isEmpty());

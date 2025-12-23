@@ -37,7 +37,7 @@ class CodeSourceAggregator {
   }
 
   public ProjectClassPaths createProjectClassPaths() {
-    final var classPath = new ClassPath(this.compiledCodeDirectories);
+    final ClassPath classPath = new ClassPath(this.compiledCodeDirectories);
     final Predicate<String> classPredicate = createClassPredicate();
     final Predicate<ClassPathRoot> pathPredicate = new DefaultCodePathPredicate();
     return new ProjectClassPaths(classPath, new ClassFilter(classPredicate, classPredicate),
@@ -48,7 +48,7 @@ class CodeSourceAggregator {
     final Collection<String> classes = new HashSet<>();
     for (final File buildOutputDirectory : this.compiledCodeDirectories) {
       if (buildOutputDirectory.exists()) {
-        final var dcRoot = new DirectoryClassPathRoot(buildOutputDirectory);
+        final DirectoryClassPathRoot dcRoot = new DirectoryClassPathRoot(buildOutputDirectory);
         classes.addAll(dcRoot.classNames().stream()
                 .map(toPredicate())
                 .collect(Collectors.toList()));

@@ -17,7 +17,7 @@ package org.pitest.mutationtest;
 public class MutableIncrement {
 
   public static int increment() {
-    var i = 42;
+    int i = 42;
     i++;
     return i;
   }

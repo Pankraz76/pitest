@@ -86,7 +86,7 @@ public class XMLReportListener implements MutationResultListener {
   }
 
   private String makeMutationNode(final MutationResult mutation) {
-    final var details = mutation.getDetails();
+    final MutationDetails details = mutation.getDetails();
     return makeNode(clean(details.getFilename()), sourceFile)
         + makeNode(clean(details.getClassName().asJavaName()), mutatedClass)
         + makeNode(clean(details.getMethod()), mutatedMethod)
@@ -126,7 +126,7 @@ public class XMLReportListener implements MutationResultListener {
     if (!condition) {
       return "";
     }
-
+    
     return makeNode(value, tag);
   }
 
@@ -139,7 +139,7 @@ public class XMLReportListener implements MutationResultListener {
   }
 
   private String makeNodes(Tag topTag, List<Integer> values, final Tag tag) {
-    var sb = new StringBuilder();
+    StringBuilder sb = new StringBuilder();
     sb.append("<" + topTag + ">");
     for (Integer each : values) {
       sb.append(makeNode("" + each, tag));
@@ -152,22 +152,22 @@ public class XMLReportListener implements MutationResultListener {
     return killingTest.map(s -> createTestDesc(Arrays.asList(s)))
             .orElse(null);
   }
-
+  
   private String createTestDesc(final List<String> tests) {
     if (tests.isEmpty()) {
       return "";
     }
-
-    var builder = new StringBuilder();
-
+    
+    StringBuilder builder = new StringBuilder();
+    
     for (String test : tests) {
       builder.append(test);
       builder.append(MUTATION_MATRIX_TEST_SEPARATOR);
     }
-
+    
     // remove last separator
     builder.setLength(builder.length() - 1);
-
+    
     return clean(builder.toString());
   }
 

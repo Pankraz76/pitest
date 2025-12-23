@@ -44,7 +44,7 @@ public class CallableMutantVerifier<B> extends MutatorVerifier {
         }
 
         List<MutationDetails> mutations = findMutations();
-        var mutant = getFirstMutant(mutations);
+        Mutant mutant = getFirstMutant(mutations);
         assertThat(mutateAndCall(mutant))
                 .as(() -> "Unexpected return value from mutant\n " + printMutant(mutant))
                 .isEqualTo(expected);
@@ -55,7 +55,7 @@ public class CallableMutantVerifier<B> extends MutatorVerifier {
     }
 
     private B mutateAndCall(Mutant mutant) {
-        var loader = this.createClassLoader(mutant);
+        ClassLoader loader = this.createClassLoader(mutant);
         return this.runInClassLoader(loader);
     }
 
@@ -63,7 +63,7 @@ public class CallableMutantVerifier<B> extends MutatorVerifier {
         try {
             Class<?> forLoader = loader.loadClass(target.getName());
 
-            var c = forLoader.getDeclaredConstructor();
+            Constructor c = forLoader.getDeclaredConstructor();
             c.setAccessible(true);
             Callable<B> instance = (Callable<B>) c.newInstance();
             return instance.call();

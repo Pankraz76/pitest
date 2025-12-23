@@ -45,8 +45,8 @@ public class ArchiveClassPathRoot implements ClassPathRoot, IOHeavyRoot {
 
   @Override
   public InputStream getData(final String name) throws IOException {
-    try (var zip = getRoot()) {
-      final var entry = zip.getEntry(name.replace('.', '/') + ".class");
+    try (ZipHandle zip = getRoot()) {
+      final ZipEntry entry = zip.getEntry(name.replace('.', '/') + ".class");
       if (entry == null) {
         return null;
       }
@@ -58,8 +58,8 @@ public class ArchiveClassPathRoot implements ClassPathRoot, IOHeavyRoot {
 
   @Override
   public URL getResource(final String name) throws MalformedURLException {
-    try (var zip = getRoot()) {
-      final var entry = zip.getEntry(name);
+    try (ZipHandle zip = getRoot()) {
+      final ZipEntry entry = zip.getEntry(name);
       if (entry != null) {
         return new URL("jar:file:" + zip.getName() + "!/" + entry.getName());
       } else {
@@ -79,10 +79,10 @@ public class ArchiveClassPathRoot implements ClassPathRoot, IOHeavyRoot {
   @Override
   public Collection<String> classNames() {
     final List<String> names = new ArrayList<>();
-    try (var root = getRoot()) {
+    try (ZipHandle root = getRoot()) {
       final Enumeration<? extends ZipEntry> entries = root.entries();
       while (entries.hasMoreElements()) {
-        final var entry = entries.nextElement();
+        final ZipEntry entry = entries.nextElement();
         if (!entry.isDirectory() && entry.getName().endsWith(".class")) {
           names.add(stringToClassName(entry.getName()));
         }

@@ -36,7 +36,7 @@ public final class ClassIdentifier implements Serializable {
     if (obj == null || getClass() != obj.getClass()) {
       return false;
     }
-    final var other = (ClassIdentifier) obj;
+    final ClassIdentifier other = (ClassIdentifier) obj;
     return hash == other.hash
             && Objects.equals(name, other.name);
   }

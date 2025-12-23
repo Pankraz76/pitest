@@ -39,17 +39,17 @@ public class ControlFlowAnalyser {
     addtryCatchBoundaries(mn, jumpTargets);
 
     Set<Integer> blockLines = smallSet();
-    var lastLine = Integer.MIN_VALUE;
+    int lastLine = Integer.MIN_VALUE;
 
-    final var lastInstruction = mn.instructions.size() - 1;
+    final int lastInstruction = mn.instructions.size() - 1;
 
-    var blockStart = 0;
-    for (var i = 0; i != mn.instructions.size(); i++) {
+    int blockStart = 0;
+    for (int i = 0; i != mn.instructions.size(); i++) {
 
-      final var ins = mn.instructions.get(i);
+      final AbstractInsnNode ins = mn.instructions.get(i);
 
       if (ins instanceof LineNumberNode) {
-        final var lnn = (LineNumberNode) ins;
+        final LineNumberNode lnn = (LineNumberNode) ins;
         blockLines.add(lnn.line);
         lastLine = lnn.line;
       } else if (jumpTargets.contains(ins) && (blockStart != i)) {
@@ -97,7 +97,7 @@ public class ControlFlowAnalyser {
   private static void addtryCatchBoundaries(final MethodNode mn,
       final Set<LabelNode> jumpTargets) {
     for (final Object each : mn.tryCatchBlocks) {
-      final var tcb = (TryCatchBlockNode) each;
+      final TryCatchBlockNode tcb = (TryCatchBlockNode) each;
       jumpTargets.add(tcb.handler);
     }
   }
@@ -112,7 +112,7 @@ public class ControlFlowAnalyser {
   }
 
   private static boolean isReturn(final AbstractInsnNode ins) {
-    final var opcode = ins.getOpcode();
+    final int opcode = ins.getOpcode();
     switch (opcode) {
     case RETURN:
     case ARETURN:
@@ -134,11 +134,11 @@ public class ControlFlowAnalyser {
       if (o instanceof JumpInsnNode) {
         jumpTargets.add(((JumpInsnNode) o).label);
       } else if (o instanceof TableSwitchInsnNode) {
-        final var twn = (TableSwitchInsnNode) o;
+        final TableSwitchInsnNode twn = (TableSwitchInsnNode) o;
         jumpTargets.add(twn.dflt);
         jumpTargets.addAll(twn.labels);
       } else if (o instanceof LookupSwitchInsnNode) {
-        final var lsn = (LookupSwitchInsnNode) o;
+        final LookupSwitchInsnNode lsn = (LookupSwitchInsnNode) o;
         jumpTargets.add(lsn.dflt);
         jumpTargets.addAll(lsn.labels);
       }

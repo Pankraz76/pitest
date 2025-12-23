@@ -7,7 +7,9 @@ import org.junit.rules.TemporaryFolder;
 import org.mockito.Mockito;
 import org.pitest.coverage.CompoundTestStatListener;
 import org.pitest.coverage.CoverageExporter;
+import org.pitest.coverage.TestInfo;
 import org.pitest.coverage.execute.CoverageOptions;
+import org.pitest.coverage.export.DefaultCoverageExporter;
 import org.pitest.coverage.export.NullCoverageExporter;
 import org.pitest.mutationtest.engine.gregor.config.GregorEngineFactory;
 import org.pitest.mutationtest.incremental.DefaultHistoryFactory;
@@ -59,7 +61,7 @@ public class SettingsFactoryTest {
     this.options.setExportLineCoverage(true);
     this.options.setShouldCreateTimestampedReports(false);
     this.options.setReportDir(reportDir.getRoot().getAbsolutePath());
-    var actual = this.testee.createCoverageExporter();
+    CoverageExporter actual = this.testee.createCoverageExporter();
     actual.recordCoverage(Collections.emptyList());
 
     assertThat(Files.list(reportDir.getRoot().toPath()))
@@ -72,7 +74,7 @@ public class SettingsFactoryTest {
     this.options.setShouldCreateTimestampedReports(false);
     this.options.setReportDir(reportDir.getRoot().getAbsolutePath());
     this.options.setFeatures(Arrays.asList("-defaultCoverage"));
-    var actual = this.testee.createCoverageExporter();
+    CoverageExporter actual = this.testee.createCoverageExporter();
     actual.recordCoverage(Collections.emptyList());
 
     assertThat(Files.list(reportDir.getRoot().toPath()))
@@ -111,7 +113,7 @@ public class SettingsFactoryTest {
   @Test
   public void shouldReturnADefaultJavaExecutableWhenNoneIsSpecified() {
     this.options.setJavaExecutable(null);
-    var actual = new File(this.testee.getJavaExecutable().javaExecutable());
+    File actual = new File(this.testee.getJavaExecutable().javaExecutable());
     if (System.getProperty("os.name").contains("Windows")) {
       actual = new File(actual.getPath() + ".exe");
     }
@@ -128,7 +130,7 @@ public class SettingsFactoryTest {
   public void shouldNotAllowUserToCalculateCoverageForCoreClasses() {
     this.options.setTargetClasses(Collections
         .singleton("java.Integer"));
-    final var actual = this.testee.createCoverageOptions();
+    final CoverageOptions actual = this.testee.createCoverageOptions();
     assertFalse(actual.getFilter().test("java.Integer"));
   }
 
@@ -136,7 +138,7 @@ public class SettingsFactoryTest {
   public void shouldNotAllowUserToCalculateCoverageForCoverageImplementation() {
     this.options.setTargetClasses(Collections
         .singleton("/org/pitest/coverage"));
-    final var actual = this.testee.createCoverageOptions();
+    final CoverageOptions actual = this.testee.createCoverageOptions();
     assertFalse(actual.getFilter().test("org/pitest/coverage"));
   }
 

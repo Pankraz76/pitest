@@ -27,7 +27,7 @@ public class AutoSetThreads implements ConfigurationUpdater {
     public void updateConfig(FeatureSetting conf, ReportOptions toModify) {
         // this will be wrong in some environments, feature best used
         // only for local dev
-        var cores = getCores();
+        int cores = getCores();
 
         // Based on experiments on a macbook, advantage of more threads
         // tails off using a little over half of them

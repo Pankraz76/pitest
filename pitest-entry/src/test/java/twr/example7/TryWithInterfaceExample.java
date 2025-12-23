@@ -12,7 +12,7 @@ import java.io.IOException;
 public class TryWithInterfaceExample {
 
     public static void main(String[] args) throws IOException {
-        try (var os = new ByteArrayOutputStream()) {
+        try (Closeable os = new ByteArrayOutputStream()) {
             ((Flushable) os).flush();
         }
     }

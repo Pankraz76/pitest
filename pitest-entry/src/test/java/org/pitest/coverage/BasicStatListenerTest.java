@@ -18,17 +18,17 @@ public class BasicStatListenerTest {
 
     @Test
     public void storesSlowestTest() {
-        var cr1 = CoverageMother.aCoverageResult()
+        CoverageResult cr1 = CoverageMother.aCoverageResult()
                 .withExecutionTime(19)
                 .build();
 
-        var d = new Description("foo", "bar");
-        var cr2 = CoverageMother.aCoverageResult()
+        Description d = new Description("foo", "bar");
+        CoverageResult cr2 = CoverageMother.aCoverageResult()
                 .withExecutionTime(20)
                 .withTestUnitDescription(d)
                 .build();
 
-        var cr3 = CoverageMother.aCoverageResult()
+        CoverageResult cr3 = CoverageMother.aCoverageResult()
                 .withExecutionTime(19)
                 .build();
 
@@ -42,17 +42,17 @@ public class BasicStatListenerTest {
 
     @Test
     public void storesLargestTest() {
-        var cr1 = CoverageMother.aCoverageResult()
+        CoverageResult cr1 = CoverageMother.aCoverageResult()
                 .withVisitedBlocks(aBlockLocation().build(3))
                 .build();
 
-        var d = new Description("foo", "bar");
-        var cr2 = CoverageMother.aCoverageResult()
+        Description d = new Description("foo", "bar");
+        CoverageResult cr2 = CoverageMother.aCoverageResult()
                 .withVisitedBlocks(aBlockLocation().build(4))
                 .withTestUnitDescription(d)
                 .build();
 
-        var cr3 = CoverageMother.aCoverageResult()
+        CoverageResult cr3 = CoverageMother.aCoverageResult()
                 .withVisitedBlocks(aBlockLocation().build(3))
                 .build();
 
@@ -66,19 +66,19 @@ public class BasicStatListenerTest {
 
     @Test
     public void reportsNumberOfVerySlowTests() {
-        var cr1 = CoverageMother.aCoverageResult()
+        CoverageResult cr1 = CoverageMother.aCoverageResult()
                 .withExecutionTime(2000)
                 .build();
 
-        var cr2 = CoverageMother.aCoverageResult()
+        CoverageResult cr2 = CoverageMother.aCoverageResult()
                 .withExecutionTime(2001)
                 .build();
 
-        var cr3 = CoverageMother.aCoverageResult()
+        CoverageResult cr3 = CoverageMother.aCoverageResult()
                 .withExecutionTime(1999)
                 .build();
 
-        var cr4 = CoverageMother.aCoverageResult()
+        CoverageResult cr4 = CoverageMother.aCoverageResult()
                 .withExecutionTime(2001)
                 .build();
 

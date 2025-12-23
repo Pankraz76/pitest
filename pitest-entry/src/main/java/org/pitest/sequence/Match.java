@@ -31,7 +31,7 @@ public interface Match<T> {
 
   default Match<T> and(final Match<T> other) {
       return (c, t) -> {
-        var r = this.test(c,t);
+        Result r = this.test(c,t);
         if (!r.result()) {
           return r;
         }
@@ -41,7 +41,7 @@ public interface Match<T> {
 
   default Match<T> negate() {
     return (c, t) -> {
-      var r = this.test(c,t);
+      Result r = this.test(c,t);
       if (!r.result()) {
         return result(true, r.context());
       }
@@ -51,7 +51,7 @@ public interface Match<T> {
 
   default Match<T> or(final Match<T> other) {
     return (c, t) -> {
-      var r = this.test(c,t);
+      Result r = this.test(c,t);
       if (r.result()) {
         return r;
       }

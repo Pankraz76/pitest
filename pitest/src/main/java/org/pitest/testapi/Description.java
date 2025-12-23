@@ -74,7 +74,7 @@ public final class Description implements Serializable {
     if (obj == null || getClass() != obj.getClass()) {
       return false;
     }
-    final var other = (Description) obj;
+    final Description other = (Description) obj;
     return Objects.equals(testClass, other.testClass)
             && Objects.equals(name, other.name);
   }

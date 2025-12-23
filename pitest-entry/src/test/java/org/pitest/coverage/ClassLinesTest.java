@@ -25,14 +25,14 @@ public class ClassLinesTest {
     public void relocateModifiesClassname() {
         // note relocate is used within external plugins
         ClassName bar = ClassName.fromString("bar");
-        var underTest = new ClassLines(ClassName.fromString("foo"), Collections.emptySet());
+        ClassLines underTest = new ClassLines(ClassName.fromString("foo"), Collections.emptySet());
         assertThat(underTest.relocate(bar)).isEqualTo(new ClassLines(bar, Collections.emptySet()));
     }
 
     @Test
     public void convertsToClassLines() {
         ClassName foo = ClassName.fromString("foo");
-        var underTest = new ClassLines(foo, new HashSet<>(asList(1,2)));
+        ClassLines underTest = new ClassLines(foo, new HashSet<>(asList(1,2)));
 
         assertThat(underTest.asList()).containsExactly(new ClassLine(foo,1), new ClassLine(foo,2));
     }
@@ -40,7 +40,7 @@ public class ClassLinesTest {
     @Test
     public void reportsNumberOfCodeLines() {
         ClassName foo = ClassName.fromString("foo");
-        var underTest = new ClassLines(foo, new HashSet<>(asList(1,2)));
+        ClassLines underTest = new ClassLines(foo, new HashSet<>(asList(1,2)));
 
         assertThat(underTest.getNumberOfCodeLines()).isEqualTo(2);
     }

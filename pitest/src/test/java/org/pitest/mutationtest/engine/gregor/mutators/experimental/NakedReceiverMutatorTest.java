@@ -109,7 +109,7 @@ public class NakedReceiverMutatorTest {
 
         @Override
         public String call() {
-            final var dsl = this;
+            final HasDslMethodCall dsl = this;
             dsl.chain(1).nonDsl(3);
             return "" + dsl;
         }

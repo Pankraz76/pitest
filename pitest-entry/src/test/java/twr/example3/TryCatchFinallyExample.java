@@ -10,7 +10,7 @@ import java.io.IOException;
 public class TryCatchFinallyExample {
 
     public static void main(String[] args) {
-        try (var baos = new ByteArrayOutputStream()) {
+        try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
             baos.flush();
         } catch (IOException e) {
             e.printStackTrace();

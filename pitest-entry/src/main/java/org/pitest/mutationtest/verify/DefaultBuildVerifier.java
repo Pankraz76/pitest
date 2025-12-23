@@ -37,7 +37,7 @@ public class DefaultBuildVerifier implements BuildVerifier {
 
     // check we have at least one class that is not an interface
     // otherwise our checks will fire on an empty project
-    var hasMutableCode = code.codeTrees()
+    boolean hasMutableCode = code.codeTrees()
             .anyMatch(this::isMutable);
 
     if (!hasMutableCode) {
@@ -54,7 +54,7 @@ public class DefaultBuildVerifier implements BuildVerifier {
   private void checkForDebugSourceFile() {
     // perform only a weak "any exist" check for source file as
     // some jvm languages are not guaranteed to include a source file for all classes
-    var sourceFile = code.codeTrees()
+    boolean sourceFile = code.codeTrees()
             .anyMatch(this::hasSourceFile);
 
     if (!sourceFile) {
@@ -65,7 +65,7 @@ public class DefaultBuildVerifier implements BuildVerifier {
   private void checkForLineNumbers() {
     // perform only a weak "any exist" check for line numbers as
     // some jvm languages are not guaranteed to produce them for all classes
-    var lineNumbers = code.codeTrees()
+    boolean lineNumbers = code.codeTrees()
             .anyMatch(this::hasLineNumbers);
     if (!lineNumbers) {
       throw new PitHelpError(Help.NO_LINE_NUMBERS);

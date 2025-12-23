@@ -22,7 +22,7 @@ public class PitHelpErrorTest {
 
   @Test
   public void shouldFormatTextStrings() {
-    final var testee = new PitHelpError(Help.WRONG_JUNIT_VERSION,
+    final PitHelpError testee = new PitHelpError(Help.WRONG_JUNIT_VERSION,
         "3.8.1");
     assertTrue(testee.getMessage().contains("3.8.1"));
   }

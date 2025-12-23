@@ -48,7 +48,7 @@ public class StreamMonitor extends Thread implements Monitor {
 
   @Override
   public void run() {
-    var reader = new BufferedReader(new InputStreamReader(this.in));
+    BufferedReader reader = new BufferedReader(new InputStreamReader(this.in));
     while (!this.isInterrupted()) {
       readFromStream(reader);
     }

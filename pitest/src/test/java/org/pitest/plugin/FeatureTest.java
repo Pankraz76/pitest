@@ -43,10 +43,10 @@ public class FeatureTest {
 
   @Test
   public void ordersByOrderValueWhenValuesDiffer() {
-    var a = Feature.named("a").withOrder(4);
-    var b = Feature.named("b").withOrder(3);
-    var c = Feature.named("c").withOrder(2);
-    var d = Feature.named("d").withOrder(1);
+    Feature a = Feature.named("a").withOrder(4);
+    Feature b = Feature.named("b").withOrder(3);
+    Feature c = Feature.named("c").withOrder(2);
+    Feature d = Feature.named("d").withOrder(1);
     List<Feature> features = asList(c, a, b, d);
 
     assertThat(features.stream().sorted()).containsExactly(d, c, b, a);
@@ -54,10 +54,10 @@ public class FeatureTest {
 
   @Test
   public void ordersFirstByValueThenByName() {
-    var a = Feature.named("a").withOrder(4);
-    var b = Feature.named("b").withOrder(4);
-    var c = Feature.named("c").withOrder(2);
-    var d = Feature.named("d").withOrder(2);
+    Feature a = Feature.named("a").withOrder(4);
+    Feature b = Feature.named("b").withOrder(4);
+    Feature c = Feature.named("c").withOrder(2);
+    Feature d = Feature.named("d").withOrder(2);
     List<Feature> features = asList(c, a, b, d);
 
     assertThat(features.stream().sorted()).containsExactly(c, d, a, b);

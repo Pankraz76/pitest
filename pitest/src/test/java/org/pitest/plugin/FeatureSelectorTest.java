@@ -24,7 +24,7 @@ public class FeatureSelectorTest {
 
   @Test
   public void shouldSelectFeaturesThatAreOnByDefault() {
-    final var onByDefault = new ProvidesFooByDefault();
+    final ProvidesFooByDefault onByDefault = new ProvidesFooByDefault();
     this.testee = new FeatureSelector<>(noSettings(), features(onByDefault));
 
     assertThat(this.testee.getActiveFeatures()).contains(onByDefault);
@@ -39,7 +39,7 @@ public class FeatureSelectorTest {
 
   @Test
   public void shouldEnableFeaturesWhenRequested() {
-    final var enableBar = new FeatureSetting("bar", ToggleStatus.ACTIVATE, new HashMap<>());
+    final FeatureSetting enableBar = new FeatureSetting("bar", ToggleStatus.ACTIVATE, new HashMap<>());
     this.testee = new FeatureSelector<>(Arrays.asList(enableBar), features(this.onByDefault, this.offByDefault));
 
     assertThat(this.testee.getActiveFeatures()).containsOnly(this.offByDefault, this.onByDefault);
@@ -47,7 +47,7 @@ public class FeatureSelectorTest {
 
   @Test
   public void shouldDisableFeaturesWhenRequested() {
-    final var disableFoo = new FeatureSetting("foo", ToggleStatus.DEACTIVATE, new HashMap<>());
+    final FeatureSetting disableFoo = new FeatureSetting("foo", ToggleStatus.DEACTIVATE, new HashMap<>());
     this.testee = new FeatureSelector<>(Arrays.asList(disableFoo), features(this.onByDefault));
 
     assertThat(this.testee.getActiveFeatures()).isEmpty();
@@ -55,7 +55,7 @@ public class FeatureSelectorTest {
 
   @Test
   public void shouldNoDisableInternalFeatures() {
-    final var disableFoo = new FeatureSetting("foo", ToggleStatus.DEACTIVATE, new HashMap<>());
+    final FeatureSetting disableFoo = new FeatureSetting("foo", ToggleStatus.DEACTIVATE, new HashMap<>());
     this.testee = new FeatureSelector<>(Arrays.asList(disableFoo), features(this.internalFeature));
 
     assertThat(this.testee.getActiveFeatures()).isNotEmpty();
@@ -63,7 +63,7 @@ public class FeatureSelectorTest {
 
   @Test
   public void shouldProvideConfigurationForFeatureWhenProvided() {
-    final var fooConfig = new FeatureSetting("foo", ToggleStatus.DEACTIVATE,  new HashMap<>());
+    final FeatureSetting fooConfig = new FeatureSetting("foo", ToggleStatus.DEACTIVATE,  new HashMap<>());
     this.testee = new FeatureSelector<>(Arrays.asList(fooConfig), features(this.onByDefault));
 
     assertThat(this.testee.getSettingForFeature("foo")).isEqualTo(fooConfig);
@@ -72,7 +72,7 @@ public class FeatureSelectorTest {
 
   @Test
   public void featureNamesAreCaseInsensitive() {
-    final var fooConfig = new FeatureSetting("foo", ToggleStatus.DEACTIVATE,  new HashMap<>());
+    final FeatureSetting fooConfig = new FeatureSetting("foo", ToggleStatus.DEACTIVATE,  new HashMap<>());
     this.testee = new FeatureSelector<>(Arrays.asList(fooConfig), features(this.onByDefault));
 
     assertThat(this.testee.getSettingForFeature("FOO")).isEqualTo(fooConfig);
@@ -80,7 +80,7 @@ public class FeatureSelectorTest {
 
   @Test
   public void doesNotDuplicateFeatures() {
-    final var fooConfig = new FeatureSetting("foo", ToggleStatus.ACTIVATE,  new HashMap<>());
+    final FeatureSetting fooConfig = new FeatureSetting("foo", ToggleStatus.ACTIVATE,  new HashMap<>());
     this.testee = new FeatureSelector<>(Arrays.asList(fooConfig), features(this.onByDefault));
 
     assertThat(this.testee.getActiveFeatures()).hasSize(1);
@@ -88,7 +88,7 @@ public class FeatureSelectorTest {
 
   @Test
   public void ordersFeaturesConsistently() {
-    final var fooConfig = new FeatureSetting("bar", ToggleStatus.ACTIVATE,  new HashMap<>());
+    final FeatureSetting fooConfig = new FeatureSetting("bar", ToggleStatus.ACTIVATE,  new HashMap<>());
     this.testee = new FeatureSelector<>(Arrays.asList(fooConfig), features(this.onByDefault, this.offByDefault));
 
     assertThat(this.testee.getActiveFeatures()).containsExactly(offByDefault, onByDefault);
@@ -102,8 +102,8 @@ public class FeatureSelectorTest {
 
   @Test
   public void ordersLowerOrderValueFeaturesFirst() {
-    var order1 = new ProvidesFooByDefaultWithOrder1();
-    final var fooConfig = new FeatureSetting("bar", ToggleStatus.ACTIVATE,  new HashMap<>());
+    ProvidesFooByDefaultWithOrder1 order1 = new ProvidesFooByDefaultWithOrder1();
+    final FeatureSetting fooConfig = new FeatureSetting("bar", ToggleStatus.ACTIVATE,  new HashMap<>());
     this.testee = new FeatureSelector<>(Arrays.asList(fooConfig), features(order1, this.offByDefault));
 
     assertThat(this.testee.getActiveFeatures()).containsExactly(order1, offByDefault);

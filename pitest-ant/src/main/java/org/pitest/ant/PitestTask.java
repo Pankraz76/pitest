@@ -78,7 +78,7 @@ public class PitestTask extends Task { // NO_UCD (test only)
       throw new BuildException("You must specify the classpath for pitest and its plugins.");
     }
 
-    final var reference = getProject().getReference(this.pitClasspath);
+    final Object reference = getProject().getReference(this.pitClasspath);
     if (reference != null) {
       this.pitClasspath = reference.toString();
     }
@@ -103,7 +103,7 @@ public class PitestTask extends Task { // NO_UCD (test only)
       throw new BuildException("You must specify the classpath.");
     }
 
-    final var reference = getProject().getReference(this.classpath);
+    final Object reference = getProject().getReference(this.classpath);
     if (reference != null) {
       this.classpath = reference.toString();
     }

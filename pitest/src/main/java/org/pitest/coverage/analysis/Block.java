@@ -28,7 +28,7 @@ public final class Block {
     if (obj == null || getClass() != obj.getClass()) {
       return false;
     }
-    final var other = (Block) obj;
+    final Block other = (Block) obj;
     return (firstInstruction == other.firstInstruction)
             && (lastInstruction == other.lastInstruction);
   }

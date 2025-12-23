@@ -32,8 +32,8 @@ public class BendJavassistToMyWillTransformer implements ClassFileTransformer {
 
     if (shouldInclude(className)) {
 
-      final var reader = new ClassReader(classfileBuffer);
-      final var writer = new ComputeClassWriter(
+      final ClassReader reader = new ClassReader(classfileBuffer);
+      final ClassWriter writer = new ComputeClassWriter(
               new ClassloaderByteArraySource(loader), this.computeCache,
               FrameOptions.pickFlags(classfileBuffer));
 

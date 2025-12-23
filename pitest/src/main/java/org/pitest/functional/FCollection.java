@@ -98,7 +98,7 @@ public abstract class FCollection {
 
   public static <A, B> A fold(final BiFunction<A, B, A> f, final A z,
       final Iterable<? extends B> xs) {
-    var p = z;
+    A p = z;
     for (final B x : xs) {
       p = f.apply(p, x);
     }
@@ -121,7 +121,7 @@ public abstract class FCollection {
       final int targetLength, final Iterable<T> ts) {
     final List<List<T>> list = new ArrayList<>();
     List<T> temp = new ArrayList<>();
-    var i = 0;
+    int i = 0;
     for (final T each : ts) {
       if (i == targetLength) {
         list.add(temp);
@@ -141,7 +141,7 @@ public abstract class FCollection {
       final Function<B, A> f) {
     final Map<A, Collection<B>> bucketed = new HashMap<>();
     for (final B each : bs) {
-      final var key = f.apply(each);
+      final A key = f.apply(each);
       Collection<B> existing = bucketed.computeIfAbsent(key, k -> new ArrayList<>());
       existing.add(each);
     }

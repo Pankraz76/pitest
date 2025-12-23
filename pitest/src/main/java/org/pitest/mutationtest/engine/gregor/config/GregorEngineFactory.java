@@ -39,7 +39,7 @@ public final class GregorEngineFactory implements MutationEngineFactory {
       final Collection<? extends MethodMutatorFactory> mutators) {
 
     final Predicate<MethodInfo> filter = Prelude.not(stringToMethodInfoPredicate(excludedMethods));
-    final var config = new DefaultMutationEngineConfiguration(
+    final DefaultMutationEngineConfiguration config = new DefaultMutationEngineConfiguration(
         filter, mutators);
     return new GregorMutationEngine(config);
   }

@@ -22,9 +22,9 @@ public class NoArgsInstantiateStepTest {
 
   @Test
   public void shouldConstructsAnObject() {
-    final var testee = new NoArgsInstantiateStep(
+    final NoArgsInstantiateStep testee = new NoArgsInstantiateStep(
         NoArgsInstantiateStepTest.class);
-    final var actual = (NoArgsInstantiateStepTest) testee
+    final NoArgsInstantiateStepTest actual = (NoArgsInstantiateStepTest) testee
         .execute(null, null);
     assertNotNull(actual);
   }

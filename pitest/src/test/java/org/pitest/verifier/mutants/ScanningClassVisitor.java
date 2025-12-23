@@ -15,6 +15,7 @@ import org.pitest.mutationtest.engine.gregor.FieldInfo;
 import org.pitest.mutationtest.engine.gregor.MethodInfo;
 import org.pitest.mutationtest.engine.gregor.MethodMutatorFactory;
 import org.pitest.mutationtest.engine.gregor.MutationContext;
+import org.pitest.mutationtest.engine.gregor.NoMethodContext;
 
 import java.util.List;
 
@@ -41,15 +42,15 @@ public class ScanningClassVisitor extends ClassVisitor {
                                      final String methodDescriptor, final String signature,
                                      final String[] exceptions) {
 
-        var context = fakeContext(classInfo);
+        MutationContext context = fakeContext(classInfo);
 
-        var methodInfo = new MethodInfo()
+        MethodInfo methodInfo = new MethodInfo()
                 .withOwner(classInfo).withAccess(access)
                 .withMethodName(methodName).withMethodDescriptor(methodDescriptor);
 
-        var next = super.visitMethod(access, methodName, methodDescriptor, signature, exceptions);
+        MethodVisitor next = super.visitMethod(access, methodName, methodDescriptor, signature, exceptions);
         for (final MethodMutatorFactory each : this.mmfs) {
-            var mv = each.create(context, methodInfo, next);
+            MethodVisitor mv = each.create(context, methodInfo, next);
             if (mv != null) {
                 next = mv;
             }
@@ -60,10 +61,10 @@ public class ScanningClassVisitor extends ClassVisitor {
 
     @Override
     public AnnotationVisitor visitAnnotation(String descriptor, boolean visible) {
-        var next = super.visitAnnotation(descriptor, visible);
-        var annotationInfo = new AnnotationInfo(descriptor, visible);
+        AnnotationVisitor next = super.visitAnnotation(descriptor, visible);
+        AnnotationInfo annotationInfo = new AnnotationInfo(descriptor, visible);
 
-        var context = fakeMethodContext();
+        BasicContext context = fakeMethodContext();
 
         for (final MethodMutatorFactory each : this.mmfs) {
             if (each.skipAnnotation(context, annotationInfo)) {
@@ -72,7 +73,7 @@ public class ScanningClassVisitor extends ClassVisitor {
         }
 
         for (final MethodMutatorFactory each : this.mmfs) {
-            var fv = each.createForAnnotation(context, annotationInfo, next);
+            AnnotationVisitor fv = each.createForAnnotation(context, annotationInfo, next);
             if (fv != null) {
                 next = fv;
             }
@@ -82,11 +83,11 @@ public class ScanningClassVisitor extends ClassVisitor {
 
     @Override
     public FieldVisitor visitField(int access, String name, String descriptor, String signature, Object value) {
-        var next = super.visitField(access, name, descriptor, signature, value);
-        var fieldInfo = new FieldInfo(access, name, descriptor, signature, value);
+        FieldVisitor next = super.visitField(access, name, descriptor, signature, value);
+        FieldInfo fieldInfo = new FieldInfo(access, name, descriptor, signature, value);
 
         for (final MethodMutatorFactory each : this.mmfs) {
-            var fv = each.createForField(fakeMethodContext(), fieldInfo, next);
+            FieldVisitor fv = each.createForField(fakeMethodContext(), fieldInfo, next);
             if (fv != null) {
                 next = fv;
             }

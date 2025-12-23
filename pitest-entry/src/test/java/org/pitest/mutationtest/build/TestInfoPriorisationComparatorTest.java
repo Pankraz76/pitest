@@ -42,9 +42,9 @@ public class TestInfoPriorisationComparatorTest {
   @Test
   public void shouldPrioritiseFasterTestsThatDirectlyTestTargetBeforeSlowerTestsThatDirectlyTestTarget() {
 
-    final var reallySlow = testInfo(2000, TARGET);
-    final var slow = testInfo(2, TARGET);
-    final var fast = testInfo(1, TARGET);
+    final TestInfo reallySlow = testInfo(2000, TARGET);
+    final TestInfo slow = testInfo(2, TARGET);
+    final TestInfo fast = testInfo(1, TARGET);
     final List<TestInfo> actual = sortWithTestee(slow, reallySlow, fast);
 
     assertThat(actual, is(Arrays.asList(fast, slow, reallySlow)));
@@ -53,9 +53,9 @@ public class TestInfoPriorisationComparatorTest {
   @Test
   public void shouldFavourTestsThatDirectlyTestTargetOverFasterTestsThatDontByApplyingATimeWeighting() {
 
-    final var slowButClose = testInfo(TIME_WEIGHTING, TARGET);
-    final var fastButDistant = testInfo(1, "notTarget");
-    final var verySlowButClose = testInfo(
+    final TestInfo slowButClose = testInfo(TIME_WEIGHTING, TARGET);
+    final TestInfo fastButDistant = testInfo(1, "notTarget");
+    final TestInfo verySlowButClose = testInfo(
         TIME_WEIGHTING + fastButDistant.getTime() + 1, TARGET);
 
     final List<TestInfo> actual = sortWithTestee(verySlowButClose,
@@ -67,9 +67,9 @@ public class TestInfoPriorisationComparatorTest {
 
   @Test
   public void shouldFavourTestsThatCoverFewerLinesInTheSameAmountOfTime() {
-    final var fastButWide = testInfo(1, TARGET, 100);
-    final var fastAndTargetted = testInfo(1, TARGET, 1);
-    final var fastAndSlightlyTargetted = testInfo(1, TARGET, 50);
+    final TestInfo fastButWide = testInfo(1, TARGET, 100);
+    final TestInfo fastAndTargetted = testInfo(1, TARGET, 1);
+    final TestInfo fastAndSlightlyTargetted = testInfo(1, TARGET, 50);
 
     final List<TestInfo> actual = sortWithTestee(fastButWide,
         fastAndSlightlyTargetted, fastAndTargetted);

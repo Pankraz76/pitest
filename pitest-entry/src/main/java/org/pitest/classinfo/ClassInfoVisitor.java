@@ -33,8 +33,8 @@ public final class ClassInfoVisitor extends ClassVisitor {
 
   public static ClassInfoBuilder getClassInfo(final ClassName name,
       final byte[] bytes, final long hash) {
-    final var reader = new ClassReader(bytes);
-    final var info = new ClassInfoBuilder();
+    final ClassReader reader = new ClassReader(bytes);
+    final ClassInfoBuilder info = new ClassInfoBuilder();
     info.id = new ClassIdentifier(hash, name);
     reader.accept(new ClassInfoVisitor(info, null), 0);
     return info;

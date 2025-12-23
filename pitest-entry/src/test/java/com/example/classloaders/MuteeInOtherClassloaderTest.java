@@ -12,9 +12,9 @@ public class MuteeInOtherClassloaderTest {
 
     @Test
     public void returns42() throws Exception {
-        var otherLoader = new DefaultPITClassloader(new ClassPath(), null);
+        DefaultPITClassloader otherLoader = new DefaultPITClassloader(new ClassPath(), null);
         Class<?> clz = otherLoader.loadClass(MuteeInOtherClassloader.class.getName());
-        var underTest = (IntSupplier) clz.getConstructor().newInstance();
+        IntSupplier underTest = (IntSupplier) clz.getConstructor().newInstance();
         assertEquals(42, underTest.getAsInt());
     }
 }

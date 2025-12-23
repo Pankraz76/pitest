@@ -113,17 +113,17 @@ public class RepositoryTest {
 
   @Test
   public void shouldReportOuterClassForStaticInnerClasses() {
-    final var actual = getOuterClassNameFor(SimpleInnerClass.class);
+    final String actual = getOuterClassNameFor(SimpleInnerClass.class);
     assertEquals(RepositoryTest.class.getName().replace(".", "/"), actual);
   }
 
   @Test
   public void shouldReportOuterClassForLocalClasses() {
-    final var local = new Object() {
+    final Object local = new Object() {
 
     };
 
-    final var actual = getOuterClassNameFor(local.getClass());
+    final String actual = getOuterClassNameFor(local.getClass());
     assertEquals(RepositoryTest.class.getName().replace(".", "/"), actual);
   }
 
@@ -133,7 +133,7 @@ public class RepositoryTest {
 
   @Test
   public void shouldReportOuterClassForNonStaticInnerClasses() {
-    final var actual = getOuterClassNameFor(NonStaticInnerClass.class);
+    final String actual = getOuterClassNameFor(NonStaticInnerClass.class);
     assertEquals(RepositoryTest.class.getName().replace(".", "/"), actual);
   }
 
@@ -145,7 +145,7 @@ public class RepositoryTest {
 
   @Test
   public void shouldReportInnermstOuterClassForNestedInnerClasses() {
-    final var actual = getOuterClassNameFor(OuterStaticInnerClass.InnerStaticClass.class);
+    final String actual = getOuterClassNameFor(OuterStaticInnerClass.InnerStaticClass.class);
     assertEquals(
         RepositoryTest.OuterStaticInnerClass.class.getName().replace(".", "/"),
         actual);

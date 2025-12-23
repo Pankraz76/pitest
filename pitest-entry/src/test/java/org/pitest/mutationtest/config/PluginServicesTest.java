@@ -1,6 +1,7 @@
 package org.pitest.mutationtest.config;
 
 import org.junit.Test;
+import org.mockito.Mockito;
 import org.pitest.coverage.BasicTestStatListenerFactory;
 import org.pitest.functional.FCollection;
 import org.pitest.mutationtest.MutationResultListenerFactory;
@@ -14,8 +15,10 @@ import org.pitest.plugin.Feature;
 
 import java.util.function.Predicate;
 
+import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.when;
 
 public class PluginServicesTest {
 

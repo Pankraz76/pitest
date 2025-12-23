@@ -24,13 +24,13 @@ class SocketReadingCallable implements Callable<ExitCode> {
 
   @Override
   public ExitCode call() throws Exception {
-    try (var clientSocket = this.socket.accept()) {
-      try (var bif = new BufferedInputStream(
+    try (Socket clientSocket = this.socket.accept()) {
+      try (BufferedInputStream bif = new BufferedInputStream(
           clientSocket.getInputStream())) {
 
         sendDataToMinion(clientSocket);
 
-        final var is = new SafeDataInputStream(bif);
+        final SafeDataInputStream is = new SafeDataInputStream(bif);
         return receiveResults(is);
       } catch (final IOException e) {
         throw Unchecked.translateCheckedException(e);
@@ -45,8 +45,8 @@ class SocketReadingCallable implements Callable<ExitCode> {
   }
 
   private void sendDataToMinion(final Socket clientSocket) throws IOException {
-    final var os = clientSocket.getOutputStream();
-    final var dos = new SafeDataOutputStream(os);
+    final OutputStream os = clientSocket.getOutputStream();
+    final SafeDataOutputStream dos = new SafeDataOutputStream(os);
     this.sendInitialData.accept(dos);
   }
 

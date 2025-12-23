@@ -32,18 +32,18 @@ public class LineMapper implements LineMap {
     // classes generated at runtime eg by mocking frameworks
     // will be instrumented but not available on the classpath
     if (maybeBytes.isPresent()) {
-      final var cr = new ClassReader(maybeBytes.get());
-      final var classNode = new ClassNode();
+      final ClassReader cr = new ClassReader(maybeBytes.get());
+      final ClassNode classNode = new ClassNode();
 
       cr.accept(classNode, ClassReader.EXPAND_FRAMES);
       for (final Object m : classNode.methods) {
-        final var mn = (MethodNode) m;
+        final MethodNode mn = (MethodNode) m;
         final Location l = Location.location(clazz,
             mn.name, mn.desc);
         final List<Block> blocks = ControlFlowAnalyser.analyze(mn);
-        for (var i = 0; i != blocks.size(); i++) {
-          final var each = blocks.get(i);
-          final var bl = new BlockLocation(l, i);
+        for (int i = 0; i != blocks.size(); i++) {
+          final Block each = blocks.get(i);
+          final BlockLocation bl = new BlockLocation(l, i);
           map.put(bl, each.getLines());
         }
 

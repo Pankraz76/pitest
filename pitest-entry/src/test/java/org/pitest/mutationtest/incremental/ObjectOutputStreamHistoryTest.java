@@ -76,14 +76,14 @@ public class ObjectOutputStreamHistoryTest {
 
     @Test
     public void shouldRecordAndRetrieveClassPath() {
-        final var foo = new ClassHistory(new HierarchicalClassId(
+        final ClassHistory foo = new ClassHistory(new HierarchicalClassId(
             new ClassIdentifier(0, ClassName.fromString("foo")), ""), COV);
-        final var bar = new ClassHistory(new HierarchicalClassId(
+        final ClassHistory bar = new ClassHistory(new HierarchicalClassId(
             new ClassIdentifier(0, ClassName.fromString("bar")), ""), COV);
 
         recordClassPathWithTestee(foo.getId(), bar.getId());
 
-        final var reader = new StringReader(this.output.toString());
+        final Reader reader = new StringReader(this.output.toString());
         this.testee = new ObjectOutputStreamHistory(this.code, this.writerFactory,
             Optional.ofNullable(reader));
         this.testee.initialize();
@@ -96,17 +96,17 @@ public class ObjectOutputStreamHistoryTest {
 
     @Test
     public void shouldRecordAndRetrieveResults() {
-        final var foo = new HierarchicalClassId(
+        final HierarchicalClassId foo = new HierarchicalClassId(
             new ClassIdentifier(0, ClassName.fromString("foo")), "");
         recordClassPathWithTestee(foo);
 
-        final var mr = new MutationResult(
+        final MutationResult mr = new MutationResult(
             MutationTestResultMother.createDetails("foo"),
             new MutationStatusTestPair(1, DetectionStatus.KILLED, "testName"));
 
         this.testee.recordResult(mr);
 
-        final var reader = new StringReader(this.output.toString());
+        final Reader reader = new StringReader(this.output.toString());
         this.testee = new ObjectOutputStreamHistory(this.code, this.writerFactory,
             Optional.ofNullable(reader));
         this.testee.initialize();
@@ -128,18 +128,18 @@ public class ObjectOutputStreamHistoryTest {
 
     @Test
     public void shouldReadCorruptFiles() throws IOException {
-        final var foo = new HierarchicalClassId(
+        final HierarchicalClassId foo = new HierarchicalClassId(
             new ClassIdentifier(0, ClassName.fromString("foo")), "");
         recordClassPathWithTestee(foo);
 
-        final var mr = new MutationResult(
+        final MutationResult mr = new MutationResult(
             MutationTestResultMother.createDetails("foo"),
             new MutationStatusTestPair(1, DetectionStatus.KILLED, "testName"));
 
         this.testee.recordResult(mr);
         this.output.append("rubbish");
 
-        final var reader = new StringReader(this.output.toString());
+        final Reader reader = new StringReader(this.output.toString());
         this.testee = new ObjectOutputStreamHistory(this.code, this.writerFactory,
             Optional.ofNullable(reader));
         this.testee.initialize();
@@ -149,18 +149,18 @@ public class ObjectOutputStreamHistoryTest {
 
     @Test
     public void doesNotErrorOnOldHistoryFile() throws IOException {
-        final var foo = new HierarchicalClassId(
+        final HierarchicalClassId foo = new HierarchicalClassId(
                 new ClassIdentifier(0, ClassName.fromString("foo")), "");
         recordClassPathWithTestee(foo);
 
-        final var mr = new MutationResult(
+        final MutationResult mr = new MutationResult(
                 MutationTestResultMother.createDetails("foo"),
                 new MutationStatusTestPair(1, DetectionStatus.KILLED, "testName"));
 
         this.testee.recordResult(mr);
         this.output.append(pitest14HistoryFile());
 
-        final var reader = new StringReader(this.output.toString());
+        final Reader reader = new StringReader(this.output.toString());
         this.testee = new ObjectOutputStreamHistory(this.code, this.writerFactory,
                 Optional.ofNullable(reader));
         this.testee.initialize();

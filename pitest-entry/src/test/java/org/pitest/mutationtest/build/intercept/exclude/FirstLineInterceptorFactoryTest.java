@@ -2,6 +2,7 @@ package org.pitest.mutationtest.build.intercept.exclude;
 
 import org.junit.Test;
 import org.pitest.mutationtest.build.InterceptorType;
+import org.pitest.mutationtest.build.intercept.groovy.GroovyFilterFactory;
 import org.pitest.verifier.interceptors.FactoryVerifier;
 
 public class FirstLineInterceptorFactoryTest {

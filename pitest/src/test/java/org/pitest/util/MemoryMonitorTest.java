@@ -28,7 +28,7 @@ public class MemoryMonitorTest {
         System.out.println("Collection count: " + gcmbean.getCollectionCount());
         System.out.println("Collection time: " + gcmbean.getCollectionTime());
         System.out.println("Memory Pools: ");
-        final var memoryPoolNames = gcmbean.getMemoryPoolNames();
+        final String[] memoryPoolNames = gcmbean.getMemoryPoolNames();
         for (final String memoryPoolName : memoryPoolNames) {
           System.out.println("\t" + memoryPoolName);
         }
@@ -46,7 +46,7 @@ public class MemoryMonitorTest {
         System.out.println("Peak Usage: " + mempoolmbean.getPeakUsage());
         System.out.println("Type: " + mempoolmbean.getType());
         System.out.println("Memory Manager Names: ");
-        final var memManagerNames = mempoolmbean.getMemoryManagerNames();
+        final String[] memManagerNames = mempoolmbean.getMemoryManagerNames();
         for (final String memManagerName : memManagerNames) {
           System.out.println("\t" + memManagerName);
         }

@@ -19,9 +19,9 @@ public class BuildMessageTest {
 
     @Test
     public void sortsZeroPriorityFirst() {
-        var a = new BuildMessage("a","",10);
-        var b = new BuildMessage("b","",0);
-        var c = new BuildMessage("c","",5);
+        BuildMessage a = new BuildMessage("a","",10);
+        BuildMessage b = new BuildMessage("b","",0);
+        BuildMessage c = new BuildMessage("c","",5);
 
         List<BuildMessage> l = asList(a,b,c);
         Collections.sort(l);
@@ -30,13 +30,13 @@ public class BuildMessageTest {
 
     @Test
     public void includesURLInToStringWhenPresent() {
-        var underTest = new BuildMessage("text", "https://pitest.org", 0);
+        BuildMessage underTest = new BuildMessage("text", "https://pitest.org", 0);
         assertThat(underTest.toString()).isEqualTo("text (https://pitest.org)");
     }
 
     @Test
     public void doesNotIncludeURLInToStringWhenNull() {
-        var underTest = new BuildMessage("text", null, 0);
+        BuildMessage underTest = new BuildMessage("text", null, 0);
         assertThat(underTest.toString()).isEqualTo("text");
     }
 }

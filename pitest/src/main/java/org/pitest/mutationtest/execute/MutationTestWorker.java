@@ -81,7 +81,7 @@ public class MutationTestWorker {
       if (DEBUG) {
         LOG.fine("Running mutation " + mutation);
       }
-      final var t0 = System.nanoTime();
+      final long t0 = System.nanoTime();
       processMutation(r, testSource, mutation);
       if (DEBUG) {
         LOG.fine("processed mutation in " + NANOSECONDS.toMillis(System.nanoTime() - t0)
@@ -95,8 +95,8 @@ public class MutationTestWorker {
                                TimeOutDecoratedTestSource testSource,
                                MutationDetails mutationDetails) {
 
-    final var mutationId = mutationDetails.getId();
-    final var mutatedClass = this.mutater.getMutation(mutationId);
+    final MutationIdentifier mutationId = mutationDetails.getId();
+    final Mutant mutatedClass = this.mutater.getMutation(mutationId);
 
     reset.resetFor(mutatedClass);
 
@@ -108,7 +108,7 @@ public class MutationTestWorker {
 
     r.describe(mutationId);
 
-    final var mutationDetected = handleMutation(
+    final MutationStatusTestPair mutationDetected = handleMutation(
         mutationDetails, mutatedClass, relevantTests);
 
     r.report(mutationId, mutationDetected);
@@ -143,7 +143,7 @@ public class MutationTestWorker {
     }
 
     final Container c = createNewContainer();
-    final var t0 = System.nanoTime();
+    final long t0 = System.nanoTime();
 
     if (this.hotswap.insertClass(mutationId.getClassName(), this.loader,
         mutatedClass.getBytes())) {
@@ -168,7 +168,7 @@ public class MutationTestWorker {
       @Override
       public List<TestResult> execute(final TestUnit group) {
         final Collection<TestResult> results = new ConcurrentLinkedDeque<>();
-        final var rc = new ExitingResultCollector(
+        final ExitingResultCollector rc = new ExitingResultCollector(
             new ConcreteResultCollector(results));
         group.execute(rc);
         return new ArrayList<>(results);
@@ -187,9 +187,9 @@ public class MutationTestWorker {
   private MutationStatusTestPair doTestsDetectMutation(final Container c,
       final List<TestUnit> tests) {
     try {
-      final var listener = new CheckTestHasFailedResultListener(fullMutationMatrix);
+      final CheckTestHasFailedResultListener listener = new CheckTestHasFailedResultListener(fullMutationMatrix);
 
-      final var pit = new Pitest(listener);
+      final Pitest pit = new Pitest(listener);
 
       if (this.fullMutationMatrix) {
         pit.run(c, tests);

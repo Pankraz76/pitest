@@ -34,7 +34,7 @@ public class DefaultPITClassloader extends ClassLoader {
   protected Class<?> findClass(final String name) throws ClassNotFoundException {
 
     try {
-      final var b = this.classPath.getClassData(name);
+      final byte[] b = this.classPath.getClassData(name);
       if (b == null) {
         throw new ClassNotFoundException(name);
       }
@@ -46,9 +46,9 @@ public class DefaultPITClassloader extends ClassLoader {
   }
 
   private void definePackage(final String name) {
-    final var i = name.lastIndexOf('.');
+    final int i = name.lastIndexOf('.');
     if (i != -1) {
-      final var pkgname = name.substring(0, i);
+      final String pkgname = name.substring(0, i);
       if (this.getPackage(pkgname) == null) {
         definePackage(pkgname, null, null, null, null, null, null, null);
       }
@@ -78,7 +78,7 @@ public class DefaultPITClassloader extends ClassLoader {
       @Override
       public URL nextElement() {
         if (this.element != null) {
-          final var next = this.element;
+          final URL next = this.element;
           this.element = null;
           return next;
         }

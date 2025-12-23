@@ -57,7 +57,7 @@ class RemoveIncrementsMethodVisitor extends MethodVisitor {
 
   @Override
   public void visitIincInsn(final int var, final int increment) {
-    final var newId = this.context.registerMutation(
+    final MutationIdentifier newId = this.context.registerMutation(
         this.factory, "Removed increment " + increment);
     if (this.context.shouldMutate(newId)) {
       this.mv.visitInsn(Opcodes.NOP);

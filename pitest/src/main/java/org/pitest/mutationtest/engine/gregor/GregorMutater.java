@@ -60,11 +60,11 @@ public class GregorMutater implements Mutater {
   public List<MutationDetails> findMutations(
       final ClassName classToMutate) {
 
-    final var context = new ClassContext();
+    final ClassContext context = new ClassContext();
     context.setTargetMutation(Optional.empty());
     Optional<byte[]> bytes = GregorMutater.this.byteSource.getBytes(
         classToMutate.asInternalName());
-
+    
     return bytes.map(findMutations(context))
         .orElse(Collections.emptyList());
 
@@ -78,9 +78,9 @@ public class GregorMutater implements Mutater {
   private List<MutationDetails> findMutationsForBytes(
       final ClassContext context, final byte[] classToMutate) {
 
-    final var first = new ClassReader(classToMutate);
-    final var nv = new NullVisitor();
-    final var mca = new MutatingClassVisitor(nv, context,
+    final ClassReader first = new ClassReader(classToMutate);
+    final NullVisitor nv = new NullVisitor();
+    final MutatingClassVisitor mca = new MutatingClassVisitor(nv, context,
         filterMethods(), this.mutators);
 
     first.accept(mca, ClassReader.EXPAND_FRAMES);
@@ -91,16 +91,16 @@ public class GregorMutater implements Mutater {
   @Override
   public Mutant getMutation(final MutationIdentifier id) {
 
-    final var context = new ClassContext();
+    final ClassContext context = new ClassContext();
     context.setTargetMutation(Optional.ofNullable(id));
 
     final Optional<byte[]> bytes = this.byteSource.getBytes(id.getClassName()
         .asJavaName());
 
-    final var reader = new ClassReader(bytes.get());
-    final var w = new ComputeClassWriter(this.byteSource,
+    final ClassReader reader = new ClassReader(bytes.get());
+    final ClassWriter w = new ComputeClassWriter(this.byteSource,
         this.computeCache, FrameOptions.pickFlags(bytes.get()));
-    final var mca = new MutatingClassVisitor(w, context,
+    final MutatingClassVisitor mca = new MutatingClassVisitor(w, context,
         filterMethods(), FCollection.filter(this.mutators,
             m -> m.isMutatorFor(id)));
     reader.accept(mca, ClassReader.EXPAND_FRAMES);

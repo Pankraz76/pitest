@@ -56,7 +56,7 @@ public class AnnotatedLineFactory {
 
   public List<Line> convert(final Reader source) throws IOException {
     try {
-      final var lines = new InputStreamLineIterable(source);
+      final InputStreamLineIterable lines = new InputStreamLineIterable(source);
       return StreamSupport.stream(lines.spliterator(), false)
               .map(stringToAnnotatedLine())
               .collect(Collectors.toList());
@@ -72,7 +72,7 @@ public class AnnotatedLineFactory {
 
       @Override
       public Line apply(final String a) {
-        final var l = new Line(this.lineNumber,
+        final Line l = new Line(this.lineNumber,
             StringUtil.escapeBasicHtmlChars(a), lineCovered(this.lineNumber),
             getMutationsForLine(this.lineNumber));
         this.lineNumber++;

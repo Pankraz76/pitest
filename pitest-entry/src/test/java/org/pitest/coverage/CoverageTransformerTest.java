@@ -26,11 +26,11 @@ public class CoverageTransformerTest {
     @Test
     public void doesNotDuplicateClinitWhenSynthetic() {
 
-        var bytes = bytesForClassWithSyntheticStaticInit();
+        byte[] bytes = bytesForClassWithSyntheticStaticInit();
 
         CodeCoverageStore.init(Mockito.mock(InvokeReceiver.class));
 
-        var transformed = underTest.transform(null, "anything", null, null, bytes);
+        byte[] transformed = underTest.transform(null, "anything", null, null, bytes);
 
         ClassTree instrumentedClass = ClassTree.fromBytes(transformed);
 
@@ -43,19 +43,19 @@ public class CoverageTransformerTest {
 
     private byte[] bytesForClassWithSyntheticStaticInit() {
         ClassTree classWithStaticInit = ClassTree.fromBytes(byteSource.getBytes(HasStaticInit.class.getName()).get());
-        var clinit = classWithStaticInit.methods().stream()
+        MethodTree clinit = classWithStaticInit.methods().stream()
                 .filter(m -> m.rawNode().name.equals("<clinit>"))
                 .findAny()
                 .get();
 
         clinit.rawNode().access = Opcodes.ACC_SYNTHETIC;
 
-        var bytes = asBytes(classWithStaticInit);
+        byte[] bytes = asBytes(classWithStaticInit);
         return bytes;
     }
 
     private byte[] asBytes(ClassTree tree) {
-        var classWriter = new ClassWriter(ClassWriter.COMPUTE_FRAMES);
+        ClassWriter classWriter = new ClassWriter(ClassWriter.COMPUTE_FRAMES);
         tree.rawNode().accept(classWriter);
         return classWriter.toByteArray();
     }

@@ -46,36 +46,36 @@ public class CSVReportListenerTest {
 
   @Test
   public void shouldOutputKillingTestWhenOneFound() throws IOException {
-    final var mr = new MutationResult(
+    final MutationResult mr = new MutationResult(
         MutationTestResultMother.createDetails(), new MutationStatusTestPair(1,
             DetectionStatus.KILLED, "foo"));
     this.testee.handleMutationResult(MutationTestResultMother
         .createClassResults(mr));
-    final var expected = "file,clazz,mutator,method,42,KILLED,foo"
+    final String expected = "file,clazz,mutator,method,42,KILLED,foo"
         + NEW_LINE;
     verify(this.out).write(expected);
   }
 
   @Test
   public void shouldQuoteKillingTestWhenNeeded() throws IOException {
-    final var mr = new MutationResult(
+    final MutationResult mr = new MutationResult(
             MutationTestResultMother.createDetails(), new MutationStatusTestPair(1,
             DetectionStatus.KILLED, "foo(java.lang.String, java.lang.String)"));
     this.testee.handleMutationResult(MutationTestResultMother
             .createClassResults(mr));
-    final var expected = "file,clazz,mutator,method,42,KILLED,\"foo(java.lang.String, java.lang.String)\""
+    final String expected = "file,clazz,mutator,method,42,KILLED,\"foo(java.lang.String, java.lang.String)\""
             + NEW_LINE;
     verify(this.out).write(expected);
   }
 
   @Test
   public void shouldOutputNoneWhenNoKillingTestFound() throws IOException {
-    final var mr = new MutationResult(
+    final MutationResult mr = new MutationResult(
         MutationTestResultMother.createDetails(), MutationStatusTestPair.notAnalysed(1,
             DetectionStatus.SURVIVED, Collections.emptyList()));
     this.testee.handleMutationResult(MutationTestResultMother
         .createClassResults(mr));
-    final var expected = "file,clazz,mutator,method,42,SURVIVED,none"
+    final String expected = "file,clazz,mutator,method,42,SURVIVED,none"
         + NEW_LINE;
 
     verify(this.out).write(expected);

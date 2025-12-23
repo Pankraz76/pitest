@@ -44,7 +44,7 @@ public final class BuildMessage implements Comparable<BuildMessage> {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        var that = (BuildMessage) o;
+        BuildMessage that = (BuildMessage) o;
         return priority == that.priority && Objects.equals(text, that.text) && Objects.equals(url, that.url);
     }
 

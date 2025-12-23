@@ -17,12 +17,12 @@ public class DataLoaderTest {
 
   @Test
   public void testLoadMutationSnippet() throws Exception {
-    var file = "/snippets/mutation.xml";
-    var dataLoader = new MutationResultDataLoader(asList(new File(file)));
+    String file = "/snippets/mutation.xml";
+    MutationResultDataLoader dataLoader = new MutationResultDataLoader(asList(new File(file)));
     Set<MutationResult> results = dataLoader.loadData(DataLoaderTest.class.getResourceAsStream(file), new File(file));
 
     assertEquals(1, results.size());
-    var result = results.iterator().next();
+    MutationResult result = results.iterator().next();
 //    assertEquals("true",  result.);
     assertEquals(KILLED, result.getStatus());
     assertEquals(1, result.getNumberOfTestsRun());
@@ -45,12 +45,12 @@ public class DataLoaderTest {
 
   @Test
   public void testLoadCoverageSnippet() throws Exception {
-    var file = "/snippets/linecoverage.xml";
-    var dataLoader = new BlockCoverageDataLoader(asList(new File(file)));
+    String file = "/snippets/linecoverage.xml";
+    BlockCoverageDataLoader dataLoader = new BlockCoverageDataLoader(asList(new File(file)));
     Set<BlockCoverage> results = dataLoader.loadData(DataLoaderTest.class.getResourceAsStream(file), new File(file));
-
+    
     assertEquals(1, results.size());
-    var result = results.iterator().next();
+    BlockCoverage result = results.iterator().next();
     assertEquals("com.example.DividerTest", result.getBlock().getLocation().getClassName().asJavaName());
     assertEquals("testDivide", result.getBlock().getLocation().getMethodName());
     assertEquals("()V", result.getBlock().getLocation().getMethodDesc());

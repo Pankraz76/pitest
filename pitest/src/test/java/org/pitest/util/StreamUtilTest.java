@@ -12,8 +12,8 @@ public class StreamUtilTest {
 
   @Test
   public void shouldCopyStreamsToByteArrays() throws IOException {
-    final var expected = createByteArray();
-    final var bis = new ByteArrayInputStream(expected);
+    final byte[] expected = createByteArray();
+    final ByteArrayInputStream bis = new ByteArrayInputStream(expected);
     final byte[] actual = StreamUtil.streamToByteArray(bis);
     assertArrayEquals(expected, actual);
   }
@@ -25,7 +25,7 @@ public class StreamUtilTest {
 
   @Test
   public void shouldCopyContentsOfOneInputStreamToAnother() throws IOException {
-    final var expected = createByteArray();
+    final byte[] expected = createByteArray();
     final InputStream actualStream = StreamUtil
         .copyStream(new ByteArrayInputStream(createByteArray()));
     final byte[] actualContents = StreamUtil.streamToByteArray(actualStream);

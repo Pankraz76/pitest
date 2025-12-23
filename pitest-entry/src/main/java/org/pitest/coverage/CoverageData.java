@@ -56,7 +56,7 @@ public class CoverageData implements CoverageDatabase {
   public void calculateClassCoverage(final CoverageResult cr) {
 
     checkForFailedTest(cr);
-    final var ti = this.createTestInfo(cr.getTestUnitDescription(),
+    final TestInfo ti = this.createTestInfo(cr.getTestUnitDescription(),
             cr.getExecutionTime(), cr.getNumberOfCoveredBlocks());
 
     legacyClassCoverage.addTestToClasses(ti,cr.getCoverage());
@@ -148,7 +148,7 @@ public class CoverageData implements CoverageDatabase {
   }
 
   private BigInteger generateCoverageNumber(Collection<TestInfo> coverage) {
-    var coverageNumber = BigInteger.ZERO;
+    BigInteger coverageNumber = BigInteger.ZERO;
     Set<ClassName> testClasses = coverage.stream()
             .map(TestInfo.toDefiningClassName())
             .collect(Collectors.toSet());

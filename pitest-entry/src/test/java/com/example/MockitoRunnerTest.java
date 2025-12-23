@@ -29,7 +29,7 @@ public class MockitoRunnerTest {
 
   @Test
   public void testThings() {
-    final var testee = new MockitoCallFoo(this.foo);
+    final MockitoCallFoo testee = new MockitoCallFoo(this.foo);
     testee.call();
     verify(this.foo).foo();
 

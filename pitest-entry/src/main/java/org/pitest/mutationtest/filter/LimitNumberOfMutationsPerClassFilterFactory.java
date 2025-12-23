@@ -25,7 +25,7 @@ public class LimitNumberOfMutationsPerClassFilterFactory implements MutationInte
 
   @Override
   public MutationInterceptor createInterceptor(InterceptorParameters params) {
-    final var max = params.getInteger(this.limit)
+    final Integer max = params.getInteger(this.limit)
             .orElse(1);
     return new LimitNumberOfMutationPerClassFilter(max);
   }

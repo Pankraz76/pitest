@@ -11,7 +11,7 @@ import java.io.IOException;
 public class TryExample {
 
     public static void main(String[] args) throws IOException {
-        try (var baos = new ByteArrayOutputStream()) {
+        try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
             baos.flush();
         }
     }

@@ -33,7 +33,7 @@ public class SocketFinderTest {
 
   @Test
   public void shouldFindAvailableSockets() throws IOException {
-    final var socket = this.testee.getNextAvailableServerSocket();
+    final ServerSocket socket = this.testee.getNextAvailableServerSocket();
     assertTrue(socket != null);
     socket.close();
   }

@@ -36,35 +36,35 @@ public class DefaultCodePathPredicateTest {
 
   @Test
   public void shouldNotTreatJarFilesAsCode() {
-    final var archiveRoot = new ArchiveClassPathRoot(new File(
+    final ClassPathRoot archiveRoot = new ArchiveClassPathRoot(new File(
         "foo.jar"));
     assertFalse(this.testee.test(archiveRoot));
   }
 
   @Test
   public void shouldNotTreatZipFilesAsCode() {
-    final var archiveRoot = new ArchiveClassPathRoot(new File(
+    final ClassPathRoot archiveRoot = new ArchiveClassPathRoot(new File(
         "foo.zip"));
     assertFalse(this.testee.test(archiveRoot));
   }
 
   @Test
   public void shouldNotTreatDirectoriesEndingInTestClassesAsCode() {
-    final var archiveRoot = new DirectoryClassPathRoot(new File(
+    final ClassPathRoot archiveRoot = new DirectoryClassPathRoot(new File(
         "foo/bar/test-classes"));
     assertFalse(this.testee.test(archiveRoot));
   }
 
   @Test
   public void shouldNotTreatDirectoriesEndingInBinTestAsCode() {
-    final var archiveRoot = new DirectoryClassPathRoot(new File(
+    final ClassPathRoot archiveRoot = new DirectoryClassPathRoot(new File(
         "foo/bar/bin-test"));
     assertFalse(this.testee.test(archiveRoot));
   }
 
   @Test
   public void shouldTreatDirectoriesAsCode() {
-    final var archiveRoot = new DirectoryClassPathRoot(new File(
+    final ClassPathRoot archiveRoot = new DirectoryClassPathRoot(new File(
         "foo/bar/"));
     assertTrue(this.testee.test(archiveRoot));
   }

@@ -27,17 +27,17 @@ class MutationResultDataLoader extends DataLoader<MutationResult> {
   MutationResultDataLoader(final Collection<File> filesToLoad) {
     super(filesToLoad);
   }
-
+  
   @Override
   protected Set<MutationResult> mapToData(XMLStreamReader xr) throws XMLStreamException {
-    var xm = new XmlMapper();
+    XmlMapper xm = new XmlMapper();
     final Set<MutationResult> data = new HashSet<>();
     while (xr.hasNext()) {
       xr.next();
       if (xr.getEventType() == START_ELEMENT) {
         if ("mutation".equals(xr.getLocalName())) {
           try {
-            var mutation = xm.readValue(xr, MutationXml.class);
+            MutationXml mutation = xm.readValue(xr, MutationXml.class);
             data.add(xmlToResult(mutation));
           } catch (IOException e) {
             throw Unchecked.translateCheckedException(e);
@@ -49,9 +49,9 @@ class MutationResultDataLoader extends DataLoader<MutationResult> {
   }
 
   private MutationResult xmlToResult(MutationXml xml) {
-    var location = new Location(ClassName.fromString(xml.mutatedClass),
+    Location location = new Location(ClassName.fromString(xml.mutatedClass),
             xml.mutatedMethod, xml.methodDescription);
-    var id = new MutationIdentifier(location, xml.indexes, xml.mutator);
+    MutationIdentifier id = new MutationIdentifier(location, xml.indexes, xml.mutator);
     String[] killingTests = xml.killingTest == null ? new String[0] : new String[] { xml.killingTest };
     String[] succeedingTests = xml.succeedingTests == null ? new String[0] : xml.succeedingTests.split(",");
     return new MutationResult(new MutationDetails(id,

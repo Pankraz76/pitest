@@ -41,7 +41,7 @@ public enum BigIntegerMutator implements MethodMutatorFactory {
     static {
       Map<String, Replacement> map = new HashMap<>();
 
-      var unary = "(Ljava/math/BigInteger;)Ljava/math/BigInteger;";
+      String unary = "(Ljava/math/BigInteger;)Ljava/math/BigInteger;";
       put(map, new Replacement("add", "subtract", unary));
       put(map, new Replacement("subtract", "add", unary));
       put(map, new Replacement("multiply", "divide", unary));
@@ -57,16 +57,16 @@ public enum BigIntegerMutator implements MethodMutatorFactory {
       put(map, new Replacement("max", "min", unary));
       put(map, new Replacement("min", "max", unary));
 
-      var unaryPrimitive = "(I)Ljava/math/BigInteger;";
+      String unaryPrimitive = "(I)Ljava/math/BigInteger;";
       put(map, new Replacement("shiftLeft", "shiftRight", unaryPrimitive));
       put(map, new Replacement("shiftRight", "shiftLeft", unaryPrimitive));
 
-      var intAsParam = "(I)Ljava/math/BigInteger;";
+      String intAsParam = "(I)Ljava/math/BigInteger;";
       put(map, new Replacement("setBit", "clearBit", intAsParam));
       put(map, new Replacement("clearBit", "setBit", intAsParam));
       put(map, new Replacement("flipBit", "setBit", intAsParam));
 
-      var noParams = "()Ljava/math/BigInteger;";
+      String noParams = "()Ljava/math/BigInteger;";
       put(map, new Replacement("not", "negate", noParams));
       put(map, new Replacement("negate", "not", noParams));
       put(map, new Replacement("abs", "negate", noParams));
@@ -98,9 +98,9 @@ public enum BigIntegerMutator implements MethodMutatorFactory {
         return;
       }
 
-      var replacement = REPLACEMENTS.get(name);
+      Replacement replacement = REPLACEMENTS.get(name);
       if (replacement != null && replacement.descriptor.equals(descriptor)) {
-        var identifier = context.registerMutation(factory, replacement.toString());
+        MutationIdentifier identifier = context.registerMutation(factory, replacement.toString());
         if (context.shouldMutate(identifier)) {
           this.mv.visitMethodInsn(
               opcode,
@@ -120,8 +120,8 @@ public enum BigIntegerMutator implements MethodMutatorFactory {
         Object... bootstrapMethodArguments) {
       bootstrapMethodHandle = mutateHandle(bootstrapMethodHandle);
       Object[] methodArgs = new Object[bootstrapMethodArguments.length];
-      for (var i = 0; i < bootstrapMethodArguments.length; i++) {
-        var bootstrapMethodArgument = bootstrapMethodArguments[i];
+      for (int i = 0; i < bootstrapMethodArguments.length; i++) {
+        Object bootstrapMethodArgument = bootstrapMethodArguments[i];
         if (bootstrapMethodArgument instanceof Handle) {
           methodArgs[i] = mutateHandle((Handle) bootstrapMethodArgument);
         } else {
@@ -135,16 +135,16 @@ public enum BigIntegerMutator implements MethodMutatorFactory {
      * Mutates a handle within an invoke virtual.
      */
     private Handle mutateHandle(Handle handle) {
-      var opcode = handle.getTag();
-      var owner = handle.getOwner();
-      var name = handle.getName();
-      var descriptor = handle.getDesc();
+      int opcode = handle.getTag();
+      String owner = handle.getOwner();
+      String name = handle.getName();
+      String descriptor = handle.getDesc();
 
       if (owner.equals(expectedOwner) && opcode == Opcodes.H_INVOKEVIRTUAL) {
         if (REPLACEMENTS.containsKey(name)) {
-          var replacement = REPLACEMENTS.get(name);
+          Replacement replacement = REPLACEMENTS.get(name);
           if (replacement.descriptor.equals(descriptor)) {
-            var id = context.registerMutation(factory, replacement.toString());
+            MutationIdentifier id = context.registerMutation(factory, replacement.toString());
             if (context.shouldMutate(id)) {
               return new Handle(
                   opcode,
@@ -173,7 +173,7 @@ public enum BigIntegerMutator implements MethodMutatorFactory {
 
       @Override
       public String toString() {
-        var template = "Replaced BigInteger#%s with BigInteger#%s.";
+        String template = "Replaced BigInteger#%s with BigInteger#%s.";
         return String.format(template, sourceName, destinationName);
       }
     }

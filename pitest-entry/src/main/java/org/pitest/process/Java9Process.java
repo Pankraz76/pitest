@@ -34,9 +34,9 @@ public class Java9Process implements WrappingProcess {
     }
 
     public void start() throws IOException {
-        var args =  "" + this.port;
+        String args =  "" + this.port;
 
-        var processBuilder = createProcessBuilder(
+        ProcessBuilder processBuilder = createProcessBuilder(
                 this.processArgs.getJavaExecutable(),
                 this.processArgs.getJvmArgs(),
                 this.minionClass, args,
@@ -47,7 +47,7 @@ public class Java9Process implements WrappingProcess {
         configureProcessBuilder(processBuilder, this.processArgs.getWorkingDir(),
                 this.processArgs.getEnvironmentVariables());
 
-        var process = processBuilder.start();
+        Process process = processBuilder.start();
         this.process = new JavaProcess(process, this.processArgs.getStdout(),
                 this.processArgs.getStdErr());
     }
@@ -81,7 +81,7 @@ public class Java9Process implements WrappingProcess {
         removeJacocoAgent(fileArgs);
 
         // All arguments are passed via a temporary file, thereby avoiding command line length limits
-        var argsFile = CACHE.computeIfAbsent(javaAgent.getJarLocation(), j -> createArgsFile(fileArgs));
+        Path argsFile = CACHE.computeIfAbsent(javaAgent.getJarLocation(), j -> createArgsFile(fileArgs));
 
         List<String> cmd = new ArrayList<>();
         cmd.add(javaProc);
@@ -107,7 +107,7 @@ public class Java9Process implements WrappingProcess {
     }
 
     private static void removeFromClassPath(List<String> cmd, Predicate<String> match) {
-        for (var i = cmd.size() - 1; i >= 0; i--) {
+        for (int i = cmd.size() - 1; i >= 0; i--) {
             if (match.test(cmd.get(i))) {
                 cmd.remove(i);
             }
@@ -123,7 +123,7 @@ public class Java9Process implements WrappingProcess {
 
         cmd.add("-classpath");
         cmd.add(classPath.replace(" ", "\" \""));
-
+        
         addPITJavaAgent(agentJarLocator, cmd);
         cmd.addAll(argsWithoutArgFiles);
 
@@ -157,7 +157,7 @@ public class Java9Process implements WrappingProcess {
            // All files should be deleted on process exit, although some garbage may be left
            // if the process is killed. Files are however created in the system temp directory
            // so should be cleaned up on reboot
-           var name = "pitest-args-";
+           String name = "pitest-args-";
            Path args = Files.createTempFile(name, ".args");
            args.toFile().deleteOnExit();
            Files.write(args, cmd);

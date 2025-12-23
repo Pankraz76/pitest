@@ -47,7 +47,7 @@ public class MutationStatisticsPrecursorTest {
 
   @Test
   public void shouldRecordStatisticsAgainstMutators() {
-    final var mr = makeResult(DetectionStatus.KILLED);
+    final MutationResult mr = makeResult(DetectionStatus.KILLED);
     this.testee.registerResults(Collections.singletonList(mr));
     assertTrue(FCollection.contains(this.testee.getScores(),
             hasResultForMutator(mr.getDetails().getId().getMutator())));
@@ -60,7 +60,7 @@ public class MutationStatisticsPrecursorTest {
 
   @Test
   public void shouldCalculateTotalNumberOfMutationsWhenSomeGenerated() {
-    final var mr = makeResult(DetectionStatus.KILLED);
+    final MutationResult mr = makeResult(DetectionStatus.KILLED);
     this.testee.registerResults(Arrays.asList(mr, mr, mr));
     assertEquals(3, this.testee.toStatistics().getTotalMutations());
   }
@@ -96,7 +96,7 @@ public class MutationStatisticsPrecursorTest {
 
   @Test
   public void shouldCalculateTotalNumberOfDetectedMutationsWhenNoneDetected() {
-    final var mr = makeResult(DetectionStatus.SURVIVED);
+    final MutationResult mr = makeResult(DetectionStatus.SURVIVED);
     this.testee.registerResults(Arrays.asList(mr, mr, mr));
     assertEquals(0, this.testee.toStatistics().getTotalDetectedMutations());
   }
@@ -147,7 +147,7 @@ public class MutationStatisticsPrecursorTest {
     this.testee.registerResults(Arrays.asList(
             makeResult(DetectionStatus.SURVIVED),
             makeResult(DetectionStatus.KILLED)));
-    final var actual = generateReportLines();
+    final String[] actual = generateReportLines();
     assertEquals(">> Generated 2 mutations Killed 1 (50%)", actual[0]);
   }
 
@@ -157,7 +157,7 @@ public class MutationStatisticsPrecursorTest {
             makeResult(DetectionStatus.SURVIVED),
             makeResult(DetectionStatus.NO_COVERAGE),
             makeResult(DetectionStatus.KILLED)));
-    final var actual = generateReportLines();
+    final String[] actual = generateReportLines();
     assertEquals(">> Mutations with no coverage 1. Test strength 50%", actual[1]);
   }
 
@@ -166,7 +166,7 @@ public class MutationStatisticsPrecursorTest {
     this.testee.registerResults(Arrays.asList(
             makeResult(DetectionStatus.SURVIVED, 1),
             makeResult(DetectionStatus.KILLED, 42)));
-    final var actual = generateReportLines();
+    final String[] actual = generateReportLines();
     assertEquals(">> Ran 43 tests (21.5 tests per mutation)", actual[2]);
   }
 
@@ -186,10 +186,10 @@ public class MutationStatisticsPrecursorTest {
   }
 
   private String[] generateReportLines() {
-    final var s = new ByteArrayOutputStream();
-    final var out = new PrintStream(s);
+    final ByteArrayOutputStream s = new ByteArrayOutputStream();
+    final PrintStream out = new PrintStream(s);
     this.testee.toStatistics().report(out);
-    final var actual = new String(s.toByteArray());
+    final String actual = new String(s.toByteArray());
     return actual.split(StringUtil.newLine());
   }
 }

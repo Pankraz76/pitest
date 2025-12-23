@@ -39,8 +39,8 @@ public final class Score {
     out.println("> " + this.mutatorName);
     out.println(">> Generated " + this.totalMutations + " Killed "
         + this.totalDetected + " (" + this.getPercentageDetected() + "%)");
-    var i = 0;
-    var sb = new StringBuilder();
+    int i = 0;
+    StringBuilder sb = new StringBuilder();
     for (final StatusCount each : this.counts) {
       sb.append(each + " ");
       i++;

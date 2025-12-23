@@ -160,7 +160,7 @@ public class MutationDiscoveryTest {
 
     assertThat(foundWhenDisabled.size()).isGreaterThan(foundByDefault.size());
   }
-
+  
   @Test
   public void shouldFilterObjectsRequireNonNullCallsForMethodReferences() {
     final ClassName clazz = ClassName.fromString("requirenotnull/MethodReferenceNullChecks_javac");
@@ -270,21 +270,21 @@ public class MutationDiscoveryTest {
   }
 
   private Collection<MutationDetails> findMutants(ClassName clazz) {
-    final var source = createSource(this.cbas);
+    final MutationSource source = createSource(this.cbas);
     return source.createMutations(clazz);
   }
 
   MutationSource createSource(ClassByteArraySource source) {
-    final var settings = new SettingsFactory(this.data,
+    final SettingsFactory settings = new SettingsFactory(this.data,
         PluginServices.makeForContextLoader());
-    final var interceptor = settings.getInterceptor()
+    final MutationInterceptor interceptor = settings.getInterceptor()
         .createInterceptor(this.data, null, source, null, new FixedCodeSource());
 
-    final var engine = new GregorEngineFactory().createEngine(
+    final MutationEngine engine = new GregorEngineFactory().createEngine(
         EngineArguments.arguments().withExcludedMethods(this.data.getExcludedMethods())
         .withMutators(this.data.getMutators()));
 
-    final var config = new MutationConfig(engine, null);
+    final MutationConfig config = new MutationConfig(engine, null);
 
     return new MutationSource(config, noTestPrioritisation(), source,
         interceptor);
@@ -296,7 +296,7 @@ public class MutationDiscoveryTest {
 
   static class HasForLoop {
     public void foo() {
-      for (var i = 0; i != 10; i++) {
+      for (int i = 0; i != 10; i++) {
         System.out.println(i);
       }
     }

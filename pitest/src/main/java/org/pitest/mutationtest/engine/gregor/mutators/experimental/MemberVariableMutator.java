@@ -74,7 +74,7 @@ public class MemberVariableMutator implements MethodMutatorFactory {
     }
 
     private boolean shouldMutate(final String fieldName) {
-      final var mutationId = this.context.registerMutation(
+      final MutationIdentifier mutationId = this.context.registerMutation(
           MemberVariableMutator.this, "Removed assignment to member variable "
               + fieldName);
       return this.context.shouldMutate(mutationId);

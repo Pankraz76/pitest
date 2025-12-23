@@ -34,8 +34,8 @@ public class CustomRunnerExecutor {
 
   public void run() {
 
-    final var rn = new RunNotifier();
-    final var listener = new AdaptingRunListener(this.description,
+    final RunNotifier rn = new RunNotifier();
+    final RunListener listener = new AdaptingRunListener(this.description,
         this.rc);
 
     rn.addFirstListener(listener);

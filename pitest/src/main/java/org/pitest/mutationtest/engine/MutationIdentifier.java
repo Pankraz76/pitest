@@ -138,7 +138,7 @@ public final class MutationIdentifier implements Comparable<MutationIdentifier>,
     if (obj == null || getClass() != obj.getClass()) {
       return false;
     }
-    final var other = (MutationIdentifier) obj;
+    final MutationIdentifier other = (MutationIdentifier) obj;
     return Objects.equals(location, other.location)
             && Objects.equals(indexes, other.indexes)
             && Objects.equals(mutator, other.mutator);
@@ -146,7 +146,7 @@ public final class MutationIdentifier implements Comparable<MutationIdentifier>,
 
   @Override
   public int compareTo(final MutationIdentifier other) {
-    var comp = this.location.compareTo(other.getLocation());
+    int comp = this.location.compareTo(other.getLocation());
     if (comp != 0) {
       return comp;
     }

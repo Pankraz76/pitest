@@ -62,14 +62,14 @@ public class ExitingResultCollectorTest {
 
   @Test
   public void shouldNotifyChildOfTestFailure() {
-    final var er = new RuntimeException();
+    final RuntimeException er = new RuntimeException();
     this.testee.notifyEnd(this.description, er);
     verify(this.rc, times(1)).notifyEnd(this.description, er);
   }
 
   @Test
   public void shouldRequestStopOnTestFailure() {
-    final var er = new RuntimeException();
+    final RuntimeException er = new RuntimeException();
     assertFalse(this.testee.shouldExit());
     this.testee.notifyEnd(this.description, er);
     assertTrue(this.testee.shouldExit());

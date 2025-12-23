@@ -72,7 +72,7 @@ public class SocketReadingCallableTest {
 
   @Test
   public void shouldPassCommandsToReceiver() throws Exception {
-    final var dos = new SafeDataOutputStream(this.o);
+    final SafeDataOutputStream dos = new SafeDataOutputStream(this.o);
     dos.writeByte(Id.DESCRIBE);
     dos.writeByte(Id.DONE);
     dos.writeInt(ExitCode.OK.getCode());
@@ -83,14 +83,14 @@ public class SocketReadingCallableTest {
   }
 
   private void mockClientSocketInputStream() throws IOException {
-    final var bis = new ByteArrayInputStream(
+    final ByteArrayInputStream bis = new ByteArrayInputStream(
         this.o.toByteArray());
     when(this.clientSocket.getInputStream()).thenReturn(bis);
   }
 
   private void mockClientSocketToSendExitCode(final ExitCode timeout)
       throws IOException {
-    final var dos = new SafeDataOutputStream(this.o);
+    final SafeDataOutputStream dos = new SafeDataOutputStream(this.o);
     dos.writeByte(Id.DONE);
     dos.writeInt(timeout.getCode());
     mockClientSocketInputStream();

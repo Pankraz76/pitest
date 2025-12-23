@@ -34,7 +34,7 @@ class MissingJUnit5PluginVerifier implements BuildVerifier {
     public List<BuildMessage> verifyBuild() {
         if (!junit5PluginIsPresent() && junitJupiterPresent()) {
             // log as well as return in case the run is aborted before messages are displayed at the end
-            var msg = "JUnit 5 is on the classpath but the pitest junit 5 plugin is not installed.";
+            String msg = "JUnit 5 is on the classpath but the pitest junit 5 plugin is not installed.";
             Log.getLogger().warning(msg);
             return asList(new BuildMessage(msg, "https://github.com/pitest/pitest-junit5-plugin", 5));
         }

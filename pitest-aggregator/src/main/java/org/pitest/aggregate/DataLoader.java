@@ -50,11 +50,11 @@ abstract class DataLoader<T> {
       throw new ReportAggregationException("Could not read file: " + dataLocation.getAbsolutePath(), e);
     }
   }
-
+  
   Set<T> loadData(final InputStream inputStream, final File dataLocation) throws ReportAggregationException {
     try {
       XMLInputFactory xif = XMLInputFactory.newInstance();
-      var xr = xif.createXMLStreamReader(inputStream);
+      XMLStreamReader xr = xif.createXMLStreamReader(inputStream);
       return mapToData(xr);
     } catch (final XMLStreamException e) {
       throw new ReportAggregationException("Could not parse file: " + dataLocation.getAbsolutePath(), e);

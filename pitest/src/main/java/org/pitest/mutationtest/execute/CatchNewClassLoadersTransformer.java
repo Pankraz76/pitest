@@ -107,7 +107,7 @@ public class CatchNewClassLoadersTransformer implements ClassFileTransformer {
     }
 
     private static void logClassloaders() {
-        var count = CLASS_LOADERS.size();
+        int count = CLASS_LOADERS.size();
         if (count > 30) {
             LOG.warning("Accumulated " + CLASS_LOADERS.size() + " classloaders, this will likely degrade performance. Please report this as an issue.");
             LOG.warning("Accumulated classloaders = " + CLASS_LOADERS.keySet().stream().map(Object::toString).collect(Collectors.joining("\n")));

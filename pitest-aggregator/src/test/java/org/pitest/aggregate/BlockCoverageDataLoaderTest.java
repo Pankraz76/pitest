@@ -18,8 +18,8 @@ public class BlockCoverageDataLoaderTest {
 
   @Before
   public void setup() throws Exception {
-    final var url = MutationResultDataLoaderTest.class.getResource("/full-data/linecoverage.xml");
-    final var file = new File(url.toURI());
+    final URL url = MutationResultDataLoaderTest.class.getResource("/full-data/linecoverage.xml");
+    final File file = new File(url.toURI());
 
     this.underTest = new BlockCoverageDataLoader(Arrays.asList(file));
   }

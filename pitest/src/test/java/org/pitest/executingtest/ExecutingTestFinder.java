@@ -1,5 +1,6 @@
 package org.pitest.executingtest;
 
+import org.pitest.simpletest.NoArgsConstructorInstantiationStrategy;
 import org.pitest.simpletest.TestMethod;
 import org.pitest.simpletest.TestStep;
 import org.pitest.simpletest.steps.CallStep;
@@ -37,7 +38,7 @@ public class ExecutingTestFinder implements TestUnitFinder {
     }
 
     private TestUnit toTest(Class<?> clazz, Method m) {
-        var testMethod = new TestMethod(m);
+        TestMethod testMethod = new TestMethod(m);
         List<TestStep> steps = asList(NoArgsInstantiateStep.instantiate(clazz), new CallStep(testMethod));
         return new ExecutingTestUnit(new Description(testMethod.getName(), clazz), steps);
     }

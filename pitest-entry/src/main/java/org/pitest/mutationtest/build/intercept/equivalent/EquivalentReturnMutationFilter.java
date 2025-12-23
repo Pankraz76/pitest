@@ -45,7 +45,7 @@ import static org.pitest.sequence.Result.result;
  *
  */
 public class EquivalentReturnMutationFilter implements MutationInterceptorFactory {
-
+    
   @Override
   public String description() {
     return "Trivial return vals equivalence filter";
@@ -123,7 +123,7 @@ public class EquivalentReturnMutationFilter implements MutationInterceptorFactor
   private static Match<AbstractInsnNode> takesNoArgs() {
     return (c, node) -> {
       if (node instanceof MethodInsnNode) {
-        final var call = (MethodInsnNode) node;
+        final MethodInsnNode call = (MethodInsnNode) node;
         return result(Type.getArgumentTypes(call.desc).length == 0, c);
       }
       return result(false, c);

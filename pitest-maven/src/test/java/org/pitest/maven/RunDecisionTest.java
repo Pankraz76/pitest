@@ -8,7 +8,7 @@ public class RunDecisionTest {
 
   @Test
   public void shouldRunIfThereAreNoReasonsWhyNot() {
-    var rd = new PitMojo.RunDecision();
+    PitMojo.RunDecision rd = new PitMojo.RunDecision();
 
     assertThat(rd.getReasons()).isEmpty();
     assertThat(rd.shouldRun()).isTrue();
@@ -16,7 +16,7 @@ public class RunDecisionTest {
 
   @Test
   public void shouldNotRunIfThereIsAReasonsWhyNot() {
-    var rd = new PitMojo.RunDecision();
+    PitMojo.RunDecision rd = new PitMojo.RunDecision();
 
     rd.addReason("Today is Sunday");
 
@@ -26,7 +26,7 @@ public class RunDecisionTest {
 
   @Test
   public void addReasonAddsReason() {
-    var rd = new PitMojo.RunDecision();
+    PitMojo.RunDecision rd = new PitMojo.RunDecision();
 
     rd.addReason("Today is Sunday");
 
@@ -35,7 +35,7 @@ public class RunDecisionTest {
 
   @Test
   public void getReasonsReturnsAllReasons() {
-    var rd = new PitMojo.RunDecision();
+    PitMojo.RunDecision rd = new PitMojo.RunDecision();
 
     rd.addReason("Today is Monday");
     rd.addReason("Today is Sunday");

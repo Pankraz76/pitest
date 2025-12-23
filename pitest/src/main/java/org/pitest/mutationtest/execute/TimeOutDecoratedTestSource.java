@@ -52,7 +52,7 @@ public class TimeOutDecoratedTestSource {
 
   private Function<TestInfo, Stream<TestUnit>> testToTestUnit() {
     return a -> {
-      final var tu = TimeOutDecoratedTestSource.this.allTests.get(a
+      final TestUnit tu = TimeOutDecoratedTestSource.this.allTests.get(a
           .getName());
       if (tu != null) {
         return Stream

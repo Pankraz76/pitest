@@ -84,7 +84,7 @@ public final class Feature implements Comparable<Feature> {
     if (obj == null || getClass() != obj.getClass()) {
       return false;
     }
-    final var other = (Feature) obj;
+    final Feature other = (Feature) obj;
     return Objects.equals(name, other.name);
   }
 

@@ -11,10 +11,10 @@ public class HasIfOnAStringEqualityTesteeTest {
   @Test
   public void ifStringShouldReturnA() throws Exception {
     // given
-    final var input = "a";
+    final String input = "a";
 
     // when
-    final var result = testee.ifString(input);
+    final String result = testee.ifString(input);
 
     // then
     assertThat(result).isEqualTo("A");
@@ -23,10 +23,10 @@ public class HasIfOnAStringEqualityTesteeTest {
   @Test
   public void ifStringShouldReturnB() throws Exception {
     // given
-    final var input = "b";
+    final String input = "b";
 
     // when
-    final var result = testee.ifString(input);
+    final String result = testee.ifString(input);
 
     // then
     assertThat(result).isEqualTo("B");
@@ -35,10 +35,10 @@ public class HasIfOnAStringEqualityTesteeTest {
   @Test
   public void ifStringShouldReturnC() throws Exception {
     // given
-    final var input = "c";
+    final String input = "c";
 
     // when
-    final var result = testee.ifString(input);
+    final String result = testee.ifString(input);
 
     // then
     assertThat(result).isEqualTo("C");
@@ -47,7 +47,7 @@ public class HasIfOnAStringEqualityTesteeTest {
   @Test(expected = IllegalArgumentException.class)
   public void ifStringShouldThrowIllegalArgumentException() throws Exception {
     // given
-    final var input = "x";
+    final String input = "x";
 
     // when
     testee.ifString(input);

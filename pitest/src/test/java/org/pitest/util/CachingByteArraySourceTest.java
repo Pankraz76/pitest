@@ -25,7 +25,7 @@ public class CachingByteArraySourceTest {
 
     when(this.source.getBytes("someClass")).thenReturn(childResult);
 
-    final var testee = new CachingByteArraySource(this.source, 2);
+    final CachingByteArraySource testee = new CachingByteArraySource(this.source, 2);
 
     assertThat(testee.getBytes("someClass")).isSameAs(childResult);
   }
@@ -34,7 +34,7 @@ public class CachingByteArraySourceTest {
   public void shouldCacheByteFromChild() {
     when(this.source.getBytes("someClass")).thenReturn(Optional.ofNullable(new byte[0]));
 
-    final var testee = new CachingByteArraySource(this.source, 2);
+    final CachingByteArraySource testee = new CachingByteArraySource(this.source, 2);
 
     testee.getBytes("someClass");
     testee.getBytes("someClass");

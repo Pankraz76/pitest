@@ -44,7 +44,7 @@ public final class MutationTimeoutDecorator extends TestUnitDecorator {
   @Override
   public void execute(final ResultCollector rc) {
 
-    final var maxTime = this.timeOutStrategy
+    final long maxTime = this.timeOutStrategy
         .getAllowedTime(this.executionTime);
 
     final FutureTask<?> future = createFutureForChildTestUnit(rc);
@@ -68,7 +68,7 @@ public final class MutationTimeoutDecorator extends TestUnitDecorator {
 
   private FutureTask<?> createFutureForChildTestUnit(final ResultCollector rc) {
     final FutureTask<?> future = new FutureTask<>(createRunnable(rc), null);
-    final var thread = new Thread(future);
+    final Thread thread = new Thread(future);
     thread.setDaemon(true);
     thread.setName("mutationTestThread");
     thread.start();

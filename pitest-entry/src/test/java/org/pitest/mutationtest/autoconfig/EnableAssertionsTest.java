@@ -13,7 +13,7 @@ public class EnableAssertionsTest {
 
     @Test
     public void addsEAFlag() {
-        var data = new ReportOptions();
+        ReportOptions data = new ReportOptions();
 
         underTest.updateConfig(null, data);
         assertThat(data.getJvmArgs()).contains("-ea");

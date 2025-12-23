@@ -28,16 +28,16 @@ public class SafeDataInputStreamTest {
   public void shouldBeAbletoReadLargeStrings() {
     final char[] chars = new char[65536];
     Arrays.fill(chars, '!');
-    final var s = new String(chars);
+    final String s = new String(chars);
 
-    final var o = new ByteArrayOutputStream();
-    final var dos = new SafeDataOutputStream(o);
+    final ByteArrayOutputStream o = new ByteArrayOutputStream();
+    final SafeDataOutputStream dos = new SafeDataOutputStream(o);
     dos.writeString(s);
 
-    final var i = new ByteArrayInputStream(o.toByteArray());
+    final ByteArrayInputStream i = new ByteArrayInputStream(o.toByteArray());
 
-    final var dis = new SafeDataInputStream(i);
-    final var actual = dis.readString();
+    final SafeDataInputStream dis = new SafeDataInputStream(i);
+    final String actual = dis.readString();
 
     assertEquals(s, actual);
 

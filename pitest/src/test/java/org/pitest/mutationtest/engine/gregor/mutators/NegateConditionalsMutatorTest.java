@@ -274,7 +274,7 @@ public class NegateConditionalsMutatorTest {
     private static class HasIF_ICMPNE implements IntFunction<String> {
         @Override
         public String apply(int i) {
-            final var j = getZeroButPreventInlining();
+            final int j = getZeroButPreventInlining();
             if (i == j) {
                 return "was zero";
             } else {
@@ -286,7 +286,7 @@ public class NegateConditionalsMutatorTest {
     private static class HasIF_ICMPEQ implements IntFunction<String> {
         @Override
         public String apply(int i) {
-            final var j = getZeroButPreventInlining();
+            final int j = getZeroButPreventInlining();
             if (i != j) {
                 return "was not zero";
             } else {
@@ -298,7 +298,7 @@ public class NegateConditionalsMutatorTest {
     private static class HasIF_ICMPLE implements IntFunction<String> {
         @Override
         public String apply(int i) {
-            final var j = getZeroButPreventInlining();
+            final int j = getZeroButPreventInlining();
             if (i > j) {
                 return "was > zero";
             } else {
@@ -311,7 +311,7 @@ public class NegateConditionalsMutatorTest {
 
         @Override
         public String apply(int i) {
-            final var j = getZeroButPreventInlining();
+            final int j = getZeroButPreventInlining();
             if (i < j) {
                 return "was < zero";
             } else {
@@ -323,7 +323,7 @@ public class NegateConditionalsMutatorTest {
     private static class HasIF_ICMPGT implements IntFunction<String> {
         @Override
         public String apply(int i) {
-            final var j = getZeroButPreventInlining();
+            final int j = getZeroButPreventInlining();
             if (i <= j) {
                 return "was <= zero";
             } else {
@@ -335,7 +335,7 @@ public class NegateConditionalsMutatorTest {
     private static class HasIF_ICMPLT implements IntFunction<String> {
         @Override
         public String apply(int i) {
-            final var j = getZeroButPreventInlining();
+            final int j = getZeroButPreventInlining();
             if (i >= j) {
                 return "was >= zero";
             } else {
@@ -348,7 +348,7 @@ public class NegateConditionalsMutatorTest {
 
         @Override
         public String apply(Object i) {
-            final var integer = Integer.class;
+            final Object integer = Integer.class;
             if (i == integer) {
                 return "was integer";
             } else {
@@ -360,7 +360,7 @@ public class NegateConditionalsMutatorTest {
     private static class HasIF_ACMPEQ implements Function<Object, String> {
         @Override
         public String apply(Object i) {
-            final var integer = Integer.class;
+            final Object integer = Integer.class;
             if (i != integer) {
                 return "was not integer";
             } else {

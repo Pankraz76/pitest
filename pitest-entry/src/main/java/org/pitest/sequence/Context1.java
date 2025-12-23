@@ -49,7 +49,7 @@ final class Context1 implements Context {
         if (!(o instanceof Context1)) {
             return false;
         }
-        var context1 = (Context1) o;
+        Context1 context1 = (Context1) o;
         return slot.equals(context1.slot) && Objects.equals(value, context1.value);
     }
 

@@ -50,7 +50,7 @@ public final class CommunicationThread {
     final FutureTask<ExitCode> newFuture = new FutureTask<>(
         new SocketReadingCallable(this.socket, this.sendInitialData,
             this.receive));
-    final var thread = new Thread(newFuture);
+    final Thread thread = new Thread(newFuture);
     thread.setDaemon(true);
     thread.setName("pit communication");
     thread.start();

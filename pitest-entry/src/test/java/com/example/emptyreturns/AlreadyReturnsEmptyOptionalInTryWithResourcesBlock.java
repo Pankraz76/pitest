@@ -6,7 +6,7 @@ import java.util.Optional;
 
 public class AlreadyReturnsEmptyOptionalInTryWithResourcesBlock {
     public Optional<String> a() throws IOException {
-        try(var os = new ByteArrayOutputStream()) {
+        try(ByteArrayOutputStream os = new ByteArrayOutputStream()) {
             Double.parseDouble("12");
             if (os.size() > 42) {
                 return Optional.empty();

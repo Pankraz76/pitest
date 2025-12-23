@@ -42,7 +42,7 @@ public class CoverageAnalyser extends MethodNode {
     CodeCoverageStore.registerMethod(this.classId, this.name, this.desc,
         this.probeOffset, (this.probeOffset + blocks.size()) - 1);
 
-    final var counter = new DefaultInstructionCounter();
+    final DefaultInstructionCounter counter = new DefaultInstructionCounter();
     accept(new InstructionTrackingMethodVisitor(
         new ArrayProbeCoverageMethodVisitor(blocks, counter, this.classId,
             this.mv, this.access, parent.getClassName(), this.name, this.desc,

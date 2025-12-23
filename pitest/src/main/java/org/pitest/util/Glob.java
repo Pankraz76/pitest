@@ -55,10 +55,10 @@ public class Glob implements Predicate<String> {
   }
 
   private static String convertGlobToRegex(final String glob) {
-    final var preparedGlob = glob.replace("**.", DOUBLE_STAR_PACKAGE_MARKER);
-    final var out = new StringBuilder("^");
-    for (var i = 0; i < preparedGlob.length(); ++i) {
-      final var c = preparedGlob.charAt(i);
+    final String preparedGlob = glob.replace("**.", DOUBLE_STAR_PACKAGE_MARKER);
+    final StringBuilder out = new StringBuilder("^");
+    for (int i = 0; i < preparedGlob.length(); ++i) {
+      final char c = preparedGlob.charAt(i);
       switch (c) {
       case '$':
         out.append("\\$");

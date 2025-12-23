@@ -18,7 +18,7 @@ package org.pitest.mutationtest.execute;
 public abstract class CommandLineMessage {
 
   public static void report(final String message) {
-    final var sb = new StringBuilder();
+    final StringBuilder sb = new StringBuilder();
     sb.append("---------------------------------------------------------------------------------\n");
     sb.append(message + "\n");
     sb.append("---------------------------------------------------------------------------------\n");

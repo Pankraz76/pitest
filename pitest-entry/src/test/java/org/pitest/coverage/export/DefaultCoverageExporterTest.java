@@ -36,7 +36,7 @@ public class DefaultCoverageExporterTest {
   @Test
   public void shouldWriteValidXMLDocumentWhenNoCoverage() {
     this.testee.recordCoverage(Collections.<BlockCoverage> emptyList());
-    final var actual = this.out.toString();
+    final String actual = this.out.toString();
     assertThat(actual).contains("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
     assertThat(actual).contains("<coverage>");
     assertThat(actual).contains("</coverage>");
@@ -44,8 +44,8 @@ public class DefaultCoverageExporterTest {
 
   @Test
   public void shouldExportSuppliedCoverage() {
-    final var loc = aLocation().withMethod("method");
-    final var block = aBlockLocation().withBlock(42);
+    final LocationBuilder loc = aLocation().withMethod("method");
+    final BlockLocationBuilder block = aBlockLocation().withBlock(42);
     final Collection<BlockCoverage> coverage = Arrays.asList(
         new BlockCoverage(block.withLocation(
             loc.withClass(ClassName.fromString("Foo"))).build(), Arrays.asList(
@@ -55,7 +55,7 @@ public class DefaultCoverageExporterTest {
             "Test3", "Test4")));
     this.testee.recordCoverage(coverage);
 
-    final var actual = this.out.toString();
+    final String actual = this.out.toString();
     assertThat(actual).contains(
         "<block classname='Foo' method='method()I' number='42'");
     assertThat(actual).contains(
@@ -68,8 +68,8 @@ public class DefaultCoverageExporterTest {
 
   @Test
   public void shouldEscapeSpecialCharsInTestName() {
-    final var loc = aLocation().withMethod("method");
-    final var block = aBlockLocation().withBlock(42);
+    final LocationBuilder loc = aLocation().withMethod("method");
+    final BlockLocationBuilder block = aBlockLocation().withBlock(42);
     final Collection<BlockCoverage> coverage = Arrays.asList(
         new BlockCoverage(
             block.withLocation(loc.withClass(ClassName.fromString("Foo"))).build(),
@@ -81,7 +81,7 @@ public class DefaultCoverageExporterTest {
 
     testee.recordCoverage(coverage);
 
-    final var actual = this.out.toString();
+    final String actual = this.out.toString();
     assertThat(actual).contains(
         "<tests>\n<test name='ParameterizedTest[case=&apos;Not so simple quotes&apos;]'/>\n</tests>");
     assertThat(actual).contains(
@@ -90,8 +90,8 @@ public class DefaultCoverageExporterTest {
 
   @Test
   public void escapesBackTicksInMethodNames() {
-    final var loc = aLocation().withMethod("method");
-    final var block = aBlockLocation().withBlock(42);
+    final LocationBuilder loc = aLocation().withMethod("method");
+    final BlockLocationBuilder block = aBlockLocation().withBlock(42);
     final Collection<BlockCoverage> coverage = Arrays.asList(
             new BlockCoverage(
                     block.withLocation(loc.withClass(ClassName.fromString("Foo"))).build(),
@@ -100,15 +100,15 @@ public class DefaultCoverageExporterTest {
 
     testee.recordCoverage(coverage);
 
-    final var actual = this.out.toString();
+    final String actual = this.out.toString();
     assertThat(actual).contains(
             "<tests>\n<test name='`escape this &apos; quote`'/>\n</tests>");
   }
 
   @Test
   public void escapesSpecialCharsInClassNames() {
-    final var loc = aLocation().withMethod("method");
-    final var block = aBlockLocation().withBlock(42);
+    final LocationBuilder loc = aLocation().withMethod("method");
+    final BlockLocationBuilder block = aBlockLocation().withBlock(42);
     final Collection<BlockCoverage> coverage = Arrays.asList(
             new BlockCoverage(
                     block.withLocation(loc.withClass(ClassName.fromString("\" ' < >"))).build(),
@@ -117,7 +117,7 @@ public class DefaultCoverageExporterTest {
 
     testee.recordCoverage(coverage);
 
-    final var actual = this.out.toString();
+    final String actual = this.out.toString();
     assertThat(actual).contains("classname='&quot; &apos; &lt; &gt;'");
   }
 

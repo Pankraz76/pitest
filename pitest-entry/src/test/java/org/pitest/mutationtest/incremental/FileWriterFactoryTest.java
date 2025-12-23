@@ -5,6 +5,7 @@ import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Files;
@@ -26,9 +27,9 @@ public class FileWriterFactoryTest {
 
   @Test
   public void writeToFile() throws IOException {
-    final var file = this.testFolder.newFile();
-    final var writerFactory = new FileWriterFactory(file);
-    final var writer = writerFactory.create();
+    final File file = this.testFolder.newFile();
+    final FileWriterFactory writerFactory = new FileWriterFactory(file);
+    final PrintWriter writer = writerFactory.create();
     writer.write("test");
     writerFactory.close();
 
@@ -42,17 +43,17 @@ public class FileWriterFactoryTest {
     final Matcher<? extends Throwable> causedBy = instanceOf(IOException.class);
     this.thrown.expectCause(causedBy);
 
-    final var folder = this.testFolder.newFolder();
-    final var writerFactory = new FileWriterFactory(folder);
+    final File folder = this.testFolder.newFolder();
+    final FileWriterFactory writerFactory = new FileWriterFactory(folder);
     writerFactory.create();
   }
 
   @Test
   public void writeToFileWithinFolder() throws IOException {
-    final var folder = this.testFolder.newFolder();
-    final var file = new File(folder, "subfolder/file");
-    final var writerFactory = new FileWriterFactory(file);
-    final var writer = writerFactory.create();
+    final File folder = this.testFolder.newFolder();
+    final File file = new File(folder, "subfolder/file");
+    final FileWriterFactory writerFactory = new FileWriterFactory(file);
+    final PrintWriter writer = writerFactory.create();
     writer.write("test");
     writerFactory.close();
 

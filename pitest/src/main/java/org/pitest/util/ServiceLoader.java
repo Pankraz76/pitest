@@ -40,8 +40,8 @@ public abstract class ServiceLoader {
         + ifc.getName());
     final Collection<S> services = new ArrayList<>();
     while (e.hasMoreElements()) {
-      final var url = e.nextElement();
-      try (var is = url.openStream()) {
+      final URL url = e.nextElement();
+      try (InputStream is = url.openStream()) {
         createServicesFromStream(ifc, loader, services, is);
       }
     }
@@ -51,18 +51,18 @@ public abstract class ServiceLoader {
   private static <S> void createServicesFromStream(final Class<S> ifc,
       final ClassLoader loader, final Collection<S> services,
       final InputStream is) throws IOException {
-    final var r = new BufferedReader(new InputStreamReader(is,
+    final BufferedReader r = new BufferedReader(new InputStreamReader(is,
             StandardCharsets.UTF_8));
     while (true) {
-      var line = r.readLine();
+      String line = r.readLine();
       if (line == null) {
         break;
       }
-      final var comment = line.indexOf('#');
+      final int comment = line.indexOf('#');
       if (comment >= 0) {
         line = line.substring(0, comment);
       }
-      final var name = line.trim();
+      final String name = line.trim();
       if (name.length() == 0) {
         continue;
       }
@@ -78,8 +78,8 @@ public abstract class ServiceLoader {
 
     try {
       final Class<?> clz = Class.forName(name, true, loader);
-      var method = clz.getMethod("factory");
-      var services = method.invoke(null);
+      Method method = clz.getMethod("factory");
+      Object services = method.invoke(null);
       return (Collection<S>) services;
     } catch (ReflectiveOperationException ex) {
       throw new PitError("Error creating service " + ifc.getName(), ex);
@@ -90,7 +90,7 @@ public abstract class ServiceLoader {
     try {
       final Class<?> clz = Class.forName(name, true, loader);
       try {
-        var method = clz.getMethod("factory");
+        Method method = clz.getMethod("factory");
         return Modifier.isStatic(method.getModifiers());
       } catch (NoSuchMethodException e) {
         return false;

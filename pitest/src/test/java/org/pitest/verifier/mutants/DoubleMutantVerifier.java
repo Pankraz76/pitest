@@ -33,7 +33,7 @@ public class DoubleMutantVerifier<B> extends MutatorVerifier {
     }
 
     public void firstMutantShouldReturn(DoubleSupplier ds, B expected) {
-        var input = ds.getAsDouble();
+        double input = ds.getAsDouble();
         if (checkUnmutated()) {
             assertThat(runWithoutMutation(input))
                     .describedAs("Expected unmutated code to return different value to mutated code")
@@ -50,7 +50,7 @@ public class DoubleMutantVerifier<B> extends MutatorVerifier {
     }
 
     private B mutateAndCall(double input, Mutant mutant) {
-        var loader = this.createClassLoader(mutant);
+        ClassLoader loader = this.createClassLoader(mutant);
         return this.runInClassLoader(loader, input);
     }
 
@@ -58,7 +58,7 @@ public class DoubleMutantVerifier<B> extends MutatorVerifier {
         try {
             Class<?> forLoader = loader.loadClass(target.getName());
 
-            var c = forLoader.getDeclaredConstructor();
+            Constructor c = forLoader.getDeclaredConstructor();
             c.setAccessible(true);
             DoubleFunction<B> instance = (DoubleFunction<B>) c.newInstance();
             return instance.apply(input);

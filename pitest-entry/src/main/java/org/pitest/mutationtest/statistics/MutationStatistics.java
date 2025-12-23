@@ -100,7 +100,7 @@ public final class MutationStatistics {
       return "0";
     }
 
-    final var testsPerMutation = this.numberOfTestsRun
+    final float testsPerMutation = this.numberOfTestsRun
         / (float) this.getTotalMutations();
     return new DecimalFormat("#.##", new DecimalFormatSymbols(Locale.ENGLISH))
         .format(testsPerMutation);

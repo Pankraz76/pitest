@@ -38,7 +38,7 @@ public class CallStep implements TestStep {
   public Object execute(final Description testDescription, final Object target) {
     try {
 
-      final var m2 = this.m.getMethod();
+      final Method m2 = this.m.getMethod();
 
       if (!m2.isAccessible()) {
         m2.setAccessible(true);

@@ -27,7 +27,7 @@ public final class MutantUrl {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        var mutantUrl = (MutantUrl) o;
+        MutantUrl mutantUrl = (MutantUrl) o;
         return type == mutantUrl.type && Objects.equals(url, mutantUrl.url);
     }
 

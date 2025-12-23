@@ -27,18 +27,18 @@ public class PrioritisingTestConfigurationTest {
 
     @Test
     public void findsNoTestsWhenNothingMatchesChildConfiguration() {
-        var findsNothing = configuration(1, emptyList());
-        var testee = new PrioritisingTestConfiguration(asList(findsNothing));
+        Configuration findsNothing = configuration(1, emptyList());
+        PrioritisingTestConfiguration testee = new PrioritisingTestConfiguration(asList(findsNothing));
         List<TestUnit> actual = testee.testUnitFinder().findTestUnits(String.class, new NullExecutionListener());
         assertThat(actual).isEmpty();
     }
 
     @Test
     public void highestPriorityConfigurationFindsTest() {
-        var c0 = configuration(2, dontFindMe);
-        var c1 = configuration(1, findMe);
-        var c2 = configuration(2, dontFindMe);
-        var testee = new PrioritisingTestConfiguration(asList(c0, c1, c2));
+        Configuration c0 = configuration(2, dontFindMe);
+        Configuration c1 = configuration(1, findMe);
+        Configuration c2 = configuration(2, dontFindMe);
+        PrioritisingTestConfiguration testee = new PrioritisingTestConfiguration(asList(c0, c1, c2));
 
         List<TestUnit> actual = testee.testUnitFinder().findTestUnits(String.class, new NullExecutionListener());
 
@@ -47,9 +47,9 @@ public class PrioritisingTestConfigurationTest {
 
     @Test
     public void configurationsWithEnvironmentalErrorsNotUsed() {
-        var c0 = configuration(1, asList(dontFindMe), new PitHelpError(Help.NO_JUNIT));
-        var c1 = configuration(2, findMe);
-        var testee = new PrioritisingTestConfiguration(asList(c0, c1));
+        Configuration c0 = configuration(1, asList(dontFindMe), new PitHelpError(Help.NO_JUNIT));
+        Configuration c1 = configuration(2, findMe);
+        PrioritisingTestConfiguration testee = new PrioritisingTestConfiguration(asList(c0, c1));
 
         List<TestUnit> actual = testee.testUnitFinder().findTestUnits(String.class, new NullExecutionListener());
 
@@ -58,10 +58,10 @@ public class PrioritisingTestConfigurationTest {
 
     @Test
     public void allowsMixedTestTypes() {
-        var findsNothing = configuration(1, emptyList());
-        var c1 = configuration(2, findMe);
-        var c2 = configuration(3, dontFindMe);
-        var testee = new PrioritisingTestConfiguration(asList(findsNothing, c1, c2));
+        Configuration findsNothing = configuration(1, emptyList());
+        Configuration c1 = configuration(2, findMe);
+        Configuration c2 = configuration(3, dontFindMe);
+        PrioritisingTestConfiguration testee = new PrioritisingTestConfiguration(asList(findsNothing, c1, c2));
 
         List<TestUnit> actual = testee.testUnitFinder().findTestUnits(String.class, new NullExecutionListener());
 
@@ -71,28 +71,28 @@ public class PrioritisingTestConfigurationTest {
 
     @Test
     public void reportsNoErrorIfAtLeastOneConfigValid() {
-        var c0 = configuration(1, asList(dontFindMe), new PitHelpError(Help.NO_JUNIT));
-        var c1 = configuration(2, findMe);
-        var testee = new PrioritisingTestConfiguration(asList(c0, c1));
+        Configuration c0 = configuration(1, asList(dontFindMe), new PitHelpError(Help.NO_JUNIT));
+        Configuration c1 = configuration(2, findMe);
+        PrioritisingTestConfiguration testee = new PrioritisingTestConfiguration(asList(c0, c1));
 
         assertThat(testee.verifyEnvironment()).isEmpty();
     }
 
     @Test
     public void reportsErrorWhenAllConfigsInValid() {
-        var c0 = configuration(1, asList(dontFindMe), new PitHelpError(Help.NO_JUNIT));
-        var c1 = configuration(2, asList(dontFindMe), new PitHelpError(Help.NO_JUNIT));
-        var testee = new PrioritisingTestConfiguration(asList(c0, c1));
+        Configuration c0 = configuration(1, asList(dontFindMe), new PitHelpError(Help.NO_JUNIT));
+        Configuration c1 = configuration(2, asList(dontFindMe), new PitHelpError(Help.NO_JUNIT));
+        PrioritisingTestConfiguration testee = new PrioritisingTestConfiguration(asList(c0, c1));
 
         assertThat(testee.verifyEnvironment()).isPresent();
     }
 
     @Test
     public void highestPriorityConfigurationFindsSuites() {
-        var c0 = suiteConfiguration(2, dontFindThisClass);
-        var c1 = suiteConfiguration(1, findThisClass);
-        var c2 = suiteConfiguration(2, dontFindThisClass);
-        var testee = new PrioritisingTestConfiguration(asList(c0, c1, c2));
+        Configuration c0 = suiteConfiguration(2, dontFindThisClass);
+        Configuration c1 = suiteConfiguration(1, findThisClass);
+        Configuration c2 = suiteConfiguration(2, dontFindThisClass);
+        PrioritisingTestConfiguration testee = new PrioritisingTestConfiguration(asList(c0, c1, c2));
 
         List<Class<?>> actual = testee.testSuiteFinder().apply(String.class);
 

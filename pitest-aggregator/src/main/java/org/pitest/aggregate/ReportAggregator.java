@@ -68,12 +68,12 @@ public final class ReportAggregator {
   }
 
   public AggregationResult aggregateReport() throws ReportAggregationException {
-    var sourceLocator = new SmartSourceLocator(asPaths(this.sourceCodeDirectories), inputCharset);
+    SmartSourceLocator sourceLocator = new SmartSourceLocator(asPaths(this.sourceCodeDirectories), inputCharset);
 
-    var partialCoverage = scanForPartialCoverageFlag(mutationFiles);
+    boolean partialCoverage = scanForPartialCoverageFlag(mutationFiles);
 
-    final var mutationResultListener = createResultListener(sourceLocator, Collections.emptySet(), partialCoverage);
-    final var reportAggregatorResultListener = new ReportAggregatorResultListener();
+    final MutationResultListener mutationResultListener = createResultListener(sourceLocator, Collections.emptySet(), partialCoverage);
+    final ReportAggregatorResultListener reportAggregatorResultListener = new ReportAggregatorResultListener();
 
     reportAggregatorResultListener.runStart();
     mutationResultListener.runStart();
@@ -83,8 +83,8 @@ public final class ReportAggregator {
       // hack so only source files from within a given module are resolved
       sourceLocator.sourceRootHint(file.getParentFile().toPath());
 
-      var loader = new MutationResultDataLoader(asList(file));
-      var mutationMetaData = new MutationMetaData(new ArrayList<>(loader.loadData()));
+      MutationResultDataLoader loader = new MutationResultDataLoader(asList(file));
+      MutationMetaData mutationMetaData = new MutationMetaData(new ArrayList<>(loader.loadData()));
       for (ClassMutationResults classResult : mutationMetaData.toClassResults()) {
         reportAggregatorResultListener.handleMutationResult(classResult);
         mutationResultListener.handleMutationResult(classResult);
@@ -114,8 +114,8 @@ public final class ReportAggregator {
   }
 
   private MutationResultListener createResultListener(SourceLocator sourceLocator, Collection<String> mutatorNames, boolean partialCoverage) throws ReportAggregationException {
-    final var codeSource = this.codeSourceAggregator.createCodeSource();
-    final var coverageDatabase = calculateCoverage(codeSource);
+    final CodeSource codeSource = this.codeSourceAggregator.createCodeSource();
+    final ReportCoverage coverageDatabase = calculateCoverage(codeSource);
 
     return new MutationHtmlReportListener(outputCharset,
             coverageDatabase,
@@ -138,7 +138,7 @@ public final class ReportAggregator {
       Collection<BlockLocation> coverageData = this.blockCoverageLoader.loadData().stream()
               .map(BlockCoverage::getBlock)
               .collect(Collectors.toList());
-      var cd = new CoverageData(codeSource, new LineMapper(codeSource), 0);
+      CoverageData cd = new CoverageData(codeSource, new LineMapper(codeSource), 0);
       cd.loadBlockDataOnly(coverageData);
 
       return transformCoverage(cd);
@@ -149,7 +149,7 @@ public final class ReportAggregator {
   }
 
   private ReportCoverage transformCoverage(CoverageData cd) {
-    var transformer = settings.createCoverageTransformer(codeSourceAggregator.createCodeSource());
+    CoverageTransformer transformer = settings.createCoverageTransformer(codeSourceAggregator.createCodeSource());
     return transformer.transform(cd);
   }
 
@@ -282,7 +282,7 @@ public final class ReportAggregator {
 
     public ReportAggregator build() {
       validateState();
-      final var settings = new SettingsFactory(new ReportOptions(), PluginServices.makeForContextLoader());
+      final SettingsFactory settings = new SettingsFactory(new ReportOptions(), PluginServices.makeForContextLoader());
       return new ReportAggregator(
               settings,
               this.resultOutputStrategy,

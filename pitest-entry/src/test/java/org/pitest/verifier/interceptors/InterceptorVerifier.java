@@ -26,8 +26,8 @@ public class InterceptorVerifier {
     }
 
     public Verifier forClass(Class<?> clazz) {
-        final var s = makeSampleForCurrentCompiler(clazz);
-        var m = mutateFromClassLoader();
+        final Sample s = makeSampleForCurrentCompiler(clazz);
+        Mutater m = mutateFromClassLoader();
         return new Verifier(s, testee, m);
     }
 

@@ -89,7 +89,7 @@ public class ExcludedAnnotationInterceptor implements MutationInterceptor {
     methodsToProcess.add(method);
 
     while (!methodsToProcess.isEmpty()) {
-      var currentMethod = methodsToProcess.poll();
+      MethodTree currentMethod = methodsToProcess.poll();
       Set<Location> lambdas = currentMethod.instructions().stream()
               .flatMap(n -> lambdaCallsToClass(clazz.name(), n))
               .filter(l -> !avoidedMethodSignatures.contains(l) && !processedMethods.contains(l))
@@ -112,11 +112,11 @@ public class ExcludedAnnotationInterceptor implements MutationInterceptor {
       return Stream.empty();
     }
 
-    var indy = (InvokeDynamicInsnNode) insn;
+    InvokeDynamicInsnNode indy = (InvokeDynamicInsnNode) insn;
 
     for (Object bsmArg : indy.bsmArgs) {
       if (bsmArg instanceof Handle) {
-        var handle = (Handle) bsmArg;
+        Handle handle = (Handle) bsmArg;
         // Check if the method is in the same class and is a lambda method
         if (handle.getOwner().equals(clazz.asInternalName()) && handle.getName().startsWith("lambda$")) {
           return Stream.of(Location.location(clazz,handle.getName(), handle.getDesc()));
@@ -125,7 +125,7 @@ public class ExcludedAnnotationInterceptor implements MutationInterceptor {
     }
     return Stream.empty();
   }
-
+  
   /**
    * Creates a predicate that checks if a method has an avoided annotation.
    *
@@ -158,7 +158,7 @@ public class ExcludedAnnotationInterceptor implements MutationInterceptor {
   }
 
   boolean shouldAvoid(String desc) {
-    final var matchAgainst = desc.replace(";", "");
+    final String matchAgainst = desc.replace(";", "");
     for (final String each : this.configuredAnnotations) {
       if (matchAgainst.endsWith(each)) {
         return true;

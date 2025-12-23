@@ -82,7 +82,7 @@ public class IncrementalAnalyserTest {
 
   @Test
   public void shouldNotPreprocessNewMutations() {
-    final var md = makeMutation("foo");
+    final MutationDetails md = makeMutation("foo");
     when(this.history.getPreviousResult(any(MutationIdentifier.class)))
     .thenReturn(Optional.empty());
 
@@ -97,7 +97,7 @@ public class IncrementalAnalyserTest {
 
   @Test
   public void shouldStartPreviousSurvivedMutationsAtAStatusOfNotStartedWhenCoverageHasChanged() {
-    final var md = makeMutation("foo");
+    final MutationDetails md = makeMutation("foo");
     setHistoryForAllMutationsTo(DetectionStatus.SURVIVED);
     when(coverage.getCoverageIdForClass(any(ClassName.class)))
         .thenReturn(BigInteger.ONE);
@@ -116,7 +116,7 @@ public class IncrementalAnalyserTest {
 
   @Test
   public void shouldStartPreviousSurvivedMutationsAtAStatusOfSurvivedWhenCoverageHasNotChanged() {
-    final var md = makeMutation("foo");
+    final MutationDetails md = makeMutation("foo");
     setHistoryForAllMutationsTo(DetectionStatus.SURVIVED);
     when(
         this.history.hasCoverageChanged(any(ClassName.class),
@@ -133,7 +133,7 @@ public class IncrementalAnalyserTest {
 
   @Test
   public void shouldStartPreviousTimedOutMutationsAtAStatusOfNotStartedWhenClassHasChanged() {
-    final var md = makeMutation("foo");
+    final MutationDetails md = makeMutation("foo");
     setHistoryForAllMutationsTo(DetectionStatus.TIMED_OUT);
     when(this.history.hasClassChanged(any(ClassName.class))).thenReturn(true);
     final Collection<MutationResult> actual = this.testee.analyse(singletonList(md));
@@ -148,7 +148,7 @@ public class IncrementalAnalyserTest {
 
   @Test
   public void shouldStartPreviousTimedOutMutationsAtAStatusOfTimedOutWhenClassHasNotChanged() {
-    final var md = makeMutation("foo");
+    final MutationDetails md = makeMutation("foo");
     setHistoryForAllMutationsTo(DetectionStatus.TIMED_OUT);
     when(this.history.hasClassChanged(any(ClassName.class))).thenReturn(false);
     final Collection<MutationResult> actual = this.testee.analyse(singletonList(md));
@@ -163,8 +163,8 @@ public class IncrementalAnalyserTest {
 
   @Test
   public void shouldStartPreviousKilledMutationsAtAStatusOfKilledWhenNeitherClassOrTestHasChanged() {
-    final var md = makeMutation("foo");
-    final var killingTest = "fooTest";
+    final MutationDetails md = makeMutation("foo");
+    final String killingTest = "fooTest";
     setHistoryForAllMutationsTo(DetectionStatus.KILLED, killingTest);
 
     final Collection<TestInfo> tests = Collections.singleton(new TestInfo(
@@ -186,14 +186,14 @@ public class IncrementalAnalyserTest {
 
   @Test
   public void shouldStartPreviousKilledMutationsAtAStatusOfKilledWhenNeitherClassHasChangedNorTestHasChangedForAtLeastOneKillingTest() {
-    final var md = makeMutation("foo");
-    final var killingTestChanged = "fooTest";
-    final var killingTestUnchanged = "killerTest";
+    final MutationDetails md = makeMutation("foo");
+    final String killingTestChanged = "fooTest";
+    final String killingTestUnchanged = "killerTest";
 
     setHistoryForAllMutationsTo(DetectionStatus.KILLED, killingTestChanged, killingTestUnchanged );
 
-    final var testChanged = new TestInfo("TEST_CLASS_CHANGED", killingTestChanged, 0, Optional.empty(), 0);
-    final var testUnchanged = new TestInfo("TEST_CLASS_UNCHANGED", killingTestUnchanged, 0, Optional.empty(), 0);
+    final TestInfo testChanged = new TestInfo("TEST_CLASS_CHANGED", killingTestChanged, 0, Optional.empty(), 0);
+    final TestInfo testUnchanged = new TestInfo("TEST_CLASS_UNCHANGED", killingTestUnchanged, 0, Optional.empty(), 0);
 
     when(this.coverage.getTestsForClass(ClassName.fromString("clazz")))
             .thenReturn(asList(testChanged,testUnchanged));
@@ -219,8 +219,8 @@ public class IncrementalAnalyserTest {
 
   @Test
   public void shouldStartPreviousKilledMutationsAtAStatusOfNotStartedWhenTestHasChanged() {
-    final var md = makeMutation("foo");
-    final var killingTest = "fooTest";
+    final MutationDetails md = makeMutation("foo");
+    final String killingTest = "fooTest";
     setHistoryForAllMutationsTo(DetectionStatus.KILLED, killingTest);
 
     final Collection<TestInfo> tests = Collections.singleton(new TestInfo(
@@ -245,11 +245,11 @@ public class IncrementalAnalyserTest {
   @Test
   public void prioritisesLastKillingTestWhenClassHasChanged() {
 
-    final var killingTest = "fooTest";
+    final String killingTest = "fooTest";
     setHistoryForAllMutationsTo(DetectionStatus.KILLED, killingTest);
     Collection<TestInfo> tests = Arrays.asList(testNamed("one"), testNamed("two"), testNamed(killingTest), testNamed("three"));
 
-    final var md = makeMutation("foo");
+    final MutationDetails md = makeMutation("foo");
     md.addTestsInOrder(tests);
 
     when(this.coverage.getTestsForClass(any(ClassName.class)))
@@ -259,7 +259,7 @@ public class IncrementalAnalyserTest {
     when(this.history.hasClassChanged(ClassName.fromString("TEST_CLASS")))
             .thenReturn(false);
 
-    var actual = this.testee.analyse(singletonList(md)).stream()
+    MutationResult actual = this.testee.analyse(singletonList(md)).stream()
                     .findFirst().get();
 
     assertThat(actual.getDetails().getTestsInOrder().get(0), Matchers.equalTo(testNamed(killingTest)));
@@ -269,11 +269,11 @@ public class IncrementalAnalyserTest {
   @Test
   public void prioritisesLastKillingTestWhenTestHasChanged() {
 
-    final var killingTest = "fooTest";
+    final String killingTest = "fooTest";
     setHistoryForAllMutationsTo(DetectionStatus.KILLED, killingTest);
     Collection<TestInfo> tests = Arrays.asList(testNamed("one"), testNamed("two"), testNamed(killingTest), testNamed("three"));
 
-    final var md = makeMutation("foo");
+    final MutationDetails md = makeMutation("foo");
     md.addTestsInOrder(tests);
 
     when(this.coverage.getTestsForClass(any(ClassName.class)))
@@ -283,7 +283,7 @@ public class IncrementalAnalyserTest {
     when(this.history.hasClassChanged(ClassName.fromString("TEST_CLASS")))
             .thenReturn(true);
 
-    var actual = this.testee.analyse(singletonList(md)).stream()
+    MutationResult actual = this.testee.analyse(singletonList(md)).stream()
             .findFirst().get();
 
     assertThat(actual.getDetails().getTestsInOrder().get(0), Matchers.equalTo(testNamed(killingTest)));
@@ -292,13 +292,13 @@ public class IncrementalAnalyserTest {
 
   @Test
   public void assessMultipleMutationsAtATime() {
-    final var md1 = makeMutation("foo");
-    final var md2 = makeMutation("bar");
-    final var md3 = makeMutation("baz");
-    final var md4 = makeMutation("bumm");
+    final MutationDetails md1 = makeMutation("foo");
+    final MutationDetails md2 = makeMutation("bar");
+    final MutationDetails md3 = makeMutation("baz");
+    final MutationDetails md4 = makeMutation("bumm");
 
-    final var killingTest = "killerTest";
-    final var test = new TestInfo("TEST_CLASS", killingTest, 0, Optional.empty(), 0);
+    final String killingTest = "killerTest";
+    final TestInfo test = new TestInfo("TEST_CLASS", killingTest, 0, Optional.empty(), 0);
 
     when(this.history.getPreviousResult(md1.getId()))
             .thenReturn(Optional.of(
@@ -392,7 +392,7 @@ public class IncrementalAnalyserTest {
           return false;
         }
 
-        final var killingTestName = itemKillingTest.get();
+        final String killingTestName = itemKillingTest.get();
         mismatchDescription
                 .appendText("a mutation result with killing test named ")
                 .appendValue(killingTestName);
@@ -403,7 +403,7 @@ public class IncrementalAnalyserTest {
   }
 
   private MutationDetails makeMutation(final String method) {
-    final var id = aMutationId().withLocation(
+    final MutationIdentifier id = aMutationId().withLocation(
         aLocation().withMethod(method)).build();
     return new MutationDetails(id, "file", "desc", 1, 2);
   }

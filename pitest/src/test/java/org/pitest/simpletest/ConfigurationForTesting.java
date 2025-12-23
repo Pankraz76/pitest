@@ -19,7 +19,7 @@ public class ConfigurationForTesting implements Configuration {
 
     @Override
     public Optional<TestMethod> apply(final Method method) {
-      final var annotation = method
+      final TestAnnotationForTesting annotation = method
           .getAnnotation(TestAnnotationForTesting.class);
 
       if (annotation != null) {

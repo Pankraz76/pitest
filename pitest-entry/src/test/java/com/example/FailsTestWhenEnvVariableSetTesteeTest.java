@@ -8,7 +8,7 @@ public class FailsTestWhenEnvVariableSetTesteeTest {
 
   @Test
   public void testNotCurrentlyFalse() {
-    final var testee = new FailsTestWhenEnvVariableSetTestee();
+    final FailsTestWhenEnvVariableSetTestee testee = new FailsTestWhenEnvVariableSetTestee();
     assertTrue(testee.returnTrue());
   }
 }

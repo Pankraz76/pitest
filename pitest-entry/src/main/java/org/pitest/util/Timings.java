@@ -56,12 +56,12 @@ public class Timings {
   }
 
   public void registerEnd(final Stage stage) {
-    final var end = System.nanoTime();
+    final long end = System.nanoTime();
     this.timings.get(stage).setEnd(end);
   }
 
   public void report(final PrintStream ps) {
-    var total = 0L;
+    long total = 0;
     for (final Entry<Stage, TimeSpan> each : this.timings.entrySet()) {
       total = total + each.getValue().duration();
       ps.println("> " + each.getKey() + " : " + each.getValue());

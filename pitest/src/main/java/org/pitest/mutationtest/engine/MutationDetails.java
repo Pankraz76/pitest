@@ -237,10 +237,10 @@ public final class MutationDetails implements Serializable {
 
 
   private String defaultFilenameIfNotSupplied(String filename) {
-    // the BuildVerifier should throw an error if classes are compiled
+    // the BuildVerifier should throw an error if classes are compiled 
     // without filename debug info, however classes may be generated
     // by annotation processors. These can be dealt with based on their
-    // bytecode, but they must have a non null source file.
+    // bytecode, but they must have a non null source file. 
     if (filename == null) {
       return "unknown_source";
     }
@@ -260,7 +260,7 @@ public final class MutationDetails implements Serializable {
     if (obj == null || getClass() != obj.getClass()) {
       return false;
     }
-    final var other = (MutationDetails) obj;
+    final MutationDetails other = (MutationDetails) obj;
     return Objects.equals(id, other.id);
   }
 }

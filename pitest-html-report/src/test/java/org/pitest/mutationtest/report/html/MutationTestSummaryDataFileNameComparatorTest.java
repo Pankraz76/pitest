@@ -13,10 +13,10 @@ public class MutationTestSummaryDataFileNameComparatorTest {
 
   @Test
   public void shouldSortDataByFileName() {
-    final var testee = new MutationTestSummaryDataFileNameComparator();
-    final var ab = makeSummaryData("ab");
-    final var aa = makeSummaryData("aa");
-    final var z = makeSummaryData("z");
+    final MutationTestSummaryDataFileNameComparator testee = new MutationTestSummaryDataFileNameComparator();
+    final MutationTestSummaryData ab = makeSummaryData("ab");
+    final MutationTestSummaryData aa = makeSummaryData("aa");
+    final MutationTestSummaryData z = makeSummaryData("z");
     final List<MutationTestSummaryData> list = Arrays.asList(z, aa, ab);
     list.sort(testee);
     final List<MutationTestSummaryData> expected = Arrays.asList(aa, ab, z);

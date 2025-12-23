@@ -17,7 +17,7 @@ public class CallStepTest {
 
   @Test
   public void shouldReturnSuppliedObject() {
-    final var testee = new CallStep(this.testMethod);
+    final CallStep testee = new CallStep(this.testMethod);
     assertSame(this,
         testee.execute(null, this));
   }

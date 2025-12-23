@@ -94,7 +94,7 @@ public class RemoveConditionalMutator implements MethodMutatorFactory {
     public void visitJumpInsn(final int opcode, final Label label) {
 
       if (canMutate(opcode)) {
-        final var newId = this.context.registerMutation(
+        final MutationIdentifier newId = this.context.registerMutation(
             this.factory, this.description);
 
         if (this.context.shouldMutate(newId)) {

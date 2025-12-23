@@ -15,21 +15,21 @@ public class GregorEngineFactoryTest  {
 
     @Test
     public void parsesSingleMutatorString() {
-          var actual = parseMutators(asList("NULL_RETURNS"));
+          MutationEngine actual = parseMutators(asList("NULL_RETURNS"));
 
         assertThat(actual.getMutatorNames()).contains("NULL_RETURNS");
     }
 
     @Test
     public void parsesGroups() {
-        var actual = parseMutators(asList("STRONGER"));
+        MutationEngine actual = parseMutators(asList("STRONGER"));
 
         assertThat(actual.getMutatorNames()).contains("NULL_RETURNS", "REMOVE_CONDITIONALS_EQUAL_ELSE");
     }
 
     @Test
     public void parsesExclusions() {
-        var excluded = parseMutators(asList("STRONGER", "-REMOVE_CONDITIONALS_EQUAL_ELSE"));
+        MutationEngine excluded = parseMutators(asList("STRONGER", "-REMOVE_CONDITIONALS_EQUAL_ELSE"));
 
         assertThat(excluded.getMutatorNames()).doesNotContain("REMOVE_CONDITIONALS_EQUAL_ELSE");
         assertThat(excluded.getMutatorNames()).isNotEmpty();
@@ -37,7 +37,7 @@ public class GregorEngineFactoryTest  {
 
     @Test
     public void excludesGroups() {
-        var excluded = parseMutators(asList("ALL", "-ALL"));
+        MutationEngine excluded = parseMutators(asList("ALL", "-ALL"));
         assertThat(excluded.getMutatorNames()).isEmpty();
     }
 

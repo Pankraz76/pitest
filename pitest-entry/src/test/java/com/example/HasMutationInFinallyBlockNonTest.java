@@ -6,7 +6,7 @@ public class HasMutationInFinallyBlockNonTest {
 
   @Test
   public void testIncrementsI() {
-    final var testee = new HasMutationsInFinallyBlock();
+    final HasMutationsInFinallyBlock testee = new HasMutationsInFinallyBlock();
     testee.foo(1); // cover but don't test
   }
 

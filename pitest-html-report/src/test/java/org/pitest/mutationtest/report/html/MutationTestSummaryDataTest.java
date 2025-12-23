@@ -6,6 +6,7 @@ import org.pitest.coverage.ClassLines;
 import org.pitest.mutationtest.DetectionStatus;
 import org.pitest.mutationtest.MutationResult;
 import org.pitest.mutationtest.MutationStatusTestPair;
+import org.pitest.mutationtest.engine.MutationDetails;
 import org.pitest.mutationtest.engine.gregor.MethodMutatorFactory;
 import org.pitest.mutationtest.engine.gregor.config.Mutator;
 
@@ -29,23 +30,23 @@ public class MutationTestSummaryDataTest {
 
   @Test
   public void shouldReturnCorrectNumberOfFilesWhenAnalysedInOneUnit() {
-    final var clazz = makeClass();
+    final ClassLines clazz = makeClass();
     this.testee = buildSummaryData(clazz);
     assertEquals(1, this.testee.getTotals().getNumberOfFiles());
   }
 
   @Test
   public void shouldReturnCorrectNumberOfLinesWhenAnalysedInOneUnit() {
-    final var lines = 4;
-    final var clazz = makeClass(lines);
+    final int lines = 4;
+    final ClassLines clazz = makeClass(lines);
     this.testee = buildSummaryData(clazz);
     assertThat(this.testee.getTotals().getNumberOfLines()).isEqualTo(lines);
   }
 
   @Test
   public void shouldReturnCorrectNumberOfCoveredLinesWhenAnalysedInOneUnit() {
-    final var linesCovered = 100;
-    final var clazz = makeClass(200);
+    final int linesCovered = 100;
+    final ClassLines clazz = makeClass(200);
     this.testee = buildSummaryData(clazz, linesCovered);
     assertEquals(linesCovered, this.testee.getTotals()
         .getNumberOfLinesCovered());
@@ -53,29 +54,29 @@ public class MutationTestSummaryDataTest {
 
   @Test
   public void shouldReturnCorrectNumberOfFilesWhenOneClassAnalysedInTwoUnits() {
-    final var clazz = makeClass();
+    final ClassLines clazz = makeClass();
     this.testee = buildSummaryData(clazz);
-    final var additonalDataForSameClass = buildSummaryData(clazz);
+    final MutationTestSummaryData additonalDataForSameClass = buildSummaryData(clazz);
     this.testee.add(additonalDataForSameClass);
     assertEquals(1, this.testee.getTotals().getNumberOfFiles());
   }
 
   @Test
   public void shouldReturnCorrectNumberOfLinesWhenAnalysedInTwoUnit() {
-    final var lines = 100;
-    final var clazz = makeClass(lines);
+    final int lines = 100;
+    final ClassLines clazz = makeClass(lines);
     this.testee = buildSummaryData(clazz);
-    final var additonalDataForSameClass = buildSummaryData(clazz);
+    final MutationTestSummaryData additonalDataForSameClass = buildSummaryData(clazz);
     this.testee.add(additonalDataForSameClass);
     assertEquals(lines, this.testee.getTotals().getNumberOfLines());
   }
 
   @Test
   public void shouldReturnCorrectNumberOfCoveredLinesWhenAnalysedInTwoUnits() {
-    final var linesCovered = 100;
-    final var clazz = makeClass(200);
+    final int linesCovered = 100;
+    final ClassLines clazz = makeClass(200);
     this.testee = buildSummaryData(clazz, linesCovered);
-    final var additonalDataForSameClass = buildSummaryData(
+    final MutationTestSummaryData additonalDataForSameClass = buildSummaryData(
         clazz, linesCovered);
     this.testee.add(additonalDataForSameClass);
     assertEquals(linesCovered, this.testee.getTotals()
@@ -85,7 +86,7 @@ public class MutationTestSummaryDataTest {
   @Test
   public void shouldReturnCorrectNumberOfLinesWhenCombiningResultsForDifferentClasses() {
     this.testee = buildSummaryData(makeClass("foo",100));
-    final var additionalDataForSameClass = buildSummaryData(makeClass("bar", 200));
+    final MutationTestSummaryData additionalDataForSameClass = buildSummaryData(makeClass("bar", 200));
     this.testee.add(additionalDataForSameClass);
     assertThat(this.testee.getTotals().getNumberOfLines()).isEqualTo(100 + 200);
   }
@@ -93,7 +94,7 @@ public class MutationTestSummaryDataTest {
   @Test
   public void shouldReturnCorrectNumberOfLinesCoveredWhenCombiningResultsForDifferentClasses() {
     this.testee = buildSummaryData(makeClass("foo",100), 20);
-    final var additionalDataForSameClass = buildSummaryData(
+    final MutationTestSummaryData additionalDataForSameClass = buildSummaryData(
         makeClass("bar",200), 100);
     this.testee.add(additionalDataForSameClass);
     assertEquals(20 + 100, this.testee.getTotals().getNumberOfLinesCovered());
@@ -111,13 +112,13 @@ public class MutationTestSummaryDataTest {
 
   @Test
   public void shouldReturnCorrectTestStrengthWhenAnalysedInTwoUnits() {
-    var clazz = makeClass();
+    ClassLines clazz = makeClass();
     this.testee = buildSummaryDataWithMutationResults(clazz,
             aMutationResult(DetectionStatus.NO_COVERAGE, "a"),
             aMutationResult(DetectionStatus.KILLED, "b"),
             aMutationResult(DetectionStatus.SURVIVED, "c")
     );
-    final var additionalData = buildSummaryDataWithMutationResults(clazz,
+    final MutationTestSummaryData additionalData = buildSummaryDataWithMutationResults(clazz,
             aMutationResult(DetectionStatus.KILLED, "d"),
             aMutationResult(DetectionStatus.KILLED, "e")
     );
@@ -132,7 +133,7 @@ public class MutationTestSummaryDataTest {
             aMutationResult(DetectionStatus.KILLED, "b"),
             aMutationResult(DetectionStatus.SURVIVED, "c")
     );
-    final var additionalData = buildSummaryDataWithMutationResults(makeClass(200),
+    final MutationTestSummaryData additionalData = buildSummaryDataWithMutationResults(makeClass(200),
             aMutationResult(DetectionStatus.KILLED, "d"),
             aMutationResult(DetectionStatus.KILLED, "e")
     );

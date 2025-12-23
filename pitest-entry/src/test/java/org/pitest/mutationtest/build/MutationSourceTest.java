@@ -9,6 +9,7 @@ import org.pitest.classinfo.ClassByteArraySource;
 import org.pitest.classinfo.ClassName;
 import org.pitest.classpath.ClassloaderByteArraySource;
 import org.pitest.coverage.TestInfo;
+import org.pitest.functional.FCollection;
 import org.pitest.mutationtest.MutationConfig;
 import org.pitest.mutationtest.engine.Mutater;
 import org.pitest.mutationtest.engine.MutationDetails;
@@ -16,6 +17,7 @@ import org.pitest.mutationtest.engine.MutationEngine;
 import org.pitest.mutationtest.engine.MutationIdentifier;
 import org.pitest.process.LaunchOptions;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -70,7 +72,7 @@ public class MutationSourceTest {
         expected);
     when(this.mutater.findMutations(any(ClassName.class)))
     .thenReturn(mutations);
-    final var actual = this.testee.createMutations(this.foo)
+    final MutationDetails actual = this.testee.createMutations(this.foo)
         .iterator().next();
     assertEquals(expected, actual.getTestsInOrder());
   }
@@ -90,7 +92,7 @@ public class MutationSourceTest {
   }
 
   private MutationDetails makeMutation(final String method) {
-    final var id = new MutationIdentifier(aLocation()
+    final MutationIdentifier id = new MutationIdentifier(aLocation()
         .withClass(this.foo).withMethod(method).build(), 0, "mutator");
     return new MutationDetails(id, "file", "desc", 1, 2);
   }

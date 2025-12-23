@@ -47,7 +47,7 @@ public class IncrementsMutatorTest {
 
   @Test
   public void shouldRecordCorrectLineNumberForMutations() {
-    var actual = v.forClass(HasIncrement.class)
+    MutationDetails actual = v.forClass(HasIncrement.class)
             .firstMutant();
     assertEquals(32, actual.getLineNumber());
   }

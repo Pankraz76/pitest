@@ -45,7 +45,7 @@ public class SafeDataInputStream {
 
   public byte[] readBytes() {
     try {
-      final var length = this.dis.readInt();
+      final int length = this.dis.readInt();
       final byte[] data = new byte[length];
       this.dis.readFully(data);
       return data;
@@ -96,8 +96,8 @@ public class SafeDataInputStream {
   }
 
   private Object deserialize(byte[] bytes) throws IOException {
-    final var bis = new ByteArrayInputStream(bytes);
-    try (var in = new ObjectInputStream(bis)) {
+    final ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
+    try (ObjectInput in = new ObjectInputStream(bis)) {
       return in.readObject();
     } catch (final ClassNotFoundException e) {
       throw Unchecked.translateCheckedException(e);

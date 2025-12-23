@@ -68,7 +68,7 @@ public class FactoryVerifier {
     }
 
     public static ReportOptions emptyOptions() {
-        var data = new ReportOptions();
+        ReportOptions data = new ReportOptions();
         data.setSourceDirs(Collections.emptyList());
         data.setReportDir("");
         return data;

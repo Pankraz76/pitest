@@ -31,8 +31,8 @@ public class RunPitStrategy implements GoalStrategy {
       PluginServices plugins, Map<String, String> environmentVariables)
           throws MojoExecutionException {
 
-    var e = new EntryPoint();
-    var result = e.execute(baseDir, data, plugins,
+    EntryPoint e = new EntryPoint();
+    AnalysisResult result = e.execute(baseDir, data, plugins,
         environmentVariables);
     if (result.getError().isPresent()) {
       throw new MojoExecutionException("fail", result.getError().get());

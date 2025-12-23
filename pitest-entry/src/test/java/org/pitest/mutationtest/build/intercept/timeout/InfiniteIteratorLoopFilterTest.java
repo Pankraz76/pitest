@@ -24,7 +24,7 @@ public class InfiniteIteratorLoopFilterTest extends InfiniteLoopBaseTest {
 
   @Test
   public void shouldNotFilterMutationsInMethodsThatAppearToAlreadyHaveInfiniteLoops() {
-    final var mutator = createMutator(RemoveIncrementsMutator.REMOVE_INCREMENTS);
+    final GregorMutater mutator = createMutator(RemoveIncrementsMutator.REMOVE_INCREMENTS);
     // our analysis incorrectly identifies some loops as infinite - must skip these
     final List<MutationDetails> mutations = mutator.findMutations(ClassName.fromClass(DontFilterMyAlreadyInfiniteLoop.class));
     assertThat(mutations).hasSize(1);
@@ -38,7 +38,7 @@ public class InfiniteIteratorLoopFilterTest extends InfiniteLoopBaseTest {
 
   @Test
   public void shouldFilterMutationsThatRemoveIteratorNextCalls() {
-    final var mutator = createMutator(NonVoidMethodCallMutator.NON_VOID_METHOD_CALLS);
+    final GregorMutater mutator = createMutator(NonVoidMethodCallMutator.NON_VOID_METHOD_CALLS);
     final List<MutationDetails> mutations = mutator.findMutations(ClassName.fromClass(MutateMyForEachLoop.class));
     assertThat(mutations).hasSize(3);
 

@@ -27,7 +27,7 @@ public class InputStreamLineIterableTest {
 
   @Before
   public void setUp() {
-    final var input = new StringReader("1\n2\n3\n");
+    final StringReader input = new StringReader("1\n2\n3\n");
     this.testee = new InputStreamLineIterable(input);
   }
 

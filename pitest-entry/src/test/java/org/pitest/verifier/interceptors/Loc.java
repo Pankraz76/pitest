@@ -31,7 +31,7 @@ class Loc {
         if (obj == null || getClass() != obj.getClass()) {
             return false;
         }
-        final var other = (Loc) obj;
+        final Loc other = (Loc) obj;
         return index == other.index
                 && Objects.equals(node, other.node);
     }

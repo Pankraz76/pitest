@@ -107,7 +107,7 @@ public class ArrayProbeCoverageMethodVisitor extends AbstractCoverageStrategy {
     this.mv.visitInsn(DUP); //duplicate array reference, one for null check and one to use
 
     //Check if PROBE_FIELD_NAME has been initialised
-    var notnull = new Label();
+    Label notnull = new Label();
     this.mv.visitJumpInsn(Opcodes.IFNONNULL,notnull);
 
     //if not then initialise

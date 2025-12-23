@@ -427,9 +427,9 @@ public class OptionsParser {
   }
 
   public ParseResult parse(final String[] args) {
-    final var data = new ReportOptions();
+    final ReportOptions data = new ReportOptions();
     try {
-      final var userArgs = this.parser.parse(args);
+      final OptionSet userArgs = this.parser.parse(args);
       return parseCommandLine(data, userArgs);
 
     } catch (final OptionException uoe) {
@@ -552,7 +552,7 @@ public class OptionsParser {
           ClassPath.getClassPathElementsAsPaths(), this.dependencyFilter));
     }
     if (userArgs.has(this.classPathFile)) {
-      try (var classPathFileBR = new BufferedReader(new FileReader(this.classPathFile.value(userArgs).getAbsoluteFile()))) {
+      try (BufferedReader classPathFileBR = new BufferedReader(new FileReader(this.classPathFile.value(userArgs).getAbsoluteFile()))) {
         String element;
         while ((element = classPathFileBR.readLine()) != null) {
           elements.add(element);
@@ -568,7 +568,7 @@ public class OptionsParser {
   }
 
   private void setTestGroups(final OptionSet userArgs, final ReportOptions data) {
-    final var conf = new TestGroupConfig(
+    final TestGroupConfig conf = new TestGroupConfig(
         this.excludedGroupsSpec.values(userArgs),
         this.includedGroupsSpec.values(userArgs));
 
@@ -576,7 +576,7 @@ public class OptionsParser {
   }
 
   private Properties listToProperties(List<KeyValuePair> kvps) {
-    final var p = new Properties();
+    final Properties p = new Properties();
     for (final KeyValuePair kvp : kvps) {
       p.put(kvp.key, kvp.value);
     }

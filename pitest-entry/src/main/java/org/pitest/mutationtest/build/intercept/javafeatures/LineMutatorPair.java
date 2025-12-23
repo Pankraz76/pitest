@@ -25,7 +25,7 @@ final class LineMutatorPair {
     if (obj == null || getClass() != obj.getClass()) {
       return false;
     }
-    final var other = (LineMutatorPair) obj;
+    final LineMutatorPair other = (LineMutatorPair) obj;
     return lineNumber == other.lineNumber
             && Objects.equals(mutator, other.mutator);
   }

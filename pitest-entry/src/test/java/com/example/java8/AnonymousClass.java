@@ -6,10 +6,10 @@ package com.example.java8;
 public class AnonymousClass {
     public int foo() {
         final int[] result = new int[1];
-        var r = new Runnable() {
+        Runnable r = new Runnable() {
             @Override
             public void run() {
-                var i = 1;
+                int i = 1;
                 i++;
                 i++;
                 result[0] = i;

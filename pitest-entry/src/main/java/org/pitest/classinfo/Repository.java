@@ -53,7 +53,7 @@ public class Repository implements ClassHashSource {
   }
 
   Optional<ClassInfo> fetchClass(final ClassName name) {
-    final var info = this.knownClasses.get(name);
+    final ClassInfo info = this.knownClasses.get(name);
     if (info != null) {
       return Optional.ofNullable(info);
     }
@@ -100,7 +100,7 @@ public class Repository implements ClassHashSource {
     if (clazz == null) {
       return new DefaultClassPointer(null);
     } else {
-      final var alreadyResolved = this.knownClasses.get(ClassName
+      final ClassInfo alreadyResolved = this.knownClasses.get(ClassName
           .fromString(clazz));
       if (alreadyResolved != null) {
         return new DefaultClassPointer(alreadyResolved);

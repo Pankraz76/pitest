@@ -1,12 +1,12 @@
 /*
  * Copyright 2015 Jason Fehr
- *
+ * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
+ * 
  * http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -30,7 +30,7 @@ import org.pitest.util.PitError;
  * Determines the directory where the most recent PIT reports are actually
  * located since the value of the timestamedReports parameter could impact where
  * the reports are stored.
- *
+ * 
  * @author jasonmfehr
  */
 public class ReportSourceLocator {
@@ -40,7 +40,7 @@ public class ReportSourceLocator {
   // 1.) the java.io.File is a directory
   // 2.) the directory name contains only numbers
   // 3.) the directory is readable
-  static final FileFilter TIMESTAMPED_REPORTS_FILE_FILTER =
+  static final FileFilter TIMESTAMPED_REPORTS_FILE_FILTER = 
       new AndFileFilter(Arrays.asList(DirectoryFileFilter.DIRECTORY,
                                       new RegexFileFilter(
                                         "^\\d+$"),
@@ -54,17 +54,17 @@ public class ReportSourceLocator {
    * plugin have resulted in a combination of a non-timestamped report directory
    * and timestamped reports directories, then the latest of all those
    * directories is returned.
-   *
+   * 
    * See {@link ReportSourceLocator#TIMESTAMPED_REPORTS_FILE_FILTER} for an
    * explanation of what constitutes a timestamped reports directory;
-   *
+   * 
    * @param reportsDirectory
    *          {@link File} representing the directory where non-timestamped
    *          reports were written if the plugin's configuration has
    *          timestampedReports set to true;
    * @param log
    *          {@link Log} plugin logger for logging debug messages
-   *
+   * 
    * @return {@link File} representing the directory where the latest PIT
    *         reports are located
    */
@@ -88,15 +88,15 @@ public class ReportSourceLocator {
   }
 
   private File executeLocator(File reportsDirectory, Log log) {
-    var subdirectories = reportsDirectory
+    File[] subdirectories = reportsDirectory
         .listFiles(TIMESTAMPED_REPORTS_FILE_FILTER);
-    var latest = reportsDirectory;
+    File latest = reportsDirectory;
 
     log.debug("ReportSourceLocator starting search in directory ["
         + reportsDirectory.getAbsolutePath() + "]");
 
     if (subdirectories != null) {
-      var c = new LastModifiedFileComparator();
+      LastModifiedFileComparator c = new LastModifiedFileComparator();
 
       for (File f : subdirectories) {
         log.debug("comparing directory [" + f.getAbsolutePath()

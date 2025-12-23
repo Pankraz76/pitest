@@ -76,12 +76,12 @@ public class PitMojoIT {
 
     verifier.executeGoal("org.pitest:pitest-maven:mutationCoverage");
   }
-
+  
   @Test(timeout=60000)
   public void shouldNotHangWhenLargeAmountsOfConsoleOutput() throws Exception {
-    var testDir = prepare("/pit-process-hang");
+    File testDir = prepare("/pit-process-hang");
     verifier.executeGoal("test");
-    verifier.executeGoal("org.pitest:pitest-maven:mutationCoverage");
+    verifier.executeGoal("org.pitest:pitest-maven:mutationCoverage"); 
     // checkout output looks sane, but main point is that test completed
     assertThat(readResults(testDir))
     .contains(
@@ -90,7 +90,7 @@ public class PitMojoIT {
 
   @Test
   public void shouldProduceConsistantCoverageData() throws Exception {
-    var testDir = prepare("/pit-deterministic-coverage");
+    File testDir = prepare("/pit-deterministic-coverage");
     verifier.executeGoal("test");
     verifier.executeGoal("org.pitest:pitest-maven:mutationCoverage");
 
@@ -103,7 +103,7 @@ public class PitMojoIT {
 
   @Test
   public void shouldHandleSpacesInProjectPath() throws Exception {
-    var testDir = prepare("/pit spaces and more () in path");
+    File testDir = prepare("/pit spaces and more () in path");
     verifier.executeGoal("test");
     verifier.executeGoal("org.pitest:pitest-maven:mutationCoverage");
 
@@ -117,7 +117,7 @@ public class PitMojoIT {
 
   @Test
   public void shouldRunWhenModulesAddedViaArgsFile() throws Exception {
-    var testDir = prepare("/pit-adds-modules-via-file");
+    File testDir = prepare("/pit-adds-modules-via-file");
     verifier.executeGoal("test-compile");
     verifier.executeGoal("org.pitest:pitest-maven:mutationCoverage");
 
@@ -129,7 +129,7 @@ public class PitMojoIT {
 
   @Test
   public void shouldExcludeSpecifiedJUnitCategories() throws Exception {
-    var testDir = prepare("/pit-junit-categories");
+    File testDir = prepare("/pit-junit-categories");
     verifier.executeGoal("test");
     verifier.executeGoal("org.pitest:pitest-maven:mutationCoverage");
 
@@ -152,7 +152,7 @@ public class PitMojoIT {
   //@Ignore("test is flakey, possibly due to real non deterministic issue with powermock")
   public void shouldWorkWithPowerMock() throws Exception {
     runForJava8Only();
-    var testDir = prepare("/pit-powermock");
+    File testDir = prepare("/pit-powermock");
     verifier.addCliOption("-DtimeoutConstant=10000");
     verifier.executeGoal("test");
     verifier.executeGoal("org.pitest:pitest-maven:mutationCoverage");
@@ -175,7 +175,7 @@ public class PitMojoIT {
   @Ignore("Flakey on windows only but may be symptom of actual bug")
   public void shouldCorrectlyTargetTestsWhenMultipleBlocksIncludeALine()
       throws Exception {
-    var testDir = prepare("/pit-158-coverage");
+    File testDir = prepare("/pit-158-coverage");
     verifier.executeGoal("test");
     verifier.executeGoal("org.pitest:pitest-maven:mutationCoverage");
 
@@ -193,8 +193,8 @@ public class PitMojoIT {
    */
   @Test
   public void shouldSkipSiteReportGeneration() throws Exception {
-    var testDir = prepareSiteTest("/pit-site-skip");
-    var siteParentDir = buildFilePath(testDir, "target", "site");
+    File testDir = prepareSiteTest("/pit-site-skip");
+    File siteParentDir = buildFilePath(testDir, "target", "site");
 
     verifier.executeGoal("site");
 
@@ -212,7 +212,7 @@ public class PitMojoIT {
   @Test
   public void shouldGenerateSiteReportWithNonTimestampedHtmlReport()
       throws Exception {
-    var testDir = prepareSiteTest("/pit-site-non-timestamped");
+    File testDir = prepareSiteTest("/pit-site-non-timestamped");
 
     verifier.executeGoal("site");
     verifyPitReportTest(testDir);
@@ -225,7 +225,7 @@ public class PitMojoIT {
   @Test
   public void shouldGenerateSiteReportWithSingleTimestampedHtmlReport()
       throws Exception {
-    var testDir = prepareSiteTest("/pit-site-timestamped", "201505212116");
+    File testDir = prepareSiteTest("/pit-site-timestamped", "201505212116");
 
     verifier.executeGoal("site");
     verifyPitReportTest(testDir);
@@ -238,7 +238,7 @@ public class PitMojoIT {
   public void shouldComputeReportOfTheSubModule()
       throws Exception {
     //Given
-    var testDir = prepare("/pit-sub-module");
+    File testDir = prepare("/pit-sub-module");
 
     verifier.executeGoal("test");
     verifier.executeGoal("org.pitest:pitest-maven:mutationCoverage");
@@ -248,7 +248,7 @@ public class PitMojoIT {
     verifier.executeGoal("org.pitest:pitest-maven:report-aggregate-module");
 
     //Then
-    var siteParentDir = buildFilePath(testDir, "target", "pit-reports");
+    File siteParentDir = buildFilePath(testDir, "target", "pit-reports");
     assertThat(buildFilePath(siteParentDir, "index.html")).exists();
     String projectReportsHtmlContents = FileUtils
             .readFileToString(buildFilePath(testDir, "target", "pit-reports",
@@ -279,7 +279,7 @@ public class PitMojoIT {
   @Test
   public void shouldCopyLatestTimestampedReportWhenMultipleTimestampedReportsExist()
       throws Exception {
-    var testDir = prepareSiteTest("/pit-site-multiple-timestamped",
+    File testDir = prepareSiteTest("/pit-site-multiple-timestamped",
         "201503292032");
 
     verifier.executeGoal("site");
@@ -294,7 +294,7 @@ public class PitMojoIT {
   @Test
   public void shouldCopyLatestTimestampedOrNonTimestampedReportWhenBothExist()
       throws Exception {
-    var testDir = prepareSiteTest("/pit-site-combined", "");
+    File testDir = prepareSiteTest("/pit-site-combined", "");
 
     verifier.executeGoal("site");
     verifyPitReportTest(testDir);
@@ -323,9 +323,9 @@ public class PitMojoIT {
    */
   @Test
   public void shouldCorrectlyHandleOverrides() throws Exception {
-    var testDir = prepareSiteTest("/pit-site-custom-config");
-    var targetDir = buildFilePath(testDir, "target");
-    var expectedSiteReportDir = buildFilePath(testDir, "target", "site",
+    File testDir = prepareSiteTest("/pit-site-custom-config");
+    File targetDir = buildFilePath(testDir, "target");
+    File expectedSiteReportDir = buildFilePath(testDir, "target", "site",
         "foobar");
 
     FileUtils.moveDirectory(buildFilePath(targetDir, "pit-reports"),
@@ -352,7 +352,7 @@ public class PitMojoIT {
   public void shouldReadExclusionsFromSurefireConfig() throws Exception {
     // Note this test also tests the argline parsing concern and junit5 classpath resolution
 
-    var testDir = prepare("/pit-surefire-excludes");
+    File testDir = prepare("/pit-surefire-excludes");
     verifier.executeGoal("test");
     verifier.executeGoal("org.pitest:pitest-maven:mutationCoverage");
 
@@ -364,7 +364,7 @@ public class PitMojoIT {
 
   @Test(expected = FileNotFoundException.class)
   public void shouldNotExecuteWhenSkipTestsFlagActive() throws Exception {
-    var testDir = prepare("/pit-skipTests-active");
+    File testDir = prepare("/pit-skipTests-active");
     verifier.addCliOption("-DskipTests");
     verifier.executeGoal("test");
     verifier.executeGoal("org.pitest:pitest-maven:mutationCoverage");
@@ -375,7 +375,7 @@ public class PitMojoIT {
   @Test
   public void shouldWorkWithGWTMockito() throws Exception {
     skipIfJavaVersionNotSupportByThirdParty();
-    var testDir = prepare("/pit-183-gwtmockito");
+    File testDir = prepare("/pit-183-gwtmockito");
     verifier.executeGoal("test");
     verifier.executeGoal("org.pitest:pitest-maven:mutationCoverage");
 
@@ -394,7 +394,7 @@ public class PitMojoIT {
   public void shouldWorkWithQuarkus() throws Exception {
     assumeTrue(CurrentRuntime.version() >= 17);
 
-    var testDir = prepare("/pit-quarkus");
+    File testDir = prepare("/pit-quarkus");
     verifier.executeGoal("test");
     verifier.executeGoal("org.pitest:pitest-maven:mutationCoverage");
 
@@ -420,7 +420,7 @@ public class PitMojoIT {
   public void shouldWorkWithOlderQuarkusVersions() throws Exception {
     assumeTrue(CurrentRuntime.version() >= 17);
 
-    var testDir = prepare("/pit-quarkus", "-Dquarkus.platform.version=3.21.4");
+    File testDir = prepare("/pit-quarkus", "-Dquarkus.platform.version=3.21.4");
     verifier.executeGoal("test");
     verifier.executeGoal("org.pitest:pitest-maven:mutationCoverage");
 
@@ -439,7 +439,7 @@ public class PitMojoIT {
 
   @Test
   public void shouldFindOccupiedTestPackages() throws IOException, VerificationException {
-    var testDir = prepare("/pit-findOccupiedTestPackages");
+    File testDir = prepare("/pit-findOccupiedTestPackages");
     verifier.executeGoal("test");
     verifier.executeGoal("org.pitest:pitest-maven:mutationCoverage");
 
@@ -450,7 +450,7 @@ public class PitMojoIT {
 
   @Test
   public void shouldNotNullPointerWhenEnumInitializerNotCalled() throws IOException, VerificationException {
-    var testDir = prepare("/pit-enum-constructor-npe");
+    File testDir = prepare("/pit-enum-constructor-npe");
     verifier.executeGoal("test");
     verifier.executeGoal("org.pitest:pitest-maven:mutationCoverage");
 
@@ -473,7 +473,7 @@ public class PitMojoIT {
 
   @Test
   public void shouldDisableJacoco() throws IOException, VerificationException {
-    var testDir = prepare("/pit-jacoco");
+    File testDir = prepare("/pit-jacoco");
     verifier.executeGoals(asList("test-compile", "org.pitest:pitest-maven:mutationCoverage"));
 
     String actual = readResults(testDir);
@@ -484,7 +484,7 @@ public class PitMojoIT {
   public void resolvesCorrectFilesForKotlinMultiModules() throws Exception {
     // if the same filename is used for files outside of their declared package
     // ensure the correct source file is use for annotation
-    var testDir = prepare("/pit-kotlin-multi-module");
+    File testDir = prepare("/pit-kotlin-multi-module");
 
     verifier.executeGoals(asList("test-compile", "org.pitest:pitest-maven:mutationCoverage", "org.pitest:pitest-maven:report-aggregate-module"));
 
@@ -507,14 +507,14 @@ public class PitMojoIT {
   @Test
   public void handlesTestsInSeparateModulesWhenConfigured()
           throws Exception {
-      var testDir = prepare("/pit-cross-module-tests");
+      File testDir = prepare("/pit-cross-module-tests");
 
     verifier.executeGoal("install");
     verifier.executeGoal("org.pitest:pitest-maven:mutationCoverage");
 
     verifier.executeGoal("org.pitest:pitest-maven:report-aggregate-module");
 
-    var siteParentDir = buildFilePath(testDir, "target", "pit-reports");
+    File siteParentDir = buildFilePath(testDir, "target", "pit-reports");
     assertThat(buildFilePath(siteParentDir, "index.html")).exists();
     String projectReportsHtmlContents = FileUtils
             .readFileToString(buildFilePath(testDir, "target", "pit-reports",
@@ -541,14 +541,14 @@ public class PitMojoIT {
 
 
   private static String readResults(File testDir) throws IOException {
-    var mutationReport = new File(testDir.getAbsoluteFile() + File.separator
+    File mutationReport = new File(testDir.getAbsoluteFile() + File.separator
             + "target" + File.separator + "pit-reports" + File.separator
             + "mutations.xml");
     return FileUtils.readFileToString(mutationReport);
   }
 
   private static String readCoverage(File testDir) throws IOException {
-    var coverage = new File(testDir.getAbsoluteFile() + File.separator
+    File coverage = new File(testDir.getAbsoluteFile() + File.separator
             + "target" + File.separator + "pit-reports" + File.separator
             + "linecoverage.xml");
     return FileUtils.readFileToString(coverage);
@@ -556,7 +556,7 @@ public class PitMojoIT {
 
   private File prepare(String testPath, String ... options) throws IOException,
           VerificationException {
-    var path = ResourceExtractor.extractResourcePath(getClass(), testPath,
+    String path = ResourceExtractor.extractResourcePath(getClass(), testPath,
             testFolder.getRoot(), true).getAbsolutePath();
 
     verifier = new Verifier(path);
@@ -576,9 +576,9 @@ public class PitMojoIT {
   }
 
   private static String getVersion() {
-    var path = "/version.prop";
-    try(var stream = Pitest.class.getResourceAsStream(path)) {
-      var props = new Properties();
+    String path = "/version.prop";
+    try(InputStream stream = Pitest.class.getResourceAsStream(path)) {
+      Properties props = new Properties();
       props.load(stream);
       return (String) props.get("version");
     } catch (IOException e) {
@@ -605,7 +605,7 @@ public class PitMojoIT {
    * @return {@link File}
    */
   private File buildFilePath(File base, String... pathParts) {
-    var path = new StringBuilder(base.getAbsolutePath());
+    StringBuilder path = new StringBuilder(base.getAbsolutePath());
 
     for (String part : pathParts) {
       path.append(File.separator).append(part);
@@ -635,10 +635,10 @@ public class PitMojoIT {
    */
   private File prepareSiteTest(String testPath, String latestDir)
           throws Exception {
-    var testDir = prepareSiteTest(testPath);
+    File testDir = prepareSiteTest(testPath);
     // location where the target directory would be if a mvn clean install was executed
-    var testTargetDir = this.buildFilePath(testDir, "target", "pit-reports");
-    var walker = new DirectoriesOnlyWalker();
+    File testTargetDir = this.buildFilePath(testDir, "target", "pit-reports");
+    DirectoriesOnlyWalker walker = new DirectoriesOnlyWalker();
 
     for (File f : walker.locateDirectories(testTargetDir)) {
       f.setLastModified(0L);
@@ -670,8 +670,8 @@ public class PitMojoIT {
    * @throws Exception
    */
   private File prepareSiteTest(String testPath) throws Exception {
-    var tempTestExecutionDir = prepare(testPath);
-    var targetDir = this.buildFilePath(tempTestExecutionDir, "target",
+    File tempTestExecutionDir = prepare(testPath);
+    File targetDir = this.buildFilePath(tempTestExecutionDir, "target",
             "pit-reports");
 
     FileUtils.copyDirectory(
@@ -682,7 +682,7 @@ public class PitMojoIT {
   }
 
   private void verifyPitReportTest(File testDir) throws Exception {
-    var pitReportSiteDir = buildFilePath(testDir, "target", "site",
+    File pitReportSiteDir = buildFilePath(testDir, "target", "site",
             "pit-reports");
 
     assertThat(pitReportSiteDir).exists();

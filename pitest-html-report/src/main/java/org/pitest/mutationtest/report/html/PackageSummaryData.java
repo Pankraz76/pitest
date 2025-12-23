@@ -16,7 +16,7 @@ public class PackageSummaryData implements Comparable<PackageSummaryData> {
   }
 
   public void addSummaryData(final MutationTestSummaryData data) {
-    final var existing = this.fileNameToSummaryData
+    final MutationTestSummaryData existing = this.fileNameToSummaryData
         .get(data.getFileName());
     if (existing == null) {
       this.fileNameToSummaryData.put(data.getFileName(), data);
@@ -31,7 +31,7 @@ public class PackageSummaryData implements Comparable<PackageSummaryData> {
   }
 
   public MutationTotals getTotals() {
-    final var mt = new MutationTotals();
+    final MutationTotals mt = new MutationTotals();
     for (final MutationTestSummaryData each : this.fileNameToSummaryData
         .values()) {
       mt.add(each.getTotals());
@@ -67,7 +67,7 @@ public class PackageSummaryData implements Comparable<PackageSummaryData> {
     if (obj == null || getClass() != obj.getClass()) {
       return false;
     }
-    final var other = (PackageSummaryData) obj;
+    final PackageSummaryData other = (PackageSummaryData) obj;
     return Objects.equals(packageName, other.packageName);
   }
 

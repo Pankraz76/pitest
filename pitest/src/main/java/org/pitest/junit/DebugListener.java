@@ -16,7 +16,7 @@ public class DebugListener extends RunListener {
 
    @Override
     public void testFailure(Failure failure) {
-       var exception = failure.getException().toString();
+       String exception = failure.getException().toString();
        if (exception.contains("NoClassDefFoundError") || exception.contains("ClassNotFoundException")) {
            problems.add(exception + "\n" + failure.getTrace());
        }

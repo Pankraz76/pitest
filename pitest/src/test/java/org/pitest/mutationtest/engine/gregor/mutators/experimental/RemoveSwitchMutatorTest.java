@@ -36,7 +36,7 @@ public class RemoveSwitchMutatorTest {
 
   MutatorVerifierStart v = MutatorVerifierStart.forMutator(new RemoveSwitchMutator(2))
           .notCheckingUnMutatedValues();
-
+  
   @Test
   public void shouldProvideAMeaningfulName() {
     assertEquals("EXPERIMENTAL_REMOVE_SWITCH_MUTATOR_[0-99]",
@@ -112,7 +112,7 @@ public class RemoveSwitchMutatorTest {
 
     @Override
     public Character apply(Character c) {
-      var value = c.charValue();
+      char value = c.charValue();
       switch (value) {
       case 'a':
         return 'a';
@@ -261,7 +261,7 @@ public class RemoveSwitchMutatorTest {
 
     @Override
     public Integer apply(int value) {
-      var i = 0;
+      int i = 0;
       switch (value) {
         case 1:
           i = 1;

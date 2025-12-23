@@ -33,7 +33,7 @@ public class PathNamePredicate implements Predicate<ClassPathRoot> {
   }
 
   private Boolean cacheLocationMatchesFilter(final ClassPathRoot classPathRoot) {
-    final var cacheLocationValue = classPathRoot.cacheLocation().get();
+    final String cacheLocationValue = classPathRoot.cacheLocation().get();
     return this.stringFilter.test(cacheLocationValue);
   }
 

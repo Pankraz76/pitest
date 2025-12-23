@@ -43,9 +43,9 @@ public class CoverageWorker {
 
       decoratedTests.sort(testComparator());
 
-      final var c = new UnContainer();
+      final Container c = new UnContainer();
 
-      final var pit = new Pitest(new ErrorListener());
+      final Pitest pit = new Pitest(new ErrorListener());
       pit.run(c, decoratedTests);
     } catch (final Exception ex) {
       throw translateCheckedException(ex);
