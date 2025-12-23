@@ -448,6 +448,7 @@
 					<configuration>
 						<java>
 							<removeUnusedImports />
+							<trimTrailingWhitespace />
 						</java>
 						<upToDateChecking>
 							<enabled>true</enabled>
