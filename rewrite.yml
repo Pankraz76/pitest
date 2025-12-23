@@ -1,0 +1,15 @@
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: org.junit.openrewrite.SanityCheck
+displayName: Apply all common best practices
+description: Comprehensive code quality recipe combining modernization, security, and best practices.
+recipeList:
+  - org.openrewrite.java.migrate.lang.var.UseVarForGenericsConstructors
+  - org.openrewrite.java.migrate.lang.var.UseVarForPrimitive
+  - org.openrewrite.staticanalysis.NoDoubleBraceInitialization
+# - org.openrewrite.gradle.UpdateGradleWrapper
+# - org.openrewrite.java.migrate.lang.var.UseVarForGenericMethodInvocations # bug
+# - org.openrewrite.java.migrate.lang.var.UseVarForObject # bug
+# - org.openrewrite.java.testing.junit.JupiterBestPractices
+# - org.openrewrite.java.testing.junit5.CleanupAssertions
+---
